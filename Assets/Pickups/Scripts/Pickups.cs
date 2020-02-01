@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pickups : MonoBehaviour
 {
-    enum pickupType
+    public enum pickupType
     {
         fuelRefill,
         sheild,
@@ -13,7 +13,7 @@ public class Pickups : MonoBehaviour
     }
 
     [SerializeField]
-    pickupType curPickup;
+    public pickupType curPickup;
 
     [SerializeField]
     UIDelgate canvasScript;

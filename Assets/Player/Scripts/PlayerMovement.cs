@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public float fuelDecrease = 1.0f;
 
     private Rigidbody rb;
+    private UIDelgate ui;
 
     private float currentSpeedUp;
     private float currentSpeedX;
@@ -23,16 +24,21 @@ public class PlayerMovement : MonoBehaviour
 
     private bool canSwitchCam = true;
 
+    private float distance;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        ui = FindObjectOfType<UIDelgate>();
+        ui.curDistance = 34.0f.ToString();
         currentFuel = MaxFuel;
 
         screenCenterX = Screen.width * 0.5f;
 
         currentSpeedX = 0.0f;
+
+
     }
 
     // Update is called once per frame
@@ -104,15 +110,7 @@ public class PlayerMovement : MonoBehaviour
         currentFuel -= fuelDecrease * Time.deltaTime;
         rb.velocity = new Vector3(currentSpeedX, currentSpeedUp, 0.0f);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -2.0f, 2.0f), transform.position.y, transform.position.z);
-    }
 
-    private void MoveLeft()
-    {
-
-    }
-
-    private void MoveRight()
-    {
-
+        ui.curFuel = currentFuel / 100;
     }
 }
