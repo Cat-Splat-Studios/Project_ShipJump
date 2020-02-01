@@ -395,8 +395,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 64347334}
-  Upoffset: 0
-  downOffest: 0
+  Upoffset: 2.5
+  downOffest: -2.5
 --- !u!1001 &1829369078
 PrefabInstance:
   m_ObjectHideFlags: 0

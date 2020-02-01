@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float screenCenterX;
 
+    private bool canSwitchCam = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -91,6 +93,12 @@ public class PlayerMovement : MonoBehaviour
         {
             currentSpeedUp = 0.0f;
             currentFuel = 0.0f;
+            if(canSwitchCam)
+            {
+                FindObjectOfType<CameraFollow>().SwitchCameraOffset();
+                canSwitchCam = false;
+            }
+            
         }
 
         currentFuel -= fuelDecrease * Time.deltaTime;
