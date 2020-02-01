@@ -19,7 +19,7 @@ public class Pickups : MonoBehaviour
     UIDelgate canvasScript;
 
     [SerializeField]
-    float fuelAmount;
+    float fuelAmount = 10.0f;
 
     bool sheildActive;
 
@@ -60,5 +60,9 @@ public class Pickups : MonoBehaviour
             }
         }
         
+    }
+    public float GetFuel()
+    {
+        return fuelAmount;
     }
 }
