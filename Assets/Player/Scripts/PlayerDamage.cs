@@ -4,35 +4,18 @@ using UnityEngine;
 
 public class PlayerDamage : MonoBehaviour
 {
-    private bool hasSheild = false;
+    bool hasSheild = false;
 
-    public void GotHit(GameObject obstacle)
+    public void GotHit()
     {
         if (hasSheild)
         {
             // remove sheilds 
             hasSheild = false;
-            Destroy(obstacle);
         }
         else
         {
             // Destroyed
-            DestroyShip();
         }
-    }
-
-    public void AttatchSheild()
-    {
-        if (!hasSheild)
-        {
-
-            hasSheild = true;
-        }
-    }
-
-    private void DestroyShip()
-    {
-        GetComponent<PlayerMovement>().StopMovement();
-
     }
 }

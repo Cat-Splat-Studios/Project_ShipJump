@@ -18,7 +18,7 @@ public class PlayerCollision : MonoBehaviour
         switch(other.tag)
         {
             case "obstacle":
-                damage.GotHit(other.gameObject);
+                damage.GotHit();
                 break;
             case "pickup":
                 Pickups pickup = other.GetComponent<Pickups>();
@@ -28,15 +28,15 @@ public class PlayerCollision : MonoBehaviour
                     switch (pickup.curPickup)
                     {
                         case Pickups.pickupType.fuelRefill:
-                            movement.AddFuel(pickup.GetFuel());
+                            //Mathf.Lerp(canvasScript.curFuel, canvasScript.curFuel + fuelAmount, 1);
+                            //canvasScript.curFuel += fuelAmount;
                             Destroy(this.gameObject);
                             break;
                         case Pickups.pickupType.boost:
-                            movement.Boost();
+                            //do some physics on the player based on boostForce
                             break;
                         case Pickups.pickupType.sheild:
-                            damage.AttatchSheild();
-                            Destroy(this.gameObject);
+                            //send reference to the player to activate sheild
                             break;
                         case Pickups.pickupType.slowdown:
                             //do some physics on the player based on slowForce;

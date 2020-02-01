@@ -505,7 +505,7 @@ PrefabInstance:
     - target: {fileID: 7904309150522338698, guid: d5f89821ccea90046b78a54376b18ebd,
         type: 3}
       propertyPath: MaxFuel
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7904309150522338698, guid: d5f89821ccea90046b78a54376b18ebd,
         type: 3}
