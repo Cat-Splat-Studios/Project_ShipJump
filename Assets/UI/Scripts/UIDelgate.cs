@@ -5,15 +5,20 @@ using UnityEngine.UI;
 
 public class UIDelgate : MonoBehaviour
 {
+
     [SerializeField]
     Image fuelBar;
     [SerializeField]
     Text distanceTraveled;
+    [SerializeField]
+    Text gameplayTitle;
 
     [SerializeField]
     private float _curFuel;
     [SerializeField]
     private string _curDistance = "0";
+
+    private bool _gameStarted = false;
 
     // Start is called before the first frame update
     void Start()
@@ -24,8 +29,34 @@ public class UIDelgate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        fuelBar.fillAmount = _curFuel;
-        distanceTraveled.text = _curDistance;
+        if (gameStarted)
+        {
+            fuelBar.fillAmount = _curFuel;
+            distanceTraveled.text = _curDistance;
+        }
+    }
+
+    void EnableGameplayUI()
+    {
+        fuelBar.enabled = true;
+        distanceTraveled.enabled = true;
+        gameplayTitle.enabled = true;
+    }
+
+    public bool gameStarted
+    {
+        get
+        {
+            return _gameStarted;
+        }
+        set
+        {
+            _gameStarted = value;
+            if (_gameStarted)
+            {
+
+            }
+        }
     }
 
     public float curFuel
