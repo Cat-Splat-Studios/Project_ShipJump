@@ -246,9 +246,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5314700299375028922}
   - component: {fileID: 2831523925794326464}
+  - component: {fileID: 4074758206493679300}
+  - component: {fileID: 2692140624514269394}
   m_Layer: 0
-  m_Name: Booster Pick up
-  m_TagString: Untagged
+  m_Name: Prefab_Booster
+  m_TagString: pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,3 +291,33 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!135 &4074758206493679300
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9194875012203403433}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.28
+  m_Center: {x: 0, y: 0, z: 0.02}
+--- !u!114 &2692140624514269394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9194875012203403433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 125dc286412064667a39b9ca71332c73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curPickup: 0
+  canvasScript: {fileID: 0}
+  fuelAmount: 10
+  boostForce: 0
+  slowForce: 0

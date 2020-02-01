@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
   
     // Speeds
     public float speedUp = 2.0f;
+    public float speedDown = 0.0f;
     public float speedX = 2.0f;
     private float currentSpeedUp;
     private float currentSpeedX;
@@ -28,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     // distance
     private float distance;
     private float startYPos;
-    private bool canMove;
+    private bool canMove = true;
 
 
     // Start is called before the first frame update
@@ -104,11 +105,12 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                currentSpeedUp = 0.0f;
+                currentSpeedUp = speedDown;
                 currentFuel = 0.0f;
                 if (canSwitchCam)
                 {
                     FindObjectOfType<CameraFollow>().SwitchCameraOffset();
+                    StartCoroutine(SwitchMoveWait(1.0f));
                     canSwitchCam = false;
                 }
 
@@ -128,9 +130,9 @@ public class PlayerMovement : MonoBehaviour
         }  
     }
 
-    public void Boost()
+    public void Boost(float speedIncrease)
     {
-
+        StartCoroutine(BoostEffect(speedIncrease));
     }
 
     public void AddFuel(float amount)
@@ -158,5 +160,18 @@ public class PlayerMovement : MonoBehaviour
                 PlayerPrefs.SetFloat("highScore", distance);
             }
         }
+    }
+
+    private IEnumerator BoostEffect(float increase)
+    {
+        speedUp += increase;
+        yield return new WaitForSeconds(3.0f);
+        speedUp -= increase;
+    }
+
+    private IEnumerator SwitchMoveWait(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        speedDown = -(speedUp * 0.8f);
     }
 }
