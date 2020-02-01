@@ -13,7 +13,7 @@ public class UIDelgate : MonoBehaviour
     [SerializeField]
     private float _curFuel;
     [SerializeField]
-    private string _curDistance;
+    private string _curDistance = "0";
 
     // Start is called before the first frame update
     void Start()
@@ -32,11 +32,11 @@ public class UIDelgate : MonoBehaviour
     {
         get
         {
-            return curFuel;
+            return _curFuel;
         }
         set
         {
-            curFuel = Mathf.Clamp(value, 0, 1);
+            _curFuel = Mathf.Clamp(value, 0, 1);
         }
     }
 
@@ -44,11 +44,11 @@ public class UIDelgate : MonoBehaviour
     {
         get
         {
-            return curDistance;
+            return _curDistance;
         }
         set
         {
-            curDistance = value.ToString();
+            _curDistance = value.ToString();
         }
     }
 }
