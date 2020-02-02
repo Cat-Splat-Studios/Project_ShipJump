@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7329539944749407382}
   - component: {fileID: 7329539944749407380}
-  - component: {fileID: 7329539944749407381}
   m_Layer: 0
   m_Name: Background_Nebula (1)
   m_TagString: Untagged
@@ -81,20 +80,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7329539944749407381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7329539944749407383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe4b1d43be6f1472cafce355f16fe084, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  scrollEffect: 0.9
 --- !u!1 &7329539944791836126
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,7 +90,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7329539944791836125}
   - component: {fileID: 7329539944791836123}
-  - component: {fileID: 7329539944791836124}
   m_Layer: 0
   m_Name: Background_Black (2)
   m_TagString: Untagged
@@ -176,20 +160,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7329539944791836124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7329539944791836126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe4b1d43be6f1472cafce355f16fe084, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  scrollEffect: 1
 --- !u!1 &7329539945025215063
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +170,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7329539945025215062}
   - component: {fileID: 7329539945025215060}
-  - component: {fileID: 7329539945025215061}
   m_Layer: 0
   m_Name: Background_Nebula (2)
   m_TagString: Untagged
@@ -271,20 +240,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7329539945025215061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7329539945025215063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe4b1d43be6f1472cafce355f16fe084, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  scrollEffect: 0.9
 --- !u!1 &7329539945187472114
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,7 +250,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7329539945187472113}
   - component: {fileID: 7329539945187472127}
-  - component: {fileID: 7329539945187472112}
   m_Layer: 0
   m_Name: Stars (1)
   m_TagString: Untagged
@@ -366,20 +320,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7329539945187472112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7329539945187472114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe4b1d43be6f1472cafce355f16fe084, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  scrollEffect: 0.8
 --- !u!1 &7329539945328255000
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,7 +330,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7329539945328254983}
   - component: {fileID: 7329539945328254981}
-  - component: {fileID: 7329539945328254982}
   m_Layer: 0
   m_Name: Stars2 (2)
   m_TagString: Untagged
@@ -461,20 +400,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7329539945328254982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7329539945328255000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe4b1d43be6f1472cafce355f16fe084, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  scrollEffect: 0.3
 --- !u!1 &7329539945684055480
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,7 +507,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7329539945744306270}
   - component: {fileID: 7329539945744306268}
-  - component: {fileID: 7329539945744306269}
   m_Layer: 0
   m_Name: Stars2 (1)
   m_TagString: Untagged
@@ -653,20 +577,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7329539945744306269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7329539945744306271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe4b1d43be6f1472cafce355f16fe084, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  scrollEffect: 0.3
 --- !u!1 &7329539945823931041
 GameObject:
   m_ObjectHideFlags: 0
@@ -905,7 +815,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7329539946070014282}
   - component: {fileID: 7329539946070014280}
-  - component: {fileID: 7329539946070014281}
   m_Layer: 0
   m_Name: Background_Black (1)
   m_TagString: Untagged
@@ -976,20 +885,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7329539946070014281
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7329539946070014283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe4b1d43be6f1472cafce355f16fe084, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  scrollEffect: 1
 --- !u!1 &7329539946077889950
 GameObject:
   m_ObjectHideFlags: 0
@@ -1000,7 +895,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7329539946077889949}
   - component: {fileID: 7329539946077889947}
-  - component: {fileID: 7329539946077889948}
   m_Layer: 0
   m_Name: Stars (2)
   m_TagString: Untagged
@@ -1071,20 +965,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7329539946077889948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7329539946077889950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe4b1d43be6f1472cafce355f16fe084, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  scrollEffect: 0.8
 --- !u!1 &7329539946591190643
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,4 +1061,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
-  scrollEffect: 0.8
+  scrollEffect: 0.7
