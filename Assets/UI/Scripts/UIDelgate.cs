@@ -22,6 +22,8 @@ public class UIDelgate : MonoBehaviour
     public Text startText;
     public Text coinsCollectedText;
 
+    private Animator anim;
+
     [SerializeField]
     private float _curFuel;
     [SerializeField]
@@ -37,6 +39,8 @@ public class UIDelgate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
+
         player = GameObject.Find("Player");
 
         float score = 0;
@@ -132,7 +136,6 @@ public class UIDelgate : MonoBehaviour
     public void StartGame()
     {
         startUI.SetActive(false);
-        Debug.Log("STATA");
         ToggleGameplayUI(true);
         gameStarted = true;
         player.GetComponent<PlayerMovement>().StartGame();
@@ -164,6 +167,18 @@ public class UIDelgate : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void ToggleShoot(bool value)
+    {
+        if (value)
+        {
+            anim.SetTrigger("Engage");
+        }
+        else
+        {
+            anim.SetTrigger("Disable");
+        }
     }
 
     private void ScoreDisplay()

@@ -36,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
     public bool canShoot;
     public GameObject projectilePrefab;
     public GameObject projectileSpawn;
-    public GameObject shootButton;
 
     // distance
     private float distance;
@@ -73,8 +72,6 @@ public class PlayerMovement : MonoBehaviour
         currentSpeedX = 0.0f;
 
         originalSpeedUp = speedUp;
-
-        shootButton.SetActive(canShoot);
 
         // will move to a startgame method
        
@@ -253,7 +250,18 @@ public class PlayerMovement : MonoBehaviour
     {
         Instantiate(projectilePrefab, projectileSpawn.transform);
         canShoot = false;
-        shootButton.SetActive(false);
+        ui.ToggleShoot(false);
+
+    }
+
+    public void EnableShoot()
+    {
+        if(!canShoot)
+        {
+            canShoot = true;
+            ui.ToggleShoot(true);
+        }
+     
     }
 
     public void AddFuel(float amount)

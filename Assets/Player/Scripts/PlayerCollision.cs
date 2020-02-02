@@ -57,8 +57,8 @@ public class PlayerCollision : MonoBehaviour
                             Destroy(other.gameObject);
                             break;
                         case Pickups.pickupType.projectile:
-                            movement.canShoot = true;
-                            movement.shootButton.SetActive(true);
+                            movement.EnableShoot();
+                            Destroy(other.gameObject);
                             break;
                         case Pickups.pickupType.slowdown:
                             //do some physics on the player based on slowForce;
