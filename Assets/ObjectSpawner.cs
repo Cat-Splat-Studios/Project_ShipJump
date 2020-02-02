@@ -145,6 +145,9 @@ public class ObjectSpawner : MonoBehaviour
 
             GameObject obj = Instantiate(prefab, new Vector3(randXPos, transform.position.y - 50.0f, transform.position.x), Quaternion.identity) as GameObject;
 
+            if(prefab == rocketPrefab)
+                obj.GetComponent<Pickups>().ChangeFuel(50.0f);
+
             objectsInWork.Add(obj);
         }
         

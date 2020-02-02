@@ -40,6 +40,11 @@ public class Pickups : MonoBehaviour
 
     // Update is called once per frame
   
+    public void ChangeFuel(float amount)
+    {
+        fuelAmount = amount;
+    }
+
     public float GetFuel()
     {
         return fuelAmount;

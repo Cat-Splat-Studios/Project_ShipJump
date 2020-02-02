@@ -51,8 +51,8 @@ public class UIDelgate : MonoBehaviour
             coins = PlayerPrefs.GetInt("coins");
         }
 
-        startText.text = $"Current Highscore\n\n {score} meters";
-        coinText.text = $"Current Coins\n\n {coins}";
+        startText.text = $"Current Highscore\n\n {score} km";
+        coinText.text = $"Current Gears\n\n {coins}";
     }
 
     // Update is called once per frame
@@ -61,9 +61,12 @@ public class UIDelgate : MonoBehaviour
         if (gameStarted)
         {
             fuelBar.fillAmount = _curFuel;
-            distanceTraveled.text = $"{_curDistance}m";
+            distanceTraveled.text = $"{_curDistance} km";
             gameCoinText.text = _curCoins;
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
     }
 
     void ToggleGameplayUI(bool value)
@@ -155,7 +158,7 @@ public class UIDelgate : MonoBehaviour
     public void Highscore(float previousScore)
     {
         highscore = true;
-        highscoreText.text = $"New Highscore!\n\nPrevious Score = {previousScore} meters";
+        highscoreText.text = $"New Highscore!\n\nPrevious Score = {previousScore} km";
     }
 
     public void QuitGame()
@@ -166,9 +169,9 @@ public class UIDelgate : MonoBehaviour
     private void ScoreDisplay()
     {
         scoreText.gameObject.SetActive(true);
-        scoreText.text = $"You Traveled\n\n {curDistance} meters";
+        scoreText.text = $"You Traveled\n\n {curDistance} km";
         highscoreText.gameObject.SetActive(highscore);
-        coinsCollectedText.text = $"Coins Collected\n\n {curCoins}";
+        coinsCollectedText.text = $"Gears Collected\n\n {curCoins}";
 
     }
 

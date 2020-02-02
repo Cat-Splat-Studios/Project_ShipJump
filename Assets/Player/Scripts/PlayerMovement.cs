@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     // References
     private Rigidbody rb;
     private UIDelgate ui;
+    private Animator anim;
 
     // Misc
     public float xClamp = 3.0f;
@@ -63,6 +64,8 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         ui = FindObjectOfType<UIDelgate>();
+        anim = GetComponent<Animator>();
+
         currentFuel = maxFuel;
 
         screenCenterX = Screen.width * 0.5f;
@@ -239,6 +242,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        anim.SetInteger("tilt", (int)currentSpeedX);
 
         Debug.Log("Move");
         rb.velocity = new Vector3(currentSpeedX, currentSpeedUp, 0.0f);
