@@ -53,6 +53,7 @@ public class PlayerCollision : MonoBehaviour
                             break;
                         case Pickups.pickupType.coin:
                             movement.AddCoin();
+                            audio.PlaySound(pickupSounds[3]);
                             Destroy(other.gameObject);
                             break;
                         case Pickups.pickupType.projectile:

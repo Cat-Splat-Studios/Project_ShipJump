@@ -36,6 +36,7 @@ public class ObjectSpawner : MonoBehaviour
     private List<GameObject> prefasAvaiable;
 
     private List<GameObject> objectsInWork;
+    private List<GameObject> coinsInWork;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,7 @@ public class ObjectSpawner : MonoBehaviour
         SetSpawnIntervals();
         objectsInWork = new List<GameObject>();
         prefasAvaiable = new List<GameObject>();
+        coinsInWork = new List<GameObject>();
 
         foreach (var item in itemSpawns)
         {
@@ -100,6 +102,15 @@ public class ObjectSpawner : MonoBehaviour
             }
         }
 
+        foreach (var item in coinsInWork)
+        {
+            if (item)
+            {
+                Destroy(item);
+            }
+        }
+
+        coinsInWork.Clear();
         objectsInWork.Clear();
     }   
 
@@ -132,7 +143,7 @@ public class ObjectSpawner : MonoBehaviour
                 prefab = asteroidPrefab;
             }
 
-            GameObject obj = Instantiate(prefab, new Vector3(randXPos, -(transform.position.y * 2), transform.position.x), Quaternion.identity) as GameObject;
+            GameObject obj = Instantiate(prefab, new Vector3(randXPos, transform.position.y - 50.0f, transform.position.x), Quaternion.identity) as GameObject;
 
             objectsInWork.Add(obj);
         }
@@ -162,7 +173,7 @@ public class ObjectSpawner : MonoBehaviour
         }
         else
         {
-            timeTillSpawn = Random.Range(0.6f, 1.0f);
+            timeTillSpawn = Random.Range(0.5f, 0.8f);
         }
         
         timeSpawn = 0.0f;
@@ -188,5 +199,10 @@ public class ObjectSpawner : MonoBehaviour
 
             Destroy(item);
         }
+    }
+
+    public void AddCoinToList(GameObject coins)
+    {
+        coinsInWork.Add(coins);
     }
 }

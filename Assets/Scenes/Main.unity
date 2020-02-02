@@ -816,5 +816,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7904309150522338698, guid: d5f89821ccea90046b78a54376b18ebd,
+        type: 3}
+      propertyPath: fuelDecrease
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904309150522338698, guid: d5f89821ccea90046b78a54376b18ebd,
+        type: 3}
+      propertyPath: maxFuel
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 33030377554608953, guid: d5f89821ccea90046b78a54376b18ebd,
+        type: 3}
+      propertyPath: pickupSounds.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 33030377554608953, guid: d5f89821ccea90046b78a54376b18ebd,
+        type: 3}
+      propertyPath: pickupSounds.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: dfa4e7aff20466f4a9a5712e97b42757, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5f89821ccea90046b78a54376b18ebd, type: 3}

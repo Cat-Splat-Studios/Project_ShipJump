@@ -61,7 +61,7 @@ public class UIDelgate : MonoBehaviour
         if (gameStarted)
         {
             fuelBar.fillAmount = _curFuel;
-            distanceTraveled.text = _curDistance;
+            distanceTraveled.text = $"{_curDistance}m";
             gameCoinText.text = _curCoins;
         }
     }
@@ -166,7 +166,7 @@ public class UIDelgate : MonoBehaviour
     private void ScoreDisplay()
     {
         scoreText.gameObject.SetActive(true);
-        scoreText.text = $"You Traveled\n\n {curDistance}";
+        scoreText.text = $"You Traveled\n\n {curDistance} meters";
         highscoreText.gameObject.SetActive(highscore);
         coinsCollectedText.text = $"Coins Collected\n\n {curCoins}";
 
