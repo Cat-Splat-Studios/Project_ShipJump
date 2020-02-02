@@ -30,6 +30,12 @@ public class PlayerMovement : MonoBehaviour
     public GameObject[] thrusterObjects;
     public GameObject boostParticle;
 
+
+    //shooting
+    public bool canShoot;
+    public GameObject projectilePrefab;
+    public GameObject projectileSpawn;
+
     // distance
     private float distance;
     private float startYPos;
@@ -92,6 +98,13 @@ public class PlayerMovement : MonoBehaviour
                                 currentSpeedX = -speedX;
                             }
                         }
+
+                        Ray ray = Camera.main.ScreenPointToRay(firstTouch.position);
+                        RaycastHit hit;
+                        if (Physics.Raycast(ray, out hit))
+                        {
+                            Debug.Log(hit.collider);
+                        }
                     }
                     else
                     {
@@ -110,6 +123,17 @@ public class PlayerMovement : MonoBehaviour
                         else if (Input.mousePosition.x < screenCenterX)
                         {
                             currentSpeedX = -speedX;
+                        }
+
+                        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                        RaycastHit hit;
+                        if (Physics.Raycast(ray, out hit))
+                        {
+                            if (canShoot)
+                            {
+                                Instantiate(projectilePrefab, projectileSpawn.transform);
+                                canShoot = false;
+                            }
                         }
                     }
                     else

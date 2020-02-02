@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &918130574768769092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6013917540138915448}
+  m_Layer: 0
+  m_Name: spawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6013917540138915448
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918130574768769092}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7904309150522338693}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7904309150522338692
 GameObject:
   m_ObjectHideFlags: 0
@@ -33,6 +63,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2939455851012124334}
+  - {fileID: 6013917540138915448}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -77,12 +108,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f34bce8fc5c8b341a5796f8923f6136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasFuel: 1
   speedUp: 10
+  speedDown: 0
   speedX: 5
-  MaxFuel: 2
-  currentFuel: 0
+  maxFuel: 100
   fuelDecrease: 1
+  xClamp: 3
+  startGame: 0
+  thrusterObjects: []
+  boostParticle: {fileID: 0}
+  projectilePrefab: {fileID: 3792521322139601380, guid: 478fef31b24aa1b4ea0e31260a70502a,
+    type: 3}
+  projectileSpawn: {fileID: 918130574768769092}
+  lerpSpeed: 2
+  boostMax: 2
 --- !u!114 &33030377554608953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,6 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7547826cda3423249ad2120623c54397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupSounds: []
 --- !u!114 &4832826947123697103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,6 +147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da3408a276cc75499d69aaa602abfd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyParticlePrefab: []
+  obstacleParticlePrefab: []
+  destroySounds: []
+  destoryObstacleSounds: []
+  sheild: {fileID: 0}
 --- !u!1001 &7904309151082005940
 PrefabInstance:
   m_ObjectHideFlags: 0
