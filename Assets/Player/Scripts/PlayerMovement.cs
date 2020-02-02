@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public float xClamp = 3.0f;
     private float screenCenterX;
     public bool startGame = false;
+    public GameObject[] thrusterObjects;
     public GameObject boostParticle;
 
     // distance
@@ -39,6 +40,14 @@ public class PlayerMovement : MonoBehaviour
     public float lerpSpeed = 2.0f;
     private float t;
 
+
+    // boost
+    private bool isBoost = false;
+    public float boostMax = 2.0f;
+    private float boostTime = 0.0f;
+
+    private float originalSpeedUp;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
         screenCenterX = Screen.width * 0.5f;
 
         currentSpeedX = 0.0f;
+
+        originalSpeedUp = speedUp;
 
         // will move to a startgame method
        
@@ -114,23 +125,27 @@ public class PlayerMovement : MonoBehaviour
                     {
                         outOfFuel = false;
                         FindObjectOfType<CameraFollow>().SwitchCameraOffset();
-                        FindObjectOfType<ObjectSpawner>().isPlaying = true;
+                        FindObjectOfType<ObjectSpawner>().isFalling = false;
+                        ToggleThrusters(true);
                         isLerping = true;
                     }
                     currentSpeedUp = speedUp;
                 }
                 else
                 {
-                    currentSpeedUp = speedDown;
-                    currentFuel = 0.0f;
-                    if (!outOfFuel)
+                    if(!isBoost)
                     {
-                        outOfFuel = true;
-                        FindObjectOfType<CameraFollow>().SwitchCameraOffset();
-                        FindObjectOfType<ObjectSpawner>().isPlaying = false;
-                        isLerping = true;
+                        currentSpeedUp = speedDown;
+                        currentFuel = 0.0f;
+                        if (!outOfFuel)
+                        {
+                            outOfFuel = true;
+                            FindObjectOfType<CameraFollow>().SwitchCameraOffset();
+                            FindObjectOfType<ObjectSpawner>().isFalling = true;
+                            ToggleThrusters(false);
+                            isLerping = true;
+                        }
                     }
-
                 }
 
                 if (isLerping)
@@ -180,14 +195,20 @@ public class PlayerMovement : MonoBehaviour
           
         }
 
+        if(isBoost)
+        {
+            boostTime += Time.deltaTime;
+
+            if (boostTime >= boostMax)
+            {
+                StopBoost();
+            }
+        }
+
+
         Debug.Log("Move");
         rb.velocity = new Vector3(currentSpeedX, currentSpeedUp, 0.0f);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -xClamp, xClamp), transform.position.y, transform.position.z);
-    }
-
-    public void Boost(float speedIncrease)
-    {
-        StartCoroutine(BoostEffect(speedIncrease));
     }
 
     public void AddFuel(float amount)
@@ -201,6 +222,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void StopMovement()
     {
+        if(isBoost)
+        {
+            StopBoost();
+        }
+        
         canMove = false;
         startGame = false;
         CheckScore();
@@ -214,6 +240,7 @@ public class PlayerMovement : MonoBehaviour
     public void ResetMove()
     {
         canMove = true;
+        currentFuel = maxFuel;
         transform.position = new Vector3(0.0f, 0.0f, 0.0f);
         StartGame();
         
@@ -221,24 +248,43 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckScore()
     {
-        if(PlayerPrefs.HasKey("highscore"))
+        if (PlayerPrefs.HasKey("highscore"))
         {
             float highscore = PlayerPrefs.GetFloat("highscore");
-            if(distance > highscore)
+            if (distance > highscore)
             {
-                PlayerPrefs.SetFloat("highScore", distance);
+                PlayerPrefs.SetFloat("highscore", distance);
+                ui.Highscore(highscore);
             }
         }
-
-        
+        else
+        {
+            PlayerPrefs.SetFloat("highscore", distance);
+            ui.Highscore(0.0f);
+        }
     }
 
-    private IEnumerator BoostEffect(float increase)
+    private void ToggleThrusters(bool value)
     {
-        speedUp += increase;
+        foreach (GameObject thruster in thrusterObjects)
+        {
+            thruster.SetActive(value);
+        }
+    }
+
+    public void SetBoost()
+    {
+        boostTime = 0.0f;
+        isBoost = true;
+        speedUp += 3.0f;
         boostParticle.SetActive(true);
-        yield return new WaitForSeconds(3.0f);
-        speedUp -= increase;
+    }
+
+    private void StopBoost()
+    {
         boostParticle.SetActive(false);
+        speedUp = originalSpeedUp;
+        isBoost = false;
+        boostTime = 0.0f;
     }
 }

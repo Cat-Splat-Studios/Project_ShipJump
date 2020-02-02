@@ -41,7 +41,7 @@ public class PlayerCollision : MonoBehaviour
                             break;
                         case Pickups.pickupType.boost:
                             //do some physics on the player based on boostForce
-                            movement.Boost(pickup.GetBoost());
+                            movement.SetBoost();
                             audio.PlaySound(pickupSounds[1]);
                             Destroy(other.gameObject);
                             break;

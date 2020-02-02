@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerDamage : MonoBehaviour
 {
-    public GameObject shieldText;
     public GameObject[] destroyParticlePrefab;
     public GameObject[] obstacleParticlePrefab;
     public AudioClip[] destroySounds;
@@ -26,7 +25,6 @@ public class PlayerDamage : MonoBehaviour
         {
             // remove sheilds 
             hasSheild = false;
-            shieldText.SetActive(false);
             int randomParticle = Random.Range(0, obstacleParticlePrefab.Length);
             int randomSound = Random.Range(0, destoryObstacleSounds.Length);
             GameObject particleObj = Instantiate(obstacleParticlePrefab[randomParticle], new Vector3(obstacle.transform.position.x, obstacle.transform.position.y, -1.0f), Quaternion.identity) as GameObject;
@@ -47,7 +45,6 @@ public class PlayerDamage : MonoBehaviour
     {
         if (!hasSheild)
         {
-            shieldText.SetActive(true);
             hasSheild = true;
             sheild.SetActive(true);
         }

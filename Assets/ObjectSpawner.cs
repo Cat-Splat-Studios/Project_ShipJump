@@ -13,6 +13,7 @@ public class ObjectSpawner : MonoBehaviour
     public float maxSpawn;
 
     public bool isPlaying = false;
+    public bool isFalling = false;
 
     private float timeTillSpawn;
     private float timeSpawn;
@@ -63,20 +64,41 @@ public class ObjectSpawner : MonoBehaviour
     private void Spawn()
     {
         float randXPos = Random.Range(-player.xClamp, player.xClamp);
-        int rand = Random.Range(0, objectsToSpawn.Length);
+        if (!isFalling)
+        {
+            
+            int rand = Random.Range(0, objectsToSpawn.Length);
 
-        GameObject prefab = objectsToSpawn[rand];
+            GameObject prefab = objectsToSpawn[rand];
 
-        GameObject obj = Instantiate(prefab, new Vector3(randXPos, transform.position.y, transform.position.x), Quaternion.identity) as GameObject;
+            GameObject obj = Instantiate(prefab, new Vector3(randXPos, transform.position.y, transform.position.x), Quaternion.identity) as GameObject;
 
-        objects.Add(obj);
+            objects.Add(obj);
+        }
+        else
+        {
+            GameObject prefab = objectsToSpawn[6];
+
+            GameObject obj = Instantiate(prefab, new Vector3(randXPos, -transform.position.y, transform.position.x), Quaternion.identity) as GameObject;
+
+            objects.Add(obj);
+        }
+        
 
         //obj.transform.rotation = new Vector3(obj.transform.rotation.x, 180.0f, obj.transform.rotation.z);
     }
 
     private void SetSpawnIntervals()
     {
-        timeTillSpawn = Random.Range(minSpawn, maxSpawn);
+        if(!isFalling)
+        {
+            timeTillSpawn = Random.Range(minSpawn, maxSpawn);
+        }
+        else
+        {
+            timeTillSpawn = Random.Range(1.0f, 2.0f);
+        }
+        
         timeSpawn = 0.0f;
     }
 }

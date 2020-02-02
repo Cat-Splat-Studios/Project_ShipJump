@@ -18,6 +18,7 @@ public class UIDelgate : MonoBehaviour
     public GameObject gameUI;
     public Text scoreText;
     public Text highscoreText;
+    public Text startText;
 
     [SerializeField]
     private float _curFuel;
@@ -33,6 +34,14 @@ public class UIDelgate : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
+
+        float score = 0;
+        if(PlayerPrefs.HasKey("highscore"))
+        {
+            score = PlayerPrefs.GetFloat("highscore");
+        }
+
+        startText.text = $"Your Current Highscore\n\n {score} meters";
     }
 
     // Update is called once per frame
@@ -122,13 +131,18 @@ public class UIDelgate : MonoBehaviour
     public void Highscore(float previousScore)
     {
         highscore = true;
-        highscoreText.text = $"New Highscore!\nPrevious Score = {previousScore} meters";
+        highscoreText.text = $"New Highscore!\n\nPrevious Score = {previousScore} meters";
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     private void ScoreDisplay()
     {
         scoreText.gameObject.SetActive(true);
-        scoreText.text = $"You Traveled\n {curDistance}";
+        scoreText.text = $"You Traveled\n\n {curDistance}";
         highscoreText.gameObject.SetActive(highscore);
 
     }

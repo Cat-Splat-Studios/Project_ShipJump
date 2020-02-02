@@ -318,6 +318,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curPickup: 0
   canvasScript: {fileID: 0}
-  fuelAmount: 10
+  fuelAmount: 20
   boostForce: 0
   slowForce: 0
