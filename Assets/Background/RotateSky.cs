@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RotateSky : MonoBehaviour
 {
-    float length, startPOS;
+    private float length, startPOS;
     public GameObject camera;
     public float scrollEffect;
 
@@ -18,7 +18,8 @@ public class RotateSky : MonoBehaviour
     void Update()
     {
         float temp = camera.transform.position.y * (1 - scrollEffect);
-        float distance = camera.transform.position.y * scrollEffect;
+        float distance = camera.transform.position.y * (scrollEffect);
+        Debug.Log(distance + " Distance Value");
 
         transform.position = new Vector3(transform.position.x, startPOS + distance, transform.position.z);
 
