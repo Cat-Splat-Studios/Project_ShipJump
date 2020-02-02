@@ -106,7 +106,11 @@ public class PlayerMovement : MonoBehaviour
                         RaycastHit hit;
                         if (Physics.Raycast(ray, out hit))
                         {
-                            Debug.Log(hit.collider);
+                            if (canShoot)
+                            {
+                                Instantiate(projectilePrefab, projectileSpawn.transform);
+                                canShoot = false;
+                            }
                         }
                     }
                     else
