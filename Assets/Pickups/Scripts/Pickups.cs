@@ -24,7 +24,7 @@ public class Pickups : MonoBehaviour
     bool sheildActive;
 
     [SerializeField]
-    int boostForce;
+    float boostForce;
 
     [SerializeField]
     int slowForce;
@@ -33,7 +33,7 @@ public class Pickups : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        canvasScript = GameObject.FindGameObjectWithTag("UI").GetComponent<UIDelgate>();
+      //  canvasScript = GameObject.FindGameObjectWithTag("UI").GetComponent<UIDelgate>();
     }
 
     // Update is called once per frame
@@ -64,5 +64,10 @@ public class Pickups : MonoBehaviour
     public float GetFuel()
     {
         return fuelAmount;
+    }
+
+    public float GetBoost()
+    {
+        return boostForce;
     }
 }

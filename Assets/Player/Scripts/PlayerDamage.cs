@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class PlayerDamage : MonoBehaviour
 {
+    public GameObject shieldText;
     private bool hasSheild = false;
 
     public void GotHit(GameObject obstacle)
@@ -12,6 +14,7 @@ public class PlayerDamage : MonoBehaviour
         {
             // remove sheilds 
             hasSheild = false;
+            shieldText.SetActive(false);
             Destroy(obstacle);
         }
         else
@@ -25,7 +28,7 @@ public class PlayerDamage : MonoBehaviour
     {
         if (!hasSheild)
         {
-
+            shieldText.SetActive(true);
             hasSheild = true;
         }
     }
@@ -33,6 +36,7 @@ public class PlayerDamage : MonoBehaviour
     private void DestroyShip()
     {
         GetComponent<PlayerMovement>().StopMovement();
+        Destroy(this.gameObject);
 
     }
 }

@@ -31,16 +31,17 @@ public class PlayerCollision : MonoBehaviour
                             //Mathf.Lerp(canvasScript.curFuel, canvasScript.curFuel + fuelAmount, 1);
                             //canvasScript.curFuel += fuelAmount;
                             movement.AddFuel(pickup.GetFuel());
-                            Destroy(this.gameObject);
+                            Destroy(other.gameObject);
                             break;
                         case Pickups.pickupType.boost:
                             //do some physics on the player based on boostForce
-                            movement.Boost();
+                            movement.Boost(pickup.GetBoost());
+                            Destroy(other.gameObject);
                             break;
                         case Pickups.pickupType.sheild:
                             //send reference to the player to activate sheild
                             damage.AttatchSheild();
-                            Destroy(this.gameObject);
+                            Destroy(other.gameObject);
                             break;
                         case Pickups.pickupType.slowdown:
                             //do some physics on the player based on slowForce;

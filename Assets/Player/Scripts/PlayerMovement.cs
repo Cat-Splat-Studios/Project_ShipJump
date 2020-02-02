@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
   
     // Speeds
     public float speedUp = 2.0f;
+    public float speedDown = 0.0f;
     public float speedX = 2.0f;
     private float currentSpeedUp;
     private float currentSpeedX;
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float maxFuel = 100.0f;
     public float fuelDecrease = 1.0f;
     private float currentFuel;
+    private bool outOfFuel = false;
 
 
     // References
@@ -22,13 +24,14 @@ public class PlayerMovement : MonoBehaviour
     private UIDelgate ui;
 
     // Misc
+    public float xClamp = 3.0f;
     private float screenCenterX;
     private bool canSwitchCam = true;
 
     // distance
     private float distance;
     private float startYPos;
-    private bool canMove;
+    private bool canMove = true;
 
 
     // Start is called before the first frame update
@@ -36,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         ui = FindObjectOfType<UIDelgate>();
-        ui.curDistance = 34.0f.ToString();
         currentFuel = maxFuel;
 
         screenCenterX = Screen.width * 0.5f;
@@ -100,23 +102,31 @@ public class PlayerMovement : MonoBehaviour
 
             if (currentFuel > 0.0f)
             {
+                if(outOfFuel)
+                {
+                    FindObjectOfType<CameraFollow>().SwitchCameraOffset();
+                    StartCoroutine(SwitchMoveWait(1.0f));
+                    outOfFuel = false;
+
+                }
                 currentSpeedUp = speedUp;
             }
             else
             {
-                currentSpeedUp = 0.0f;
+                currentSpeedUp = speedDown;
                 currentFuel = 0.0f;
-                if (canSwitchCam)
+                if (!outOfFuel)
                 {
+                    outOfFuel = true;
                     FindObjectOfType<CameraFollow>().SwitchCameraOffset();
-                    canSwitchCam = false;
+                    StartCoroutine(SwitchMoveWait(1.0f));
                 }
 
             }
 
             // Move player
             rb.velocity = new Vector3(currentSpeedX, currentSpeedUp, 0.0f);
-            transform.position = new Vector3(Mathf.Clamp(transform.position.x, -2.0f, 2.0f), transform.position.y, transform.position.z);
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, -xClamp, xClamp), transform.position.y, transform.position.z);
 
             // Adjust fuel
             currentFuel -= fuelDecrease * Time.deltaTime;
@@ -124,13 +134,14 @@ public class PlayerMovement : MonoBehaviour
 
             // Adjust Distance
             distance = Mathf.Round(transform.position.y - startYPos);
+            Debug.Log(distance);
             ui.curDistance = distance.ToString();
         }  
     }
 
-    public void Boost()
+    public void Boost(float speedIncrease)
     {
-
+        StartCoroutine(BoostEffect(speedIncrease));
     }
 
     public void AddFuel(float amount)
@@ -158,5 +169,18 @@ public class PlayerMovement : MonoBehaviour
                 PlayerPrefs.SetFloat("highScore", distance);
             }
         }
+    }
+
+    private IEnumerator BoostEffect(float increase)
+    {
+        speedUp += increase;
+        yield return new WaitForSeconds(3.0f);
+        speedUp -= increase;
+    }
+
+    private IEnumerator SwitchMoveWait(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        speedDown = -(speedUp * 0.8f);
     }
 }

@@ -25,40 +25,43 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isLerping)
+        if(player)
         {
-            transform.position = new Vector3(0.0f, player.transform.position.y + currentOffset, -7.0f);
-        }
-        else
-        {
-            transform.position = new Vector3(0.0f, Mathf.Lerp(player.transform.position.y + startOffset,
-                player.transform.position.y + targetOffset, t), -7.0f);
-
-            t += 1.5f * Time.deltaTime;
-
-
-            if( t >= 1.0f)
+            if (!isLerping)
             {
-                if (targetOffset == Upoffset)
+                transform.position = new Vector3(0.0f, player.transform.position.y + currentOffset, transform.position.z);
+            }
+            else
+            {
+                transform.position = new Vector3(0.0f, Mathf.Lerp(player.transform.position.y + startOffset,
+                    player.transform.position.y + targetOffset, t), transform.position.z);
+
+                t += 1.5f * Time.deltaTime;
+
+
+                if (t >= 1.0f)
                 {
+                    if (targetOffset == Upoffset)
+                    {
 
                         currentOffset = Upoffset;
-                        
 
-                }
-                else if (targetOffset == downOffest)
-                {
-     
+
+                    }
+                    else if (targetOffset == downOffest)
+                    {
+
                         currentOffset = downOffest;
 
+                    }
+
+                    isLerping = false;
+                    t = 0.0f;
                 }
 
-                isLerping = false;
-                t = 0.0f;
             }
-           
-            
         }
+      
     }
 
     public void SwitchCameraOffset()
