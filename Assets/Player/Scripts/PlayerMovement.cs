@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     // Misc
     public float xClamp = 3.0f;
     private float screenCenterX;
-    public bool startGame = false;
+    public bool startGame = true;
 
     // distance
     private float distance;
@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (startGame)
             {
+                
                 if (Application.isMobilePlatform)
                 {
                     if (Input.touchCount > 0)
@@ -170,6 +171,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // Move player
+            Debug.Log("Move");
             rb.velocity = new Vector3(currentSpeedX, currentSpeedUp, 0.0f);
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, -xClamp, xClamp), transform.position.y, transform.position.z);
           

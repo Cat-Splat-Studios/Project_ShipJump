@@ -23,6 +23,7 @@ public class ObjectSpawner : MonoBehaviour
     void Start()
     {
         SetSpawnIntervals();
+        objects = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -67,6 +68,7 @@ public class ObjectSpawner : MonoBehaviour
         GameObject prefab = objectsToSpawn[rand];
 
         GameObject obj = Instantiate(prefab, new Vector3(randXPos, transform.position.y, transform.position.x), Quaternion.identity) as GameObject;
+
         objects.Add(obj);
 
         //obj.transform.rotation = new Vector3(obj.transform.rotation.x, 180.0f, obj.transform.rotation.z);
