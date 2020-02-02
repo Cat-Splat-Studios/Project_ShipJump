@@ -269,7 +269,7 @@ MonoBehaviour:
   - prefab: {fileID: 9052037336142490896, guid: e2450157f79740c47a8bfc92254e43a9,
       type: 3}
     instances: 1
-  - prefab: {fileID: 9052037336142490896, guid: fe913d8418743184ca21599ac24913db,
+  - prefab: {fileID: 1224420885039501911, guid: 8a493e20ed2407c478c3bb96d6335ed0,
       type: 3}
     instances: 1
   coinSpawnerPrefab: {fileID: 7874865642585508787, guid: af0ff4a3b4d122743b41d9170a54922c,
