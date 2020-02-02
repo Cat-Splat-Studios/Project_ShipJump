@@ -157,6 +157,7 @@ public class PlayerMovement : MonoBehaviour
                         outOfFuel = false;
                         FindObjectOfType<CameraFollow>().SwitchCameraOffset();
                         FindObjectOfType<ObjectSpawner>().isFalling = false;
+                        FindObjectOfType<ObjectSpawner>().ClearObjects();
                         ToggleThrusters(true);
                         isLerping = true;
                     }
