@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6198288430228264170}
   - component: {fileID: 376111143223076883}
   - component: {fileID: 7399452337016295730}
+  - component: {fileID: 5836635409709002141}
   m_Layer: 0
   m_Name: Asteroid
   m_TagString: obstacle
@@ -92,3 +93,21 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.62
   m_Center: {x: -0.0012035817, y: -0.023800313, z: 0}
+--- !u!114 &5836635409709002141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091043634067709135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70175dfabd92a1f4490430365c794157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleParticlePrefab:
+  - {fileID: 100002, guid: 7e86a4a9d7b60094a9d1739c74bcaad9, type: 3}
+  - {fileID: 100000, guid: adaf7b1d3a0881645864cbd4445158d2, type: 3}
+  destroySounds:
+  - {fileID: 8300000, guid: 8980f641d9776c04995ab9be52b4ef62, type: 3}
+  - {fileID: 8300000, guid: 76a7a6acb13e0ef4db558c112de7cf7c, type: 3}

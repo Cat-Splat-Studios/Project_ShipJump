@@ -25,11 +25,11 @@ public class Projectile : MonoBehaviour
         rb.velocity = new Vector3(0.0f, speed, 0.0f);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "obstacle")
-        {
-            Destroy(other.gameObject);
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.tag == "obstacle")
+    //    {
+    //        Destroy(other.gameObject);
+    //    }
+    //}
 }

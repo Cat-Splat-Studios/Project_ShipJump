@@ -10,6 +10,7 @@ public class Pickups : MonoBehaviour
         sheild,
         boost,
         coin,
+        projectile,
         slowdown
     }
 

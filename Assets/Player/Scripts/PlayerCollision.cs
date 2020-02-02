@@ -55,6 +55,9 @@ public class PlayerCollision : MonoBehaviour
                             movement.AddCoin();
                             Destroy(other.gameObject);
                             break;
+                        case Pickups.pickupType.projectile:
+                            movement.canShoot = true;
+                            break;
                         case Pickups.pickupType.slowdown:
                             //do some physics on the player based on slowForce;
                             break;
