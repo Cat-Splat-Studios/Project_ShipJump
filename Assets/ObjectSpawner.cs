@@ -18,6 +18,7 @@ public class ObjectSpawner : MonoBehaviour
 
     public GameObject coinSpawnerPrefab;
     public GameObject rocketPrefab;
+    public GameObject asteroidPrefab;
 
     public float minSpawn;
     public float maxSpawn;
@@ -118,9 +119,20 @@ public class ObjectSpawner : MonoBehaviour
         }
         else
         {
-            GameObject prefab = rocketPrefab;
+            GameObject prefab;
 
-            GameObject obj = Instantiate(prefab, new Vector3(randXPos, -transform.position.y, transform.position.x), Quaternion.identity) as GameObject;
+            int rand = Random.Range(0, 3);
+
+            if (rand == 0)
+            {
+                prefab = rocketPrefab;
+            }
+            else
+            {
+                prefab = asteroidPrefab;
+            }
+
+            GameObject obj = Instantiate(prefab, new Vector3(randXPos, -(transform.position.y * 2), transform.position.x), Quaternion.identity) as GameObject;
 
             objectsInWork.Add(obj);
         }
@@ -150,7 +162,7 @@ public class ObjectSpawner : MonoBehaviour
         }
         else
         {
-            timeTillSpawn = Random.Range(1.0f, 2.0f);
+            timeTillSpawn = Random.Range(0.6f, 1.0f);
         }
         
         timeSpawn = 0.0f;
@@ -162,6 +174,19 @@ public class ObjectSpawner : MonoBehaviour
         {
             timeTillCoin = Random.Range(0.8f, 1.2f);
             coinTime = 0.0f;
+        }
+    }
+
+    public void ClearObjects ()
+    {
+        int buffer = objectsInWork.Count > 8 ? 8 : 0;
+
+        for(int i = 0; i < objectsInWork.Count - buffer; ++i)
+        {
+            GameObject item = objectsInWork[i];
+            objectsInWork.RemoveAt(i);
+
+            Destroy(item);
         }
     }
 }
