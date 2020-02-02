@@ -19,7 +19,6 @@ public class RotateSky : MonoBehaviour
     {
         float temp = camera.transform.position.y * (1 - scrollEffect);
         float distance = camera.transform.position.y * (scrollEffect);
-        Debug.Log(distance + " Distance Value");
 
         transform.position = new Vector3(transform.position.x, startPOS + distance, transform.position.z);
 
