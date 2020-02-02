@@ -9,6 +9,7 @@ public class PlayerCollision : MonoBehaviour
     private AudioManager audio;
 
     public AudioClip[] pickupSounds;
+    
 
     private void Start()
     {

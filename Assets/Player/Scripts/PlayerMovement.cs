@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         currentSpeedX = 0.0f;
 
         // will move to a startgame method
-        startYPos = transform.position.y;
+       
     }
 
     // Update is called once per frame
@@ -170,13 +170,19 @@ public class PlayerMovement : MonoBehaviour
                 ui.curDistance = distance.ToString();
 
             }
+            else
+            {
+                currentSpeedUp = 5.0f;
+            }
 
             // Move player
-            Debug.Log("Move");
-            rb.velocity = new Vector3(currentSpeedX, currentSpeedUp, 0.0f);
-            transform.position = new Vector3(Mathf.Clamp(transform.position.x, -xClamp, xClamp), transform.position.y, transform.position.z);
           
-        }  
+          
+        }
+
+        Debug.Log("Move");
+        rb.velocity = new Vector3(currentSpeedX, currentSpeedUp, 0.0f);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -xClamp, xClamp), transform.position.y, transform.position.z);
     }
 
     public void Boost(float speedIncrease)
@@ -199,13 +205,18 @@ public class PlayerMovement : MonoBehaviour
         startGame = false;
         CheckScore();
     }
+    public void StartGame()
+    {
+        startGame = true;
+        startYPos = transform.position.y;
+    }
 
     public void ResetMove()
     {
         canMove = true;
-        startGame = true;
         transform.position = new Vector3(0.0f, 0.0f, 0.0f);
-        startYPos = transform.position.y;
+        StartGame();
+        
     }
 
     private void CheckScore()

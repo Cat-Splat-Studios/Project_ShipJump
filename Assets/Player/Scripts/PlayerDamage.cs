@@ -10,6 +10,7 @@ public class PlayerDamage : MonoBehaviour
     public GameObject[] obstacleParticlePrefab;
     public AudioClip[] destroySounds;
     public AudioClip[] destoryObstacleSounds;
+    public GameObject sheild;
     private bool hasSheild = false;
 
     private AudioManager audio;
@@ -32,6 +33,8 @@ public class PlayerDamage : MonoBehaviour
             audio.PlaySound(destoryObstacleSounds[randomSound]);
             Destroy(particleObj, 1.5f);
             Destroy(obstacle);
+
+            sheild.SetActive(false);
         }
         else
         {
@@ -46,6 +49,7 @@ public class PlayerDamage : MonoBehaviour
         {
             shieldText.SetActive(true);
             hasSheild = true;
+            sheild.SetActive(true);
         }
     }
 
@@ -61,12 +65,15 @@ public class PlayerDamage : MonoBehaviour
 
         GameObject particleObj = Instantiate(destroyParticlePrefab[randomParticle], new Vector3(transform.position.x, transform.position.y, -1.0f), Quaternion.identity) as GameObject;
         Destroy(particleObj, 1.5f);
-
+        FindObjectOfType<UIDelgate>().GameOver();
         this.gameObject.SetActive(false);
 
-        FindObjectOfType<UIDelgate>().GameOver();
+
+        
 
         // show game over
 
     }
+
+ 
 }

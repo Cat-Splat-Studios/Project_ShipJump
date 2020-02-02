@@ -99,15 +99,15 @@ public class UIDelgate : MonoBehaviour
         Debug.Log("STATA");
         ToggleGameplayUI(true);
         gameStarted = true;
-        player.GetComponent<PlayerMovement>().startGame = true;
+        player.GetComponent<PlayerMovement>().StartGame();
         FindObjectOfType<ObjectSpawner>().isPlaying = true;
     }
 
     public void GameOver()
     {
-        ToggleGameplayUI(false);
-        ScoreDisplay();
+        FindObjectOfType<ObjectSpawner>().isPlaying = false;
         gameStarted = false;
+        StartCoroutine(GameOverWait());  
     }
 
     public void Replay()
@@ -131,5 +131,12 @@ public class UIDelgate : MonoBehaviour
         scoreText.text = $"You Traveled\n {curDistance}";
         highscoreText.gameObject.SetActive(highscore);
 
+    }
+
+    private IEnumerator GameOverWait()
+    {
+        yield return new WaitForSeconds(0.6f);
+        ToggleGameplayUI(false);
+        ScoreDisplay();
     }
 }
