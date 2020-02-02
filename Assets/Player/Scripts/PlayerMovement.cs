@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     // Misc
     public float xClamp = 3.0f;
     private float screenCenterX;
-    public bool startGame = true;
+    public bool startGame = false;
     public GameObject boostParticle;
 
     // distance
@@ -196,7 +196,16 @@ public class PlayerMovement : MonoBehaviour
     public void StopMovement()
     {
         canMove = false;
+        startGame = false;
         CheckScore();
+    }
+
+    public void ResetMove()
+    {
+        canMove = true;
+        startGame = true;
+        transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+        startYPos = transform.position.y;
     }
 
     private void CheckScore()
@@ -209,6 +218,8 @@ public class PlayerMovement : MonoBehaviour
                 PlayerPrefs.SetFloat("highScore", distance);
             }
         }
+
+        
     }
 
     private IEnumerator BoostEffect(float increase)
@@ -218,5 +229,5 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         speedUp -= increase;
         boostParticle.SetActive(false);
-    } 
+    }
 }

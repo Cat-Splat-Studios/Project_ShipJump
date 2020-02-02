@@ -12,7 +12,7 @@ public class ObjectSpawner : MonoBehaviour
     public float minSpawn;
     public float maxSpawn;
 
-    public bool isPlaying = true;
+    public bool isPlaying = false;
 
     private float timeTillSpawn;
     private float timeSpawn;

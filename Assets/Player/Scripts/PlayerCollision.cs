@@ -6,11 +6,15 @@ public class PlayerCollision : MonoBehaviour
 {
     private PlayerMovement movement;
     private PlayerDamage damage;
+    private AudioManager audio;
+
+    public AudioClip[] pickupSounds;
 
     private void Start()
     {
         movement = GetComponent<PlayerMovement>();
         damage = GetComponent<PlayerDamage>();
+        audio = FindObjectOfType<AudioManager>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,16 +35,19 @@ public class PlayerCollision : MonoBehaviour
                             //Mathf.Lerp(canvasScript.curFuel, canvasScript.curFuel + fuelAmount, 1);
                             //canvasScript.curFuel += fuelAmount;
                             movement.AddFuel(pickup.GetFuel());
+                            audio.PlaySound(pickupSounds[0]);
                             Destroy(other.gameObject);
                             break;
                         case Pickups.pickupType.boost:
                             //do some physics on the player based on boostForce
                             movement.Boost(pickup.GetBoost());
+                            audio.PlaySound(pickupSounds[1]);
                             Destroy(other.gameObject);
                             break;
                         case Pickups.pickupType.sheild:
                             //send reference to the player to activate sheild
                             damage.AttatchSheild();
+                            audio.PlaySound(pickupSounds[2]);
                             Destroy(other.gameObject);
                             break;
                         case Pickups.pickupType.slowdown:
