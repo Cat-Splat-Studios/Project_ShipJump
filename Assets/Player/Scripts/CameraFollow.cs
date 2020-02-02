@@ -29,12 +29,12 @@ public class CameraFollow : MonoBehaviour
         {
             if (!isLerping)
             {
-                transform.position = new Vector3(0.0f, player.transform.position.y + currentOffset, -7.0f);
+                transform.position = new Vector3(0.0f, player.transform.position.y + currentOffset, transform.position.z);
             }
             else
             {
                 transform.position = new Vector3(0.0f, Mathf.Lerp(player.transform.position.y + startOffset,
-                    player.transform.position.y + targetOffset, t), -7.0f);
+                    player.transform.position.y + targetOffset, t), transform.position.z);
 
                 t += 1.5f * Time.deltaTime;
 

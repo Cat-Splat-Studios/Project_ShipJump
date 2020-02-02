@@ -18,7 +18,7 @@ public class UIDelgate : MonoBehaviour
     [SerializeField]
     private string _curDistance = "0";
 
-    private bool _gameStarted = false;
+    private bool _gameStarted = true;
 
     // Start is called before the first frame update
     void Start()
