@@ -264,7 +264,7 @@ Transform:
   m_GameObject: {fileID: 9194875012203403433}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 5829971472874091234}
   - {fileID: 8243942465484951717}
@@ -318,6 +318,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curPickup: 0
   canvasScript: {fileID: 0}
-  fuelAmount: 20
+  fuelAmount: 25
   boostForce: 0
   slowForce: 0

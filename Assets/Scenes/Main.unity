@@ -271,7 +271,7 @@ MonoBehaviour:
     instances: 1
   - prefab: {fileID: 9052037336142490896, guid: fe913d8418743184ca21599ac24913db,
       type: 3}
-    instances: 20
+    instances: 1
   coinSpawnerPrefab: {fileID: 7874865642585508787, guid: af0ff4a3b4d122743b41d9170a54922c,
     type: 3}
   rocketPrefab: {fileID: 9194875012203403433, guid: 13f27a07f888a0c4ba69fa408effe894,
@@ -825,6 +825,11 @@ PrefabInstance:
         type: 3}
       propertyPath: canShoot
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904309150522338698, guid: d5f89821ccea90046b78a54376b18ebd,
+        type: 3}
+      propertyPath: maxFuel
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7904309150522338693, guid: d5f89821ccea90046b78a54376b18ebd,
         type: 3}

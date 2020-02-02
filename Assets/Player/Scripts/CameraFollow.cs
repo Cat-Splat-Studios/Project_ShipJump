@@ -14,6 +14,7 @@ public class CameraFollow : MonoBehaviour
     private float targetOffset;
 
     private bool isLerping = false;
+    private bool isUp = true;
 
     float t = 0.0f;
     // Start is called before the first frame update
@@ -67,13 +68,15 @@ public class CameraFollow : MonoBehaviour
     public void SwitchCameraOffset()
     {
         startOffset = currentOffset;
-        if(currentOffset == Upoffset)
+        if(currentOffset == Upoffset && isUp)
         {
             targetOffset = downOffest;
+            isUp = false;
         }
-        else if (currentOffset == downOffest)
+        else if (currentOffset == downOffest && !isUp)
         {
             targetOffset = Upoffset;
+            isUp = true;
         }
 
         isLerping = true;
