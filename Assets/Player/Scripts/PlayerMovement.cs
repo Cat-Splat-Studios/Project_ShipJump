@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public float xClamp = 3.0f;
     private float screenCenterX;
     public bool startGame = true;
+    public GameObject boostParticle;
 
     // distance
     private float distance;
@@ -213,7 +214,9 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator BoostEffect(float increase)
     {
         speedUp += increase;
+        boostParticle.SetActive(true);
         yield return new WaitForSeconds(3.0f);
         speedUp -= increase;
+        boostParticle.SetActive(false);
     } 
 }

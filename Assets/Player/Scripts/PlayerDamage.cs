@@ -6,6 +6,8 @@ using UnityEngine;
 public class PlayerDamage : MonoBehaviour
 {
     public GameObject shieldText;
+    public GameObject[] destroyParticlePrefab;
+    public GameObject[] obstacleParticlePrefab;
     private bool hasSheild = false;
 
     public void GotHit(GameObject obstacle)
@@ -15,6 +17,9 @@ public class PlayerDamage : MonoBehaviour
             // remove sheilds 
             hasSheild = false;
             shieldText.SetActive(false);
+            int random = Random.Range(0, obstacleParticlePrefab.Length);
+            GameObject particleObj = Instantiate(obstacleParticlePrefab[random], new Vector3(obstacle.transform.position.x, obstacle.transform.position.y, -1.0f), Quaternion.identity) as GameObject;
+            Destroy(particleObj, 1.5f);
             Destroy(obstacle);
         }
         else
@@ -37,6 +42,11 @@ public class PlayerDamage : MonoBehaviour
     {
         GetComponent<PlayerMovement>().StopMovement();
         FindObjectOfType<ObjectSpawner>().isPlaying = false;
+
+        int random = Random.Range(0, destroyParticlePrefab.Length);
+
+        GameObject particleObj = Instantiate(destroyParticlePrefab[random], new Vector3(transform.position.x, transform.position.y, -1.0f), Quaternion.identity) as GameObject;
+        Destroy(particleObj, 1.5f);
 
         this.gameObject.SetActive(false);
 
