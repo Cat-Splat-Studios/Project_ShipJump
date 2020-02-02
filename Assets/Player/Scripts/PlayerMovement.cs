@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     public bool canShoot;
     public GameObject projectilePrefab;
     public GameObject projectileSpawn;
+    public GameObject shootButton;
 
     // distance
     private float distance;
@@ -70,6 +71,8 @@ public class PlayerMovement : MonoBehaviour
 
         originalSpeedUp = speedUp;
 
+        shootButton.SetActive(canShoot);
+
         // will move to a startgame method
        
     }
@@ -81,7 +84,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (startGame)
             {
-                
                 if (Application.isMobilePlatform)
                 {
                     if (Input.touchCount > 0)
@@ -102,16 +104,16 @@ public class PlayerMovement : MonoBehaviour
                             }
                         }
 
-                        Ray ray = Camera.main.ScreenPointToRay(firstTouch.position);
-                        RaycastHit hit;
-                        if (Physics.Raycast(ray, out hit))
-                        {
-                            if (canShoot)
-                            {
-                                Instantiate(projectilePrefab, projectileSpawn.transform);
-                                canShoot = false;
-                            }
-                        }
+                        //Ray ray = Camera.main.ScreenPointToRay(firstTouch.position);
+                        //RaycastHit hit;
+                        //if (Physics.Raycast(ray, out hit))
+                        //{
+                        //    if (canShoot)
+                        //    {
+                        //        Instantiate(projectilePrefab, projectileSpawn.transform);
+                        //        canShoot = false;
+                        //    }
+                        //}
                     }
                     else
                     {
@@ -132,16 +134,16 @@ public class PlayerMovement : MonoBehaviour
                             currentSpeedX = -speedX;
                         }
 
-                        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                        RaycastHit hit;
-                        if (Physics.Raycast(ray, out hit))
-                        {
-                            if (canShoot)
-                            {
-                                Instantiate(projectilePrefab, projectileSpawn.transform);
-                                canShoot = false;
-                            }
-                        }
+                        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                        //RaycastHit hit;
+                        //if (Physics.Raycast(ray, out hit))
+                        //{
+                        //    if (canShoot)
+                        //    {
+                        //        Instantiate(projectilePrefab, projectileSpawn.transform);
+                        //        canShoot = false;
+                        //    }
+                        //}
                     }
                     else
                     {
@@ -241,6 +243,13 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Move");
         rb.velocity = new Vector3(currentSpeedX, currentSpeedUp, 0.0f);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -xClamp, xClamp), transform.position.y, transform.position.z);
+    }
+
+    public void Shoot()
+    {
+        Instantiate(projectilePrefab, projectileSpawn.transform);
+        canShoot = false;
+        shootButton.SetActive(false);
     }
 
     public void AddFuel(float amount)

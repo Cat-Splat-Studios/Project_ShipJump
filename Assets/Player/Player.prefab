@@ -214,7 +214,7 @@ MonoBehaviour:
   speedDown: -12
   speedX: 7
   maxFuel: 100
-  fuelDecrease: 5
+  fuelDecrease: 7
   xClamp: 2.5
   startGame: 0
   thrusterObjects:
@@ -225,6 +225,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 3792521322139601380, guid: 478fef31b24aa1b4ea0e31260a70502a,
     type: 3}
   projectileSpawn: {fileID: 918130574768769092}
+  shootButton: {fileID: 0}
   lerpSpeed: 2
   boostMax: 2
 --- !u!114 &33030377554608953
@@ -243,6 +244,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 58596ffbc74ade54ab66e8526a643619, type: 3}
   - {fileID: 8300000, guid: 37ee4938928a44b44b3f20bda20a1514, type: 3}
   - {fileID: 8300000, guid: 8d98c33df79de8d40a3c8993a25aa0b3, type: 3}
+  - {fileID: 8300000, guid: dfa4e7aff20466f4a9a5712e97b42757, type: 3}
 --- !u!114 &4832826947123697103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,6 +426,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
       propertyPath: InitialModule.startSizeY.minMaxState
       value: 3
       objectReference: {fileID: 0}
@@ -438,14 +448,6 @@ PrefabInstance:
     - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
       propertyPath: InitialModule.startRotationY.minMaxState
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
@@ -515,6 +517,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
       propertyPath: InitialModule.startSizeY.minMaxState
       value: 3
       objectReference: {fileID: 0}
@@ -529,14 +539,6 @@ PrefabInstance:
     - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
       propertyPath: InitialModule.startRotationY.minMaxState
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key0.r
@@ -571,10 +573,6 @@ PrefabInstance:
       value: 0.59518623
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
-      propertyPath: ColorModule.gradient.minGradient.key0.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
       propertyPath: ColorModule.gradient.minGradient.key1.r
       value: 0
       objectReference: {fileID: 0}
@@ -601,11 +599,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7904309150522338693}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: d4a693cb20b9d0844bf89ba8965f1be7,
-        type: 3}
-      propertyPath: m_Name
-      value: Ship
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: d4a693cb20b9d0844bf89ba8965f1be7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -660,6 +653,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: d4a693cb20b9d0844bf89ba8965f1be7,
+        type: 3}
+      propertyPath: m_Name
+      value: Ship
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4a693cb20b9d0844bf89ba8965f1be7, type: 3}
@@ -725,6 +723,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
       propertyPath: InitialModule.startSizeY.minMaxState
       value: 3
       objectReference: {fileID: 0}
@@ -739,14 +745,6 @@ PrefabInstance:
     - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
       propertyPath: InitialModule.startRotationY.minMaxState
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a5cd1b5dfc0e2743978d1a3aa11ebf7, type: 3}

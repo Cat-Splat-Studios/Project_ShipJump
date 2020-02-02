@@ -391,6 +391,10 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1287761822, guid: efb6b99265acf274eb27f0730d357326, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 64347337}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efb6b99265acf274eb27f0730d357326, type: 3}
 --- !u!1001 &526733410
@@ -546,6 +550,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1287761820 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1287761820, guid: efb6b99265acf274eb27f0730d357326,
+    type: 3}
+  m_PrefabInstance: {fileID: 180622870}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1577258349
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,6 +771,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7904309150522338698, guid: d5f89821ccea90046b78a54376b18ebd,
+        type: 3}
+      propertyPath: shootButton
+      value: 
+      objectReference: {fileID: 1287761820}
     - target: {fileID: 7904309150522338693, guid: d5f89821ccea90046b78a54376b18ebd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -816,25 +831,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7904309150522338698, guid: d5f89821ccea90046b78a54376b18ebd,
-        type: 3}
-      propertyPath: fuelDecrease
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7904309150522338698, guid: d5f89821ccea90046b78a54376b18ebd,
-        type: 3}
-      propertyPath: maxFuel
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 33030377554608953, guid: d5f89821ccea90046b78a54376b18ebd,
-        type: 3}
-      propertyPath: pickupSounds.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 33030377554608953, guid: d5f89821ccea90046b78a54376b18ebd,
-        type: 3}
-      propertyPath: pickupSounds.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: dfa4e7aff20466f4a9a5712e97b42757, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5f89821ccea90046b78a54376b18ebd, type: 3}
