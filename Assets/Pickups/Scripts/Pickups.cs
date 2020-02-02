@@ -9,6 +9,7 @@ public class Pickups : MonoBehaviour
         fuelRefill,
         sheild,
         boost,
+        coin,
         slowdown
     }
 

@@ -339,22 +339,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 64347337}
-  objectsToSpawn:
-  - {fileID: 2091043634067709135, guid: 38a4bd6b85c3f424881d491bc14493b1, type: 3}
-  - {fileID: 2091043634067709135, guid: 38a4bd6b85c3f424881d491bc14493b1, type: 3}
-  - {fileID: 2091043634067709135, guid: 38a4bd6b85c3f424881d491bc14493b1, type: 3}
-  - {fileID: 2091043634067709135, guid: 38a4bd6b85c3f424881d491bc14493b1, type: 3}
-  - {fileID: 2091043634067709135, guid: 38a4bd6b85c3f424881d491bc14493b1, type: 3}
-  - {fileID: 9194875012203403433, guid: 13f27a07f888a0c4ba69fa408effe894, type: 3}
-  - {fileID: 9194875012203403433, guid: 13f27a07f888a0c4ba69fa408effe894, type: 3}
-  - {fileID: 2720141572760205123, guid: 53f1f9371c6faea4b8989fde7e149d42, type: 3}
-  - {fileID: 2720141572760205123, guid: 53f1f9371c6faea4b8989fde7e149d42, type: 3}
-  - {fileID: 9052037336142490896, guid: e2450157f79740c47a8bfc92254e43a9, type: 3}
-  - {fileID: 2091043634067709135, guid: 38a4bd6b85c3f424881d491bc14493b1, type: 3}
-  - {fileID: 2091043634067709135, guid: 38a4bd6b85c3f424881d491bc14493b1, type: 3}
-  - {fileID: 2091043634067709135, guid: 38a4bd6b85c3f424881d491bc14493b1, type: 3}
-  - {fileID: -927199367670048503, guid: 30ff8be8aeaf4954a8a020abcc572e26, type: 3}
-  - {fileID: 9194875012203403433, guid: 13f27a07f888a0c4ba69fa408effe894, type: 3}
+  itemSpawns:
+  - prefab: {fileID: 2091043634067709135, guid: 38a4bd6b85c3f424881d491bc14493b1,
+      type: 3}
+    instances: 12
+  - prefab: {fileID: 9194875012203403433, guid: 13f27a07f888a0c4ba69fa408effe894,
+      type: 3}
+    instances: 4
+  - prefab: {fileID: 2720141572760205123, guid: 53f1f9371c6faea4b8989fde7e149d42,
+      type: 3}
+    instances: 2
+  - prefab: {fileID: 9052037336142490896, guid: e2450157f79740c47a8bfc92254e43a9,
+      type: 3}
+    instances: 1
+  coinSpawnerPrefab: {fileID: 7874865642585508787, guid: af0ff4a3b4d122743b41d9170a54922c,
+    type: 3}
+  rocketPrefab: {fileID: 9194875012203403433, guid: 13f27a07f888a0c4ba69fa408effe894,
+    type: 3}
   minSpawn: 0.5
   maxSpawn: 1.5
   isPlaying: 0
@@ -577,30 +578,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1643805537, guid: efb6b99265acf274eb27f0730d357326, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1643805537, guid: efb6b99265acf274eb27f0730d357326, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1643805537, guid: efb6b99265acf274eb27f0730d357326, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1643805537, guid: efb6b99265acf274eb27f0730d357326, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1221456740}
-    - target: {fileID: 1643805537, guid: efb6b99265acf274eb27f0730d357326, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: QuitGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 1643805537, guid: efb6b99265acf274eb27f0730d357326, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efb6b99265acf274eb27f0730d357326, type: 3}
 --- !u!1 &230183212 stripped
@@ -696,18 +673,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1426054c11495aa409a8e4894a321226, type: 3}
---- !u!114 &1221456740 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8244507686506248931, guid: efb6b99265acf274eb27f0730d357326,
-    type: 3}
-  m_PrefabInstance: {fileID: 180622870}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d51f9f78a74854a1cbca552f101c6cbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1225828126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,7 +1373,7 @@ PrefabInstance:
     - target: {fileID: 7904309150522338698, guid: d5f89821ccea90046b78a54376b18ebd,
         type: 3}
       propertyPath: maxFuel
-      value: 30
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7904309150522338698, guid: d5f89821ccea90046b78a54376b18ebd,
         type: 3}
@@ -1580,5 +1545,10 @@ PrefabInstance:
       propertyPath: pickupSounds.Array.data[2]
       value: 
       objectReference: {fileID: 8300000, guid: 8d98c33df79de8d40a3c8993a25aa0b3, type: 3}
+    - target: {fileID: 6013917540138915448, guid: d5f89821ccea90046b78a54376b18ebd,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5f89821ccea90046b78a54376b18ebd, type: 3}

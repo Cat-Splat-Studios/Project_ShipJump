@@ -2,12 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public struct ObjectSpanws
+{
+    public GameObject prefab;
+    public int instances;
+}
+
 public class ObjectSpawner : MonoBehaviour
 {
 
     public PlayerMovement player;
 
-    public GameObject[] objectsToSpawn;
+    public ObjectSpanws[] itemSpawns;
+
+    public GameObject coinSpawnerPrefab;
+    public GameObject rocketPrefab;
 
     public float minSpawn;
     public float maxSpawn;
@@ -18,13 +28,28 @@ public class ObjectSpawner : MonoBehaviour
     private float timeTillSpawn;
     private float timeSpawn;
 
-    private List<GameObject> objects;
+    private float timeTillCoin = 0.0f;
+
+    private float coinTime = 0.0f;
+
+    private List<GameObject> prefasAvaiable;
+
+    private List<GameObject> objectsInWork;
 
     // Start is called before the first frame update
     void Start()
     {
         SetSpawnIntervals();
-        objects = new List<GameObject>();
+        objectsInWork = new List<GameObject>();
+        prefasAvaiable = new List<GameObject>();
+
+        foreach (var item in itemSpawns)
+        {
+            for (int i = 0; i < item.instances; ++i)
+            {
+                prefasAvaiable.Add(item.prefab);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -36,6 +61,8 @@ public class ObjectSpawner : MonoBehaviour
 
             if (isPlaying)
             {
+
+
                 timeSpawn += Time.deltaTime;
 
                 if (timeSpawn >= timeTillSpawn)
@@ -44,13 +71,27 @@ public class ObjectSpawner : MonoBehaviour
 
                     SetSpawnIntervals();
                 }
+
+
+                if(!isFalling)
+                {
+                    coinTime += Time.deltaTime;
+
+                    if (coinTime >= timeTillCoin)
+                    {
+                        SpawnCoinSpawner();
+
+                        SetSpawnCoinIntervals();
+                    }
+                }
+  
             }
         }     
     }
 
     public void ResetSpawn()
     {
-        foreach (var item in objects)
+        foreach (var item in objectsInWork)
         {
             if(item)
             {
@@ -58,7 +99,7 @@ public class ObjectSpawner : MonoBehaviour
             }
         }
 
-        objects.Clear();
+        objectsInWork.Clear();
     }   
 
     private void Spawn()
@@ -67,25 +108,38 @@ public class ObjectSpawner : MonoBehaviour
         if (!isFalling)
         {
             
-            int rand = Random.Range(0, objectsToSpawn.Length);
+            int rand = Random.Range(0, prefasAvaiable.Count);
 
-            GameObject prefab = objectsToSpawn[rand];
+            GameObject prefab = prefasAvaiable[rand];
 
             GameObject obj = Instantiate(prefab, new Vector3(randXPos, transform.position.y, transform.position.x), Quaternion.identity) as GameObject;
 
-            objects.Add(obj);
+            objectsInWork.Add(obj);
         }
         else
         {
-            GameObject prefab = objectsToSpawn[6];
+            GameObject prefab = rocketPrefab;
 
             GameObject obj = Instantiate(prefab, new Vector3(randXPos, -transform.position.y, transform.position.x), Quaternion.identity) as GameObject;
 
-            objects.Add(obj);
+            objectsInWork.Add(obj);
         }
         
 
         //obj.transform.rotation = new Vector3(obj.transform.rotation.x, 180.0f, obj.transform.rotation.z);
+    }
+
+    private void SpawnCoinSpawner()
+    {
+        
+        if (!isFalling)
+        {
+
+            float randXPos = Random.Range(-player.xClamp, player.xClamp);
+
+            GameObject obj = Instantiate(coinSpawnerPrefab, new Vector3(randXPos, transform.position.y, transform.position.x), Quaternion.identity) as GameObject;
+        }
+      
     }
 
     private void SetSpawnIntervals()
@@ -100,5 +154,14 @@ public class ObjectSpawner : MonoBehaviour
         }
         
         timeSpawn = 0.0f;
+    }
+
+    private void SetSpawnCoinIntervals()
+    {
+        if(!isFalling)
+        {
+            timeTillCoin = Random.Range(0.8f, 1.2f);
+            coinTime = 0.0f;
+        }
     }
 }

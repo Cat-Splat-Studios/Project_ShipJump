@@ -54,6 +54,9 @@ public class PlayerMovement : MonoBehaviour
 
     private float originalSpeedUp;
 
+    //coins
+    int coins = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -254,6 +257,7 @@ public class PlayerMovement : MonoBehaviour
         canMove = false;
         startGame = false;
         CheckScore();
+        SetCoins();
     }
     public void StartGame()
     {
@@ -302,6 +306,17 @@ public class PlayerMovement : MonoBehaviour
         isBoost = true;
         speedUp += 3.0f;
         boostParticle.SetActive(true);
+    }
+
+    public void AddCoin()
+    {
+        coins++;
+        ui.curCoins = coins.ToString();
+    }
+
+    private void SetCoins()
+    {
+        PlayerPrefs.SetInt("coins", coins);
     }
 
     private void StopBoost()

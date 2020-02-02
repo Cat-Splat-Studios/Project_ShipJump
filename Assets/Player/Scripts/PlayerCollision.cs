@@ -51,6 +51,10 @@ public class PlayerCollision : MonoBehaviour
                             audio.PlaySound(pickupSounds[2]);
                             Destroy(other.gameObject);
                             break;
+                        case Pickups.pickupType.coin:
+                            movement.AddCoin();
+                            Destroy(other.gameObject);
+                            break;
                         case Pickups.pickupType.slowdown:
                             //do some physics on the player based on slowForce;
                             break;

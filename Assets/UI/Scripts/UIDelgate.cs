@@ -10,20 +10,24 @@ public class UIDelgate : MonoBehaviour
     Image fuelBar;
     [SerializeField]
     Text distanceTraveled;
-    [SerializeField]
-    Text gameplayTitle;
+
 
     public GameObject startUI;
     public GameObject gameOver;
     public GameObject gameUI;
     public Text scoreText;
+    public Text coinText;
+    public Text gameCoinText;
     public Text highscoreText;
     public Text startText;
+    public Text coinsCollectedText;
 
     [SerializeField]
     private float _curFuel;
     [SerializeField]
     private string _curDistance = "0";
+    [SerializeField]
+    private string _curCoins = "0";
 
     private bool _gameStarted = false;
     private bool highscore = false;
@@ -41,7 +45,14 @@ public class UIDelgate : MonoBehaviour
             score = PlayerPrefs.GetFloat("highscore");
         }
 
-        startText.text = $"Your Current Highscore\n\n {score} meters";
+        int coins = 0;
+        if (PlayerPrefs.HasKey("coins"))
+        {
+            coins = PlayerPrefs.GetInt("coins");
+        }
+
+        startText.text = $"Current Highscore\n\n {score} meters";
+        coinText.text = $"Current Coins\n\n {coins}";
     }
 
     // Update is called once per frame
@@ -51,6 +62,7 @@ public class UIDelgate : MonoBehaviour
         {
             fuelBar.fillAmount = _curFuel;
             distanceTraveled.text = _curDistance;
+            gameCoinText.text = _curCoins;
         }
     }
 
@@ -102,6 +114,18 @@ public class UIDelgate : MonoBehaviour
         }
     }
 
+    public string curCoins
+    {
+        get
+        {
+            return _curCoins;
+        }
+        set
+        {
+            _curCoins = value.ToString();
+        }
+    }
+
     public void StartGame()
     {
         startUI.SetActive(false);
@@ -144,6 +168,7 @@ public class UIDelgate : MonoBehaviour
         scoreText.gameObject.SetActive(true);
         scoreText.text = $"You Traveled\n\n {curDistance}";
         highscoreText.gameObject.SetActive(highscore);
+        coinsCollectedText.text = $"Coins Collected\n\n {curCoins}";
 
     }
 
