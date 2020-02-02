@@ -20,10 +20,12 @@ public class UIDelgate : MonoBehaviour
 
     private bool _gameStarted = true;
 
+    private GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -36,11 +38,13 @@ public class UIDelgate : MonoBehaviour
         }
     }
 
-    void EnableGameplayUI()
+    void ToggleGameplayUI(bool value)
     {
-        fuelBar.enabled = true;
-        distanceTraveled.enabled = true;
-        gameplayTitle.enabled = true;
+        fuelBar.enabled = value;
+        distanceTraveled.enabled = value;
+        gameplayTitle.enabled = value;
+
+        // can enable/disable your game over stuff here by simple setting it to !value
     }
 
     public bool gameStarted
@@ -81,5 +85,25 @@ public class UIDelgate : MonoBehaviour
         {
             _curDistance = value.ToString();
         }
+    }
+
+    public void StartGame()
+    {
+        ToggleGameplayUI(true);
+        gameStarted = true;
+        player.GetComponent<PlayerMovement>().startGame = true;
+    }
+
+    public void GameOver()
+    {
+        ToggleGameplayUI(false);
+        gameStarted = false;
+    }
+
+    public void Replay()
+    {
+        FindObjectOfType<ObjectSpawner>().ResetSpawn();
+        player.SetActive(true);
+        StartGame();
     }
 }

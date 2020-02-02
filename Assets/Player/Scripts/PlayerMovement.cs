@@ -26,13 +26,17 @@ public class PlayerMovement : MonoBehaviour
     // Misc
     public float xClamp = 3.0f;
     private float screenCenterX;
-    private bool canSwitchCam = true;
+    public bool startGame = false;
 
     // distance
     private float distance;
     private float startYPos;
     private bool canMove = true;
 
+    // lerp variables
+    private bool isLerping = false;
+    public float lerpSpeed = 2.0f;
+    private float t;
 
     // Start is called before the first frame update
     void Start()
@@ -54,88 +58,121 @@ public class PlayerMovement : MonoBehaviour
     {
         if(canMove)
         {
-            if (Application.isMobilePlatform)
+            if (startGame)
             {
-                if (Input.touchCount > 0)
+                if (Application.isMobilePlatform)
                 {
-                    // get the first one
-                    Touch firstTouch = Input.GetTouch(0);
-
-                    // if it began this frame
-                    if (firstTouch.phase == TouchPhase.Stationary)
+                    if (Input.touchCount > 0)
                     {
-                        if (firstTouch.position.x > screenCenterX)
+                        // get the first one
+                        Touch firstTouch = Input.GetTouch(0);
+
+                        // if it began this frame
+                        if (firstTouch.phase == TouchPhase.Stationary)
+                        {
+                            if (firstTouch.position.x > screenCenterX)
+                            {
+                                currentSpeedX = speedX;
+                            }
+                            else if (firstTouch.position.x < screenCenterX)
+                            {
+                                currentSpeedX = -speedX;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        currentSpeedX = 0;
+                    }
+                }
+
+                if (Application.isEditor)
+                {
+                    if (Input.GetMouseButton(0))
+                    {
+                        if (Input.mousePosition.x > screenCenterX)
                         {
                             currentSpeedX = speedX;
                         }
-                        else if (firstTouch.position.x < screenCenterX)
+                        else if (Input.mousePosition.x < screenCenterX)
                         {
                             currentSpeedX = -speedX;
                         }
                     }
+                    else
+                    {
+                        currentSpeedX = 0;
+                    }
+
+                }
+
+                if (currentFuel > 0.0f)
+                {
+                    if (outOfFuel)
+                    {
+                        outOfFuel = false;
+                        FindObjectOfType<CameraFollow>().SwitchCameraOffset();
+                        FindObjectOfType<ObjectSpawner>().isPlaying = true;
+                        isLerping = true;
+                    }
+                    currentSpeedUp = speedUp;
                 }
                 else
                 {
-                    currentSpeedX = 0;
-                }
-            }
-
-            if (Application.isEditor)
-            {
-                if (Input.GetMouseButton(0))
-                {
-                    if (Input.mousePosition.x > screenCenterX)
+                    currentSpeedUp = speedDown;
+                    currentFuel = 0.0f;
+                    if (!outOfFuel)
                     {
-                        currentSpeedX = speedX;
+                        outOfFuel = true;
+                        FindObjectOfType<CameraFollow>().SwitchCameraOffset();
+                        FindObjectOfType<ObjectSpawner>().isPlaying = false;
+                        isLerping = true;
                     }
-                    else if (Input.mousePosition.x < screenCenterX)
+
+                }
+
+                if (isLerping)
+                {
+                    if (outOfFuel)
                     {
-                        currentSpeedX = -speedX;
+                        currentSpeedUp = Mathf.Lerp(speedUp, speedDown, t);
+                    }
+                    else
+                    {
+                        currentSpeedUp = Mathf.Lerp(speedDown, speedUp, t);
+                    }
+
+                    t += lerpSpeed * Time.deltaTime;
+
+                    if (t >= 1.0f)
+                    {
+                        if (outOfFuel)
+                        {
+                            currentSpeedUp = speedDown;
+                        }
+                        else
+                        {
+                            currentSpeedUp = speedUp;
+                        }
+                        isLerping = false;
+                        t = 0.0f;
                     }
                 }
-                else
-                {
-                    currentSpeedX = 0;
-                }
 
-            }
+                // Adjust fuel
+                currentFuel -= fuelDecrease * Time.deltaTime;
+                ui.curFuel = currentFuel / 100;
 
-            if (currentFuel > 0.0f)
-            {
-                if(outOfFuel)
-                {
-                    FindObjectOfType<CameraFollow>().SwitchCameraOffset();
-                    StartCoroutine(SwitchMoveWait(1.0f));
-                    outOfFuel = false;
-
-                }
-                currentSpeedUp = speedUp;
-            }
-            else
-            {
-                currentSpeedUp = speedDown;
-                currentFuel = 0.0f;
-                if (!outOfFuel)
-                {
-                    outOfFuel = true;
-                    FindObjectOfType<CameraFollow>().SwitchCameraOffset();
-                    StartCoroutine(SwitchMoveWait(1.0f));
-                }
+                // Adjust Distance
+                distance = Mathf.Round(transform.position.y - startYPos);
+                ui.curDistance = distance.ToString();
 
             }
 
             // Move player
             rb.velocity = new Vector3(currentSpeedX, currentSpeedUp, 0.0f);
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, -xClamp, xClamp), transform.position.y, transform.position.z);
-
-            // Adjust fuel
-            currentFuel -= fuelDecrease * Time.deltaTime;
-            ui.curFuel = currentFuel / 100;
-
-            // Adjust Distance
-            distance = Mathf.Round(transform.position.y - startYPos);
-            Debug.Log(distance);
-            ui.curDistance = distance.ToString();
+          
         }  
     }
 
@@ -176,11 +213,5 @@ public class PlayerMovement : MonoBehaviour
         speedUp += increase;
         yield return new WaitForSeconds(3.0f);
         speedUp -= increase;
-    }
-
-    private IEnumerator SwitchMoveWait(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        speedDown = -(speedUp * 0.8f);
-    }
+    } 
 }

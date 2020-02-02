@@ -16,6 +16,9 @@ public class ObjectSpawner : MonoBehaviour
 
     private float timeTillSpawn;
     private float timeSpawn;
+
+    private List<GameObject> objects;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +46,19 @@ public class ObjectSpawner : MonoBehaviour
         }     
     }
 
+    public void ResetSpawn()
+    {
+        foreach (var item in objects)
+        {
+            if(item)
+            {
+                Destroy(item);
+            }
+        }
+
+        objects.Clear();
+    }   
+
     private void Spawn()
     {
         float randXPos = Random.Range(-player.xClamp, player.xClamp);
@@ -51,6 +67,7 @@ public class ObjectSpawner : MonoBehaviour
         GameObject prefab = objectsToSpawn[rand];
 
         GameObject obj = Instantiate(prefab, new Vector3(randXPos, transform.position.y, transform.position.x), Quaternion.identity) as GameObject;
+        objects.Add(obj);
 
         //obj.transform.rotation = new Vector3(obj.transform.rotation.x, 180.0f, obj.transform.rotation.z);
     }

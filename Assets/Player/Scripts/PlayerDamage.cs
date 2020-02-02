@@ -36,7 +36,11 @@ public class PlayerDamage : MonoBehaviour
     private void DestroyShip()
     {
         GetComponent<PlayerMovement>().StopMovement();
-        Destroy(this.gameObject);
+        FindObjectOfType<ObjectSpawner>().isPlaying = false;
+
+        this.gameObject.SetActive(false);
+
+        // show game over
 
     }
 }
