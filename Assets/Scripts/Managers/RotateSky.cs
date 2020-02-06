@@ -1,11 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To move the backgrounds creating a parallaxing effect
+**/
+
 using UnityEngine;
 
 public class RotateSky : MonoBehaviour
 {
     private float length, startPOS;
-    public GameObject camera;
+    public new GameObject camera;
     public float scrollEffect;
 
     void Start()

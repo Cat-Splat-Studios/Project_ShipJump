@@ -1,38 +1,52 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To handle all the player damage logic
+**/
+
 using UnityEngine;
 
 public class PlayerDamage : MonoBehaviour
 {
-    public GameObject[] destroyParticlePrefab;
-    public GameObject[] obstacleParticlePrefab;
-    public AudioClip[] destroySounds;
-    public AudioClip[] destoryObstacleSounds;
-    public GameObject sheild;
-    private bool hasSheild = false;
+    // Destroy Effects
+    [Header("Destroy Effects")]
+    [SerializeField]
+    private GameObject[] destroyParticlePrefab;
+    [SerializeField]
+    private AudioClip[] destroySounds;
 
-    private AudioManager audio;
+    // References
+    [SerializeField]
+    private GameObject sheild;
+
+    private new AudioManager audio;
+    private UIDelgate ui;
+    private PlayerMovement playerMovement;
+
+    // Helper Variables
+    private bool hasSheild = false;
 
     private void Start()
     {
+        // Find References
         audio = FindObjectOfType<AudioManager>();
+        ui = FindObjectOfType<UIDelgate>();
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
-    public void GotHit(GameObject obstacle)
+    public void GotHit(GameObject obj)
     {
         if (hasSheild)
         {
-            // remove sheilds 
+            // Remove sheilds 
             hasSheild = false;
-            int randomParticle = Random.Range(0, obstacleParticlePrefab.Length);
-            int randomSound = Random.Range(0, destoryObstacleSounds.Length);
-            GameObject particleObj = Instantiate(obstacleParticlePrefab[randomParticle], new Vector3(obstacle.transform.position.x, obstacle.transform.position.y, -1.0f), Quaternion.identity) as GameObject;
-            audio.PlaySound(destoryObstacleSounds[randomSound]);
-            Destroy(particleObj, 1.5f);
-            Destroy(obstacle);
-
             sheild.SetActive(false);
+
+            // Destroy Obstacle
+            Obstacle obstacle = obj.GetComponent<Obstacle>();
+            if(obstacle)
+            {
+                obstacle.DestroyObstacle();              
+            }    
         }
         else
         {
@@ -52,25 +66,24 @@ public class PlayerDamage : MonoBehaviour
 
     private void DestroyShip()
     {
-        GetComponent<PlayerMovement>().StopMovement();
+        playerMovement.StopMovement();
+
+        // Will remove this when GENERATOR system is completed
         FindObjectOfType<ObjectSpawner>().isPlaying = false;
 
+        // Find random sound and particle to play
         int randomParticle = Random.Range(0, destroyParticlePrefab.Length);
         int randomSound = Random.Range(0, destroySounds.Length);
 
         audio.PlaySound(destroySounds[randomSound]);
 
-        GameObject particleObj = Instantiate(destroyParticlePrefab[randomParticle], new Vector3(transform.position.x, transform.position.y, -1.0f), Quaternion.identity) as GameObject;
+        GameObject particleObj = Instantiate(destroyParticlePrefab[randomParticle],
+                                new Vector3(transform.position.x, transform.position.y, -1.0f), Quaternion.identity) as GameObject;
         Destroy(particleObj, 1.5f);
-        FindObjectOfType<UIDelgate>().GameOver();
+
+        // Game over and turn off player (this is so we can reset on replay)
+        ui.GameOver();
         this.gameObject.SetActive(false);
-
-
-        
-
-        // show game over
-
     }
-
  
 }

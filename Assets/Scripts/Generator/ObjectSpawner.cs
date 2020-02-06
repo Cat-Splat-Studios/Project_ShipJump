@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/** THIS CODE WILL BE REMOVED AFTER GENERATOR SYSTEM IS COMPLETE**/
+// Matthew Douglas
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -208,4 +210,5 @@ public class ObjectSpawner : MonoBehaviour
     {
         coinsInWork.Add(coins);
     }
+
 }

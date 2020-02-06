@@ -1,44 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Authors: Matthew Douglas, Hisham Ata
+* Purpose: To populate pickups with the correct information
+**/
+
 using UnityEngine;
+
+public enum EPickupType
+{
+    FUEL,
+    SHIELD,
+    BOOST,
+    GEAR,
+    PROJECTILE
+}
 
 public class Pickups : MonoBehaviour
 {
-    public enum pickupType
-    {
-        fuelRefill,
-        sheild,
-        boost,
-        coin,
-        projectile,
-        slowdown
-    }
+    [SerializeField]
+    private EPickupType curPickup;
 
     [SerializeField]
-    public pickupType curPickup;
+    private float fuelAmount = 10.0f;
 
     [SerializeField]
-    UIDelgate canvasScript;
-
-    [SerializeField]
-    float fuelAmount = 10.0f;
-
-    bool sheildActive;
-
-    [SerializeField]
-    float boostForce;
-
-    [SerializeField]
-    int slowForce;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-      //  canvasScript = GameObject.FindGameObjectWithTag("UI").GetComponent<UIDelgate>();
-    }
-
-    // Update is called once per frame
+    private float boostSpeed;
   
     public void ChangeFuel(float amount)
     {
@@ -52,6 +37,11 @@ public class Pickups : MonoBehaviour
 
     public float GetBoost()
     {
-        return boostForce;
+        return boostSpeed;
+    }
+
+    public EPickupType GetPickupType()
+    {
+        return curPickup;
     }
 }

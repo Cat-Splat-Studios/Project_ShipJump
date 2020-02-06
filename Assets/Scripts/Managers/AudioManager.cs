@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To handle all the audio logic within the game.
+*          Sound object are made to be reused when a sfx is requested
+**/
+
+using System.Collections.Generic;
 using UnityEngine;
 
-/** 
-* Author: Matthew Douglas
-* Purpose: To handle all the sound logic within the game
-**/
 public class AudioManager : MonoBehaviour
 {
     public AudioSource music;
@@ -21,6 +23,7 @@ public class AudioManager : MonoBehaviour
     {
         PlayMusic();
 
+        // Initialize sound object lists
         soundObjects = new List<AudioSource>();
         InitSounds();
     }
@@ -34,6 +37,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySound(AudioClip clip)
     {
+        // Check for available sound, create one if one is not available to play
         if (!FindSound(clip))
         {
             CreateSound(clip);
@@ -57,6 +61,7 @@ public class AudioManager : MonoBehaviour
 
     private void InitSounds()
     {
+        // Begin with 5 sound objects to work with
         for(int i = 0; i < 5; ++i)
         {
             GameObject soundObj = Instantiate(soundPefab, this.transform) as GameObject;
@@ -69,12 +74,15 @@ public class AudioManager : MonoBehaviour
 
     private void CreateSound(AudioClip clip)
     {
+        // Created object
         GameObject soundObj = Instantiate(soundPefab, this.transform) as GameObject;
 
+        // Use to play and add to list
         AudioSource aud = soundObj.GetComponent<AudioSource>();
         aud.volume = soundVol;
         aud.clip = clip;
         aud.Play();
         soundObjects.Add(aud);
     }
+
 }

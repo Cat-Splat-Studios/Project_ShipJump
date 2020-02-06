@@ -80,10 +80,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curPickup: 3
-  canvasScript: {fileID: 0}
-  fuelAmount: 10
-  boostForce: 0
-  slowForce: 0
+  fuelAmount: 0
+  boostSpeed: 0
 --- !u!1 &7061868938743513751
 GameObject:
   m_ObjectHideFlags: 0

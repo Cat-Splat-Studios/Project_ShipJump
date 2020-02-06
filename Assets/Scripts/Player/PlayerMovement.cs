@@ -1,23 +1,55 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To handle all the player movement logic
+**/
+
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-  
+
     // Speeds
-    public float speedUp = 2.0f;
-    public float speedDown = 0.0f;
-    public float speedX = 2.0f;
+    [Header("Speeds")]
+    [SerializeField]
+    private float speedUp = 2.0f;
+    [SerializeField]
+    private float speedDown = 0.0f;
+    [SerializeField]
+    private float speedX = 2.0f;
+
     private float currentSpeedUp;
     private float currentSpeedX;
 
     // Fuel
-    public float maxFuel = 100.0f;
-    public float fuelDecrease = 1.0f;
+    [Header("Fuel")]
+    [SerializeField]
+    private float maxFuel = 100.0f;
+    [SerializeField]
+    private float fuelDecrease = 1.0f;
+
     private float currentFuel;
     private bool outOfFuel = false;
 
+    // Distance
+    private float distance;
+    private float startYPos;
+    private bool canMove = true;
+
+    // Lerp Logic
+    private bool isLerping = false;
+    public float lerpSpeed = 2.0f;
+    private float t;
+
+    // Boost
+    [Header("Boost")]
+    [SerializeField]
+    private float boostMax = 2.0f;
+    private bool isBoost = false;
+    private float boostTime = 0.0f;
+    private float originalSpeedUp;
+
+    // Gears
+    private int gears = 0;
 
     // References
     private Rigidbody rb;
@@ -25,65 +57,39 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
 
     // Misc
+    [Header("Misc")]  
     public float xClamp = 3.0f;
+    [SerializeField]
+    private GameObject[] thrusterObjects;
+    [SerializeField]
+    private GameObject boostParticle;
+
+    private bool startGame = false;
     private float screenCenterX;
-    public bool startGame = false;
-    public GameObject[] thrusterObjects;
-    public GameObject boostParticle;
-
-
-    //shooting
-    public bool canShoot;
-    public GameObject projectilePrefab;
-    public GameObject projectileSpawn;
-
-    // distance
-    private float distance;
-    private float startYPos;
-    private bool canMove = true;
-
-    // lerp variables
-    private bool isLerping = false;
-    public float lerpSpeed = 2.0f;
-    private float t;
-
-
-    // boost
-    private bool isBoost = false;
-    public float boostMax = 2.0f;
-    private float boostTime = 0.0f;
-
-    private float originalSpeedUp;
-
-    //coins
-    int coins = 0;
-
+    
     // Start is called before the first frame update
     void Start()
     {
+        // Find References
         rb = GetComponent<Rigidbody>();
         ui = FindObjectOfType<UIDelgate>();
         anim = GetComponent<Animator>();
 
-        currentFuel = maxFuel;
-
         screenCenterX = Screen.width * 0.5f;
-
         currentSpeedX = 0.0f;
 
         originalSpeedUp = speedUp;
-
-        // will move to a startgame method
-       
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Update Move Logic
         if(canMove)
         {
             if (startGame)
             {
+                // Check Platform
                 if (Application.isMobilePlatform)
                 {
                     if (Input.touchCount > 0)
@@ -103,17 +109,6 @@ public class PlayerMovement : MonoBehaviour
                                 currentSpeedX = -speedX;
                             }
                         }
-
-                        //Ray ray = Camera.main.ScreenPointToRay(firstTouch.position);
-                        //RaycastHit hit;
-                        //if (Physics.Raycast(ray, out hit))
-                        //{
-                        //    if (canShoot)
-                        //    {
-                        //        Instantiate(projectilePrefab, projectileSpawn.transform);
-                        //        canShoot = false;
-                        //    }
-                        //}
                     }
                     else
                     {
@@ -133,17 +128,6 @@ public class PlayerMovement : MonoBehaviour
                         {
                             currentSpeedX = -speedX;
                         }
-
-                        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                        //RaycastHit hit;
-                        //if (Physics.Raycast(ray, out hit))
-                        //{
-                        //    if (canShoot)
-                        //    {
-                        //        Instantiate(projectilePrefab, projectileSpawn.transform);
-                        //        canShoot = false;
-                        //    }
-                        //}
                     }
                     else
                     {
@@ -152,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
 
                 }
 
+                // Handle Movement Dependant of current fuel
                 if (currentFuel > 0.0f)
                 {
                     if (outOfFuel)
@@ -182,6 +167,7 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
 
+                // Speed adjustments based on fuel
                 if (isLerping)
                 {
                     if (outOfFuel)
@@ -224,11 +210,10 @@ public class PlayerMovement : MonoBehaviour
                 currentSpeedUp = 5.0f;
             }
 
-            // Move player
-          
-          
+            // Move player      
         }
 
+        // Boost adjustments
         if(isBoost)
         {
             boostTime += Time.deltaTime;
@@ -239,29 +224,12 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        // Animate tilts
         anim.SetInteger("tilt", (int)currentSpeedX);
 
-        Debug.Log("Move");
+        // Set finished movment each frame
         rb.velocity = new Vector3(currentSpeedX, currentSpeedUp, 0.0f);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -xClamp, xClamp), transform.position.y, transform.position.z);
-    }
-
-    public void Shoot()
-    {
-        Instantiate(projectilePrefab, projectileSpawn.transform);
-        canShoot = false;
-        ui.ToggleShoot(false);
-
-    }
-
-    public void EnableShoot()
-    {
-        if(!canShoot)
-        {
-            canShoot = true;
-            ui.ToggleShoot(true);
-        }
-     
     }
 
     public void AddFuel(float amount)
@@ -287,6 +255,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void StartGame()
     {
+        currentFuel = maxFuel;
         startGame = true;
         startYPos = transform.position.y;
     }
@@ -294,10 +263,24 @@ public class PlayerMovement : MonoBehaviour
     public void ResetMove()
     {
         canMove = true;
-        currentFuel = maxFuel;
-        transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+        gears = 0;
+        transform.position = Vector3.zero;
         StartGame();
         
+    }
+
+    public void SetBoost()
+    {
+        boostTime = 0.0f;
+        isBoost = true;
+        speedUp += 3.0f;
+        boostParticle.SetActive(true);
+    }
+
+    public void AddGear()
+    {
+        gears++;
+        ui.curCoins = gears.ToString();
     }
 
     private void CheckScore()
@@ -318,6 +301,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /** Helper Methods **/
+
     private void ToggleThrusters(bool value)
     {
         foreach (GameObject thruster in thrusterObjects)
@@ -326,23 +311,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void SetBoost()
-    {
-        boostTime = 0.0f;
-        isBoost = true;
-        speedUp += 3.0f;
-        boostParticle.SetActive(true);
-    }
-
-    public void AddCoin()
-    {
-        coins++;
-        ui.curCoins = coins.ToString();
-    }
-
     private void SetCoins()
     {
-        PlayerPrefs.SetInt("coins", coins);
+        PlayerPrefs.SetInt("coins", gears);
     }
 
     private void StopBoost()

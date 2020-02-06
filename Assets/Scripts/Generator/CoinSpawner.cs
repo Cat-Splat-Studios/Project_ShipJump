@@ -1,5 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** THIS CODE WILL BE REMOVED AFTER GENERATOR SYSTEM IS COMPLETE**/
+// Matthew Douglas
+
 using UnityEngine;
 
 public class CoinSpawner : MonoBehaviour

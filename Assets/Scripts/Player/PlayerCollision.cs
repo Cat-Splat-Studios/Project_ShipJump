@@ -1,20 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To handle all of the player collisions
+**/
+
 using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    private PlayerMovement movement;
-    private PlayerDamage damage;
-    private AudioManager audio;
-
+    [Header("Pickup Sounds")]
     public AudioClip[] pickupSounds;
-    
+
+    private PlayerManager player;
+    private new AudioManager audio;
 
     private void Start()
     {
-        movement = GetComponent<PlayerMovement>();
-        damage = GetComponent<PlayerDamage>();
+        // Find References
+        player = GetComponent<PlayerManager>();
         audio = FindObjectOfType<AudioManager>();
     }
 
@@ -23,45 +25,41 @@ public class PlayerCollision : MonoBehaviour
         switch(other.tag)
         {
             case "obstacle":
-                damage.GotHit(other.gameObject);
+                player.PlayerDamage().GotHit(other.gameObject);
                 break;
             case "pickup":
                 Pickups pickup = other.GetComponent<Pickups>();
-
                 if (pickup)
                 {
-                    switch (pickup.curPickup)
+                    switch (pickup.GetPickupType())
                     {
-                        case Pickups.pickupType.fuelRefill:
+                        case EPickupType.FUEL:
                             //Mathf.Lerp(canvasScript.curFuel, canvasScript.curFuel + fuelAmount, 1);
                             //canvasScript.curFuel += fuelAmount;
-                            movement.AddFuel(pickup.GetFuel());
+                            player.PlayerMovement().AddFuel(pickup.GetFuel());
                             audio.PlaySound(pickupSounds[0]);
                             Destroy(other.gameObject);
                             break;
-                        case Pickups.pickupType.boost:
+                        case EPickupType.BOOST:
                             //do some physics on the player based on boostForce
-                            movement.SetBoost();
+                            player.PlayerMovement().SetBoost();
                             audio.PlaySound(pickupSounds[1]);
                             Destroy(other.gameObject);
                             break;
-                        case Pickups.pickupType.sheild:
+                        case EPickupType.SHIELD:
                             //send reference to the player to activate sheild
-                            damage.AttatchSheild();
+                            player.PlayerDamage().AttatchSheild();
                             audio.PlaySound(pickupSounds[2]);
                             Destroy(other.gameObject);
                             break;
-                        case Pickups.pickupType.coin:
-                            movement.AddCoin();
+                        case EPickupType.GEAR:
+                            player.PlayerMovement().AddGear();
                             audio.PlaySound(pickupSounds[3]);
                             Destroy(other.gameObject);
                             break;
-                        case Pickups.pickupType.projectile:
-                            movement.EnableShoot();
+                        case EPickupType.PROJECTILE:
+                            player.PlayerShoot().EnableShoot();
                             Destroy(other.gameObject);
-                            break;
-                        case Pickups.pickupType.slowdown:
-                            //do some physics on the player based on slowForce;
                             break;
                     }
                 }
