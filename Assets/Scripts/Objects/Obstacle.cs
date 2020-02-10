@@ -32,7 +32,7 @@ public class Obstacle : MonoBehaviour, IPoolObject
         GameObject particleObj = Instantiate(obstacleParticlePrefab[randomParticle], new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -1.0f), Quaternion.identity) as GameObject;
         audio.PlaySound(destroySounds[randomSound]);
         Destroy(particleObj, 1.5f);
-        Destroy(this.gameObject);
+        Pool.RemoveObject(poolName, this.gameObject);
     }
 
     private void OnTriggerEnter(Collider collider)

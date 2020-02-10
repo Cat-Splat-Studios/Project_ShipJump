@@ -16,7 +16,6 @@ public class CameraFollow : MonoBehaviour
     private float targetOffset;
 
     private bool isLerping = false;
-    private bool isUp = true;
 
     float t = 0.0f;
 
@@ -66,21 +65,17 @@ public class CameraFollow : MonoBehaviour
         }    
     }
 
-    public void SwitchCameraOffset()
+    public void MoveCameraUp()
     {
-        // Set up target and end offset for interpolations
         startOffset = currentOffset;
-        if(currentOffset == Upoffset && isUp)
-        {
-            targetOffset = downOffest;
-            isUp = false;
-        }
-        else if (currentOffset == downOffest && !isUp)
-        {
-            targetOffset = Upoffset;
-            isUp = true;
-        }
+        targetOffset = Upoffset;
+        isLerping = true;
+    }
 
+    public void MoveCameraDown()
+    {
+        startOffset = currentOffset;
+        targetOffset = downOffest;
         isLerping = true;
     }
 

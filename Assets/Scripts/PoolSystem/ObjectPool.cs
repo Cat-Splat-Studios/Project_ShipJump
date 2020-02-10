@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -53,5 +53,13 @@ public class ObjectPool : MonoBehaviour
         obj.transform.SetParent(gameObject.transform);
         obj.transform.position = transform.position;
         obj.SetActive(false);
+    }
+
+    public void ResetObjects()
+    {
+        foreach (Transform child in transform)
+        {
+            ReturnObject(child.gameObject);
+        }
     }
 }

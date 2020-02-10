@@ -117,6 +117,7 @@ public class UIDelgate : MonoBehaviour
         highscore = false;
         player.gameObject.SetActive(true);
         player.PlayerMovement().ResetMove();
+        FindObjectOfType<PoolManager>().ResetObjects();
         StartGame();
     }
 

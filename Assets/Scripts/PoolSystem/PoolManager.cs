@@ -50,4 +50,12 @@ public class PoolManager : MonoBehaviour
         poolList[poolName].ReturnObject(obj);
     }
 
+    public void ResetObjects()
+    {
+        foreach (string poolKey in poolList.Keys)
+        {
+            poolList[poolKey].ResetObjects();
+        }
+    }
+
 }

@@ -144,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
                     if (outOfFuel)
                     {
                         outOfFuel = false;
-                        FindObjectOfType<CameraFollow>().SwitchCameraOffset();
+                        FindObjectOfType<CameraFollow>().MoveCameraUp();
                         generator.TopGenerate();
                         ToggleThrusters(true);
                         isLerping = true;
@@ -160,7 +160,7 @@ public class PlayerMovement : MonoBehaviour
                         if (!outOfFuel)
                         {
                             outOfFuel = true;
-                            FindObjectOfType<CameraFollow>().SwitchCameraOffset();
+                            FindObjectOfType<CameraFollow>().MoveCameraDown();
                             FindObjectOfType<GeneratorManager>().FallGenerate();
                             ToggleThrusters(false);
                             isLerping = true;

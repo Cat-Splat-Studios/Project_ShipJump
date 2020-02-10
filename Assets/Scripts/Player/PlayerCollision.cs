@@ -18,6 +18,7 @@ public class PlayerCollision : MonoBehaviour
         // Find References
         player = GetComponent<PlayerManager>();
         audio = FindObjectOfType<AudioManager>();
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -38,32 +39,42 @@ public class PlayerCollision : MonoBehaviour
                             //canvasScript.curFuel += fuelAmount;
                             player.PlayerMovement().AddFuel(pickup.GetFuel());
                             audio.PlaySound(pickupSounds[0]);
-                            Destroy(other.gameObject);
+                            DestroyObject(other.gameObject);
                             break;
                         case EPickupType.BOOST:
                             //do some physics on the player based on boostForce
                             player.PlayerMovement().SetBoost();
                             audio.PlaySound(pickupSounds[1]);
-                            Destroy(other.gameObject);
+                            DestroyObject(other.gameObject);
                             break;
                         case EPickupType.SHIELD:
                             //send reference to the player to activate sheild
                             player.PlayerDamage().AttatchSheild();
                             audio.PlaySound(pickupSounds[2]);
-                            Destroy(other.gameObject);
+                            DestroyObject(other.gameObject);
                             break;
                         case EPickupType.GEAR:
                             player.PlayerMovement().AddGear();
                             audio.PlaySound(pickupSounds[3]);
-                            Destroy(other.gameObject);
+                            DestroyObject(other.gameObject);
                             break;
                         case EPickupType.PROJECTILE:
                             player.PlayerShoot().EnableShoot();
-                            Destroy(other.gameObject);
+                            DestroyObject(other.gameObject);
                             break;
                     }
                 }
                 break;
         }   
+    }
+
+    private void DestroyObject(GameObject obj)
+    {
+        IPoolObject poolObj = obj.GetComponent<IPoolObject>();
+
+        if (poolObj != null)
+        {
+            Pool.RemoveObject(poolObj.GetPoolName(), obj);
+        }
     }
 }
