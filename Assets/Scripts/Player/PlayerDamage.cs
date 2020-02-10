@@ -69,7 +69,7 @@ public class PlayerDamage : MonoBehaviour
         playerMovement.StopMovement();
 
         // Will remove this when GENERATOR system is completed
-        FindObjectOfType<ObjectSpawner>().isPlaying = false;
+        FindObjectOfType<GeneratorManager>().StopGenerators();
 
         // Find random sound and particle to play
         int randomParticle = Random.Range(0, destroyParticlePrefab.Length);

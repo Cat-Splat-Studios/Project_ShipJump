@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8469851003131350138}
   - component: {fileID: 5196874874459531810}
   - component: {fileID: 1210830939081933089}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shield Ring 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 3298879007888679903}
   - component: {fileID: 3969917864869980455}
   - component: {fileID: 2814716317856405845}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 4042704875985208271}
   - component: {fileID: 7261487234267427342}
   - component: {fileID: 1418361643520779525}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shield Ring 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 1104488513881592438}
   - component: {fileID: 7033697059833089059}
   - component: {fileID: 4963357106467828745}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 2688105707594248825}
   - component: {fileID: 6215598275512984400}
   - component: {fileID: 5210433404558490826}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shield Pick Up
   m_TagString: pickup
   m_Icon: {fileID: 0}
@@ -395,7 +395,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curPickup: 1
-  canvasScript: {fileID: 0}
   fuelAmount: 0
-  boostForce: 0
-  slowForce: 0
+  boostSpeed: 0
+  poolName: PickupShields

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7203673829122626231}
   - component: {fileID: 8274289489999754249}
   - component: {fileID: 5271834337638866395}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gears
   m_TagString: pickup
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4263164158643768798}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 0.62194836, z: 1}
@@ -82,6 +82,7 @@ MonoBehaviour:
   curPickup: 3
   fuelAmount: 0
   boostSpeed: 0
+  poolName: PickupGears
 --- !u!1 &7061868938743513751
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +94,7 @@ GameObject:
   - component: {fileID: 124101637472810038}
   - component: {fileID: 9011893955861012000}
   - component: {fileID: 6713012986033026196}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gear 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +173,7 @@ GameObject:
   - component: {fileID: 7797202856594365131}
   - component: {fileID: 1056604277966446401}
   - component: {fileID: 2679924430925645531}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gear 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

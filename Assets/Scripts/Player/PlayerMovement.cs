@@ -55,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private UIDelgate ui;
     private Animator anim;
+    private GeneratorManager generator;
 
     // Misc
     [Header("Misc")]  
@@ -74,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         ui = FindObjectOfType<UIDelgate>();
         anim = GetComponent<Animator>();
+        generator = FindObjectOfType<GeneratorManager>();
 
         screenCenterX = Screen.width * 0.5f;
         currentSpeedX = 0.0f;
@@ -143,8 +145,7 @@ public class PlayerMovement : MonoBehaviour
                     {
                         outOfFuel = false;
                         FindObjectOfType<CameraFollow>().SwitchCameraOffset();
-                        FindObjectOfType<ObjectSpawner>().isFalling = false;
-                        FindObjectOfType<ObjectSpawner>().ClearObjects();
+                        generator.TopGenerate();
                         ToggleThrusters(true);
                         isLerping = true;
                     }
@@ -160,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
                         {
                             outOfFuel = true;
                             FindObjectOfType<CameraFollow>().SwitchCameraOffset();
-                            FindObjectOfType<ObjectSpawner>().isFalling = true;
+                            FindObjectOfType<GeneratorManager>().FallGenerate();
                             ToggleThrusters(false);
                             isLerping = true;
                         }

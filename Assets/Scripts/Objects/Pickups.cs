@@ -14,7 +14,7 @@ public enum EPickupType
     PROJECTILE
 }
 
-public class Pickups : MonoBehaviour
+public class Pickups : MonoBehaviour, IPoolObject
 {
     [SerializeField]
     private EPickupType curPickup;
@@ -24,7 +24,10 @@ public class Pickups : MonoBehaviour
 
     [SerializeField]
     private float boostSpeed;
-  
+
+    [SerializeField]
+    private string poolName;
+
     public void ChangeFuel(float amount)
     {
         fuelAmount = amount;
@@ -43,5 +46,10 @@ public class Pickups : MonoBehaviour
     public EPickupType GetPickupType()
     {
         return curPickup;
+    }
+
+    public string GetPoolName()
+    {
+        return poolName;
     }
 }

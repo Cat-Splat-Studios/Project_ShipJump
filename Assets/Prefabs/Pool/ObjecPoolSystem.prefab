@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &754233028604351809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 754233028604351811}
+  - component: {fileID: 754233028604351808}
+  m_Layer: 0
+  m_Name: ObjecPoolSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &754233028604351811
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754233028604351809}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.4589343, y: 158.16269, z: -4.513155}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &754233028604351808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754233028604351809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a651a26d6f9bc94d9554973b4a84ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolPrefab: {fileID: 4211830020624834008, guid: 0d691e600bb8e1a42a6c077991f7c864,
+    type: 3}
+  pools:
+  - name: Obstacle
+    prefab: {fileID: 2091043634067709135, guid: 38a4bd6b85c3f424881d491bc14493b1,
+      type: 3}
+    size: 10
+  - name: PickupFuel
+    prefab: {fileID: 9194875012203403433, guid: 13f27a07f888a0c4ba69fa408effe894,
+      type: 3}
+    size: 5
+  - name: PickupGears
+    prefab: {fileID: 4263164158643768798, guid: a74c132e55e24f340a065e23de91c889,
+      type: 3}
+    size: 10
+  - name: PickupShields
+    prefab: {fileID: 9052037336142490896, guid: e2450157f79740c47a8bfc92254e43a9,
+      type: 3}
+    size: 3
+  - name: PickupBoost
+    prefab: {fileID: 2720141572760205123, guid: 53f1f9371c6faea4b8989fde7e149d42,
+      type: 3}
+    size: 3
+  - name: PickupProj
+    prefab: {fileID: 1224420885039501911, guid: 8a493e20ed2407c478c3bb96d6335ed0,
+      type: 3}
+    size: 3
+  - name: PickupFuelDouble
+    prefab: {fileID: 9194875012203403433, guid: b4b634ae086901c4f8a3f58c6739a893,
+      type: 3}
+    size: 5

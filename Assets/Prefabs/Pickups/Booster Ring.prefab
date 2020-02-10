@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5276077663982729815}
   - component: {fileID: 7786592337989701027}
   - component: {fileID: 3144782291108064949}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Booster Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 9038364089187215402}
   - component: {fileID: 7399704347706936043}
   - component: {fileID: -5318773943925689415}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Booster Ring
   m_TagString: pickup
   m_Icon: {fileID: 0}
@@ -159,10 +159,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curPickup: 2
-  canvasScript: {fileID: 0}
   fuelAmount: 0
-  boostForce: 5
-  slowForce: 0
+  boostSpeed: 0
+  poolName: PickupBoost
 --- !u!1 &3219148137725658219
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +173,7 @@ GameObject:
   - component: {fileID: 1385414917177562347}
   - component: {fileID: 8177288394500333496}
   - component: {fileID: 3112816350953472947}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Booster Ring 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,7 +251,7 @@ GameObject:
   - component: {fileID: 3019118197792895406}
   - component: {fileID: 5933038700100208527}
   - component: {fileID: 2795691242805819483}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Booster Ring 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

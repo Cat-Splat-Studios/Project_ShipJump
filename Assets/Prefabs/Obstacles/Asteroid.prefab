@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 376111143223076883}
   - component: {fileID: 7399452337016295730}
   - component: {fileID: 5836635409709002141}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Asteroid
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091043634067709135}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.62
@@ -111,3 +111,4 @@ MonoBehaviour:
   destroySounds:
   - {fileID: 8300000, guid: 8980f641d9776c04995ab9be52b4ef62, type: 3}
   - {fileID: 8300000, guid: 76a7a6acb13e0ef4db558c112de7cf7c, type: 3}
+  poolName: Obstacle

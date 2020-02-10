@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public class Obstacle : MonoBehaviour, IPoolObject
 {
     // Destroy Effects
     [Header("Destroy Effects")]
@@ -15,6 +15,9 @@ public class Obstacle : MonoBehaviour
     private AudioClip[] destroySounds;
 
     private new AudioManager audio;
+
+    [SerializeField]
+    private string poolName;
 
     void Start()
     {
@@ -38,5 +41,10 @@ public class Obstacle : MonoBehaviour
         {
             DestroyObstacle();
         }
+    }
+
+    public string GetPoolName()
+    {
+        return poolName;
     }
 }

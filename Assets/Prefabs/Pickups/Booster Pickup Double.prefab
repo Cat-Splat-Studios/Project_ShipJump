@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 4074758206493679300}
   - component: {fileID: 2692140624514269394}
   m_Layer: 8
-  m_Name: Booster Pickup
+  m_Name: Booster Pickup Double
   m_TagString: pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -317,6 +317,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curPickup: 0
-  fuelAmount: 25
+  fuelAmount: 50
   boostSpeed: 0
-  poolName: PickupFuel
+  poolName: PickupFuelDouble

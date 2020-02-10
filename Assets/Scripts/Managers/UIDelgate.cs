@@ -42,7 +42,8 @@ public class UIDelgate : MonoBehaviour
 
     // Reference
     private Animator anim;
-    private GameObject player;
+    private PlayerManager player;
+    private GeneratorManager generatorManager;
 
     // Property Values
     private float _curFuel;
@@ -57,7 +58,8 @@ public class UIDelgate : MonoBehaviour
     {
         // Find References
         anim = GetComponent<Animator>();
-        player = GameObject.Find("Player");
+        player = GameObject.Find("Player").GetComponent<PlayerManager>();
+        generatorManager = FindObjectOfType<GeneratorManager>();
 
         // Set start text to show high score and current gears
         float score = 0;
@@ -97,13 +99,13 @@ public class UIDelgate : MonoBehaviour
         startUI.SetActive(false);
         ToggleGameplayUI(true);
         gameStarted = true;
-        player.GetComponent<PlayerMovement>().StartGame();
-        FindObjectOfType<ObjectSpawner>().isPlaying = true;
+        player.PlayerMovement().StartGame();
+        generatorManager.TopGenerate();
     }
 
     public void GameOver()
     {
-        FindObjectOfType<ObjectSpawner>().isPlaying = false;
+        generatorManager.StopGenerators();
         gameStarted = false;
         StartCoroutine(GameOverWait());
     }
@@ -111,10 +113,10 @@ public class UIDelgate : MonoBehaviour
     public void Replay()
     {
         // Replay game, reset the necessary things
-        FindObjectOfType<ObjectSpawner>().ResetSpawn();
+        generatorManager.TopGenerate();
         highscore = false;
-        player.SetActive(true);
-        player.GetComponent<PlayerMovement>().ResetMove();
+        player.gameObject.SetActive(true);
+        player.PlayerMovement().ResetMove();
         StartGame();
     }
 

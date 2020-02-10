@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4323240818058498178}
   - component: {fileID: 950902713816227057}
   - component: {fileID: 4911600048723794491}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Target1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 5201479824637103422}
   - component: {fileID: 3791842272102396471}
   - component: {fileID: 1509276797858505324}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Weapon Pick Up
   m_TagString: pickup
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1224420885039501911}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.25
@@ -165,6 +165,7 @@ MonoBehaviour:
   curPickup: 4
   fuelAmount: 0
   boostSpeed: 0
+  poolName: PickupProj
 --- !u!1 &1688172971493756672
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +177,7 @@ GameObject:
   - component: {fileID: 2797344675836643965}
   - component: {fileID: 5224386455401197749}
   - component: {fileID: 553563195241584523}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Target 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +255,7 @@ GameObject:
   - component: {fileID: 4643249845561560049}
   - component: {fileID: 6646538010038856063}
   - component: {fileID: 8002049904343072545}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WPU Ring 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -332,7 +333,7 @@ GameObject:
   - component: {fileID: 4867134810603725397}
   - component: {fileID: 6157226683657495808}
   - component: {fileID: 4123290362872445626}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Target 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +411,7 @@ GameObject:
   - component: {fileID: 880698979555715087}
   - component: {fileID: 3406788438610720379}
   - component: {fileID: 2404799213672096631}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WPU Ring 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -488,7 +489,7 @@ GameObject:
   - component: {fileID: 2227250357140912762}
   - component: {fileID: 8044937269169705568}
   - component: {fileID: 7894342300398268823}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Target Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -566,7 +567,7 @@ GameObject:
   - component: {fileID: 1007051245132014539}
   - component: {fileID: 324256992429809739}
   - component: {fileID: 9106559924451613513}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Target 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
