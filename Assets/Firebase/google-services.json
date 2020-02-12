@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "123879817977",
+    "firebase_url": "https://rocket-recover.firebaseio.com",
+    "project_id": "rocket-recover",
+    "storage_bucket": "rocket-recover.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123879817977:android:923242148f4a1e40801828",
+        "android_client_info": {
+          "package_name": "com.catsplatstudios.RocketRecover"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "123879817977-60nupavfgbvnbn03p8p7knjs5bdlsc0d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9fCgMWbuydExnMr879ivS1FowhK1WK_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "123879817977-60nupavfgbvnbn03p8p7knjs5bdlsc0d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
