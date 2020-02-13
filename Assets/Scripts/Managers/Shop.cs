@@ -23,7 +23,7 @@ public class Shop : MonoBehaviour
     public int swipeThrustHold = 30;
 
     int current_index;
-    public Text title;
+    //public Text title;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +38,7 @@ public class Shop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        title.text = current_index.ToString();
+        //title.text = current_index.ToString();
 
         lerpTimer = lerpTimer + Time.deltaTime;
 
