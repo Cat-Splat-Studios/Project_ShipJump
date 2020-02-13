@@ -40,6 +40,10 @@ public class UIDelgate : MonoBehaviour
     [SerializeField]
     private Text highscoreText;
 
+    //Shop UI
+    [Header("Shop UI")]
+    public GameObject shop;
+
     // Reference
     private Animator anim;
     private PlayerManager player;
@@ -148,6 +152,28 @@ public class UIDelgate : MonoBehaviour
         {
             anim.SetTrigger("Disable");
         }
+    }
+
+    public void OpenShop(string shopName)
+    {
+        shop.SetActive(true);
+        startUI.SetActive(false);
+
+        Transform[] curShop = shop.GetComponentsInChildren<Transform>();
+        for (int i = 0; curShop.Length < i; i++)
+        {
+            curShop[i].gameObject.SetActive(false);
+            if (shopName == curShop[i].name)
+            {
+                curShop[i].gameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void CloseShop()
+    {
+        shop.SetActive(false);
+        startUI.SetActive(true);
     }
 
     /** Getters and Setters of properties **/
