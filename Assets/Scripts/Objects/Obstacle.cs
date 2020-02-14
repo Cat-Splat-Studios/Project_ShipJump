@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour, IPoolObject
+public class Obstacle : MonoBehaviour, IPoolObject, ISwapper
 {
     [Header("Meshes")]
     [SerializeField]
@@ -28,6 +28,8 @@ public class Obstacle : MonoBehaviour, IPoolObject
     {
         // Find References
         audio = FindObjectOfType<AudioManager>();
+
+        SwapIt();
     }
 
     public void DestroyObstacle()
@@ -51,5 +53,15 @@ public class Obstacle : MonoBehaviour, IPoolObject
     public string GetPoolName()
     {
         return poolName;
+    }
+
+    public void SwapIt()
+    {
+        foreach(GameObject mesh in Meshes)
+        {
+            mesh.SetActive(false);
+        }
+
+        Meshes[SwapManager.ObstacleIdx].SetActive(true);
     }
 }

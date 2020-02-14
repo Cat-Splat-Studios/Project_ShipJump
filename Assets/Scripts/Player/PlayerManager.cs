@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour, ISwapper
 {
     [SerializeField]
     private GameObject[] rockets;
@@ -26,6 +26,8 @@ public class PlayerManager : MonoBehaviour
         shoot = GetComponent<PlayerShoot>();
         collision = GetComponent<PlayerCollision>();
         damage = GetComponent<PlayerDamage>();
+
+        SwapIt();
     }
 
     // Movment
@@ -51,6 +53,16 @@ public class PlayerManager : MonoBehaviour
     
     public void SetBoost(bool value)
     {
-        rockets[rocketIdx].GetComponent<Thrusters>().BoostToggle(value);
+        rockets[SwapManager.PlayerIdx].GetComponent<Thrusters>().BoostToggle(value);
+    }
+
+    public void SwapIt()
+    {
+        foreach(GameObject rocket in rockets)
+        {
+            rocket.SetActive(false);
+        }
+
+        rockets[SwapManager.PlayerIdx].SetActive(true);
     }
 }
