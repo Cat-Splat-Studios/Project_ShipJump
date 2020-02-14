@@ -78,8 +78,8 @@ public class UIDelgate : MonoBehaviour
             coins = PlayerPrefs.GetInt("coins");
         }
 
-        startText.text = $"Current Highscore\n\n {score} km";
-        coinText.text = $"Current Gears\n\n {coins}";
+        startText.text = $"Current Highscore\n {score} km";
+        coinText.text = $"{coins}";
     }
 
     // Update is called once per frame

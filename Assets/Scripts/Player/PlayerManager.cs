@@ -7,6 +7,11 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject[] rockets;
+
+    private int rocketIdx = 0;
+
     private PlayerMovement movement;
     private PlayerShoot shoot;
     private PlayerCollision collision;
@@ -42,5 +47,10 @@ public class PlayerManager : MonoBehaviour
     public PlayerDamage PlayerDamage()
     {
         return damage;
+    }
+    
+    public void SetBoost(bool value)
+    {
+        rockets[rocketIdx].GetComponent<Thrusters>().BoostToggle(value);
     }
 }

@@ -275,7 +275,6 @@ public class PlayerMovement : MonoBehaviour
         boostTime = 0.0f;
         isBoost = true;
         speedUp += 3.0f;
-        boostParticle.SetActive(true);
     }
 
     public void AddGear()
@@ -319,7 +318,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void StopBoost()
     {
-        boostParticle.SetActive(false);
+        GetComponent<PlayerManager>().SetBoost(false);
         speedUp = originalSpeedUp;
         isBoost = false;
         boostTime = 0.0f;
