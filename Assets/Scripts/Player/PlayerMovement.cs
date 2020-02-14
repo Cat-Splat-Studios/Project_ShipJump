@@ -100,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
                         Touch firstTouch = Input.GetTouch(0);
 
                         // if it began this frame
-                        if (firstTouch.phase == TouchPhase.Stationary)
+                        if (firstTouch.phase == TouchPhase.Began)
                         {
                             if (firstTouch.position.x > screenCenterX)
                             {

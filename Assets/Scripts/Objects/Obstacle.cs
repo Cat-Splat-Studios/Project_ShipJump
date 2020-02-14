@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour, IPoolObject
 {
+    [Header("Meshes")]
+    [SerializeField]
+    private GameObject[] Meshes;
     // Destroy Effects
     [Header("Destroy Effects")]
     [SerializeField]
@@ -18,6 +21,8 @@ public class Obstacle : MonoBehaviour, IPoolObject
 
     [SerializeField]
     private string poolName;
+
+    private int meshIdx = 0;
 
     void Start()
     {
