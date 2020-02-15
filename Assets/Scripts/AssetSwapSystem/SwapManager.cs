@@ -4,11 +4,11 @@ using UnityEngine;
 
 public  class SwapManager : MonoBehaviour
 {
-    public static int PlayerIdx { get; private set; }
-    public static int BackgroundIdx { get; private set; }
-    public static int MusicIdx { get; private set; }
-    public static int ObstacleIdx { get; private set; }
-    public static int ProjectileIdx { get; private set; }
+    public static int PlayerIdx;
+    public static int BackgroundIdx;
+    public static int MusicIdx;
+    public static int ObstacleIdx;
+    public static int ProjectileIdx;
 
     public static List<int> PlayerUnlocks { get; private set; }
 
@@ -34,10 +34,10 @@ public  class SwapManager : MonoBehaviour
     private static void GetCurrentIndexes()
     {
         // get all current assets player has in there preferences
-        PlayerIdx = 4;
+        PlayerIdx = 0;
         BackgroundIdx = 0;
         MusicIdx = 0;
-        ObstacleIdx = 1;
+        ObstacleIdx = 0;
         ProjectileIdx = 0;
     }
 
@@ -61,5 +61,14 @@ public  class SwapManager : MonoBehaviour
         MusicUnlocks.Add(0);
         ObstacleUnlocks.Add(0);
         ProjectileUnlocks.Add(0);
+
+        //testing
+        PlayerUnlocks.Add(1);
+        PlayerUnlocks.Add(2);
+        PlayerUnlocks.Add(3);
+        PlayerUnlocks.Add(4);
+        PlayerUnlocks.Add(5);
+        PlayerUnlocks.Add(6);
+        PlayerUnlocks.Add(7);
     }
 }

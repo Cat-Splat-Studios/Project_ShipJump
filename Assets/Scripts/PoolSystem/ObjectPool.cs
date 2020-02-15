@@ -31,7 +31,6 @@ public class ObjectPool : MonoBehaviour
             // If there are objects in the pool, grab the first object and remove from pool
             GameObject obj = pool[0];
             pool.RemoveAt(0);
-
             return obj;
         }
         else
@@ -50,7 +49,7 @@ public class ObjectPool : MonoBehaviour
     {
         // Retun object back to the pool and reset its properties
         pool.Add(obj);
-        obj.transform.SetParent(gameObject.transform);
+       // obj.transform.SetParent(gameObject.transform);
         obj.transform.position = transform.position;
         obj.SetActive(false);
     }

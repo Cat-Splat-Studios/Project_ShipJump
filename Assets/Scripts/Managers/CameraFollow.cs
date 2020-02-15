@@ -8,20 +8,26 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public GameObject player;
-    public float Upoffset;
-    public float downOffest;
+    [Header("Offsets")]
+    [SerializeField]
+    private float Upoffset;
+    [SerializeField]
+    private float downOffest;
+    [SerializeField]
+    private float menuOffset;
 
     private float currentOffset;
     private float startOffset;
     private float targetOffset;
 
     private bool isLerping = false;
+    private bool onMenu = false;
 
     float t = 0.0f;
 
     void Start()
     {
-        currentOffset = Upoffset;
+        currentOffset = menuOffset;
     }
 
     void Update()
@@ -44,19 +50,7 @@ public class CameraFollow : MonoBehaviour
 
                 if (t >= 1.0f)
                 {
-                    if (targetOffset == Upoffset)
-                    {
-
-                        currentOffset = Upoffset;
-
-
-                    }
-                    else if (targetOffset == downOffest)
-                    {
-
-                        currentOffset = downOffest;
-
-                    }
+                    currentOffset = targetOffset;
 
                     isLerping = false;
                     t = 0.0f;
@@ -76,6 +70,20 @@ public class CameraFollow : MonoBehaviour
     {
         startOffset = currentOffset;
         targetOffset = downOffest;
+        isLerping = true;
+    }
+
+    public void GameStart()
+    {
+        startOffset = currentOffset;
+        targetOffset = Upoffset;
+        isLerping = true;
+    }
+
+    public void ToMenuOffset()
+    {
+        startOffset = currentOffset;
+        targetOffset = menuOffset;
         isLerping = true;
     }
 

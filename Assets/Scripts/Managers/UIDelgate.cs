@@ -28,6 +28,8 @@ public class UIDelgate : MonoBehaviour
     private Text distanceTraveled;
     [SerializeField]
     private Text gameCoinText;
+    [SerializeField]
+    private GameObject[] numbers;
 
     // Game Over UI
     [Header("Game Over UI")]
@@ -48,6 +50,7 @@ public class UIDelgate : MonoBehaviour
     private Animator anim;
     private PlayerManager player;
     private GeneratorManager generatorManager;
+    private CameraFollow camera;
 
     // Property Values
     private float _curFuel;
@@ -64,6 +67,7 @@ public class UIDelgate : MonoBehaviour
         anim = GetComponent<Animator>();
         player = GameObject.Find("Player").GetComponent<PlayerManager>();
         generatorManager = FindObjectOfType<GeneratorManager>();
+        camera = FindObjectOfType<CameraFollow>();
 
         // Set start text to show high score and current gears
         float score = 0;
@@ -85,10 +89,11 @@ public class UIDelgate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        fuelBar.fillAmount = _curFuel;
         // Update amounts when game is playing
         if (gameStarted)
         {
-            fuelBar.fillAmount = _curFuel;
+        
             distanceTraveled.text = $"{_curDistance} km";
             gameCoinText.text = _curCoins;
         }
@@ -102,9 +107,15 @@ public class UIDelgate : MonoBehaviour
     {
         startUI.SetActive(false);
         ToggleGameplayUI(true);
-        gameStarted = true;
-        player.PlayerMovement().StartGame();
-        generatorManager.TopGenerate();
+        gameCoinText.text = "0";
+        anim.SetTrigger("Start");
+        //ToggleNumbers(true);
+
+        // Set camera and play countdown
+        camera.GameStart();
+     
+
+        StartCoroutine(StartWait());
     }
 
     public void GameOver()
@@ -122,13 +133,19 @@ public class UIDelgate : MonoBehaviour
         player.gameObject.SetActive(true);
         player.PlayerMovement().ResetMove();
         FindObjectOfType<PoolManager>().ResetObjects();
-        StartGame();
+        gameStarted = true;
+        player.PlayerMovement().StartGame();
+        generatorManager.TopGenerate();
+        ToggleGameplayUI(true);
+        gameOver.SetActive(false);
+
+        curCoins = "0";
+        //StartGame();
     }
 
     void ToggleGameplayUI(bool value)
     {
         gameUI.SetActive(value);
-        gameOver.SetActive(!value);
     }
 
     public void QuitGame()
@@ -174,6 +191,17 @@ public class UIDelgate : MonoBehaviour
     {
         shop.SetActive(false);
         startUI.SetActive(true);
+    }
+
+    public void BackToMenu()
+    {
+        camera.ToMenuOffset();
+        player.gameObject.SetActive(true);
+        player.PlayerMovement().ResetIdle();
+        FindObjectOfType<PoolManager>().ResetObjects();
+        startUI.SetActive(true);
+        ToggleGameplayUI(false);
+        gameOver.SetActive(false);
     }
 
     /** Getters and Setters of properties **/
@@ -238,11 +266,31 @@ public class UIDelgate : MonoBehaviour
 
     }
 
+    private void ToggleNumbers(bool value)
+    {
+        foreach (GameObject item in numbers)
+        {
+            item.SetActive(value);
+        }
+    }
+
+    private IEnumerator StartWait()
+    {
+
+        player.PlayerMovement().ResetMove();
+        yield return new WaitForSeconds(2.1f);
+        player.PlayerMovement().StartGame();
+        gameStarted = true;
+        generatorManager.TopGenerate();
+        ToggleNumbers(false);
+    }
+
     private IEnumerator GameOverWait()
     {
         // Wait to reveal game over after player is destroyed
         yield return new WaitForSeconds(0.6f);
         ToggleGameplayUI(false);
+        gameOver.SetActive(true);
         ScoreDisplay();
     }
 }

@@ -81,6 +81,8 @@ public class PlayerMovement : MonoBehaviour
         currentSpeedX = 0.0f;
 
         originalSpeedUp = speedUp;
+
+        currentFuel = maxFuel;
     }
 
     // Update is called once per frame
@@ -199,7 +201,7 @@ public class PlayerMovement : MonoBehaviour
 
                 // Adjust fuel
                 currentFuel -= fuelDecrease * Time.deltaTime;
-                ui.curFuel = currentFuel / 100;
+
 
                 // Adjust Distance
                 distance = Mathf.Round(transform.position.y - startYPos);
@@ -224,6 +226,9 @@ public class PlayerMovement : MonoBehaviour
                 StopBoost();
             }
         }
+
+        // set ui fuel
+        ui.curFuel = currentFuel / 100;
 
         // Animate tilts
         anim.SetInteger("tilt", (int)currentSpeedX);
@@ -266,7 +271,7 @@ public class PlayerMovement : MonoBehaviour
         canMove = true;
         gears = 0;
         transform.position = Vector3.zero;
-        StartGame();
+
         
     }
 
@@ -281,6 +286,15 @@ public class PlayerMovement : MonoBehaviour
     {
         gears++;
         ui.curCoins = gears.ToString();
+    }
+
+    public void ResetIdle()
+    {
+        currentFuel = maxFuel;
+        currentSpeedX = 0.0f;
+        canMove = true;
+        transform.position = Vector3.zero;
+        startGame = false;
     }
 
     private void CheckScore()

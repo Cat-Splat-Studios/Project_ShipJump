@@ -3,6 +3,7 @@
 * Purpose: A central hub for all of the player scripts
 **/
 
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour, ISwapper
@@ -10,13 +11,12 @@ public class PlayerManager : MonoBehaviour, ISwapper
     [SerializeField]
     private GameObject[] rockets;
 
-    private int rocketIdx = 0;
-
     private PlayerMovement movement;
     private PlayerShoot shoot;
     private PlayerCollision collision;
     private PlayerDamage damage;
 
+    private int unlockIdx;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +28,8 @@ public class PlayerManager : MonoBehaviour, ISwapper
         damage = GetComponent<PlayerDamage>();
 
         SwapIt();
+
+        unlockIdx = SwapManager.PlayerUnlocks.IndexOf(SwapManager.PlayerIdx);
     }
 
     // Movment
@@ -64,5 +66,35 @@ public class PlayerManager : MonoBehaviour, ISwapper
         }
 
         rockets[SwapManager.PlayerIdx].SetActive(true);
+    }
+
+    public void ToggleRocket(bool forward)
+    {
+        if (forward)
+        {
+            if (unlockIdx + 1 >= SwapManager.PlayerUnlocks.Count)
+            {
+                unlockIdx = 0;
+            }
+            else
+            {
+                ++unlockIdx;
+            }
+        }
+        else
+        {
+            if (unlockIdx - 1 < 0)
+            {
+                unlockIdx = SwapManager.PlayerUnlocks.Count - 1;
+            }
+            else
+            {
+                --unlockIdx;
+            }
+        }
+
+        SwapManager.PlayerIdx = SwapManager.PlayerUnlocks[unlockIdx];
+
+        SwapIt();
     }
 }
