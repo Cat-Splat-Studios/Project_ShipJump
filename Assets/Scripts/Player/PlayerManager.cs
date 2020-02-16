@@ -19,14 +19,19 @@ public class PlayerManager : MonoBehaviour, ISwapper
     private int unlockIdx;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         // Find References
+        // Need to be awake because everything accesses these regardling player  
         movement = GetComponent<PlayerMovement>();
         shoot = GetComponent<PlayerShoot>();
         collision = GetComponent<PlayerCollision>();
         damage = GetComponent<PlayerDamage>();
+    }
 
+
+    void Start()
+    {
         SwapIt();
 
         unlockIdx = SwapManager.PlayerUnlocks.IndexOf(SwapManager.PlayerIdx);

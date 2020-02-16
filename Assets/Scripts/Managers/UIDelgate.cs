@@ -44,7 +44,16 @@ public class UIDelgate : MonoBehaviour
 
     //Shop UI
     [Header("Shop UI")]
-    public GameObject shop;
+    [SerializeField]
+    private GameObject shopUI;
+    [SerializeField]
+    private Shop[] shops;
+
+    [Header("Store UI")]
+    [SerializeField]
+    private GameObject storeUI;
+
+    public GameObject gears;
 
     // Reference
     private Animator anim;
@@ -70,20 +79,7 @@ public class UIDelgate : MonoBehaviour
         camera = FindObjectOfType<CameraFollow>();
 
         // Set start text to show high score and current gears
-        float score = 0;
-        if(PlayerPrefs.HasKey("highscore"))
-        {
-            score = PlayerPrefs.GetFloat("highscore");
-        }
-
-        int coins = 0;
-        if (PlayerPrefs.HasKey("coins"))
-        {
-            coins = PlayerPrefs.GetInt("coins");
-        }
-
-        startText.text = $"Current Highscore\n {score} km";
-        coinText.text = $"{coins}";
+        SetStartText();
     }
 
     // Update is called once per frame
@@ -105,6 +101,7 @@ public class UIDelgate : MonoBehaviour
 
     public void StartGame()
     {
+        gears.SetActive(false);
         startUI.SetActive(false);
         ToggleGameplayUI(true);
         gameCoinText.text = "0";
@@ -171,25 +168,21 @@ public class UIDelgate : MonoBehaviour
         }
     }
 
-    public void OpenShop(string shopName)
-    {
-        shop.SetActive(true);
+    public void OpenShop(int shopType)
+    { 
         startUI.SetActive(false);
-
-        Transform[] curShop = shop.GetComponentsInChildren<Transform>();
-        for (int i = 0; curShop.Length < i; i++)
-        {
-            curShop[i].gameObject.SetActive(false);
-            if (shopName == curShop[i].name)
-            {
-                curShop[i].gameObject.SetActive(true);
-            }
-        }
+        shopUI.SetActive(true);
+        shops[shopType].gameObject.SetActive(true);
+        shops[shopType].InitItems();
     }
 
     public void CloseShop()
     {
-        shop.SetActive(false);
+        foreach(Shop shop in shops)
+        {
+            shop.gameObject.SetActive(false);
+        }
+        shopUI.SetActive(false);
         startUI.SetActive(true);
     }
 
@@ -201,7 +194,16 @@ public class UIDelgate : MonoBehaviour
         FindObjectOfType<PoolManager>().ResetObjects();
         startUI.SetActive(true);
         ToggleGameplayUI(false);
+        gears.SetActive(true);
         gameOver.SetActive(false);
+        SetStartText();
+    }
+
+    public void StoreToggle(bool value)
+    {
+        storeUI.SetActive(value);
+        startUI.SetActive(!value);
+
     }
 
     /** Getters and Setters of properties **/
@@ -263,7 +265,6 @@ public class UIDelgate : MonoBehaviour
         scoreText.text = $"You Traveled\n\n {curDistance} km";
         highscoreText.gameObject.SetActive(highscore);
         coinsCollectedText.text = $"Gears Collected\n\n {curCoins}";
-
     }
 
     private void ToggleNumbers(bool value)
@@ -292,5 +293,23 @@ public class UIDelgate : MonoBehaviour
         ToggleGameplayUI(false);
         gameOver.SetActive(true);
         ScoreDisplay();
+    }
+    
+    private void SetStartText()
+    {
+        float score = 0;
+        if (PlayerPrefs.HasKey("highscore"))
+        {
+            score = PlayerPrefs.GetFloat("highscore");
+        }
+
+        int coins = 0;
+        if (PlayerPrefs.HasKey("coins"))
+        {
+            coins = PlayerPrefs.GetInt("coins");
+        }
+
+        startText.text = $"Highscore\n {score} km";
+        coinText.text = $"{coins}";
     }
 }

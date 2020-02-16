@@ -74,7 +74,9 @@ public class GeneratorManager : MonoBehaviour
     {
         foreach (GameObject generator in topGenerators)
         {
-            generator.GetComponent<Generator>().SetClamp(player.PlayerMovement().xClamp);
+            Generator gen = generator.GetComponent<Generator>();
+
+            gen.SetClamp(player.PlayerMovement().xClamp);
             generator.transform.localPosition = new Vector3(0.0f, offset, 0.0f);
         }
 

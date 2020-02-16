@@ -7,6 +7,7 @@ public class Shop : MonoBehaviour
 {
 
     public RectTransform[] shopItems;
+    public ItemInfo[] itemInfos;
     public RectTransform view_window;
 
     private bool canSwipe;
@@ -152,4 +153,13 @@ public class Shop : MonoBehaviour
         lerpTimer = 0;
         lerpPosition = (image_width + image_gap) * current_index;
     }
+
+    public void InitItems()
+    {
+        foreach (ItemInfo item in itemInfos)
+        {
+            item.SetPurchase();
+        }
+    }
+
 }
