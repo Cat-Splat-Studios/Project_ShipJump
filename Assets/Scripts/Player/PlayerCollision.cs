@@ -55,7 +55,7 @@ public class PlayerCollision : MonoBehaviour
                             DestroyObject(other.gameObject);
                             break;
                         case EPickupType.GEAR:
-                            player.PlayerMovement().AddGear();
+                            GearManager.instance.IncrementGears();
                             audio.PlaySound(pickupSounds[3]);
                             DestroyObject(other.gameObject);
                             break;

@@ -12,22 +12,20 @@ public class UIDelgate : MonoBehaviour
     // Start UI
     [Header("Start UI")]
     public GameObject startUI;
-
+    [SerializeField]
+    public GameObject StatHUD;
     [SerializeField]
     private Text startText;
     [SerializeField]
-    private Text coinText;
+    private Text gearText;
 
     // Game UI
     [Header("Game UI")]
     public GameObject gameUI;
-
     [SerializeField]
     private Image fuelBar;
     [SerializeField]
     private Text distanceTraveled;
-    [SerializeField]
-    private Text gameCoinText;
     [SerializeField]
     private GameObject[] numbers;
 
@@ -53,8 +51,6 @@ public class UIDelgate : MonoBehaviour
     [SerializeField]
     private GameObject storeUI;
 
-    public GameObject gears;
-
     // Reference
     private Animator anim;
     private PlayerManager player;
@@ -64,7 +60,6 @@ public class UIDelgate : MonoBehaviour
     // Property Values
     private float _curFuel;
     private string _curDistance = "0";
-    private string _curCoins = "0";
 
     // Helper Variables
     private bool _gameStarted = false;
@@ -88,10 +83,8 @@ public class UIDelgate : MonoBehaviour
         fuelBar.fillAmount = _curFuel;
         // Update amounts when game is playing
         if (gameStarted)
-        {
-        
+        {     
             distanceTraveled.text = $"{_curDistance} km";
-            gameCoinText.text = _curCoins;
         }
 
         // Allow for back button escape on the phone
@@ -101,17 +94,17 @@ public class UIDelgate : MonoBehaviour
 
     public void StartGame()
     {
-        gears.SetActive(false);
+        //gears.SetActive(false);
+        StatHUD.SetActive(false);
         startUI.SetActive(false);
-        ToggleGameplayUI(true);
-        gameCoinText.text = "0";
+        gameUI.SetActive(true);
         anim.SetTrigger("Start");
-        //ToggleNumbers(true);
 
-        // Set camera and play countdown
+        // make sure correct mesh is on player
+        player.StartGameMeshCheck();
+
         camera.GameStart();
      
-
         StartCoroutine(StartWait());
     }
 
@@ -126,36 +119,32 @@ public class UIDelgate : MonoBehaviour
     {
         // Replay game, reset the necessary things
         generatorManager.TopGenerate();
-        highscore = false;
+       
         player.gameObject.SetActive(true);
         player.PlayerMovement().ResetMove();
-        FindObjectOfType<PoolManager>().ResetObjects();
-        gameStarted = true;
         player.PlayerMovement().StartGame();
-        generatorManager.TopGenerate();
-        ToggleGameplayUI(true);
+
+        // TODO MAKE SINGLETON
+        FindObjectOfType<PoolManager>().ResetObjects();
+
+        // set ui
+        gameUI.SetActive(true);
         gameOver.SetActive(false);
 
-        curCoins = "0";
-        //StartGame();
-    }
+        gameStarted = true;
 
-    void ToggleGameplayUI(bool value)
-    {
-        gameUI.SetActive(value);
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
+        highscore = false;
     }
 
     public void Highscore(float previousScore)
     {
         highscore = true;
         highscoreText.text = $"New Highscore!\n\nPrevious Score = {previousScore} km";
+
+        // save leaderboards
     }
 
+    // TODO: Rework shooting
     public void ToggleShoot(bool value)
     {
         if (value)
@@ -173,6 +162,7 @@ public class UIDelgate : MonoBehaviour
         startUI.SetActive(false);
         shopUI.SetActive(true);
         shops[shopType].gameObject.SetActive(true);
+        shops[shopType].SetStartPos();
         shops[shopType].InitItems();
     }
 
@@ -186,27 +176,40 @@ public class UIDelgate : MonoBehaviour
         startUI.SetActive(true);
     }
 
+    public void StoreToggle(bool value)
+    {
+        storeUI.SetActive(value);
+        startUI.SetActive(!value);
+    }
+
     public void BackToMenu()
     {
         camera.ToMenuOffset();
         player.gameObject.SetActive(true);
         player.PlayerMovement().ResetIdle();
+
         FindObjectOfType<PoolManager>().ResetObjects();
+
+        // set ui
         startUI.SetActive(true);
-        ToggleGameplayUI(false);
-        gears.SetActive(true);
+        gameUI.SetActive(false);
+        StatHUD.SetActive(true);
         gameOver.SetActive(false);
         SetStartText();
     }
 
-    public void StoreToggle(bool value)
+    public void UpdateGearText()
     {
-        storeUI.SetActive(value);
-        startUI.SetActive(!value);
+        gearText.text = $"{GearManager.instance.GetGears()}";
+    }
 
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     /** Getters and Setters of properties **/
+
     public bool gameStarted
     {
         get
@@ -245,18 +248,6 @@ public class UIDelgate : MonoBehaviour
         }
     }
 
-    public string curCoins
-    {
-        get
-        {
-            return _curCoins;
-        }
-        set
-        {
-            _curCoins = value.ToString();
-        }
-    }
-
     /** Helper Methods **/
     private void ScoreDisplay()
     {
@@ -264,7 +255,7 @@ public class UIDelgate : MonoBehaviour
         scoreText.gameObject.SetActive(true);
         scoreText.text = $"You Traveled\n\n {curDistance} km";
         highscoreText.gameObject.SetActive(highscore);
-        coinsCollectedText.text = $"Gears Collected\n\n {curCoins}";
+        coinsCollectedText.text = $"Gears Collected\n\n {GearManager.instance.levelGears}";
     }
 
     private void ToggleNumbers(bool value)
@@ -277,20 +268,19 @@ public class UIDelgate : MonoBehaviour
 
     private IEnumerator StartWait()
     {
-
         player.PlayerMovement().ResetMove();
         yield return new WaitForSeconds(2.1f);
         player.PlayerMovement().StartGame();
-        gameStarted = true;
         generatorManager.TopGenerate();
         ToggleNumbers(false);
+        gameStarted = true;
     }
 
     private IEnumerator GameOverWait()
     {
         // Wait to reveal game over after player is destroyed
         yield return new WaitForSeconds(0.6f);
-        ToggleGameplayUI(false);
+        gameUI.SetActive(false);
         gameOver.SetActive(true);
         ScoreDisplay();
     }
@@ -310,6 +300,6 @@ public class UIDelgate : MonoBehaviour
         }
 
         startText.text = $"Highscore\n {score} km";
-        coinText.text = $"{coins}";
+        UpdateGearText();
     }
 }

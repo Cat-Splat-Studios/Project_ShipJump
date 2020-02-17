@@ -3,20 +3,35 @@
 * Purpose: A central hub for all of the player scripts
 **/
 
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour, ISwapper
 {
     [SerializeField]
     private GameObject[] rockets;
 
+    // references to other player components
     private PlayerMovement movement;
     private PlayerShoot shoot;
     private PlayerCollision collision;
     private PlayerDamage damage;
 
+    // shop loic
+    [Header("Rocket Shop Logic")]
+    [SerializeField]
+    private GameObject priceTag;
+    [SerializeField]
+    private Text priceText;
+    [SerializeField]
+    private Text actionText;
+    [SerializeField]
+    private ConfirmPurchase confirm;
+
     private int unlockIdx;
+
+    [HideInInspector]
+    public bool canPurchase { get; private set; }
 
     // Start is called before the first frame update
     void Awake()
@@ -29,12 +44,45 @@ public class PlayerManager : MonoBehaviour, ISwapper
         damage = GetComponent<PlayerDamage>();
     }
 
-
-    void Start()
+    // Handles selection of ship for purchase input
+    private void Update()
     {
-        SwapIt();
+        if(canPurchase)
+        {
+            if(Application.platform == RuntimePlatform.Android)
+            {
+                if ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began))
+                {
+                    Ray raycast = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                    GetRocketTap(raycast);
+                }
+            }
+            else
+            {
+                if(Input.GetMouseButtonUp(0))
+                {
+                    Ray raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    GetRocketTap(raycast);
+                }
+            }
+           
+        }
+    }
 
-        unlockIdx = SwapManager.PlayerUnlocks.IndexOf(SwapManager.PlayerIdx);
+    public void RocketPurchaseConfirm(bool confirmed)
+    {
+        if(confirmed)
+        {
+           // GearManager.RemoveGears(SwapManager.rocketPrices[unlockIdx]);
+            FindObjectOfType<SwapManager>().PurchaseAsset(unlockIdx, EAssetType.ROCKET);
+            ToggleSwap();
+        }
+    }
+
+    public void InitUnlock()
+    {
+        unlockIdx = SwapManager.allRockets.IndexOf(SwapManager.PlayerIdx);
+        ToggleSwap();
     }
 
     // Movment
@@ -73,11 +121,21 @@ public class PlayerManager : MonoBehaviour, ISwapper
         rockets[SwapManager.PlayerIdx].SetActive(true);
     }
 
+    public void TempSwap(int index)
+    {
+        foreach (GameObject rocket in rockets)
+        {
+            rocket.SetActive(false);
+        }
+
+        rockets[index].SetActive(true);
+    }
+
     public void ToggleRocket(bool forward)
     {
         if (forward)
         {
-            if (unlockIdx + 1 >= SwapManager.PlayerUnlocks.Count)
+            if (unlockIdx + 1 >= SwapManager.allRockets.Count)
             {
                 unlockIdx = 0;
             }
@@ -90,7 +148,7 @@ public class PlayerManager : MonoBehaviour, ISwapper
         {
             if (unlockIdx - 1 < 0)
             {
-                unlockIdx = SwapManager.PlayerUnlocks.Count - 1;
+                unlockIdx = SwapManager.allRockets.Count - 1;
             }
             else
             {
@@ -98,8 +156,68 @@ public class PlayerManager : MonoBehaviour, ISwapper
             }
         }
 
-        SwapManager.PlayerIdx = SwapManager.PlayerUnlocks[unlockIdx];
+        ToggleSwap();
+    }
+
+    public void StartGameMeshCheck()
+    {
+        if (CheckUnlock())
+        {
+            SwapManager.PlayerIdx = SwapManager.allRockets[unlockIdx];
+
+        }
 
         SwapIt();
+    }
+
+
+    /** Helper Methods**/
+ 
+    // checks what needs to be displayed to user
+    private void ToggleSwap()
+    {
+        TempSwap(unlockIdx);
+
+        if (!CheckUnlock())
+        {
+            priceTag.SetActive(true);
+            priceText.text = SwapManager.rocketPrices[unlockIdx].ToString();
+            if (GearManager.instance.CheckGears(SwapManager.rocketPrices[unlockIdx]))
+            {
+                actionText.text = "Tap rocket to purchase";
+                canPurchase = true;
+            }
+            else
+            {
+                actionText.text = "Not enough Gears to purchase";
+                canPurchase = false;
+            }
+        }
+        else
+        {
+            priceTag.SetActive(false);
+            canPurchase = false;
+        }
+    }
+
+    // checks if you tap rocket, initiates purchase confirm
+    private void GetRocketTap(Ray raycast)
+    {
+        RaycastHit raycastHit;
+        if (Physics.Raycast(raycast, out raycastHit))
+        {
+            Debug.Log("Something Hit");
+            if (raycastHit.collider.tag == "Player")
+            {
+                Debug.Log("mmmhmm");
+                confirm.gameObject.SetActive(true);
+                confirm.SetReference(RocketPurchaseConfirm, SwapManager.rocketPrices[unlockIdx]);
+            }
+        }
+    }
+
+    private bool CheckUnlock()
+    {
+        return SwapManager.PlayerUnlocks.Contains(unlockIdx);
     }
 }

@@ -1,14 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: Carousel Container to hold the shop items for particular categories     
+**/
+
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
-
-    public RectTransform[] shopItems;
-    public ItemInfo[] itemInfos;
-    public RectTransform view_window;
+    [Header("Item References")]
+    [SerializeField]
+    private EAssetType shopType;
+    [SerializeField]
+    private RectTransform[] shopItems;
+    [SerializeField]
+    private ItemInfo[] itemInfos;
+    [SerializeField]
+    private RectTransform view_window;
 
     private bool canSwipe;
     private float image_width;
@@ -20,8 +27,10 @@ public class Shop : MonoBehaviour
     private float screenPosition;
     private float lastScreenPosition;
 
-    public float image_gap = 30;
-    public int swipeThrustHold = 30;
+    [SerializeField]
+    private float image_gap = 30;
+    [SerializeField]
+    private int swipeThrustHold = 30;
 
     int current_index;
     //public Text title;
@@ -29,6 +38,26 @@ public class Shop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetStartPos();
+    }
+
+    // finds the current selected item to focus on
+    public void SetStartPos()
+    {
+        switch (shopType)
+        {
+            case EAssetType.BACKGROUND:
+                view_window = shopItems[SwapManager.BackgroundIdx];
+                break;
+            case EAssetType.MUSIC:
+                view_window = shopItems[SwapManager.MusicIdx];
+                break;
+            case EAssetType.OBSTACLE:
+                view_window = shopItems[SwapManager.ObstacleIdx];
+                break;
+        }
+
+        
         image_width = view_window.rect.width;
         for (int i = 1; i < shopItems.Length; i++)
         {
@@ -36,11 +65,9 @@ public class Shop : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        //title.text = current_index.ToString();
-
         lerpTimer = lerpTimer + Time.deltaTime;
 
         if (lerpTimer < 0.333f)
@@ -132,6 +159,8 @@ public class Shop : MonoBehaviour
             }
         }
         dragAmount = 0;
+
+        FindObjectOfType<SwapManager>().Preview(shopType, current_index);
     }
 
     public void GoToIndex(int value)

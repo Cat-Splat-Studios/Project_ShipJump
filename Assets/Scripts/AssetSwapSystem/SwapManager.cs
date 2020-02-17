@@ -1,108 +1,88 @@
-﻿using System.Collections;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: Holds the information of assets and handles the swaping of them
+**/
+
 using System.Collections.Generic;
 using UnityEngine;
 
-public  class SwapManager : MonoBehaviour
+public class SwapManager : MonoSingleton<SwapManager>
 {
+    public static int Gears;
     public static int PlayerIdx;
     public static int BackgroundIdx;
     public static int MusicIdx;
     public static int ObstacleIdx;
     public static int ProjectileIdx;
 
-    public static List<int> PlayerUnlocks { get; private set; }
+    public static List<int> PlayerUnlocks { get; set; }
 
-    public static List<int> BackgroundUnlocks { get; private set; }
+    public static List<int> BackgroundUnlocks { get; set; }
 
-    public static List<int> MusicUnlocks { get; private set; }
+    public static List<int> MusicUnlocks { get; set; }
 
-    public static List<int> ObstacleUnlocks { get; private set; }
+    public static List<int> ObstacleUnlocks { get; set; }
 
-    public static List<int> ProjectileUnlocks { get; private set; }
+    public static List<int> ProjectileUnlocks { get; set; }
 
     [SerializeField]
     private BackgroundManager background;
     [SerializeField]
-    private PlayerManager Player;
+    private PlayerManager player;
     [SerializeField]
-    private AudioManager audio;
+    private new AudioManager audio;
 
-    private void Awake()
+    public static List<int> allRockets = new List<int>{ 0, 1, 2, 3, 4, 5, 6, 7};
+    public static List<int> rocketPrices = new List<int> { 0, 500, 600, 700, 1500, 1800, 5000, 5000 };
+
+    private void Start()
     {
-        GetSwapInfo();
+        //Gears = 0;
+
+        //PlayerIdx = 0;
+        //BackgroundIdx = 0;
+        //MusicIdx = 0;
+        //BackgroundIdx = 0;
+
+        //PlayerUnlocks = new List<int>();
+        //BackgroundUnlocks = new List<int>();
+        //MusicUnlocks = new List<int>();
+        //ObstacleUnlocks = new List<int>();
+
+        player = FindObjectOfType<PlayerManager>();
+        background = FindObjectOfType<BackgroundManager>();
+
+        player.InitUnlock();
     }
 
-    public static void GetSwapInfo()
+    public void AddDefaults()
     {
-        GetCurrentUnlocks();
-        GetCurrentIndexes();
-    }
-
-    private static void GetCurrentIndexes()
-    {
-        // get all current assets player has in there preferences
-        PlayerIdx = 0;
-        BackgroundIdx = 0;
-        MusicIdx = 0;
-        ObstacleIdx = 0;
-        ProjectileIdx = 0;
-    }
-
-    private static void GetCurrentUnlocks()
-    {
-        // store the array of unlocks for each
-
-        // initialize
-        PlayerUnlocks = new List<int>();
-        BackgroundUnlocks = new List<int>();
-        MusicUnlocks = new List<int>();
-        ObstacleUnlocks = new List<int>();
-        ProjectileUnlocks = new List<int>();
-
-        // Set with database
-
-
-        // add default skins 0
         PlayerUnlocks.Add(0);
         BackgroundUnlocks.Add(0);
         MusicUnlocks.Add(0);
         ObstacleUnlocks.Add(0);
-        ProjectileUnlocks.Add(0);
-
-        //testing
-        PlayerUnlocks.Add(1);
-        PlayerUnlocks.Add(2);
-        PlayerUnlocks.Add(3);
-        PlayerUnlocks.Add(4);
-        PlayerUnlocks.Add(5);
-        PlayerUnlocks.Add(6);
-        PlayerUnlocks.Add(7);
     }
 
-    public static void PurchaseAsset(int idx, EAssetType type)
+    public void PurchaseAsset(int idx, EAssetType type)
     {
         Debug.Log("happened");
         switch (type)
         {
             case EAssetType.ROCKET:
                 PlayerUnlocks.Add(idx);
-
                 break;
             case EAssetType.BACKGROUND:
                 BackgroundUnlocks.Add(idx);
-
                 break;
             case EAssetType.MUSIC:
                 MusicUnlocks.Add(idx);
-
                 break;
             case EAssetType.OBSTACLE:
                 ObstacleUnlocks.Add(idx);
-
                 break;
         }
 
-        SaveUnlocks();
+        //SaveManager.instance.SaveToCloud();
     }
 
     public void BackgroundSelect(int idx)
@@ -114,18 +94,33 @@ public  class SwapManager : MonoBehaviour
     public void PlayerSelect(int idx)
     {
         PlayerIdx = idx;
-        Player.SwapIt();
+        player.SwapIt();
     }
 
     public void MusicSelect(int idx)
     {
-        // TODO: music logic
+        MusicIdx = idx;
+        audio.SwapIt();
     }
 
-
-
-    private static void SaveUnlocks()
+    public void Preview(EAssetType type, int idx)
     {
-        // save unlocks back into google play
+        switch (type)
+        {
+            case EAssetType.BACKGROUND:
+                background.Preview(idx);
+                break;
+            case EAssetType.MUSIC:
+                audio.PreviewMusic(idx);
+                break;
+        }
+    }
+
+    public void PreviewReset()
+    {
+
+        background.SwapIt();
+        audio.SwapIt();
+
     }
 }

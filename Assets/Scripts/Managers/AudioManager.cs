@@ -7,21 +7,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : MonoBehaviour, ISwapper
 {
-    public AudioSource music;
+    [Header("Music")]
+    [SerializeField]
+    private AudioSource music;
+    [SerializeField]
+    private AudioClip[] musicClips;
 
-    public AudioClip musicClip;
-
+    [Header("Sound")]
     public GameObject soundPefab;
 
     private List<AudioSource> soundObjects;
-
     private float soundVol;
 
     private void Start()
     {
-        PlayMusic();
+        SwapIt();
 
         // Initialize sound object lists
         soundObjects = new List<AudioSource>();
@@ -31,7 +33,20 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic()
     {
-        music.clip = musicClip;
+        if(music.clip != musicClips[SwapManager.MusicIdx])
+        {
+            music.Stop();
+            music.clip = musicClips[SwapManager.MusicIdx];
+            music.Play();
+        }      
+    }
+
+    // previews music, but does not make current select
+    public void PreviewMusic(int idx)
+    {
+        if (music.isPlaying)
+            music.Stop();
+        music.clip = musicClips[idx];
         music.Play();
     }
 
@@ -85,4 +100,8 @@ public class AudioManager : MonoBehaviour
         soundObjects.Add(aud);
     }
 
+    public void SwapIt()
+    {
+        PlayMusic();
+    }
 }

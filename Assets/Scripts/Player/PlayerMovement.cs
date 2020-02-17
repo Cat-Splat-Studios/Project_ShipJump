@@ -102,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
                         Touch firstTouch = Input.GetTouch(0);
 
                         // if it began this frame
-                        if (firstTouch.phase == TouchPhase.Began)
+                        if (firstTouch.phase == TouchPhase.Stationary)
                         {
                             if (firstTouch.position.x > screenCenterX)
                             {
@@ -280,12 +280,6 @@ public class PlayerMovement : MonoBehaviour
         boostTime = 0.0f;
         isBoost = true;
         speedUp += 3.0f;
-    }
-
-    public void AddGear()
-    {
-        gears++;
-        ui.curCoins = gears.ToString();
     }
 
     public void ResetIdle()

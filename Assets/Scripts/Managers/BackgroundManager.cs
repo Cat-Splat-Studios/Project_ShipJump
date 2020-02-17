@@ -1,5 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: Handles the swaping of Backgrounds
+**/
+
 using UnityEngine;
 
 public class BackgroundManager : MonoBehaviour, ISwapper
@@ -22,4 +25,13 @@ public class BackgroundManager : MonoBehaviour, ISwapper
         meshes[SwapManager.BackgroundIdx].SetActive(true);
     }
 
+    public void Preview(int idx)
+    {
+        foreach (GameObject mesh in meshes)
+        {
+            mesh.SetActive(false);
+        }
+
+        meshes[idx].SetActive(true);
+    }
 }
