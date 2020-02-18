@@ -73,7 +73,7 @@ public class PlayerManager : MonoBehaviour, ISwapper
     {
         if(confirmed)
         {
-           // GearManager.RemoveGears(SwapManager.rocketPrices[unlockIdx]);
+            GearManager.instance.RemoveGears(SwapManager.rocketPrices[unlockIdx]);
             FindObjectOfType<SwapManager>().PurchaseAsset(unlockIdx, EAssetType.ROCKET);
             ToggleSwap();
         }

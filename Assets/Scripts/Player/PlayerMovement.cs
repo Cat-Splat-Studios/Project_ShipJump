@@ -300,6 +300,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 PlayerPrefs.SetFloat("highscore", distance);
                 ui.Highscore(highscore);
+                GPGSUtils.instance.SubmitScore((int)distance);
             }
         }
         else

@@ -82,7 +82,7 @@ public class CameraFollow : MonoBehaviour
 
     public void ToMenuOffset()
     {
-        startOffset = currentOffset;
+        startOffset = Upoffset;
         targetOffset = menuOffset;
         isLerping = true;
     }

@@ -15,7 +15,6 @@ public class GearManager : MonoSingleton<GearManager>
 
     private void Start()
     {
-        gears = 1000;
         ui = FindObjectOfType<UIDelgate>();
     }
     public int GetGears()

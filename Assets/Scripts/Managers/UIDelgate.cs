@@ -38,6 +38,8 @@ public class UIDelgate : MonoBehaviour
     [SerializeField]
     private Text coinsCollectedText;
     [SerializeField]
+    private Text totalGearsText;
+    [SerializeField]
     private Text highscoreText;
 
     //Shop UI
@@ -134,14 +136,23 @@ public class UIDelgate : MonoBehaviour
         gameStarted = true;
 
         highscore = false;
+
+        GearManager.instance.ResetLevelGears();
+        AdManager.instance.AdCheck();
     }
 
     public void Highscore(float previousScore)
     {
         highscore = true;
-        highscoreText.text = $"New Highscore!\n\nPrevious Score = {previousScore} km";
+        highscoreText.text = $"New Personal Highscore!\n\nPrevious Score = {previousScore} km";
 
         // save leaderboards
+
+    }
+
+    public void LeaderBoard()
+    {
+        highscoreText.text += "\n\n Added to Leaderboards.";
     }
 
     // TODO: Rework shooting
@@ -195,7 +206,11 @@ public class UIDelgate : MonoBehaviour
         gameUI.SetActive(false);
         StatHUD.SetActive(true);
         gameOver.SetActive(false);
+
         SetStartText();
+
+        GearManager.instance.ResetLevelGears();
+        AdManager.instance.AdCheck();
     }
 
     public void UpdateGearText()
@@ -206,6 +221,12 @@ public class UIDelgate : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void HasAuthenitcated()
+    {
+        startUI.SetActive(true);
+        StatHUD.SetActive(true);
     }
 
     /** Getters and Setters of properties **/
@@ -256,6 +277,7 @@ public class UIDelgate : MonoBehaviour
         scoreText.text = $"You Traveled\n\n {curDistance} km";
         highscoreText.gameObject.SetActive(highscore);
         coinsCollectedText.text = $"Gears Collected\n\n {GearManager.instance.levelGears}";
+        totalGearsText.text = $"Total Gears = {GearManager.instance.GetGears()}";
     }
 
     private void ToggleNumbers(bool value)

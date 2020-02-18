@@ -33,7 +33,7 @@ public class SwapManager : MonoSingleton<SwapManager>
     private new AudioManager audio;
 
     public static List<int> allRockets = new List<int>{ 0, 1, 2, 3, 4, 5, 6, 7};
-    public static List<int> rocketPrices = new List<int> { 0, 500, 600, 700, 1500, 1800, 5000, 5000 };
+    public static List<int> rocketPrices = new List<int> { 0, 100, 100, 100, 100, 100, 100, 100 };
 
     private void Start()
     {

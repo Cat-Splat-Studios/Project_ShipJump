@@ -25,22 +25,20 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
     private string cloudSaveName = "rr_saveState";
 
     public Dialog dialog;
-
+    public UIDelgate ui;
     // Start is called before the first frame update
 
-    private void Awake()
+    public override void Init()
     {
-        
         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
-        .EnableSavedGames()
-        .Build();
+            .EnableSavedGames()
+            .Build();
 
         PlayGamesPlatform.InitializeInstance(config);
         PlayGamesPlatform.DebugLogEnabled = true;
         PlayGamesPlatform.Activate();
 
         SignIn();
-
     }
 
     public void SignIn()
@@ -51,30 +49,25 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
             {
                 if (success)
                 {
+                    Debug.Log("Authenticated");
+                    ui.HasAuthenitcated();
                     SaveManager.instance.LoadFromCloud();
-                    Debug.Log("Successfully Authenicated");
                 }
                 else
                 {
                     Debug.Log("NOPE! not Authenticated");
-                    SaveManager.instance.DefaultLoad();
                     dialog.gameObject.SetActive(true);
                     dialog.SetError("Error", "Did not Authenticate");
+                    SaveManager.instance.DefaultLoad();
+                    ui.HasAuthenitcated();
                 }
-                    
             });
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Debug.Log(e);
         }
-   
-    }
 
-    public void SignOut()
-    {
-        if (Social.localUser.authenticated)
-            PlayGamesPlatform.Instance.SignOut();
     }
 
     public void OpenCloudSave(Action<SavedGameRequestStatus, ISavedGameMetadata> callback, Action<EPlayServiceError> errorCallback = null)
@@ -108,8 +101,24 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
             Debug.Log(e.Message);
             dialog.gameObject.SetActive(true);
             dialog.SetError("Error YALL", e.Message);
-            callback.Invoke(SavedGameRequestStatus.InternalError, null);
+            //callback.Invoke(SavedGameRequestStatus.InternalError, null);
         }
         
     }
+
+    public void SubmitScore(int score)
+    {
+        Social.ReportScore(score, GPGSIds.leaderboard_highest_kilometers_traveled, (bool Success) =>
+        {
+            Debug.Log("Score Added to Highscore");
+            ui.LeaderBoard();
+        });
+    }
+
+    public void ShowLeaderboard()
+    {
+        Social.ShowLeaderboardUI();
+    }
+
+
 }

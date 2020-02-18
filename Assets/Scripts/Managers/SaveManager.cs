@@ -69,7 +69,7 @@ public class SaveManager : MonoSingleton<SaveManager>
     // Incase loading from save fails, create an initial state
     public void DefaultLoad()
     {
-        state.Gears = 0;
+        state.Gears = 1000;
 
         state.PlayerIdx = 0;
         state.BackgroundIdx = 0;
@@ -84,6 +84,7 @@ public class SaveManager : MonoSingleton<SaveManager>
         MapToView();
 
         FindObjectOfType<PlayerManager>().InitUnlock();
+        FindObjectOfType<UIDelgate>().UpdateGearText();
     }
 
     /** Helper Methods**/
@@ -98,6 +99,7 @@ public class SaveManager : MonoSingleton<SaveManager>
 
             Debug.Log("LOADED");
             dialog.SetError("Loaded!", status.ToString());
+            FindObjectOfType<UIDelgate>().UpdateGearText();
         }
         else
         {
