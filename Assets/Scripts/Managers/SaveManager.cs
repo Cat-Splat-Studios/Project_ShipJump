@@ -37,7 +37,7 @@ public class SaveState
 
 public class SaveManager : MonoSingleton<SaveManager>
 {
-    public Dialog dialog;
+    public MessageBox prompt;
     [HideInInspector]
     public SaveState state;
 
@@ -55,13 +55,13 @@ public class SaveManager : MonoSingleton<SaveManager>
         state.ObstacleUnlocks = new List<int>();
     }
 
-    public void SaveToCloud(Action<EPlayServiceError> errorCallback = null)
+    public void SaveToCloud()
     {
         MapToState();
         GPGSUtils.instance.OpenCloudSave(OnSaveResponse);  
     }
 
-    public void LoadFromCloud(Action<EPlayServiceError> errorCallback = null)
+    public void LoadFromCloud()
     {
         GPGSUtils.instance.OpenCloudSave(OnLoadResponse);
     }
@@ -98,15 +98,13 @@ public class SaveManager : MonoSingleton<SaveManager>
             platform.SavedGame.ReadBinaryData(meta, LoadCallBack);
 
             Debug.Log("LOADED");
-            dialog.SetError("Loaded!", status.ToString());
+            prompt.SetPrompt("Loaded Save Game", "The Player State was successfully loaded.");
             FindObjectOfType<UIDelgate>().UpdateGearText();
         }
         else
         {
             Debug.Log("Did not load: " + status);
-
-            dialog.gameObject.SetActive(true);
-            dialog.SetError("Did not load", status.ToString());
+            prompt.SetPrompt("Did not load", status.ToString());
             DefaultLoad();
         }
 
@@ -130,19 +128,23 @@ public class SaveManager : MonoSingleton<SaveManager>
 
             var platform = (PlayGamesPlatform)Social.Active;
             platform.SavedGame.CommitUpdate(meta, update, data, SaveCallBack);
-            dialog.SetError("Saved!", status.ToString());
         }
         else
         {
-            Debug.Log("Did not save: " + status);
-            dialog.gameObject.SetActive(true);
-            dialog.SetError("Did not save", status.ToString());
+            SaveCallBack(status, meta);
         }
 
     }
     private void SaveCallBack(SavedGameRequestStatus status, ISavedGameMetadata meta)
     {
-        Debug.Log("Did not save: " + status);
+        if(status == SavedGameRequestStatus.Success)
+        {
+            prompt.SetPrompt("Saved!", "Player State Successfully saved");
+        }
+        else
+        {
+            prompt.SetPrompt("Did not save", status.ToString());
+        }
     }
 
     // Serializing and Deserialzing save data

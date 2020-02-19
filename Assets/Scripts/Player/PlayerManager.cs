@@ -26,7 +26,7 @@ public class PlayerManager : MonoBehaviour, ISwapper
     [SerializeField]
     private Text actionText;
     [SerializeField]
-    private ConfirmPurchase confirm;
+    private MessageBox confirmPurchase;
 
     private int unlockIdx;
 
@@ -210,11 +210,11 @@ public class PlayerManager : MonoBehaviour, ISwapper
             if (raycastHit.collider.tag == "Player")
             {
                 Debug.Log("mmmhmm");
-                confirm.gameObject.SetActive(true);
-                confirm.SetReference(RocketPurchaseConfirm, SwapManager.rocketPrices[unlockIdx]);
+                confirmPurchase.SetPrompt($"Purchase Rocket\n\n {rockets[unlockIdx].name}?", SwapManager.rocketPrices[unlockIdx].ToString(), RocketPurchaseConfirm);
             }
         }
     }
+
 
     private bool CheckUnlock()
     {

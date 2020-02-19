@@ -3,7 +3,9 @@
 * Purpose: To handle all the player movement logic
 **/
 
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -102,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
                         Touch firstTouch = Input.GetTouch(0);
 
                         // if it began this frame
-                        if (firstTouch.phase == TouchPhase.Stationary)
+                        if (firstTouch.phase == TouchPhase.Stationary && !IsPointerOverUIObject(firstTouch.position.x, firstTouch.position.y))
                         {
                             if (firstTouch.position.x > screenCenterX)
                             {
@@ -124,14 +126,18 @@ public class PlayerMovement : MonoBehaviour
                 {
                     if (Input.GetMouseButton(0))
                     {
-                        if (Input.mousePosition.x > screenCenterX)
+                        if(!IsPointerOverUIObject(Input.mousePosition.x, Input.mousePosition.y))
                         {
-                            currentSpeedX = speedX;
+                            if (Input.mousePosition.x > screenCenterX)
+                            {
+                                currentSpeedX = speedX;
+                            }
+                            else if (Input.mousePosition.x < screenCenterX)
+                            {
+                                currentSpeedX = -speedX;
+                            }
                         }
-                        else if (Input.mousePosition.x < screenCenterX)
-                        {
-                            currentSpeedX = -speedX;
-                        }
+                       
                     }
                     else
                     {
@@ -331,5 +337,15 @@ public class PlayerMovement : MonoBehaviour
         speedUp = originalSpeedUp;
         isBoost = false;
         boostTime = 0.0f;
+    }
+
+    // Check if user input is over ui (dont move player if so)
+    private bool IsPointerOverUIObject(float xPos, float yPos)
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(xPos, yPos);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
 }

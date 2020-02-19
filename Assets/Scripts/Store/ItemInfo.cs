@@ -36,7 +36,7 @@ public class ItemInfo : MonoBehaviour
     private bool isUnlocked;
 
     private SwapManager swapper;
-    public ConfirmPurchase confirmPurchase;
+    public MessageBox confirmPurchasePrompt;
 
     private void Start()
     {
@@ -141,9 +141,7 @@ public class ItemInfo : MonoBehaviour
         }
         else
         {
-
-            confirmPurchase.gameObject.SetActive(true);
-            confirmPurchase.SetReference(ConfirmPurchase, price);
+            confirmPurchasePrompt.SetPrompt("Purchase Item?", price.ToString(), ConfirmPurchase);
           
         }
         

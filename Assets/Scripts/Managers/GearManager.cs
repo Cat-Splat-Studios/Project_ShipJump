@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GearManager : MonoSingleton<GearManager>
 {
-    public Dialog dialog;
+    public MessageBox prompt;
 
     [HideInInspector]
     public int levelGears { get; private set; }
@@ -30,8 +30,7 @@ public class GearManager : MonoSingleton<GearManager>
     public void PurchaseGears(int amount)
     {
         gears += amount;
-        dialog.gameObject.SetActive(true);
-        dialog.SetError("Gears Purchased!", $"You Purchased {amount} gears.");
+        prompt.SetPrompt("Gears Purchased!", $"You Purchased {amount} gears.");
     }
 
     public void IncrementGears()

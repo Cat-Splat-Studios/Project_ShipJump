@@ -11,20 +11,12 @@ using GooglePlayGames.BasicApi;
 using GooglePlayGames.BasicApi.SavedGame;
 using System;
 
-public enum EPlayServiceError : byte
-{
-    None = 0,
-    Timeout = 1,
-    NotAuthenticated = 2,
-    SaveGameNotEneabled = 4,
-    CloudSaveNameNotSet = 8
-}
 
 public class GPGSUtils : MonoSingleton<GPGSUtils>
 {
     private string cloudSaveName = "rr_saveState";
 
-    public Dialog dialog;
+    public MessageBox prompt;
     public UIDelgate ui;
     // Start is called before the first frame update
 
@@ -49,17 +41,14 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
             {
                 if (success)
                 {
-                    Debug.Log("Authenticated");
                     ui.HasAuthenitcated();
                     SaveManager.instance.LoadFromCloud();
                 }
                 else
                 {
-                    Debug.Log("NOPE! not Authenticated");
-                    dialog.gameObject.SetActive(true);
-                    dialog.SetError("Error", "Did not Authenticate");
-                    SaveManager.instance.DefaultLoad();
+                    prompt.SetPrompt("Error", "Did not Authenticate");
                     ui.HasAuthenitcated();
+                    SaveManager.instance.DefaultLoad();
                 }
             });
         }
@@ -70,27 +59,8 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
 
     }
 
-    public void OpenCloudSave(Action<SavedGameRequestStatus, ISavedGameMetadata> callback, Action<EPlayServiceError> errorCallback = null)
+    public void OpenCloudSave(Action<SavedGameRequestStatus, ISavedGameMetadata> callback)
     {
-        // TODO: Error Handling 
-        EPlayServiceError error = EPlayServiceError.None;
-
-        //if (!Social.localUser.authenticated)
-        //    error |= EPlayServiceError.NotAuthenticated;
-        //if (PlayGamesClientConfiguration.DefaultConfiguration.EnableSavedGames)
-        //    error |= EPlayServiceError.SaveGameNotEneabled; 
-        //if (string.IsNullOrEmpty(cloudSaveName))
-        //    error |= EPlayServiceError.CloudSaveNameNotSet;
-
-        //if(error != EPlayServiceError.None)
-        //{
-        //    errorCallback?.Invoke(error);
-        //    ErrorDiaolog errorDialog = FindObjectOfType<ErrorDiaolog>();
-        //    errorDialog.gameObject.SetActive(true);
-        //    errorDialog.SetError("Error", error.ToString());
-        //    return;
-        //}
-
         try
         {
             var platform = (PlayGamesPlatform)Social.Active;
@@ -99,11 +69,8 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
         catch(Exception e)
         {
             Debug.Log(e.Message);
-            dialog.gameObject.SetActive(true);
-            dialog.SetError("Error YALL", e.Message);
-            //callback.Invoke(SavedGameRequestStatus.InternalError, null);
-        }
-        
+            prompt.SetPrompt("Error: Open Save File", e.Message);
+        }    
     }
 
     public void SubmitScore(int score)
@@ -111,6 +78,7 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
         Social.ReportScore(score, GPGSIds.leaderboard_highest_kilometers_traveled, (bool Success) =>
         {
             Debug.Log("Score Added to Highscore");
+            prompt.SetPrompt("Added to Leaderboards", $"{score} was added.");
             ui.LeaderBoard();
         });
     }
@@ -119,6 +87,4 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
     {
         Social.ShowLeaderboardUI();
     }
-
-
 }
