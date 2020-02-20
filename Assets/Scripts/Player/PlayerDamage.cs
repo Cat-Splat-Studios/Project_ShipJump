@@ -16,14 +16,15 @@ public class PlayerDamage : MonoBehaviour
 
     // References
     [SerializeField]
-    private GameObject sheild;
+    private GameObject[] shields;
 
     private new AudioManager audio;
     private UIDelgate ui;
     private PlayerMovement playerMovement;
 
     // Helper Variables
-    private bool hasSheild = false;
+    private bool hasShield = false;
+    private int shieldCount = 0;
 
     private void Start()
     {
@@ -35,11 +36,13 @@ public class PlayerDamage : MonoBehaviour
 
     public void GotHit(GameObject obj)
     {
-        if (hasSheild)
+        if (shieldCount > 0)
         {
-            // Remove sheilds 
-            hasSheild = false;
-            sheild.SetActive(false);
+            shields[shieldCount - 1].SetActive(false);
+            shieldCount--;
+
+            if (shieldCount == 0)
+                hasShield = false;
 
             // Destroy Obstacle
             Obstacle obstacle = obj.GetComponent<Obstacle>();
@@ -55,13 +58,22 @@ public class PlayerDamage : MonoBehaviour
         }
     }
 
-    public void AttatchSheild()
+    public void AttatchShield()
     {
-        if (!hasSheild)
+        if (!hasShield)
         {
-            hasSheild = true;
-            sheild.SetActive(true);
+            hasShield = true;
+            shields[0].SetActive(true);
+            shieldCount = 1;
         }
+    }
+
+    public void AttachDoubleShield()
+    {
+        hasShield = true;
+        shields[0].SetActive(true);
+        shields[1].SetActive(true);
+        shieldCount = 2;
     }
 
     private void DestroyShip()

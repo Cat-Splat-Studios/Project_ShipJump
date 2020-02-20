@@ -23,6 +23,9 @@ public class SaveState
     public int ObstacleIdx { get; set; }
     public int ProjectileIdx { get; set; }
 
+    public int EmergencyFuelCount { get; set; }
+    public int DoubleShieldCount { get; set; }
+
     public List<int> PlayerUnlocks { get; set; }
 
     public List<int> BackgroundUnlocks { get; set; }
@@ -75,6 +78,9 @@ public class SaveManager : MonoSingleton<SaveManager>
         state.BackgroundIdx = 0;
         state.MusicIdx = 0;
         state.BackgroundIdx = 0;
+
+        state.EmergencyFuelCount = 1;
+        state.DoubleShieldCount = 1;
 
         state.PlayerUnlocks.Add(0);
         state.BackgroundUnlocks.Add(0);
@@ -175,6 +181,9 @@ public class SaveManager : MonoSingleton<SaveManager>
         SwapManager.MusicIdx = state.MusicIdx;
         SwapManager.BackgroundIdx = state.BackgroundIdx;
 
+        SwapManager.EmergencyFuelCount = state.EmergencyFuelCount;
+        SwapManager.DoubleShieldCount = state.DoubleShieldCount;
+
         SwapManager.PlayerUnlocks = state.PlayerUnlocks;
         SwapManager.BackgroundUnlocks = state.BackgroundUnlocks;
         SwapManager.MusicUnlocks = state.MusicUnlocks;
@@ -191,6 +200,9 @@ public class SaveManager : MonoSingleton<SaveManager>
         state.BackgroundIdx = SwapManager.BackgroundIdx;
         state.MusicIdx = SwapManager.MusicIdx;
         state.BackgroundIdx = SwapManager.BackgroundIdx;
+
+        state.EmergencyFuelCount = SwapManager.EmergencyFuelCount;
+        state.DoubleShieldCount = SwapManager.DoubleShieldCount;
 
         state.PlayerUnlocks = SwapManager.PlayerUnlocks;
         state.BackgroundUnlocks = SwapManager.BackgroundUnlocks;

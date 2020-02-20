@@ -21,10 +21,11 @@ public class PlayerShoot : MonoBehaviour
     }
     public void Shoot()
     {
-        Instantiate(projectilePrefab, projectileSpawn.transform);
-        canShoot = false;
-        ui.ToggleShoot(false);
-
+        if(canShoot)
+        {
+            Instantiate(projectilePrefab, projectileSpawn.transform);
+            TurnOff();
+        }
     }
 
     public void EnableShoot()
@@ -35,5 +36,11 @@ public class PlayerShoot : MonoBehaviour
             ui.ToggleShoot(true);
         }
 
+    }
+
+    public void TurnOff()
+    {
+        canShoot = false;
+        ui.ToggleShoot(false);
     }
 }

@@ -170,9 +170,16 @@ public class PlayerManager : MonoBehaviour, ISwapper
         SwapIt();
     }
 
+    public void ResetPlayer()
+    {
+        PlayerMovement().ResetMove();
+        PlayerMovement().StartGame();
+        PlayerShoot().TurnOff();
+    }
+
 
     /** Helper Methods**/
- 
+
     // checks what needs to be displayed to user
     private void ToggleSwap()
     {
@@ -209,7 +216,6 @@ public class PlayerManager : MonoBehaviour, ISwapper
             Debug.Log("Something Hit");
             if (raycastHit.collider.tag == "Player")
             {
-                Debug.Log("mmmhmm");
                 confirmPurchase.SetPrompt($"Purchase Rocket\n\n {rockets[unlockIdx].name}?", SwapManager.rocketPrices[unlockIdx].ToString(), RocketPurchaseConfirm);
             }
         }

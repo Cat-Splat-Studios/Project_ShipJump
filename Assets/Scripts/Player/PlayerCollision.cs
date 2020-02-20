@@ -50,7 +50,7 @@ public class PlayerCollision : MonoBehaviour
                             break;
                         case EPickupType.SHIELD:
                             //send reference to the player to activate sheild
-                            player.PlayerDamage().AttatchSheild();
+                            player.PlayerDamage().AttatchShield();
                             audio.PlaySound(pickupSounds[2]);
                             DestroyObject(other.gameObject);
                             break;

@@ -18,6 +18,10 @@ public class UIDelgate : MonoBehaviour
     private Text startText;
     [SerializeField]
     private Text gearText;
+    [SerializeField]
+    private Text fuelText;
+    [SerializeField]
+    private Text shieldText;
 
     // Game UI
     [Header("Game UI")]
@@ -26,6 +30,10 @@ public class UIDelgate : MonoBehaviour
     private Image fuelBar;
     [SerializeField]
     private Text distanceTraveled;
+    [SerializeField]
+    private Animator shootButton;
+    [SerializeField]
+    private EliteAbility[] eliteAbilities;
     [SerializeField]
     private GameObject[] numbers;
 
@@ -37,8 +45,6 @@ public class UIDelgate : MonoBehaviour
     private Text scoreText;
     [SerializeField]
     private Text coinsCollectedText;
-    [SerializeField]
-    private Text totalGearsText;
     [SerializeField]
     private Text highscoreText;
 
@@ -114,6 +120,7 @@ public class UIDelgate : MonoBehaviour
     {
         generatorManager.StopGenerators();
         gameStarted = false;
+        
         StartCoroutine(GameOverWait());
     }
 
@@ -121,10 +128,8 @@ public class UIDelgate : MonoBehaviour
     {
         // Replay game, reset the necessary things
         generatorManager.TopGenerate();
-       
         player.gameObject.SetActive(true);
-        player.PlayerMovement().ResetMove();
-        player.PlayerMovement().StartGame();
+        player.ResetPlayer();
 
         // TODO MAKE SINGLETON
         FindObjectOfType<PoolManager>().ResetObjects();
@@ -132,6 +137,8 @@ public class UIDelgate : MonoBehaviour
         // set ui
         gameUI.SetActive(true);
         gameOver.SetActive(false);
+        StatHUD.SetActive(false);
+        AbilitCheck();
 
         gameStarted = true;
 
@@ -160,11 +167,11 @@ public class UIDelgate : MonoBehaviour
     {
         if (value)
         {
-            anim.SetTrigger("Engage");
+            shootButton.SetTrigger("up");
         }
         else
         {
-            anim.SetTrigger("Disable");
+            shootButton.SetTrigger("down");
         }
     }
 
@@ -216,6 +223,12 @@ public class UIDelgate : MonoBehaviour
     public void UpdateGearText()
     {
         gearText.text = $"{GearManager.instance.GetGears()}";
+    }
+
+    public void UpdateAbilityText()
+    {
+        fuelText.text = SwapManager.EmergencyFuelCount.ToString();
+        shieldText.text = SwapManager.DoubleShieldCount.ToString();
     }
 
     public void QuitGame()
@@ -277,7 +290,6 @@ public class UIDelgate : MonoBehaviour
         scoreText.text = $"You Traveled\n\n {curDistance} km";
         highscoreText.gameObject.SetActive(highscore);
         coinsCollectedText.text = $"Gears Collected\n\n {GearManager.instance.levelGears}";
-        totalGearsText.text = $"Total Gears = {GearManager.instance.GetGears()}";
     }
 
     private void ToggleNumbers(bool value)
@@ -296,6 +308,8 @@ public class UIDelgate : MonoBehaviour
         generatorManager.TopGenerate();
         ToggleNumbers(false);
         gameStarted = true;
+        AbilitCheck();
+     
     }
 
     private IEnumerator GameOverWait()
@@ -304,7 +318,19 @@ public class UIDelgate : MonoBehaviour
         yield return new WaitForSeconds(0.6f);
         gameUI.SetActive(false);
         gameOver.SetActive(true);
+        StatHUD.SetActive(true);
+        UpdateAbilityText();
+        UpdateGearText();
         ScoreDisplay();
+        SaveManager.instance.SaveToCloud();
+    }
+
+    private void AbilitCheck()
+    {
+        foreach (EliteAbility ability in eliteAbilities)
+        {
+            ability.EnableAbility();
+        }
     }
     
     private void SetStartText()
@@ -323,5 +349,6 @@ public class UIDelgate : MonoBehaviour
 
         startText.text = $"Highscore\n {score} km";
         UpdateGearText();
+        UpdateAbilityText();
     }
 }

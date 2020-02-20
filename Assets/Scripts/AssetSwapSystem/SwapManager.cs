@@ -15,6 +15,9 @@ public class SwapManager : MonoSingleton<SwapManager>
     public static int ObstacleIdx;
     public static int ProjectileIdx;
 
+    public static int EmergencyFuelCount;
+    public static int DoubleShieldCount;
+
     public static List<int> PlayerUnlocks { get; set; }
 
     public static List<int> BackgroundUnlocks { get; set; }
