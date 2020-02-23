@@ -72,7 +72,7 @@ public class SaveManager : MonoSingleton<SaveManager>
     // Incase loading from save fails, create an initial state
     public void DefaultLoad()
     {
-        state.Gears = 1000;
+        state.Gears = 100;
 
         state.PlayerIdx = 0;
         state.BackgroundIdx = 0;
@@ -118,8 +118,16 @@ public class SaveManager : MonoSingleton<SaveManager>
     }
     private void LoadCallBack(SavedGameRequestStatus status, byte[] data)
     {
-        state = DeserializeState(data);
-        MapToView();
+        if(data.Length < 0)
+        {
+            state = DeserializeState(data);
+            MapToView();
+        }
+        else
+        {
+            DefaultLoad();
+        }
+       
     }
 
     // Save Callbacks

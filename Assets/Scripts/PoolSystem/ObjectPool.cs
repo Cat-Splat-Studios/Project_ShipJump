@@ -59,6 +59,7 @@ public class ObjectPool : MonoBehaviour
 
     public void ResetObjects()
     {
+        pool.Clear();
         // returns all the objects
         foreach (Transform child in transform)
         {

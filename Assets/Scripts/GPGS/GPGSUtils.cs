@@ -37,7 +37,7 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
     {
         try
         {
-            PlayGamesPlatform.Instance.Authenticate((bool success) =>
+            Social.localUser.Authenticate((bool success) =>
             {
                 if (success)
                 {

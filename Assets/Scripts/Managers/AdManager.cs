@@ -21,7 +21,6 @@ public class AdManager : MonoSingleton<AdManager>
     // Start is called before the first frame update
     void Start()
     {
-
         Advertisement.Initialize(gameId, testMode);
         op = new ShowOptions();
         op.resultCallback = OnUnityAdsDidFinish;
@@ -33,7 +32,6 @@ public class AdManager : MonoSingleton<AdManager>
         {
             currentTimeThreshold += Time.deltaTime;      
         }
-
     }
 
     public void AdCheck()

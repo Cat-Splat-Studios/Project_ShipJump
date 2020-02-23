@@ -126,8 +126,6 @@ public class UIDelgate : MonoBehaviour
 
     public void Replay()
     {
-        // Replay game, reset the necessary things
-        generatorManager.TopGenerate();
         player.gameObject.SetActive(true);
         player.ResetPlayer();
 
@@ -138,14 +136,12 @@ public class UIDelgate : MonoBehaviour
         gameUI.SetActive(true);
         gameOver.SetActive(false);
         StatHUD.SetActive(false);
-        AbilitCheck();
-
-        gameStarted = true;
-
         highscore = false;
-
         GearManager.instance.ResetLevelGears();
         AdManager.instance.AdCheck();
+
+        anim.SetTrigger("Start");
+        StartCoroutine(StartWait());
     }
 
     public void Highscore(float previousScore)
@@ -280,6 +276,11 @@ public class UIDelgate : MonoBehaviour
         {
             _curDistance = value.ToString();
         }
+    }
+
+    public void resetDistance()
+    {
+        distanceTraveled.text = "0 km";
     }
 
     /** Helper Methods **/

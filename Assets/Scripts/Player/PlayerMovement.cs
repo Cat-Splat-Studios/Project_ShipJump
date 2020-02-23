@@ -103,8 +103,10 @@ public class PlayerMovement : MonoBehaviour
                         // get the first one
                         Touch firstTouch = Input.GetTouch(0);
 
+
+
                         // if it began this frame
-                        if (firstTouch.phase == TouchPhase.Stationary && !IsPointerOverUIObject(firstTouch.position.x, firstTouch.position.y))
+                        if ((firstTouch.phase == TouchPhase.Stationary || firstTouch.phase == TouchPhase.Began) && !IsPointerOverUIObject(firstTouch.position.x, firstTouch.position.y))
                         {
                             if (firstTouch.position.x > screenCenterX)
                             {
@@ -115,6 +117,12 @@ public class PlayerMovement : MonoBehaviour
                                 currentSpeedX = -speedX;
                             }
                         }
+
+                        if(firstTouch.phase == TouchPhase.Ended || firstTouch.phase == TouchPhase.Canceled)
+                        {
+                            currentSpeedX = 0;
+                        } 
+                       
                     }
                     else
                     {
@@ -275,10 +283,11 @@ public class PlayerMovement : MonoBehaviour
     public void ResetMove()
     {
         canMove = true;
+        currentFuel = maxFuel;
+        startYPos = transform.position.y;
+        ui.resetDistance();
         gears = 0;
-        transform.position = Vector3.zero;
-
-        
+        transform.position = Vector3.zero;  
     }
 
     public void SetBoost()

@@ -77,7 +77,7 @@ public class AudioManager : MonoBehaviour, ISwapper
     private void InitSounds()
     {
         // Begin with 5 sound objects to work with
-        for(int i = 0; i < 5; ++i)
+        for(int i = 0; i < 10; ++i)
         {
             GameObject soundObj = Instantiate(soundPefab, this.transform) as GameObject;
 

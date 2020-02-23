@@ -173,7 +173,6 @@ public class PlayerManager : MonoBehaviour, ISwapper
     public void ResetPlayer()
     {
         PlayerMovement().ResetMove();
-        PlayerMovement().StartGame();
         PlayerShoot().TurnOff();
     }
 
