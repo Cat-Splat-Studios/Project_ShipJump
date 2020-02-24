@@ -12,7 +12,6 @@ public class GearManager : MonoSingleton<GearManager>
 
     private int gears;
 
-
     private void Start()
     {
         ui = FindObjectOfType<UIDelgate>();
@@ -25,6 +24,7 @@ public class GearManager : MonoSingleton<GearManager>
     public void SetGears(int gears)
     {
         this.gears = gears;
+       // ui.UpdateGearText();
     }
 
     public void PurchaseGears(int amount)

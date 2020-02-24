@@ -148,9 +148,6 @@ public class UIDelgate : MonoBehaviour
     {
         highscore = true;
         highscoreText.text = $"New Personal Highscore!\n\nPrevious Score = {previousScore} km";
-
-        // save leaderboards
-
     }
 
     public void LeaderBoard()

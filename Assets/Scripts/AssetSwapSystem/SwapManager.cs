@@ -18,15 +18,15 @@ public class SwapManager : MonoSingleton<SwapManager>
     public static int EmergencyFuelCount;
     public static int DoubleShieldCount;
 
-    public static List<int> PlayerUnlocks { get; set; }
+    public static List<int> PlayerUnlocks { get; set; } = new List<int>();
 
-    public static List<int> BackgroundUnlocks { get; set; }
+    public static List<int> BackgroundUnlocks { get; set; } = new List<int>();
 
-    public static List<int> MusicUnlocks { get; set; }
+    public static List<int> MusicUnlocks { get; set; } = new List<int>();
 
-    public static List<int> ObstacleUnlocks { get; set; }
+    public static List<int> ObstacleUnlocks { get; set; } = new List<int>();
 
-    public static List<int> ProjectileUnlocks { get; set; }
+    public static List<int> ProjectileUnlocks { get; set; } = new List<int>();
 
     [SerializeField]
     private BackgroundManager background;

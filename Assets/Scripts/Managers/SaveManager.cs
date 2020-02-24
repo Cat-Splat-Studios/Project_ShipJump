@@ -17,6 +17,8 @@ public class SaveState
 {
     public int Gears { get; set; }
 
+    public int HighScore { get; set; }
+
     public int PlayerIdx { get; set; }
     public int BackgroundIdx { get; set; }
     public int MusicIdx { get; set; }
@@ -82,15 +84,15 @@ public class SaveManager : MonoSingleton<SaveManager>
         state.EmergencyFuelCount = 1;
         state.DoubleShieldCount = 1;
 
-        state.PlayerUnlocks.Add(0);
-        state.BackgroundUnlocks.Add(0);
-        state.MusicUnlocks.Add(0);
-        state.ObstacleUnlocks.Add(0);
-
         MapToView();
 
         FindObjectOfType<PlayerManager>().InitUnlock();
         FindObjectOfType<UIDelgate>().UpdateGearText();
+    }
+
+    public void SetHighScore(int score)
+    {
+        state.HighScore = score; 
     }
 
     /** Helper Methods**/
@@ -102,9 +104,6 @@ public class SaveManager : MonoSingleton<SaveManager>
         {
             var platform = (PlayGamesPlatform)Social.Active;
             platform.SavedGame.ReadBinaryData(meta, LoadCallBack);
-
-            Debug.Log("LOADED");
-            prompt.SetPrompt("Loaded Save Game", "The Player State was successfully loaded.");
             FindObjectOfType<UIDelgate>().UpdateGearText();
         }
         else
@@ -153,7 +152,7 @@ public class SaveManager : MonoSingleton<SaveManager>
     {
         if(status == SavedGameRequestStatus.Success)
         {
-            prompt.SetPrompt("Saved!", "Player State Successfully saved");
+            //prompt.SetPrompt("Saved!", "Player State Successfully saved");
         }
         else
         {
@@ -202,7 +201,7 @@ public class SaveManager : MonoSingleton<SaveManager>
 
     private void MapToState()
     {
-        state.Gears = SwapManager.Gears;
+        state.Gears = GearManager.instance.GetGears();
 
         state.PlayerIdx = SwapManager.PlayerIdx;
         state.BackgroundIdx = SwapManager.BackgroundIdx;

@@ -220,7 +220,6 @@ public class PlayerManager : MonoBehaviour, ISwapper
         }
     }
 
-
     private bool CheckUnlock()
     {
         return SwapManager.PlayerUnlocks.Contains(unlockIdx);

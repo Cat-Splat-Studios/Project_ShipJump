@@ -263,10 +263,14 @@ public class PlayerMovement : MonoBehaviour
 
     public void StopMovement()
     {
+
         if(isBoost)
         {
             StopBoost();
         }
+
+        currentSpeedX = 0;
+        currentSpeedUp = 0;
         
         canMove = false;
         startGame = false;
@@ -316,6 +320,7 @@ public class PlayerMovement : MonoBehaviour
                 PlayerPrefs.SetFloat("highscore", distance);
                 ui.Highscore(highscore);
                 GPGSUtils.instance.SubmitScore((int)distance);
+                SaveManager.instance.SetHighScore((int)distance);
             }
         }
         else
