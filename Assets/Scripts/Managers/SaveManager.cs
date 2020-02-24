@@ -118,7 +118,7 @@ public class SaveManager : MonoSingleton<SaveManager>
     }
     private void LoadCallBack(SavedGameRequestStatus status, byte[] data)
     {
-        if(data.Length < 0)
+        if(data.Length > 0)
         {
             state = DeserializeState(data);
             MapToView();
