@@ -275,7 +275,6 @@ public class PlayerMovement : MonoBehaviour
         canMove = false;
         startGame = false;
         CheckScore();
-        SetCoins();
     }
     public void StartGame()
     {
@@ -312,21 +311,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckScore()
     {
-        if (PlayerPrefs.HasKey("highscore"))
+        float highscore = SaveManager.instance.GetHighscore();
+        if (distance > highscore)
         {
-            float highscore = PlayerPrefs.GetFloat("highscore");
-            if (distance > highscore)
-            {
-                PlayerPrefs.SetFloat("highscore", distance);
-                ui.Highscore(highscore);
-                GPGSUtils.instance.SubmitScore((int)distance);
-                SaveManager.instance.SetHighScore((int)distance);
-            }
-        }
-        else
-        {
-            PlayerPrefs.SetFloat("highscore", distance);
-            ui.Highscore(0.0f);
+            ui.Highscore(highscore);
+            GPGSUtils.instance.SubmitScore((int)distance);
+            SaveManager.instance.SetHighScore((int)distance);
         }
     }
 
@@ -338,11 +328,6 @@ public class PlayerMovement : MonoBehaviour
         {
             thruster.SetActive(value);
         }
-    }
-
-    private void SetCoins()
-    {
-        PlayerPrefs.SetInt("coins", gears);
     }
 
     private void StopBoost()

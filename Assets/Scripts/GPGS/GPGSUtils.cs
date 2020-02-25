@@ -41,7 +41,6 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
             {
                 if (success)
                 {
-                    ui.HasAuthenitcated();
                     SaveManager.instance.LoadFromCloud();
                 }
                 else

@@ -45,8 +45,6 @@ public class EliteAbilityPurchase : MonoBehaviour
             }
 
             GearManager.instance.RemoveGears(purchase.GetTotalPrice());
-
-            FindObjectOfType<UIDelgate>().UpdateAbilityText();
         }
     }
 }

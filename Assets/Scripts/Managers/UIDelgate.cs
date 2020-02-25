@@ -80,9 +80,6 @@ public class UIDelgate : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<PlayerManager>();
         generatorManager = FindObjectOfType<GeneratorManager>();
         camera = FindObjectOfType<CameraFollow>();
-
-        // Set start text to show high score and current gears
-        SetStartText();
     }
 
     // Update is called once per frame
@@ -91,7 +88,7 @@ public class UIDelgate : MonoBehaviour
         fuelBar.fillAmount = _curFuel;
         // Update amounts when game is playing
         if (gameStarted)
-        {     
+        {
             distanceTraveled.text = $"{_curDistance} km";
         }
 
@@ -112,7 +109,7 @@ public class UIDelgate : MonoBehaviour
         player.StartGameMeshCheck();
 
         camera.GameStart();
-     
+
         StartCoroutine(StartWait());
     }
 
@@ -120,7 +117,7 @@ public class UIDelgate : MonoBehaviour
     {
         generatorManager.StopGenerators();
         gameStarted = false;
-        
+
         StartCoroutine(GameOverWait());
     }
 
@@ -169,7 +166,7 @@ public class UIDelgate : MonoBehaviour
     }
 
     public void OpenShop(int shopType)
-    { 
+    {
         startUI.SetActive(false);
         shopUI.SetActive(true);
         shops[shopType].gameObject.SetActive(true);
@@ -179,7 +176,7 @@ public class UIDelgate : MonoBehaviour
 
     public void CloseShop()
     {
-        foreach(Shop shop in shops)
+        foreach (Shop shop in shops)
         {
             shop.gameObject.SetActive(false);
         }
@@ -207,18 +204,20 @@ public class UIDelgate : MonoBehaviour
         StatHUD.SetActive(true);
         gameOver.SetActive(false);
 
-        SetStartText();
+        UpdateInfoText();
 
         GearManager.instance.ResetLevelGears();
         AdManager.instance.AdCheck();
     }
 
-    public void UpdateGearText()
+    public void UpdateInfoText()
     {
         gearText.text = $"{GearManager.instance.GetGears()}";
+        startText.text = $"Highscore\n {SaveManager.instance.GetHighscore()} km";
+        UpdateAbilityText();
     }
 
-    public void UpdateAbilityText()
+    private void UpdateAbilityText()
     {
         fuelText.text = SwapManager.EmergencyFuelCount.ToString();
         shieldText.text = SwapManager.DoubleShieldCount.ToString();
@@ -307,7 +306,7 @@ public class UIDelgate : MonoBehaviour
         ToggleNumbers(false);
         gameStarted = true;
         AbilitCheck();
-     
+
     }
 
     private IEnumerator GameOverWait()
@@ -317,8 +316,7 @@ public class UIDelgate : MonoBehaviour
         gameUI.SetActive(false);
         gameOver.SetActive(true);
         StatHUD.SetActive(true);
-        UpdateAbilityText();
-        UpdateGearText();
+        UpdateInfoText();
         ScoreDisplay();
         SaveManager.instance.SaveToCloud();
     }
@@ -329,24 +327,5 @@ public class UIDelgate : MonoBehaviour
         {
             ability.EnableAbility();
         }
-    }
-    
-    private void SetStartText()
-    {
-        float score = 0;
-        if (PlayerPrefs.HasKey("highscore"))
-        {
-            score = PlayerPrefs.GetFloat("highscore");
-        }
-
-        int coins = 0;
-        if (PlayerPrefs.HasKey("coins"))
-        {
-            coins = PlayerPrefs.GetInt("coins");
-        }
-
-        startText.text = $"Highscore\n {score} km";
-        UpdateGearText();
-        UpdateAbilityText();
     }
 }

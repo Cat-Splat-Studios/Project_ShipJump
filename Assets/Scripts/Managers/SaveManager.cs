@@ -43,6 +43,8 @@ public class SaveState
 public class SaveManager : MonoSingleton<SaveManager>
 {
     public MessageBox prompt;
+    public UIDelgate ui;
+    public PlayerManager player;
     [HideInInspector]
     public SaveState state;
 
@@ -86,13 +88,18 @@ public class SaveManager : MonoSingleton<SaveManager>
 
         MapToView();
 
-        FindObjectOfType<PlayerManager>().InitUnlock();
-        FindObjectOfType<UIDelgate>().UpdateGearText();
+        player.InitUnlock();
+        ui.UpdateInfoText();
     }
 
     public void SetHighScore(int score)
     {
         state.HighScore = score; 
+    }
+
+    public int GetHighscore()
+    {
+        return state.HighScore;
     }
 
     /** Helper Methods**/
@@ -104,29 +111,37 @@ public class SaveManager : MonoSingleton<SaveManager>
         {
             var platform = (PlayGamesPlatform)Social.Active;
             platform.SavedGame.ReadBinaryData(meta, LoadCallBack);
-            FindObjectOfType<UIDelgate>().UpdateGearText();
         }
         else
         {
             Debug.Log("Did not load: " + status);
             prompt.SetPrompt("Did not load", status.ToString());
             DefaultLoad();
+
+            ui.HasAuthenitcated();
+            ui.UpdateInfoText();
+
+            player.InitUnlock();
         }
 
-        FindObjectOfType<PlayerManager>().InitUnlock();
     }
     private void LoadCallBack(SavedGameRequestStatus status, byte[] data)
     {
         if(data.Length > 0)
         {
             state = DeserializeState(data);
-            MapToView();
+            MapToView();      
         }
         else
         {
             DefaultLoad();
         }
-       
+
+        ui.HasAuthenitcated();
+        ui.UpdateInfoText();
+
+        player.InitUnlock();
+
     }
 
     // Save Callbacks

@@ -42,13 +42,13 @@ public class GearManager : MonoSingleton<GearManager>
     public void AddGears(int amount)
     {
         gears += amount;
-        ui.UpdateGearText();
+        ui.UpdateInfoText();
     }
 
     public void RemoveGears(int amount)
     {
         gears -= amount;
-        ui.UpdateGearText();
+        ui.UpdateInfoText();
     }
     public void ResetLevelGears()
     {
