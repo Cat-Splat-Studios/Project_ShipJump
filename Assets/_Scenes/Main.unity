@@ -463,17 +463,17 @@ PrefabInstance:
     - target: {fileID: 4624805024584917393, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2209612089035753063, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1949433327630665367, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8449071100181171800, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
@@ -732,15 +732,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 597040309, guid: efb6b99265acf274eb27f0730d357326, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 706059250, guid: efb6b99265acf274eb27f0730d357326, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1344093142, guid: efb6b99265acf274eb27f0730d357326, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7717071091727929484, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
@@ -837,6 +837,11 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0.5647059
       objectReference: {fileID: 0}
+    - target: {fileID: 155757494535578888, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efb6b99265acf274eb27f0730d357326, type: 3}
 --- !u!1 &193654890
@@ -871,6 +876,7 @@ MonoBehaviour:
   testMode: 1
   gearReward: 100
   thresholdTime: 90
+  rewardPrompt: {fileID: 739882011}
 --- !u!4 &193654892
 Transform:
   m_ObjectHideFlags: 0

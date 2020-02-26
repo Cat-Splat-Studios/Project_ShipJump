@@ -85,7 +85,7 @@ public class SwapManager : MonoSingleton<SwapManager>
                 break;
         }
 
-        //SaveManager.instance.SaveToCloud();
+        SaveManager.instance.SaveToCloud();
     }
 
     public void BackgroundSelect(int idx)

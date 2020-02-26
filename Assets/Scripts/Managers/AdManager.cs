@@ -9,6 +9,8 @@ public class AdManager : MonoSingleton<AdManager>
     public int gearReward = 200;
     public float thresholdTime = 180.0f;
 
+    public MessageBox rewardPrompt;
+
     private string gameId = "3468117";
     private string myPlacementId = "rewardedVideo";
 
@@ -54,13 +56,18 @@ public class AdManager : MonoSingleton<AdManager>
         if (showResult == ShowResult.Finished)
         {
             GearManager.instance.AddGears(gearReward);
-            Debug.Log("Finished");
+            SaveManager.instance.SaveToCloud();
+            currentTimeThreshold = 0.0f;
+            rewardPrompt.SetPrompt("Reward!", $"You have been rewarded {gearReward} gears for watching the ad.", OnConfirmReward);
         }
-
-        currentTimeThreshold = 0.0f;
+        
         AdWait = true;
-        Time.timeScale = 1.0f;
         //Advertisement.RemoveListener(this);
+    }
+
+    public void OnConfirmReward(bool confirm)
+    {
+        Time.timeScale = 1.0f;       
     }
 }
 
