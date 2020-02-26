@@ -45,6 +45,8 @@ public class EliteAbilityPurchase : MonoBehaviour
             }
 
             GearManager.instance.RemoveGears(purchase.GetTotalPrice());
+
+            SaveManager.instance.SaveToCloud();
         }
     }
 }

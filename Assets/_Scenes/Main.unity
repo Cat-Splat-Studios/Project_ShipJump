@@ -252,6 +252,11 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8684053801587092900, guid: d2880068e97cd4a0b909c3d15a124309,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2880068e97cd4a0b909c3d15a124309, type: 3}
 --- !u!1001 &180622870
@@ -503,12 +508,12 @@ PrefabInstance:
     - target: {fileID: 4591324191337457841, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
       propertyPath: price
-      value: 700
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 7156396237411586846, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
       propertyPath: price
-      value: 800
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5625518358596897002, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
@@ -523,12 +528,12 @@ PrefabInstance:
     - target: {fileID: 1074777395619677452, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
       propertyPath: price
-      value: 600
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 4765508557661523013, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
       propertyPath: price
-      value: 1300
+      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 1099160586, guid: efb6b99265acf274eb27f0730d357326, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -732,15 +737,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 597040309, guid: efb6b99265acf274eb27f0730d357326, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 706059250, guid: efb6b99265acf274eb27f0730d357326, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1344093142, guid: efb6b99265acf274eb27f0730d357326, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7717071091727929484, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
@@ -841,6 +846,72 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9033599276629442165, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: price
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 619964051380381238, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: price
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 532941076124263845, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: price
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 167811127, guid: efb6b99265acf274eb27f0730d357326, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 167811127, guid: efb6b99265acf274eb27f0730d357326, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 167811127, guid: efb6b99265acf274eb27f0730d357326, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 167811127, guid: efb6b99265acf274eb27f0730d357326, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 167811127, guid: efb6b99265acf274eb27f0730d357326, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 283
+      objectReference: {fileID: 0}
+    - target: {fileID: 167811127, guid: efb6b99265acf274eb27f0730d357326, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 139
+      objectReference: {fileID: 0}
+    - target: {fileID: 167811127, guid: efb6b99265acf274eb27f0730d357326, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 168.29999
+      objectReference: {fileID: 0}
+    - target: {fileID: 3383028728545668458, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: price
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 2818406865029576899, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: price
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1110367382412924629, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Double Shields
+
+
+        150 Gears'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1174897891732570459, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_Text
+      value: "Emergency Fuel \n\n100 Gears"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efb6b99265acf274eb27f0730d357326, type: 3}
@@ -2267,6 +2338,11 @@ PrefabInstance:
     - target: {fileID: 2016972098, guid: d5f89821ccea90046b78a54376b18ebd, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904309150522338698, guid: d5f89821ccea90046b78a54376b18ebd,
+        type: 3}
+      propertyPath: fuelDecrease
+      value: 8.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5f89821ccea90046b78a54376b18ebd, type: 3}

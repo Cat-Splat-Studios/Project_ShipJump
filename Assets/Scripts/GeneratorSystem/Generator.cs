@@ -66,7 +66,7 @@ public class Generator : MonoBehaviour
 
         int idx;
 
-        Collider[] hitcolliders = Physics.OverlapSphere(spawnPos, 0.5f, LayerMask.GetMask("Spawners"));
+        Collider[] hitcolliders = Physics.OverlapSphere(spawnPos, 1.0f, LayerMask.GetMask("Spawners"));
 
         if(hitcolliders.Length > 0)
         {
