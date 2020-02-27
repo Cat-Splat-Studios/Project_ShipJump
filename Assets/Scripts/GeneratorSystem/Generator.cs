@@ -75,6 +75,7 @@ public class Generator : MonoBehaviour
 
         if(hitcolliders.Length > 0)
         {
+            didSkip = true;
             return;
         }
 
@@ -94,8 +95,8 @@ public class Generator : MonoBehaviour
         {
             Instantiate(gearSpawnPrefab, spawnPos, Quaternion.identity);
         }
-         
-        
+
+        didSkip = false;
        // 
     }  
 }

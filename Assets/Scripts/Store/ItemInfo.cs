@@ -8,7 +8,8 @@ public enum EAssetType
     BACKGROUND,
     MUSIC,
     ROCKET,
-    OBSTACLE
+    OBSTACLE,
+    POWERUPS
 }
 
 public class ItemInfo : MonoBehaviour

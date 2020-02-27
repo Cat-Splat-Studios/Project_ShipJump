@@ -18,11 +18,9 @@ public class EliteAbilityPurchase : MonoBehaviour
         {
             case EAbilityType.EMERGENCYFUEL:
                 title = "Purchase Emergency Fuel";
-                description = "Use once per round to regain fuel in desperate times!";
                 break;
             case EAbilityType.DOUBLESHIELDS:
                 title = "Purchase Double Shields";
-                description = "Use once per round to enhanced shields that can take two hits!";
                 break;
         }
 
