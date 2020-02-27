@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinsToSpawn: 0
-  yOffset: 1.5
+  yOffset: 1
+  xOffset: 0.75
   coinPrefab: {fileID: 4263164158643768798, guid: a74c132e55e24f340a065e23de91c889,
     type: 3}

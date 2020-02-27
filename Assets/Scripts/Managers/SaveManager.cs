@@ -64,13 +64,17 @@ public class SaveManager : MonoSingleton<SaveManager>
 
     public void SaveToCloud()
     {
-        MapToState();
-        GPGSUtils.instance.OpenCloudSave(OnSaveResponse);  
+        if(PlayGamesPlatform.Instance.IsAuthenticated())
+        {
+            MapToState();
+            GPGSUtils.instance.OpenCloudSave(OnSaveResponse);
+        }
     }
 
     public void LoadFromCloud()
     {
-        GPGSUtils.instance.OpenCloudSave(OnLoadResponse);
+        if (PlayGamesPlatform.Instance.IsAuthenticated())
+            GPGSUtils.instance.OpenCloudSave(OnLoadResponse);
     }
   
     // Incase loading from save fails, create an initial state

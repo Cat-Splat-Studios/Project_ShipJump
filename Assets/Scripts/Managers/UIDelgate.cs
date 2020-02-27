@@ -54,6 +54,8 @@ public class UIDelgate : MonoBehaviour
     private GameObject shopUI;
     [SerializeField]
     private Shop[] shops;
+    [SerializeField]
+    private GameObject[] shopTitle;
 
     [Header("Store UI")]
     [SerializeField]
@@ -169,6 +171,7 @@ public class UIDelgate : MonoBehaviour
     {
         startUI.SetActive(false);
         shopUI.SetActive(true);
+        shopTitle[shopType].gameObject.SetActive(true);
         shops[shopType].gameObject.SetActive(true);
         shops[shopType].SetStartPos();
         shops[shopType].InitItems();
@@ -176,9 +179,11 @@ public class UIDelgate : MonoBehaviour
 
     public void CloseShop()
     {
+        int count = 0;
         foreach (Shop shop in shops)
         {
             shop.gameObject.SetActive(false);
+            shopTitle[count++].SetActive(false);
         }
         shopUI.SetActive(false);
         startUI.SetActive(true);

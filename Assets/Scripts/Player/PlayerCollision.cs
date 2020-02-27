@@ -61,6 +61,7 @@ public class PlayerCollision : MonoBehaviour
                             break;
                         case EPickupType.PROJECTILE:
                             player.PlayerShoot().EnableShoot();
+                            audio.PlaySound(pickupSounds[4]);
                             DestroyObject(other.gameObject);
                             break;
                     }

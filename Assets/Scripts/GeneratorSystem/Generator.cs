@@ -27,6 +27,8 @@ public class Generator : MonoBehaviour
     private float timeTillSpawn;
     private float timeSpawn;
 
+    private bool didSkip = false;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -53,8 +55,11 @@ public class Generator : MonoBehaviour
 
     private void SetSpawnIntervals()
     {
-        
-        timeTillSpawn = Random.Range(minInterval, maxInterval);
+
+        if (!didSkip)
+            timeTillSpawn = Random.Range(minInterval, maxInterval);
+        else
+            timeTillSpawn = 0.5f;
         timeSpawn = 0.0f;
     }
 
@@ -70,10 +75,8 @@ public class Generator : MonoBehaviour
 
         if(hitcolliders.Length > 0)
         {
-            Spawn();
             return;
         }
-
 
         if (poolNames.Length > 1)
         {

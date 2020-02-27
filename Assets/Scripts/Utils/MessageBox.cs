@@ -7,12 +7,15 @@ public class MessageBox : MonoBehaviour
 {
     [SerializeField]
     private GameObject box;
+    [SerializeField]
+    private GameObject boxBackground;
 
     [Header("Texts")]
     [SerializeField]
     private Text textTitle;
     [SerializeField]
     private Text textDescription;
+
 
     protected Action<bool> onMessageAction;
 
@@ -51,11 +54,13 @@ public class MessageBox : MonoBehaviour
     protected void Display()
     {
         box.SetActive(true);
+        boxBackground.SetActive(true);
     }
 
     protected void Close()
     {
         box.SetActive(false);
+        boxBackground.SetActive(false);
     }
 
 }

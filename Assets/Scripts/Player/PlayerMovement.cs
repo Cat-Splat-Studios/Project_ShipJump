@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Boost")]
     [SerializeField]
     private float boostMax = 2.0f;
+    private float boostMod = 0.0f;
     private bool isBoost = false;
     private float boostTime = 0.0f;
     private float originalSpeedUp;
@@ -241,6 +242,38 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if(distance < 100)
+        {
+            speedUp = 8;
+            fuelDecrease = 6.0f;
+
+        }
+        else if (distance < 300)
+        {
+            speedUp = 9;
+            fuelDecrease = 6.5f;
+        }
+        else if (distance < 500)
+        {
+            speedUp = 10;
+            fuelDecrease = 7.0f;
+        }
+        else if (distance < 800)
+        {
+            speedUp = 11;
+            fuelDecrease = 7.5f;
+        }
+        else if (distance < 1000)
+        {
+            speedUp = 13;
+            fuelDecrease = 8.0f;
+        }
+        else
+        {
+            speedUp = 15;
+            fuelDecrease = 8.5f;
+        }
+
         // set ui fuel
         ui.curFuel = currentFuel / 100;
 
@@ -248,7 +281,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetInteger("tilt", (int)currentSpeedX);
 
         // Set finished movment each frame
-        rb.velocity = new Vector3(currentSpeedX, currentSpeedUp, 0.0f);
+        rb.velocity = new Vector3(currentSpeedX, currentSpeedUp + boostMod, 0.0f);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -xClamp, xClamp), transform.position.y, transform.position.z);
     }
 
@@ -297,7 +330,7 @@ public class PlayerMovement : MonoBehaviour
     {
         boostTime = 0.0f;
         isBoost = true;
-        speedUp += 3.0f;
+        boostMod = 3.0f;
     }
 
     public void ResetIdle()
@@ -336,6 +369,7 @@ public class PlayerMovement : MonoBehaviour
         speedUp = originalSpeedUp;
         isBoost = false;
         boostTime = 0.0f;
+        boostMod = 0.0f;
     }
 
     // Check if user input is over ui (dont move player if so)

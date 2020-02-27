@@ -45,7 +45,7 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
                 }
                 else
                 {
-                    prompt.SetPrompt("Error", "Did not Authenticate");
+                    prompt.SetPrompt("Could Not sign In", "You can still play! your progress will not be saved.");
                     ui.HasAuthenitcated();
                     SaveManager.instance.DefaultLoad();
                 }
@@ -74,16 +74,20 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
 
     public void SubmitScore(int score)
     {
-        Social.ReportScore(score, GPGSIds.leaderboard_highest_kilometers_traveled, (bool Success) =>
+        if(PlayGamesPlatform.Instance.IsAuthenticated())
         {
-            Debug.Log("Score Added to Highscore");
-            prompt.SetPrompt("Added to Leaderboards", $"{score} was added.");
-            ui.LeaderBoard();
-        });
+            Social.ReportScore(score, GPGSIds.leaderboard_highest_kilometers_traveled, (bool Success) =>
+            {
+                Debug.Log("Score Added to Highscore");
+                prompt.SetPrompt("Added to Leaderboards", $"{score} was added.");
+                ui.LeaderBoard();
+            });
+        }     
     }
 
     public void ShowLeaderboard()
     {
-        Social.ShowLeaderboardUI();
+        if (PlayGamesPlatform.Instance.IsAuthenticated())
+            Social.ShowLeaderboardUI();
     }
 }
