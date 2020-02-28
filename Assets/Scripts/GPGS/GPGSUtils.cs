@@ -45,7 +45,7 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
                 }
                 else
                 {
-                    prompt.SetPrompt("Could Not sign In", "You can still play! your progress will not be saved.");
+                    prompt.SetPrompt("Could Not sign In", "You can still play!\n However... your progress will not be saved.");
                     ui.HasAuthenitcated();
                     SaveManager.instance.DefaultLoad();
                 }

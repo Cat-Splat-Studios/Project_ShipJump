@@ -111,6 +111,11 @@ public class PlayerManager : MonoBehaviour, ISwapper
         rockets[SwapManager.PlayerIdx].GetComponent<Thrusters>().BoostToggle(value);
     }
 
+    public void SetThrusters(bool value)
+    {
+        rockets[SwapManager.PlayerIdx].GetComponent<Thrusters>().ThrusterToggle(value);
+    }
+
     public void SwapIt()
     {
         foreach(GameObject rocket in rockets)
@@ -215,6 +220,7 @@ public class PlayerManager : MonoBehaviour, ISwapper
             Debug.Log("Something Hit");
             if (raycastHit.collider.tag == "Player")
             {
+                FindObjectOfType<AudioManager>().PressButton(1);
                 confirmPurchase.SetPrompt($"Purchase Rocket\n\n {rockets[unlockIdx].name}?", SwapManager.rocketPrices[unlockIdx].ToString(), RocketPurchaseConfirm);
             }
         }

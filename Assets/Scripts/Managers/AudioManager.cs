@@ -18,6 +18,9 @@ public class AudioManager : MonoBehaviour, ISwapper
     [Header("Sound")]
     public GameObject soundPefab;
 
+    [Header("Button Sounds")]
+    public AudioClip[] buttonSounds;
+
     private List<AudioSource> soundObjects;
     private float soundVol;
 
@@ -57,6 +60,11 @@ public class AudioManager : MonoBehaviour, ISwapper
         {
             CreateSound(clip);
         }
+    }
+
+    public void PressButton(int buttonSound = 0)
+    {
+        PlaySound(buttonSounds[buttonSound]);
     }
 
     private bool FindSound(AudioClip clip)

@@ -51,6 +51,11 @@ public class PlayerMovement : MonoBehaviour
     private float boostTime = 0.0f;
     private float originalSpeedUp;
 
+    [Header("Sounds")]
+    public AudioClip thrustUp;
+    public AudioClip thrustDown;
+    public AudioSource thrusters;
+
     // Gears
     private int gears = 0;
 
@@ -59,6 +64,8 @@ public class PlayerMovement : MonoBehaviour
     private UIDelgate ui;
     private Animator anim;
     private GeneratorManager generator;
+    private new AudioManager audio;
+    private PlayerManager player;
 
     // Misc
     [Header("Misc")]  
@@ -79,6 +86,8 @@ public class PlayerMovement : MonoBehaviour
         ui = FindObjectOfType<UIDelgate>();
         anim = GetComponent<Animator>();
         generator = FindObjectOfType<GeneratorManager>();
+        audio = FindObjectOfType<AudioManager>();
+        player = GetComponent<PlayerManager>();
 
         screenCenterX = Screen.width * 0.5f;
         currentSpeedX = 0.0f;
@@ -161,6 +170,9 @@ public class PlayerMovement : MonoBehaviour
                     if (outOfFuel)
                     {
                         outOfFuel = false;
+                        player.SetThrusters(true);
+                        audio.PlaySound(thrustUp);
+                        thrusters.Play();
                         FindObjectOfType<CameraFollow>().MoveCameraUp();
                         generator.TopGenerate();
                         ToggleThrusters(true);
@@ -177,6 +189,9 @@ public class PlayerMovement : MonoBehaviour
                         if (!outOfFuel)
                         {
                             outOfFuel = true;
+                            audio.PlaySound(thrustDown);
+                            player.SetThrusters(false);
+                            thrusters.Stop();
                             FindObjectOfType<CameraFollow>().MoveCameraDown();
                             FindObjectOfType<GeneratorManager>().FallGenerate();
                             ToggleThrusters(false);
