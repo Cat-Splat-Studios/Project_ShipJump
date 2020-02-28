@@ -88,6 +88,12 @@ public class SwapManager : MonoSingleton<SwapManager>
         SaveManager.instance.SaveToCloud();
     }
 
+    public void SwapInit()
+    {
+        BackgroundSelect(BackgroundIdx);
+        MusicSelect(MusicIdx);
+    }
+
     public void BackgroundSelect(int idx)
     {
         BackgroundIdx = idx;

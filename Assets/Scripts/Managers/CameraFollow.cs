@@ -87,4 +87,9 @@ public class CameraFollow : MonoBehaviour
         isLerping = true;
     }
 
+    public void ResetCamera()
+    {
+        currentOffset = Upoffset;
+    }
+
 }

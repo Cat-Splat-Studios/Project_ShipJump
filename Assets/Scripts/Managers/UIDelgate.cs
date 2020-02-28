@@ -65,7 +65,7 @@ public class UIDelgate : MonoBehaviour
     private Animator anim;
     private PlayerManager player;
     private GeneratorManager generatorManager;
-    private CameraFollow camera;
+    private new CameraFollow camera;
 
     // Property Values
     private float _curFuel;
@@ -119,7 +119,6 @@ public class UIDelgate : MonoBehaviour
     {
         generatorManager.StopGenerators();
         gameStarted = false;
-
         StartCoroutine(GameOverWait());
     }
 
@@ -317,12 +316,13 @@ public class UIDelgate : MonoBehaviour
     private IEnumerator GameOverWait()
     {
         // Wait to reveal game over after player is destroyed
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(1.0f);
         gameUI.SetActive(false);
         gameOver.SetActive(true);
         StatHUD.SetActive(true);
         UpdateInfoText();
         ScoreDisplay();
+        camera.ResetCamera();
         SaveManager.instance.SaveToCloud();
     }
 

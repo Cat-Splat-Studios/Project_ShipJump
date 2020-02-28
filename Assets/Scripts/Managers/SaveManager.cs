@@ -134,7 +134,8 @@ public class SaveManager : MonoSingleton<SaveManager>
         if(data.Length > 0)
         {
             state = DeserializeState(data);
-            MapToView();      
+            MapToView();
+            SwapManager.instance.SwapInit();
         }
         else
         {

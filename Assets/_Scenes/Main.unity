@@ -442,7 +442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1643805536, guid: efb6b99265acf274eb27f0730d357326, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 300
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 1086217391, guid: efb6b99265acf274eb27f0730d357326, type: 3}
       propertyPath: m_SizeDelta.x
@@ -586,6 +586,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 831446707246751137, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.0498047
+      objectReference: {fileID: 0}
+    - target: {fileID: 8449071100181171800, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 222.81982
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efb6b99265acf274eb27f0730d357326, type: 3}
@@ -761,6 +771,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Loop
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8644185954520104382, guid: 1426054c11495aa409a8e4894a321226,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1426054c11495aa409a8e4894a321226, type: 3}

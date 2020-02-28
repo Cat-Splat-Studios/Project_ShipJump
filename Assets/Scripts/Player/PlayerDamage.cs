@@ -95,6 +95,7 @@ public class PlayerDamage : MonoBehaviour
 
         // Game over and turn off player (this is so we can reset on replay)
         ui.GameOver();
+        this.gameObject.transform.position = (new Vector3(0.0f, transform.position.y, transform.position.z));
         this.gameObject.SetActive(false);
     }
  
