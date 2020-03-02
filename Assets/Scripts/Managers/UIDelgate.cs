@@ -109,6 +109,7 @@ public class UIDelgate : MonoBehaviour
 
         // make sure correct mesh is on player
         player.StartGameMeshCheck();
+        
 
         camera.GameStart();
 
@@ -288,9 +289,9 @@ public class UIDelgate : MonoBehaviour
     {
         // Reveal results on game over
         scoreText.gameObject.SetActive(true);
-        scoreText.text = $"You Traveled\n\n {curDistance} km";
+        scoreText.text = $"You Traveled\n {curDistance} km";
         highscoreText.gameObject.SetActive(highscore);
-        coinsCollectedText.text = $"Gears Collected\n\n {GearManager.instance.levelGears}";
+        coinsCollectedText.text = $"Gears Collected\n {GearManager.instance.levelGears}";
     }
 
     private void ToggleNumbers(bool value)
@@ -306,6 +307,7 @@ public class UIDelgate : MonoBehaviour
         player.PlayerMovement().ResetMove();
         yield return new WaitForSeconds(2.1f);
         player.PlayerMovement().StartGame();
+        player.PlayerDamage().AttachDoubleShield();
         generatorManager.TopGenerate();
         ToggleNumbers(false);
         gameStarted = true;
@@ -323,6 +325,7 @@ public class UIDelgate : MonoBehaviour
         UpdateInfoText();
         ScoreDisplay();
         camera.ResetCamera();
+        AdManager.instance.ButtonCheck();
         SaveManager.instance.SaveToCloud();
     }
 

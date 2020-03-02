@@ -44,6 +44,11 @@ public class PlayerManager : MonoBehaviour, ISwapper
         damage = GetComponent<PlayerDamage>();
     }
 
+    void Start()
+    {
+        InitUnlock();
+    }
+
     // Handles selection of ship for purchase input
     private void Update()
     {
@@ -81,7 +86,18 @@ public class PlayerManager : MonoBehaviour, ISwapper
 
     public void InitUnlock()
     {
-        unlockIdx = SwapManager.allRockets.IndexOf(SwapManager.PlayerIdx);
+        int idx = 0;
+
+        if(PlayerPrefs.HasKey("playerIdx"))
+        {
+            idx = PlayerPrefs.GetInt("playerIdx");
+        }
+        else
+        {
+            idx = SwapManager.PlayerIdx;
+        }
+
+        unlockIdx = SwapManager.allRockets.IndexOf(idx);
         ToggleSwap();
     }
 
@@ -179,6 +195,7 @@ public class PlayerManager : MonoBehaviour, ISwapper
     {
         PlayerMovement().ResetMove();
         PlayerShoot().TurnOff();
+        PlayerDamage().AttachDoubleShield();
     }
 
 

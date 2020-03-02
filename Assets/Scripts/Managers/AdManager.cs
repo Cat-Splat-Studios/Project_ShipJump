@@ -7,16 +7,22 @@ public class AdManager : MonoSingleton<AdManager>
 
     public bool testMode = true;
     public int gearReward = 200;
-    public float thresholdTime = 180.0f;
+    public float normalthresholdTime = 180.0f;
+    public float buttonthresholdTime = 240.0f;
 
     public MessageBox rewardPrompt;
 
+    public GameObject adButton;
+
     private string gameId = "3468117";
-    private string myPlacementId = "rewardedVideo";
+    private string myPlacementId = "video";
+    private string myRewardPlacementId = "rewardedVideo";
 
     private float currentTimeThreshold = 0.0f;
+    private float currentTimeButtonThreshold = 0.0f;
 
-    private bool AdWait = true;
+    private bool buttonAdWait = true;
+    private bool buttonShown = false;
 
     ShowOptions op;
 
@@ -30,25 +36,46 @@ public class AdManager : MonoSingleton<AdManager>
 
     private void Update()
     {
-        if(AdWait)
+     
+        currentTimeThreshold += Time.deltaTime;      
+        
+
+        if(buttonAdWait)
         {
-            currentTimeThreshold += Time.deltaTime;      
+            currentTimeButtonThreshold += Time.deltaTime;
         }
     }
 
     public void AdCheck()
     {
-        if (currentTimeThreshold > thresholdTime)
+
+        if (currentTimeThreshold > normalthresholdTime)
         {
             PlayAd();
+        }   
+    }
+
+    public void ButtonCheck()
+    {
+        if (currentTimeButtonThreshold > buttonthresholdTime && buttonShown == false)
+        {
+            ShowButton();
+        }
+        else
+        {
+            HideButton();
+            if (buttonShown)
+            {
+                currentTimeButtonThreshold = 0.0f;
+            }
         }
     }
 
     private void PlayAd()
     {
-        AdWait = false;
+        currentTimeThreshold = 0.0f;
         Advertisement.Show(myPlacementId, op);
-        Time.timeScale = 0.0f;
+       
     }
 
     public void OnUnityAdsDidFinish(ShowResult showResult)
@@ -57,17 +84,37 @@ public class AdManager : MonoSingleton<AdManager>
         {
             GearManager.instance.AddGears(gearReward);
             SaveManager.instance.SaveToCloud();
-            currentTimeThreshold = 0.0f;
+            buttonthresholdTime = 0.0f;
             rewardPrompt.SetPrompt("Reward!", $"You have been rewarded {gearReward} gears for watching the ad.", OnConfirmReward);
         }
-        
-        AdWait = true;
+
+        HideButton();
+        buttonAdWait = true;
         //Advertisement.RemoveListener(this);
+    }
+
+    public void PlayRewardedAd()
+    {
+        buttonAdWait = false;
+        Advertisement.Show(myRewardPlacementId, op);
+        Time.timeScale = 0.0f;
     }
 
     public void OnConfirmReward(bool confirm)
     {
         Time.timeScale = 1.0f;       
+    }
+
+    private void ShowButton()
+    {
+        adButton.SetActive(true);
+        buttonShown = true;
+    }
+
+    private void HideButton()
+    {
+        adButton.SetActive(false);
+        buttonShown = false;
     }
 }
 

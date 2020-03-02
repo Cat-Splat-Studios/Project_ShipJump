@@ -34,12 +34,12 @@ public class AudioManager : MonoBehaviour, ISwapper
     }
 
 
-    public void PlayMusic()
+    public void PlayMusic(int idx)
     {
-        if(music.clip != musicClips[SwapManager.MusicIdx])
+        if(music.clip != musicClips[idx])
         {
             music.Stop();
-            music.clip = musicClips[SwapManager.MusicIdx];
+            music.clip = musicClips[idx];
             music.Play();
         }      
     }
@@ -110,6 +110,16 @@ public class AudioManager : MonoBehaviour, ISwapper
 
     public void SwapIt()
     {
-        PlayMusic();
+        int idx = 0;
+        if (PlayerPrefs.HasKey("musicIdx"))
+        {
+            idx = PlayerPrefs.GetInt("musicIdx");
+        }
+        else
+        {
+            idx = SwapManager.MusicIdx;
+        }
+
+        PlayMusic(idx);
     }
 }

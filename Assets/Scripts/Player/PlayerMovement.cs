@@ -74,9 +74,13 @@ public class PlayerMovement : MonoBehaviour
     private GameObject[] thrusterObjects;
     [SerializeField]
     private GameObject boostParticle;
+    [SerializeField]
+    private EliteAbilityIcon fuelIcon;
 
     private bool startGame = false;
     private float screenCenterX;
+
+    private bool usedEmergencyFuel = false;
     
     // Start is called before the first frame update
     void Start()
@@ -188,14 +192,27 @@ public class PlayerMovement : MonoBehaviour
                         currentFuel = 0.0f;
                         if (!outOfFuel)
                         {
-                            outOfFuel = true;
-                            audio.PlaySound(thrustDown);
-                            player.SetThrusters(false);
-                            thrusters.Stop();
-                            FindObjectOfType<CameraFollow>().MoveCameraDown();
-                            FindObjectOfType<GeneratorManager>().FallGenerate();
-                            ToggleThrusters(false);
-                            isLerping = true;
+                            if(SwapManager.EmergencyFuelCount > 0 && !usedEmergencyFuel)
+                            {
+                                AddFuel(60.0f);
+                                SwapManager.EmergencyFuelCount--;
+                                usedEmergencyFuel = true;
+                                fuelIcon.ActivateFuel();
+                                fuelIcon.DisableIt();
+
+                            }
+                            else
+                            {
+                                outOfFuel = true;
+                                audio.PlaySound(thrustDown);
+                                player.SetThrusters(false);
+                                thrusters.Stop();
+                                FindObjectOfType<CameraFollow>().MoveCameraDown();
+                                FindObjectOfType<GeneratorManager>().FallGenerate();
+                                ToggleThrusters(false);
+                                isLerping = true;
+                            }
+             
                         }
                     }
                 }
@@ -260,6 +277,7 @@ public class PlayerMovement : MonoBehaviour
         if(distance < 100)
         {
             speedUp = 8;
+            speedX = 7.0f;
             fuelDecrease = 6.0f;
 
         }
@@ -271,6 +289,7 @@ public class PlayerMovement : MonoBehaviour
         else if (distance < 500)
         {
             speedUp = 10;
+            speedX = 8.5f;
             fuelDecrease = 7.0f;
         }
         else if (distance < 800)
@@ -282,11 +301,13 @@ public class PlayerMovement : MonoBehaviour
         {
             speedUp = 13;
             fuelDecrease = 8.0f;
+            speedX = 9.5f;
         }
         else
         {
             speedUp = 15;
             fuelDecrease = 8.5f;
+            speedX = 10.5f;
         }
 
         // set ui fuel

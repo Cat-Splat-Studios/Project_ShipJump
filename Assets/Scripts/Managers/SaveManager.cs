@@ -226,7 +226,12 @@ public class SaveManager : MonoSingleton<SaveManager>
         state.PlayerIdx = SwapManager.PlayerIdx;
         state.BackgroundIdx = SwapManager.BackgroundIdx;
         state.MusicIdx = SwapManager.MusicIdx;
-        state.BackgroundIdx = SwapManager.BackgroundIdx;
+        state.ObstacleIdx = SwapManager.ObstacleIdx;
+
+        // local save for current assets
+        PlayerPrefs.SetInt("playerIdx", SwapManager.PlayerIdx);
+        PlayerPrefs.SetInt("backgroundIdx", SwapManager.BackgroundIdx);
+        PlayerPrefs.SetInt("musicIdx", SwapManager.MusicIdx);
 
         state.EmergencyFuelCount = SwapManager.EmergencyFuelCount;
         state.DoubleShieldCount = SwapManager.DoubleShieldCount;

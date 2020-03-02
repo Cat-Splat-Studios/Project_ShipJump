@@ -20,16 +20,26 @@ public class BackgroundManager : MonoBehaviour, ISwapper
 
     public void SwapIt()
     {
+        int idx = 0;
+        if(PlayerPrefs.HasKey("backgroundIdx"))
+        {
+            idx = PlayerPrefs.GetInt("backgroundIdx");
+        }
+        else
+        {
+            idx = SwapManager.BackgroundIdx;
+        }
+
         foreach(GameObject mesh in meshes)
         {
             mesh.SetActive(false);
         }
 
-        meshes[SwapManager.BackgroundIdx].SetActive(true);
+        meshes[idx].SetActive(true);
 
         Color textColor;
 
-        if (SwapManager.BackgroundIdx != 0)
+        if (idx != 0)
             textColor = Color.black; 
         else
             textColor = Color.white;

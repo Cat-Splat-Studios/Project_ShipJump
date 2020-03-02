@@ -13,6 +13,10 @@ public class PlayerDamage : MonoBehaviour
     private GameObject[] destroyParticlePrefab;
     [SerializeField]
     private AudioClip[] destroySounds;
+    [SerializeField]
+    private AudioClip shieldSound;
+    [SerializeField]
+    private EliteAbilityIcon shieldIcon;
 
     // References
     [SerializeField]
@@ -25,6 +29,7 @@ public class PlayerDamage : MonoBehaviour
     // Helper Variables
     private bool hasShield = false;
     private int shieldCount = 0;
+    private bool isDoubleShield = false;
 
     private void Start()
     {
@@ -32,6 +37,8 @@ public class PlayerDamage : MonoBehaviour
         audio = FindObjectOfType<AudioManager>();
         ui = FindObjectOfType<UIDelgate>();
         playerMovement = GetComponent<PlayerMovement>();
+
+        
     }
 
     public void GotHit(GameObject obj)
@@ -42,7 +49,14 @@ public class PlayerDamage : MonoBehaviour
             shieldCount--;
 
             if (shieldCount == 0)
+            {
                 hasShield = false;
+
+                if (isDoubleShield)
+                    shieldIcon.DisableIt();
+            }
+               
+
 
             // Destroy Obstacle
             Obstacle obstacle = obj.GetComponent<Obstacle>();
@@ -70,10 +84,22 @@ public class PlayerDamage : MonoBehaviour
 
     public void AttachDoubleShield()
     {
-        hasShield = true;
-        shields[0].SetActive(true);
-        shields[1].SetActive(true);
-        shieldCount = 2;
+        if(SwapManager.DoubleShieldCount > 0)
+        {
+            hasShield = true;
+            shields[0].SetActive(true);
+            shields[1].SetActive(true);
+            shieldCount = 2;
+
+            SwapManager.DoubleShieldCount--;
+
+            FindObjectOfType<AudioManager>().PlaySound(shieldSound);
+
+            shieldIcon.ActivateShield();
+
+            isDoubleShield = true;
+
+        }
     }
 
     private void DestroyShip()
