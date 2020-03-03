@@ -137,7 +137,6 @@ public class UIDelgate : MonoBehaviour
         StatHUD.SetActive(false);
         highscore = false;
         GearManager.instance.ResetLevelGears();
-        AdManager.instance.AdCheck();
 
         anim.SetTrigger("Start");
         StartCoroutine(StartWait());
@@ -212,7 +211,6 @@ public class UIDelgate : MonoBehaviour
         UpdateInfoText();
 
         GearManager.instance.ResetLevelGears();
-        AdManager.instance.AdCheck();
     }
 
     public void UpdateInfoText()

@@ -48,7 +48,6 @@ public class AdManager : MonoSingleton<AdManager>
 
     public void AdCheck()
     {
-
         if (currentTimeThreshold > normalthresholdTime)
         {
             PlayAd();
@@ -84,7 +83,6 @@ public class AdManager : MonoSingleton<AdManager>
         {
             GearManager.instance.AddGears(gearReward);
             SaveManager.instance.SaveToCloud();
-            buttonthresholdTime = 0.0f;
             rewardPrompt.SetPrompt("Reward!", $"You have been rewarded {gearReward} gears for watching the ad.", OnConfirmReward);
         }
 
@@ -115,6 +113,7 @@ public class AdManager : MonoSingleton<AdManager>
     {
         adButton.SetActive(false);
         buttonShown = false;
+        currentTimeButtonThreshold = 0.0f;
     }
 }
 

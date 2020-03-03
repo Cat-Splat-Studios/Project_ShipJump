@@ -62,6 +62,17 @@ public class Obstacle : MonoBehaviour, IPoolObject, ISwapper
             mesh.SetActive(false);
         }
 
-        Meshes[SwapManager.ObstacleIdx].SetActive(true);
+        int idx = 0;
+
+        if(PlayerPrefs.HasKey("obstacleIdx"))
+        {
+            idx = PlayerPrefs.GetInt("obstacleIdx");
+        }
+        else
+        {
+            idx = SwapManager.ObstacleIdx;
+        }
+        Meshes[idx].SetActive(true);
+
     }
 }

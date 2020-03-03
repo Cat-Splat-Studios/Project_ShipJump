@@ -135,7 +135,7 @@ public class ItemInfo : MonoBehaviour
                     swapper.MusicSelect(unlockIndex);
                     break;
                 case EAssetType.OBSTACLE:
-                    SwapManager.ObstacleIdx = unlockIndex;
+                    swapper.ObstacleSelect(unlockIndex);
                     break;
             }
             parentShop.InitItems();

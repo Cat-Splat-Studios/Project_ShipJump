@@ -97,19 +97,28 @@ public class SwapManager : MonoSingleton<SwapManager>
     public void BackgroundSelect(int idx)
     {
         BackgroundIdx = idx;
+        PlayerPrefs.SetInt("backgroundIdx", idx);
         background.SwapIt();
     }
 
     public void PlayerSelect(int idx)
     {
         PlayerIdx = idx;
+        PlayerPrefs.SetInt("playerIdx", idx);
         player.SwapIt();
     }
 
     public void MusicSelect(int idx)
     {
         MusicIdx = idx;
+        PlayerPrefs.SetInt("musicIdx", idx);
         audio.SwapIt();
+    }
+
+    public void ObstacleSelect(int idx)
+    {
+        ObstacleIdx = idx;
+        PlayerPrefs.SetInt("obstacleIdx", idx);
     }
 
     public void Preview(EAssetType type, int idx)

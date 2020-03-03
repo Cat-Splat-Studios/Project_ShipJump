@@ -80,7 +80,7 @@ public class SaveManager : MonoSingleton<SaveManager>
     // Incase loading from save fails, create an initial state
     public void DefaultLoad()
     {
-        state.Gears = 10000;
+        state.Gears = 0;
 
         state.PlayerIdx = 0;
         state.BackgroundIdx = 0;
@@ -232,6 +232,7 @@ public class SaveManager : MonoSingleton<SaveManager>
         PlayerPrefs.SetInt("playerIdx", SwapManager.PlayerIdx);
         PlayerPrefs.SetInt("backgroundIdx", SwapManager.BackgroundIdx);
         PlayerPrefs.SetInt("musicIdx", SwapManager.MusicIdx);
+        PlayerPrefs.SetInt("obstacleIdx", SwapManager.ObstacleIdx);
 
         state.EmergencyFuelCount = SwapManager.EmergencyFuelCount;
         state.DoubleShieldCount = SwapManager.DoubleShieldCount;
