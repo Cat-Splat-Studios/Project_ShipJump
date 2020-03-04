@@ -47,6 +47,8 @@ public class CameraFollow : MonoBehaviour
 
                 t += 1.5f * Time.deltaTime;
 
+                if (targetOffset == menuOffset)
+                    player.transform.position = new Vector3(0.0f, player.transform.position.y, player.transform.position.z);
 
                 if (t >= 1.0f)
                 {

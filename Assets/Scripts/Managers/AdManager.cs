@@ -21,16 +21,18 @@ public class AdManager : MonoSingleton<AdManager>
     private float currentTimeThreshold = 0.0f;
     private float currentTimeButtonThreshold = 0.0f;
 
-    private bool buttonAdWait = true;
     private bool buttonShown = false;
 
     ShowOptions op;
+    ShowOptions op1;
 
     // Start is called before the first frame update
     void Start()
     {
         Advertisement.Initialize(gameId, testMode);
         op = new ShowOptions();
+        op1 = new ShowOptions();
+        op1.resultCallback = OnNormalAdFinish;
         op.resultCallback = OnUnityAdsDidFinish;
     }
 
@@ -40,10 +42,9 @@ public class AdManager : MonoSingleton<AdManager>
         currentTimeThreshold += Time.deltaTime;      
         
 
-        if(buttonAdWait)
-        {
-            currentTimeButtonThreshold += Time.deltaTime;
-        }
+
+        currentTimeButtonThreshold += Time.deltaTime;
+        
     }
 
     public void AdCheck()
@@ -62,18 +63,19 @@ public class AdManager : MonoSingleton<AdManager>
         }
         else
         {
-            HideButton();
             if (buttonShown)
             {
                 currentTimeButtonThreshold = 0.0f;
             }
+            HideButton();      
         }
     }
 
     private void PlayAd()
     {
         currentTimeThreshold = 0.0f;
-        Advertisement.Show(myPlacementId, op);
+        Time.timeScale = 0.0f;
+        Advertisement.Show(myPlacementId, op1);
        
     }
 
@@ -87,13 +89,17 @@ public class AdManager : MonoSingleton<AdManager>
         }
 
         HideButton();
-        buttonAdWait = true;
+        currentTimeButtonThreshold = 0.0f;
         //Advertisement.RemoveListener(this);
+    }
+
+    public void OnNormalAdFinish(ShowResult showResult)
+    {
+        Time.timeScale = 1.0f;
     }
 
     public void PlayRewardedAd()
     {
-        buttonAdWait = false;
         Advertisement.Show(myRewardPlacementId, op);
         Time.timeScale = 0.0f;
     }
@@ -112,8 +118,7 @@ public class AdManager : MonoSingleton<AdManager>
     private void HideButton()
     {
         adButton.SetActive(false);
-        buttonShown = false;
-        currentTimeButtonThreshold = 0.0f;
+        buttonShown = false;    
     }
 }
 
