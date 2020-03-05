@@ -661,7 +661,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &597040310
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1052,7 +1052,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &706059251
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2292,7 +2292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1344093143
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5180,6 +5180,7 @@ MonoBehaviour:
   view_window: {fileID: 4110068739993187934}
   image_gap: 30
   swipeThrustHold: 30
+  current_index: 0
 --- !u!1 &3229629685763286794
 GameObject:
   m_ObjectHideFlags: 0
@@ -5405,6 +5406,7 @@ MonoBehaviour:
   view_window: {fileID: 8526899592678804426}
   image_gap: 30
   swipeThrustHold: 30
+  current_index: 0
 --- !u!1 &3502555331283677729
 GameObject:
   m_ObjectHideFlags: 0
@@ -5501,7 +5503,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1651379569089446554
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6600,6 +6602,7 @@ MonoBehaviour:
   view_window: {fileID: 2235407903556275012}
   image_gap: 30
   swipeThrustHold: 30
+  current_index: 0
 --- !u!1 &5625518358596897002
 GameObject:
   m_ObjectHideFlags: 0
@@ -6663,6 +6666,7 @@ MonoBehaviour:
   view_window: {fileID: 4573699969901843812}
   image_gap: 30
   swipeThrustHold: 30
+  current_index: 0
 --- !u!1 &5739956010568126468
 GameObject:
   m_ObjectHideFlags: 0
@@ -8314,9 +8318,6 @@ MonoBehaviour:
   fuelBar: {fileID: 1296380780383218034}
   distanceTraveled: {fileID: 8244507686121958477}
   shootButton: {fileID: 180622874}
-  eliteAbilities:
-  - {fileID: 0}
-  - {fileID: 0}
   numbers:
   - {fileID: 1393282603770041215}
   - {fileID: 4256143156852236442}

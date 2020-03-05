@@ -8,8 +8,7 @@ using UnityEngine;
 public class Shop : MonoBehaviour
 {
     [Header("Item References")]
-    [SerializeField]
-    private EAssetType shopType;
+    public EAssetType shopType;
     [SerializeField]
     private RectTransform[] shopItems;
     [SerializeField]
@@ -32,8 +31,7 @@ public class Shop : MonoBehaviour
     [SerializeField]
     private int swipeThrustHold = 30;
 
-    int current_index;
-    //public Text title;
+    public int current_index;
 
     // Start is called before the first frame update
     void Start()

@@ -30,6 +30,8 @@ public class AdManager : MonoSingleton<AdManager>
     private float currentTimeThreshold = 0.0f;
     private float currentTimeButtonThreshold = 0.0f;
 
+    private int gamesPlayedSinceAd = 0;
+
     private bool buttonShown = false;
 
     // callback operations on both ads
@@ -55,10 +57,10 @@ public class AdManager : MonoSingleton<AdManager>
     public void AdCheck()
     {
         // check if it is time to play normal ad
-        if (currentTimeThreshold > normalthresholdTime)
+        if (currentTimeThreshold > normalthresholdTime && gamesPlayedSinceAd > 1)
         {
             PlayAd();
-        }   
+        }     
     }
 
     public void ButtonCheck()
@@ -76,6 +78,8 @@ public class AdManager : MonoSingleton<AdManager>
             }
             HideButton();      
         }
+
+        ++gamesPlayedSinceAd;
     }
 
     private void PlayAd()
@@ -97,12 +101,14 @@ public class AdManager : MonoSingleton<AdManager>
 
         HideButton();
         currentTimeButtonThreshold = 0.0f;
+        gamesPlayedSinceAd = 0;
         //Advertisement.RemoveListener(this);
     }
 
     public void OnNormalAdFinish(ShowResult showResult)
     {
         Time.timeScale = 1.0f;
+        gamesPlayedSinceAd = 0;
     }
 
     public void PlayRewardedAd()

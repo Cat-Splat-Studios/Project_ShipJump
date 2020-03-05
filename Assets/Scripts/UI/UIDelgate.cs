@@ -170,6 +170,7 @@ public class UIDelgate : MonoBehaviour
         shops[shopType].gameObject.SetActive(true);
         shops[shopType].SetStartPos();
         shops[shopType].InitItems();
+        FindObjectOfType<SwapManager>().Preview(shops[shopType].shopType, shops[shopType].current_index);
     }
 
     public void CloseShop()
