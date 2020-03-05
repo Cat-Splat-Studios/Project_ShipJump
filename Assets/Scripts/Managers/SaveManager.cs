@@ -42,9 +42,12 @@ public class SaveState
 
 public class SaveManager : MonoSingleton<SaveManager>
 {
-    public MessageBox prompt;
-    public UIDelgate ui;
-    public PlayerManager player;
+    [SerializeField]
+    private MessageBox prompt;
+    [SerializeField]
+    private UIDelgate ui;
+    [SerializeField]
+    private PlayerManager player;
     [HideInInspector]
     public SaveState state;
 
@@ -127,8 +130,8 @@ public class SaveManager : MonoSingleton<SaveManager>
 
             player.InitUnlock();
         }
-
     }
+
     private void LoadCallBack(SavedGameRequestStatus status, byte[] data)
     {
         if(data.Length > 0)
@@ -219,6 +222,7 @@ public class SaveManager : MonoSingleton<SaveManager>
         SwapManager.instance.AddDefaults();
     }
 
+    // maps local info back to state for saving
     private void MapToState()
     {
         state.Gears = GearManager.instance.GetGears();

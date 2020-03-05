@@ -22,7 +22,6 @@ public class AudioManager : MonoBehaviour, ISwapper
     public AudioClip[] buttonSounds;
 
     private List<AudioSource> soundObjects;
-    private float soundVol;
 
     private void Start()
     {
@@ -53,12 +52,12 @@ public class AudioManager : MonoBehaviour, ISwapper
         music.Play();
     }
 
-    public void PlaySound(AudioClip clip)
+    public void PlaySound(AudioClip clip, float vol = 1.0f)
     {
         // Check for available sound, create one if one is not available to play
-        if (!FindSound(clip))
+        if (!FindSound(clip, vol))
         {
-            CreateSound(clip);
+            CreateSound(clip, vol);
         }
     }
 
@@ -67,12 +66,13 @@ public class AudioManager : MonoBehaviour, ISwapper
         PlaySound(buttonSounds[buttonSound]);
     }
 
-    private bool FindSound(AudioClip clip)
+    private bool FindSound(AudioClip clip, float vol)
     {
         foreach (AudioSource aud in soundObjects)
         {
             if (!aud.isPlaying)
             {
+                aud.volume = vol;
                 aud.clip = clip;
                 aud.Play();
                 return true;
@@ -95,14 +95,14 @@ public class AudioManager : MonoBehaviour, ISwapper
         }
     }
 
-    private void CreateSound(AudioClip clip)
+    private void CreateSound(AudioClip clip, float vol)
     {
         // Created object
         GameObject soundObj = Instantiate(soundPefab, this.transform) as GameObject;
 
         // Use to play and add to list
         AudioSource aud = soundObj.GetComponent<AudioSource>();
-        aud.volume = soundVol;
+        aud.volume = vol;
         aud.clip = clip;
         aud.Play();
         soundObjects.Add(aud);

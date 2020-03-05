@@ -1,5 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: Any logic that must right right before game starts
+**/
+
 using UnityEngine;
 
 public class AppStartup : MonoBehaviour

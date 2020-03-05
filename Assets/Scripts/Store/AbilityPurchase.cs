@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To handle the purchase logic of elite abilities (for multiple purchases)
+**/
+
+using UnityEngine;
 using UnityEngine.UI;
 
 public class AbilityPurchase : MonoBehaviour

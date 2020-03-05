@@ -1,5 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To handle the logic of the option menu (open and close)
+**/
+
 using UnityEngine;
 
 public class Options : MonoBehaviour

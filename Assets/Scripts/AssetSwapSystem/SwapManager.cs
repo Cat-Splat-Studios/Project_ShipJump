@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class SwapManager : MonoSingleton<SwapManager>
 {
+    // local references to player state information
     public static int Gears;
     public static int PlayerIdx;
     public static int BackgroundIdx;
@@ -19,13 +20,9 @@ public class SwapManager : MonoSingleton<SwapManager>
     public static int DoubleShieldCount;
 
     public static List<int> PlayerUnlocks { get; set; } = new List<int>();
-
     public static List<int> BackgroundUnlocks { get; set; } = new List<int>();
-
     public static List<int> MusicUnlocks { get; set; } = new List<int>();
-
     public static List<int> ObstacleUnlocks { get; set; } = new List<int>();
-
     public static List<int> ProjectileUnlocks { get; set; } = new List<int>();
 
     [SerializeField]
@@ -40,18 +37,7 @@ public class SwapManager : MonoSingleton<SwapManager>
 
     private void Start()
     {
-        //Gears = 0;
-
-        //PlayerIdx = 0;
-        //BackgroundIdx = 0;
-        //MusicIdx = 0;
-        //BackgroundIdx = 0;
-
-        //PlayerUnlocks = new List<int>();
-        //BackgroundUnlocks = new List<int>();
-        //MusicUnlocks = new List<int>();
-        //ObstacleUnlocks = new List<int>();
-
+        // find references
         player = FindObjectOfType<PlayerManager>();
         background = FindObjectOfType<BackgroundManager>();
 
@@ -66,6 +52,7 @@ public class SwapManager : MonoSingleton<SwapManager>
         ObstacleUnlocks.Add(0);
     }
 
+    // After buying an item
     public void PurchaseAsset(int idx, EAssetType type)
     {
         Debug.Log("happened");
@@ -90,10 +77,12 @@ public class SwapManager : MonoSingleton<SwapManager>
 
     public void SwapInit()
     {
+        // set music and background to currently selected
         BackgroundSelect(BackgroundIdx);
         MusicSelect(MusicIdx);
     }
 
+    // ** Item selection logic **/
     public void BackgroundSelect(int idx)
     {
         BackgroundIdx = idx;
@@ -136,9 +125,7 @@ public class SwapManager : MonoSingleton<SwapManager>
 
     public void PreviewReset()
     {
-
         background.SwapIt();
         audio.SwapIt();
-
     }
 }

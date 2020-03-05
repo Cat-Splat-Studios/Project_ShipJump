@@ -1,5 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To handle the purchasing of an item
+**/
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -75,9 +78,7 @@ public class ItemInfo : MonoBehaviour
             SetPurchaseButtonActive();
             priceText.text = price.ToString();
         }
-
     }
-
 
     public void SetPurchaseButtonActive()
     {
@@ -143,9 +144,7 @@ public class ItemInfo : MonoBehaviour
         else
         {
             confirmPurchasePrompt.SetPrompt("Purchase Item?", price.ToString(), ConfirmPurchase);
-          
-        }
-        
+        }     
     }
 
     public void ConfirmPurchase(bool isConfirmed)

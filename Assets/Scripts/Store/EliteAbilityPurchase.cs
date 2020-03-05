@@ -1,6 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To handle the elite ability items in the store
+**/
+
 using UnityEngine;
+
+public enum EAbilityType
+{
+    EMERGENCYFUEL,
+    DOUBLESHIELDS
+}
 
 public class EliteAbilityPurchase : MonoBehaviour
 {

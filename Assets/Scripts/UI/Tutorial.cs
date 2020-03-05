@@ -1,5 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To handle the state of the tutorial screen
+**/
+
 using UnityEngine;
 
 public class Tutorial : MonoBehaviour
@@ -9,6 +12,7 @@ public class Tutorial : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // show the first time the player plays
         if(!PlayerPrefs.HasKey("showTutorial"))
         {
             Debug.Log("DONT HAVE");
@@ -18,9 +22,7 @@ public class Tutorial : MonoBehaviour
         else
         {
             Debug.Log("Do HAVE");
-        }
-
-       
+        }   
     }
 
     public void ToggleTutorial(bool value)

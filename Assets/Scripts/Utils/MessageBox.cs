@@ -1,4 +1,8 @@
-﻿
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To handle logic of a message box (displaying information to player)
+**/
+
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -62,5 +66,4 @@ public class MessageBox : MonoBehaviour
         box.SetActive(false);
         boxBackground.SetActive(false);
     }
-
 }

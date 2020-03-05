@@ -9,7 +9,6 @@ using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     // Speeds
     [Header("Speeds")]
     [SerializeField]
@@ -71,15 +70,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Misc")]  
     public float xClamp = 3.0f;
     [SerializeField]
-    private GameObject[] thrusterObjects;
-    [SerializeField]
-    private GameObject boostParticle;
-    [SerializeField]
     private EliteAbilityIcon fuelIcon;
 
     private bool startGame = false;
     private float screenCenterX;
-
     private bool usedEmergencyFuel = false;
     
     // Start is called before the first frame update
@@ -95,7 +89,6 @@ public class PlayerMovement : MonoBehaviour
 
         screenCenterX = Screen.width * 0.5f;
         currentSpeedX = 0.0f;
-
         originalSpeedUp = speedUp;
 
         currentFuel = maxFuel;
@@ -116,8 +109,6 @@ public class PlayerMovement : MonoBehaviour
                     {
                         // get the first one
                         Touch firstTouch = Input.GetTouch(0);
-
-
 
                         // if it began this frame
                         if ((firstTouch.phase == TouchPhase.Stationary || firstTouch.phase == TouchPhase.Began) && !IsPointerOverUIObject(firstTouch.position.x, firstTouch.position.y))
@@ -179,7 +170,6 @@ public class PlayerMovement : MonoBehaviour
                         thrusters.Play();
                         FindObjectOfType<CameraFollow>().MoveCameraUp();
                         generator.TopGenerate();
-                        ToggleThrusters(true);
                         isLerping = true;
                     }
                     currentSpeedUp = speedUp;
@@ -208,7 +198,6 @@ public class PlayerMovement : MonoBehaviour
                                 thrusters.Stop();
                                 FindObjectOfType<CameraFollow>().MoveCameraDown();
                                 FindObjectOfType<GeneratorManager>().FallGenerate();
-                                ToggleThrusters(false);
                                 isLerping = true;
                             }
              
@@ -248,7 +237,6 @@ public class PlayerMovement : MonoBehaviour
                 // Adjust fuel
                 currentFuel -= fuelDecrease * Time.deltaTime;
 
-
                 // Adjust Distance
                 distance = Mathf.Round(transform.position.y - startYPos);
                 ui.curDistance = distance.ToString();
@@ -257,9 +245,7 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 currentSpeedUp = 5.0f;
-            }
-
-            // Move player      
+            }  
         }
 
         // Boost adjustments
@@ -273,6 +259,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        // Adjustments depending on distance
         if(distance < 100)
         {
             speedUp = 8;
@@ -333,7 +320,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void StopMovement()
     {
-
         if(isBoost)
         {
             StopBoost();
@@ -346,6 +332,7 @@ public class PlayerMovement : MonoBehaviour
         startGame = false;
         CheckScore();
     }
+
     public void StartGame()
     {
         currentFuel = maxFuel;
@@ -391,14 +378,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /** Helper Methods **/
-
-    private void ToggleThrusters(bool value)
-    {
-        foreach (GameObject thruster in thrusterObjects)
-        {
-            thruster.SetActive(value);
-        }
-    }
 
     private void StopBoost()
     {

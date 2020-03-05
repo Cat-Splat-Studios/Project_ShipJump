@@ -11,7 +11,6 @@ using GooglePlayGames.BasicApi;
 using GooglePlayGames.BasicApi.SavedGame;
 using System;
 
-
 public class GPGSUtils : MonoSingleton<GPGSUtils>
 {
     private string cloudSaveName = "rr_saveState";

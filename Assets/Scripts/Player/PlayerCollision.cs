@@ -10,6 +10,8 @@ public class PlayerCollision : MonoBehaviour
     [Header("Pickup Sounds")]
     public AudioClip[] pickupSounds;
 
+    public float pickupVol = 0.5f;
+
     private PlayerManager player;
     private new AudioManager audio;
 
@@ -38,30 +40,30 @@ public class PlayerCollision : MonoBehaviour
                             //Mathf.Lerp(canvasScript.curFuel, canvasScript.curFuel + fuelAmount, 1);
                             //canvasScript.curFuel += fuelAmount;
                             player.PlayerMovement().AddFuel(pickup.GetFuel());
-                            audio.PlaySound(pickupSounds[0]);
+                            audio.PlaySound(pickupSounds[0], pickupVol);
                             DestroyObject(other.gameObject);
                             break;
                         case EPickupType.BOOST:
                             //do some physics on the player based on boostForce
                             player.PlayerMovement().SetBoost();
                             player.SetBoost(true);
-                            audio.PlaySound(pickupSounds[1]);
+                            audio.PlaySound(pickupSounds[1], pickupVol);
                             DestroyObject(other.gameObject);
                             break;
                         case EPickupType.SHIELD:
                             //send reference to the player to activate sheild
                             player.PlayerDamage().AttatchShield();
-                            audio.PlaySound(pickupSounds[2]);
+                            audio.PlaySound(pickupSounds[2], pickupVol);
                             DestroyObject(other.gameObject);
                             break;
                         case EPickupType.GEAR:
                             GearManager.instance.IncrementGears();
-                            audio.PlaySound(pickupSounds[3]);
+                            audio.PlaySound(pickupSounds[3], pickupVol);
                             DestroyObject(other.gameObject);
                             break;
                         case EPickupType.PROJECTILE:
                             player.PlayerShoot().EnableShoot();
-                            audio.PlaySound(pickupSounds[4]);
+                            audio.PlaySound(pickupSounds[4], pickupVol);
                             DestroyObject(other.gameObject);
                             break;
                     }

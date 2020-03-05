@@ -22,8 +22,6 @@ public class Obstacle : MonoBehaviour, IPoolObject, ISwapper
     [SerializeField]
     private string poolName;
 
-    private int meshIdx = 0;
-
     void Start()
     {
         // Find References

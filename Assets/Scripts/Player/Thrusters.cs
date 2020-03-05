@@ -1,5 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To handle the state of the thrusters of the current rocket
+**/
+
 using UnityEngine;
 
 public class Thrusters : MonoBehaviour

@@ -33,8 +33,6 @@ public class UIDelgate : MonoBehaviour
     [SerializeField]
     private Animator shootButton;
     [SerializeField]
-    private EliteAbility[] eliteAbilities;
-    [SerializeField]
     private GameObject[] numbers;
 
     // Game Over UI
@@ -109,8 +107,6 @@ public class UIDelgate : MonoBehaviour
 
         // make sure correct mesh is on player
         player.StartGameMeshCheck();
-        
-
         camera.GameStart();
 
         StartCoroutine(StartWait());
@@ -235,6 +231,11 @@ public class UIDelgate : MonoBehaviour
     {
         startUI.SetActive(true);
         StatHUD.SetActive(true);
+
+        foreach(Shop shop in shops)
+        {
+            shop.SetStartPos();
+        }
     }
 
     /** Getters and Setters of properties **/
@@ -309,8 +310,6 @@ public class UIDelgate : MonoBehaviour
         generatorManager.TopGenerate();
         ToggleNumbers(false);
         gameStarted = true;
-        AbilitCheck();
-
     }
 
     private IEnumerator GameOverWait()
@@ -325,13 +324,5 @@ public class UIDelgate : MonoBehaviour
         camera.ResetCamera();
         AdManager.instance.ButtonCheck();
         SaveManager.instance.SaveToCloud();
-    }
-
-    private void AbilitCheck()
-    {
-        foreach (EliteAbility ability in eliteAbilities)
-        {
-            ability.EnableAbility();
-        }
     }
 }

@@ -27,6 +27,7 @@ public class Generator : MonoBehaviour
     private float timeTillSpawn;
     private float timeSpawn;
 
+    // if object spawn was skipped last time
     private bool didSkip = false;
 
     // Start is called before the first frame update
@@ -71,6 +72,7 @@ public class Generator : MonoBehaviour
 
         int idx;
 
+        // collision check on other objects (somtimes DOES NOT WORK)
         Collider[] hitcolliders = Physics.OverlapSphere(spawnPos, 1.0f, LayerMask.GetMask("Spawners"));
 
         if(hitcolliders.Length > 0)
@@ -97,6 +99,6 @@ public class Generator : MonoBehaviour
         }
 
         didSkip = false;
-       // 
+  
     }  
 }

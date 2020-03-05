@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class GearManager : MonoSingleton<GearManager>
 {
-    public MessageBox prompt;
+    [SerializeField]
+    private MessageBox prompt;
 
     [HideInInspector]
     public int levelGears { get; private set; }

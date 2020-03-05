@@ -7,10 +7,6 @@ using UnityEngine;
 
 public class Collector : MonoBehaviour
 {
-    private void Update()
-    {
-        
-    }
     private void OnTriggerEnter(Collider other)
     {
 

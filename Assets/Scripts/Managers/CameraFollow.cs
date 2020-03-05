@@ -8,6 +8,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public GameObject player;
+
     [Header("Offsets")]
     [SerializeField]
     private float Upoffset;

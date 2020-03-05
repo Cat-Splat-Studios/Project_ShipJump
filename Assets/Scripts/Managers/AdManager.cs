@@ -1,18 +1,27 @@
-﻿
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To handle all the unity ads within the game
+**/
+
 using UnityEngine;
 using UnityEngine.Advertisements;
 
 public class AdManager : MonoSingleton<AdManager>
 {
+    [SerializeField]
+    private bool testMode = true;
+    [SerializeField]
+    private int gearReward = 200;
+    [SerializeField]
+    private float normalthresholdTime = 180.0f;
+    [SerializeField]
+    private float buttonthresholdTime = 240.0f;
 
-    public bool testMode = true;
-    public int gearReward = 200;
-    public float normalthresholdTime = 180.0f;
-    public float buttonthresholdTime = 240.0f;
+    [SerializeField]
+    private MessageBox rewardPrompt;
 
-    public MessageBox rewardPrompt;
-
-    public GameObject adButton;
+    [SerializeField]
+    private GameObject adButton;
 
     private string gameId = "3468117";
     private string myPlacementId = "video";
@@ -23,8 +32,9 @@ public class AdManager : MonoSingleton<AdManager>
 
     private bool buttonShown = false;
 
-    ShowOptions op;
-    ShowOptions op1;
+    // callback operations on both ads
+    private ShowOptions op;
+    private ShowOptions op1;
 
     // Start is called before the first frame update
     void Start()
@@ -37,18 +47,14 @@ public class AdManager : MonoSingleton<AdManager>
     }
 
     private void Update()
-    {
-     
+    {   
         currentTimeThreshold += Time.deltaTime;      
-        
-
-
-        currentTimeButtonThreshold += Time.deltaTime;
-        
+        currentTimeButtonThreshold += Time.deltaTime;  
     }
 
     public void AdCheck()
     {
+        // check if it is time to play normal ad
         if (currentTimeThreshold > normalthresholdTime)
         {
             PlayAd();
@@ -57,6 +63,7 @@ public class AdManager : MonoSingleton<AdManager>
 
     public void ButtonCheck()
     {
+        // check if it is time to show the button for reward ad
         if (currentTimeButtonThreshold > buttonthresholdTime && buttonShown == false)
         {
             ShowButton();
@@ -75,12 +82,12 @@ public class AdManager : MonoSingleton<AdManager>
     {
         currentTimeThreshold = 0.0f;
         Time.timeScale = 0.0f;
-        Advertisement.Show(myPlacementId, op1);
-       
+        Advertisement.Show(myPlacementId, op1); 
     }
 
     public void OnUnityAdsDidFinish(ShowResult showResult)
     {
+        // reward player and let them know, hide button after
         if (showResult == ShowResult.Finished)
         {
             GearManager.instance.AddGears(gearReward);

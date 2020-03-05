@@ -20,7 +20,7 @@ public class BackgroundManager : MonoBehaviour, ISwapper
 
     public void SwapIt()
     {
-        int idx = 0;
+        int idx;
         if(PlayerPrefs.HasKey("backgroundIdx"))
         {
             idx = PlayerPrefs.GetInt("backgroundIdx");
@@ -37,6 +37,7 @@ public class BackgroundManager : MonoBehaviour, ISwapper
 
         meshes[idx].SetActive(true);
 
+        // set certain text colour according to background
         Color textColor;
 
         if (idx != 0)

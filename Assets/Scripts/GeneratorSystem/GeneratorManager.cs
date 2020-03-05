@@ -19,7 +19,6 @@ public class GeneratorManager : MonoBehaviour
     [SerializeField]
     private GameObject bottomCollector;
 
-
     [SerializeField]
     private float offset = 15.0f;
 
@@ -47,27 +46,18 @@ public class GeneratorManager : MonoBehaviour
     {
         ToggleTopGenerators(true);
         ToggleBottomGenerators(false);
-
-        //bottomCollector.SetActive(true);
-        //topCollector.SetActive(false);
     }
 
     public void FallGenerate()
     {
         ToggleTopGenerators(false);
         ToggleBottomGenerators(true);
-
-        //bottomCollector.SetActive(false);
-        //topCollector.SetActive(true);
     }
 
     public void StopGenerators()
     {
         ToggleTopGenerators(false);
         ToggleBottomGenerators(false);
-
-        //bottomCollector.SetActive(false);
-        //topCollector.SetActive(false);
     }
 
     private void InitClamps()
@@ -89,7 +79,6 @@ public class GeneratorManager : MonoBehaviour
         }
 
         bottomCollector.transform.localPosition = new Vector3(0.0f, -offset - 5.0f, 0.0f);
-
     }
 
     private void ToggleTopGenerators(bool value)

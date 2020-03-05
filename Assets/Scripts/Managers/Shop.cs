@@ -44,6 +44,7 @@ public class Shop : MonoBehaviour
     // finds the current selected item to focus on
     public void SetStartPos()
     {
+        // set the first thing opening up to 
         switch (shopType)
         {
             case EAssetType.BACKGROUND:
@@ -56,15 +57,12 @@ public class Shop : MonoBehaviour
                 view_window = shopItems[SwapManager.ObstacleIdx];
                 break;
         }
-
-        
+   
         image_width = view_window.rect.width;
         for (int i = 1; i < shopItems.Length; i++)
         {
             shopItems[i].anchoredPosition = new Vector2(((image_width + image_gap) * i), 0);
         }
-
-        FindObjectOfType<SwapManager>().Preview(shopType, current_index);
     }
 
 
