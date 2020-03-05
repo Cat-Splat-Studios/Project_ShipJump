@@ -26,10 +26,10 @@ public class CoinSpawner : MonoBehaviour
             randMax = randMax - 2;
 
 
-        if ((coinsToSpawn == 3 && PosX < -1.0f) || (coinsToSpawn == 2 && PosX < -1.75f))
+        if ((coinsToSpawn == 3 && PosX < -0.75f) || (coinsToSpawn == 2 && PosX < -1.75f))
             randMax--;
 
-        if ((coinsToSpawn == 3 && PosX > 1.0f) || (coinsToSpawn == 2 && PosX > 1.75f))
+        if ((coinsToSpawn == 3 && PosX > 0.75f) || (coinsToSpawn == 2 && PosX > 1.75f))
             randMax--;
 
 

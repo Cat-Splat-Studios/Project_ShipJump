@@ -198,7 +198,6 @@ public class PlayerMovement : MonoBehaviour
                                 SwapManager.EmergencyFuelCount--;
                                 usedEmergencyFuel = true;
                                 fuelIcon.ActivateFuel();
-                                fuelIcon.DisableIt();
 
                             }
                             else

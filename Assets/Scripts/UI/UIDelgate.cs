@@ -216,7 +216,7 @@ public class UIDelgate : MonoBehaviour
     public void UpdateInfoText()
     {
         gearText.text = $"{GearManager.instance.GetGears()}";
-        startText.text = $"Highscore\n {SaveManager.instance.GetHighscore()} km";
+        startText.text = $"{SaveManager.instance.GetHighscore()} km";
         UpdateAbilityText();
     }
 

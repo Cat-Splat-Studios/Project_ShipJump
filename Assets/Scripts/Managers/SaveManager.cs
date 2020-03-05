@@ -87,8 +87,8 @@ public class SaveManager : MonoSingleton<SaveManager>
         state.MusicIdx = 0;
         state.BackgroundIdx = 0;
 
-        state.EmergencyFuelCount = 1;
-        state.DoubleShieldCount = 1;
+        state.EmergencyFuelCount = 0;
+        state.DoubleShieldCount = 0;
 
         MapToView();
 

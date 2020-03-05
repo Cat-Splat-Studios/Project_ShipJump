@@ -24,7 +24,8 @@ public class EliteAbilityIcon : MonoBehaviour
     public void ActivateFuel()
     {
         anim.SetTrigger("activate");
-        isFuel(true);
+        anim.SetBool("canUse", false);
+        isFuel(true);    
     }
 
     public void ActivateShield()

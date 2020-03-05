@@ -79,7 +79,6 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
             Social.ReportScore(score, GPGSIds.leaderboard_highest_kilometers_traveled, (bool Success) =>
             {
                 Debug.Log("Score Added to Highscore");
-                prompt.SetPrompt("Added to Leaderboards", $"{score} was added.");
                 ui.LeaderBoard();
             });
         }     

@@ -195,7 +195,6 @@ public class PlayerManager : MonoBehaviour, ISwapper
     {
         PlayerMovement().ResetMove();
         PlayerShoot().TurnOff();
-        PlayerDamage().AttachDoubleShield();
     }
 
 

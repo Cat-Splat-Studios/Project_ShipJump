@@ -23,7 +23,7 @@ public class PlayerShoot : MonoBehaviour
     {
         if(canShoot)
         {
-            Instantiate(projectilePrefab, projectileSpawn.transform);
+            Instantiate(projectilePrefab, projectileSpawn.transform.position, Quaternion.identity);
             TurnOff();
         }
     }

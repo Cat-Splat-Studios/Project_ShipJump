@@ -63,6 +63,8 @@ public class Shop : MonoBehaviour
         {
             shopItems[i].anchoredPosition = new Vector2(((image_width + image_gap) * i), 0);
         }
+
+        FindObjectOfType<SwapManager>().Preview(shopType, current_index);
     }
 
 
