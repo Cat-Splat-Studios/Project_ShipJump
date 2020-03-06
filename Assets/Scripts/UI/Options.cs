@@ -12,11 +12,11 @@ public class Options : MonoBehaviour
 
     public void OpenOptions()
     {
-        anim.SetTrigger("open");
+        anim.SetBool("isOpen", true);
     }
 
     public void CloseOptions()
     {
-        anim.SetTrigger("close");
+        anim.SetBool("isOpen", false);
     }
 }

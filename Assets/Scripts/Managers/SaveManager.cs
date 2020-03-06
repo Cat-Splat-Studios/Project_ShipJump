@@ -83,7 +83,7 @@ public class SaveManager : MonoSingleton<SaveManager>
     // Incase loading from save fails, create an initial state
     public void DefaultLoad()
     {
-        state.Gears = 0;
+        state.Gears = 5000;
 
         state.PlayerIdx = 0;
         state.BackgroundIdx = 0;

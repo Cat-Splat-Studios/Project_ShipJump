@@ -269,33 +269,37 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (distance < 300)
         {
-            speedUp = 9;
+            speedUp = 8.5f;
             speedX = 7.5f;
             fuelDecrease = 6.5f;
         }
         else if (distance < 500)
         {
-            speedUp = 10;
+            speedUp = 9.0f;
             speedX = 8.0f;
             fuelDecrease = 7.0f;
         }
         else if (distance < 800)
         {
-            speedUp = 11;
+            speedUp = 9.5f;
             speedX = 8.5f;
             fuelDecrease = 7.5f;
         }
         else if (distance < 1000)
         {
-            speedUp = 12;
+            speedUp = 10.0f;
             fuelDecrease = 8.0f;
             speedX = 9.0f;
         }
-        else
+        else if (distance < 2000)
         {
-            speedUp = 13;
+            speedUp = 11.0f;
             fuelDecrease = 8.5f;
             speedX = 10.0f;
+        }
+        else
+        {
+            speedUp = 13.0f;
         }
 
         // set ui fuel

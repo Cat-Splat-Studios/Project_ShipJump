@@ -33,9 +33,8 @@ public class PlayerShoot : MonoBehaviour
         if (!canShoot)
         {
             canShoot = true;
-            ui.ToggleShoot(true);
         }
-
+        ui.ToggleShoot(true);
     }
 
     public void TurnOff()

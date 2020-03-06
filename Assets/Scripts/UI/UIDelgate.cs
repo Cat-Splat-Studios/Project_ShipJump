@@ -152,14 +152,7 @@ public class UIDelgate : MonoBehaviour
     // TODO: Rework shooting
     public void ToggleShoot(bool value)
     {
-        if (value)
-        {
-            shootButton.SetTrigger("up");
-        }
-        else
-        {
-            shootButton.SetTrigger("down");
-        }
+        shootButton.SetBool("isUp", value);
     }
 
     public void OpenShop(int shopType)
@@ -323,6 +316,7 @@ public class UIDelgate : MonoBehaviour
         UpdateInfoText();
         ScoreDisplay();
         camera.ResetCamera();
+        player.PlayerShoot().TurnOff();
         AdManager.instance.ButtonCheck();
         SaveManager.instance.SaveToCloud();
     }
