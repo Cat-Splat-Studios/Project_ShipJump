@@ -3,6 +3,7 @@
 * Purpose: To handle all the generators within the level
 **/
 
+using System.Collections;
 using UnityEngine;
 
 public class GeneratorManager : MonoBehaviour

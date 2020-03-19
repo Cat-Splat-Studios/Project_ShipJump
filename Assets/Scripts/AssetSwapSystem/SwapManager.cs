@@ -107,7 +107,6 @@ public class SwapManager : MonoSingleton<SwapManager>
     public void ObstacleSelect(int idx)
     {
         ObstacleIdx = idx;
-        PlayerPrefs.SetInt("obstacleIdx", idx);
     }
 
     public void Preview(EAssetType type, int idx)

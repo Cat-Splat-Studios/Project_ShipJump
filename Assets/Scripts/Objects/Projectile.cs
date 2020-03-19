@@ -20,6 +20,8 @@ public class Projectile : MonoBehaviour
         // Find References
         rb = GetComponent<Rigidbody>();
 
+        speed = FindObjectOfType<PlayerMovement>().GetUpSpeed() + speed;
+
         // Destroy particle after lifetime, will destroy any obstacle in its way
         Destroy(this.gameObject, lifetime);
     }

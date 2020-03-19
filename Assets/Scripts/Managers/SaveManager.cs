@@ -67,23 +67,19 @@ public class SaveManager : MonoSingleton<SaveManager>
 
     public void SaveToCloud()
     {
-        if(PlayGamesPlatform.Instance.IsAuthenticated())
-        {
-            MapToState();
-            GPGSUtils.instance.OpenCloudSave(OnSaveResponse);
-        }
+        MapToState();
+        GPGSUtils.instance.OpenCloudSave(OnSaveResponse);
     }
 
     public void LoadFromCloud()
     {
-        if (PlayGamesPlatform.Instance.IsAuthenticated())
-            GPGSUtils.instance.OpenCloudSave(OnLoadResponse);
+       GPGSUtils.instance.OpenCloudSave(OnLoadResponse);
     }
   
     // Incase loading from save fails, create an initial state
     public void DefaultLoad()
     {
-        state.Gears = 5000;
+        state.Gears = 0;
 
         state.PlayerIdx = 0;
         state.BackgroundIdx = 0;

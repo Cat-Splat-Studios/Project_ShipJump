@@ -38,8 +38,15 @@ public class AdManager : MonoSingleton<AdManager>
     private ShowOptions op;
     private ShowOptions op1;
 
+    private bool isTracking = false;
+
     // Start is called before the first frame update
     void Start()
+    {     
+        InitAds();
+    }
+
+    public void InitAds()
     {
         Advertisement.Initialize(gameId, testMode);
         op = new ShowOptions();
@@ -48,38 +55,58 @@ public class AdManager : MonoSingleton<AdManager>
         op.resultCallback = OnUnityAdsDidFinish;
     }
 
+    public void ToggleTracking(bool value)
+    {
+        isTracking = value;
+        currentTimeThreshold = 0.0f;
+        currentTimeButtonThreshold = 0.0f;
+    }
+
     private void Update()
-    {   
-        currentTimeThreshold += Time.deltaTime;      
-        currentTimeButtonThreshold += Time.deltaTime;  
+    {  
+        if (isTracking)
+        {
+            currentTimeThreshold += Time.deltaTime;
+            currentTimeButtonThreshold += Time.deltaTime;
+        }  
     }
 
     public void AdCheck()
     {
         // check if it is time to play normal ad
-        if (currentTimeThreshold > normalthresholdTime && gamesPlayedSinceAd > 1)
+        if(isTracking)
         {
-            PlayAd();
-        }     
+            if (currentTimeThreshold > normalthresholdTime && gamesPlayedSinceAd > 1)
+            {
+                PlayAd();
+            }
+        }       
     }
 
     public void ButtonCheck()
     {
-        // check if it is time to show the button for reward ad
-        if (currentTimeButtonThreshold > buttonthresholdTime && buttonShown == false)
+        if(isTracking)
         {
-            ShowButton();
+            // check if it is time to show the button for reward ad
+            if (currentTimeButtonThreshold > buttonthresholdTime && buttonShown == false)
+            {
+                ShowButton();
+            }
+            else
+            {
+                if (buttonShown)
+                {
+                    currentTimeButtonThreshold = 0.0f;
+                }
+                HideButton();
+            }
+            ++gamesPlayedSinceAd;
         }
         else
         {
-            if (buttonShown)
-            {
-                currentTimeButtonThreshold = 0.0f;
-            }
-            HideButton();      
+            HideButton();
         }
-
-        ++gamesPlayedSinceAd;
+    
     }
 
     private void PlayAd()

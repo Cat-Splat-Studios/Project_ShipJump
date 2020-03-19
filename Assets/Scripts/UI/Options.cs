@@ -9,14 +9,17 @@ public class Options : MonoBehaviour
 {
     // Start is called before the first frame update
     public Animator anim;
+    public GameObject background;
 
     public void OpenOptions()
     {
         anim.SetBool("isOpen", true);
+        background.SetActive(true); 
     }
 
     public void CloseOptions()
     {
         anim.SetBool("isOpen", false);
+        background.SetActive(false);
     }
 }

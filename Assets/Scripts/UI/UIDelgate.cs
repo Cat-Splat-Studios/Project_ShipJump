@@ -59,6 +59,11 @@ public class UIDelgate : MonoBehaviour
     [SerializeField]
     private GameObject storeUI;
 
+    [Header("Authenticated Objects")]
+    public Button[] onlineButtons;
+    public GameObject signInButton;
+    
+
     // Reference
     private Animator anim;
     private PlayerManager player;
@@ -189,6 +194,7 @@ public class UIDelgate : MonoBehaviour
         camera.ToMenuOffset();
         player.gameObject.SetActive(true);
         player.PlayerMovement().ResetIdle();
+        player.TogglePurchase(true);
 
         FindObjectOfType<PoolManager>().ResetObjects();
 
@@ -275,6 +281,17 @@ public class UIDelgate : MonoBehaviour
     public void resetDistance()
     {
         distanceTraveled.text = "0 km";
+    }
+    
+    public void toggleOnlineButtons(bool value)
+    { 
+
+        foreach(Button btn in onlineButtons)
+        {
+            btn.interactable = value;
+        }
+
+        signInButton.SetActive(!value);
     }
 
     /** Helper Methods **/

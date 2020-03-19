@@ -185,16 +185,21 @@ public class PlayerManager : MonoBehaviour, ISwapper
         if (CheckUnlock())
         {
             SwapManager.PlayerIdx = SwapManager.allRockets[unlockIdx];
-
         }
 
         SwapIt();
+        TogglePurchase(false);
     }
 
     public void ResetPlayer()
     {
         PlayerMovement().ResetMove();
         PlayerShoot().TurnOff();
+    }
+
+    public void TogglePurchase(bool value)
+    {
+        canPurchase = value;
     }
 
 

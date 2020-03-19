@@ -100,5 +100,5 @@ public class Generator : MonoBehaviour
 
         didSkip = false;
   
-    }  
+    }
 }

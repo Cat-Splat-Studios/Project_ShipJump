@@ -7,6 +7,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+public enum EMovementOptions
+{
+    TAP,
+    DRAG
+}
+
 public class PlayerMovement : MonoBehaviour
 {
     // Speeds
@@ -75,6 +81,9 @@ public class PlayerMovement : MonoBehaviour
     private bool startGame = false;
     private float screenCenterX;
     private bool usedEmergencyFuel = false;
+
+    private EMovementOptions moveOption = EMovementOptions.TAP;
+    public float touchOffset = 1.0f;
     
     // Start is called before the first frame update
     void Start()
@@ -92,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
         originalSpeedUp = speedUp;
 
         currentFuel = maxFuel;
+            
     }
 
     // Update is called once per frame
@@ -111,17 +121,47 @@ public class PlayerMovement : MonoBehaviour
                         Touch firstTouch = Input.GetTouch(0);
 
                         // if it began this frame
-                        if ((firstTouch.phase == TouchPhase.Stationary || firstTouch.phase == TouchPhase.Began) && !IsPointerOverUIObject(firstTouch.position.x, firstTouch.position.y))
+
+                        if(moveOption == EMovementOptions.DRAG)
                         {
-                            if (firstTouch.position.x > screenCenterX)
+                            if ((firstTouch.phase == TouchPhase.Stationary || firstTouch.phase == TouchPhase.Began) && !IsPointerOverUIObject(firstTouch.position.x, firstTouch.position.y))
                             {
-                                currentSpeedX = speedX;
+                                Vector3 worldPosition;
+                                Vector3 mousePos = firstTouch.position;
+                                mousePos.z = 10.0f;
+                                worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
+
+                                if (transform.position.x < worldPosition.x - touchOffset)
+                                {
+                                    currentSpeedX = speedX;
+                                }
+                                else if (transform.position.x > worldPosition.x + touchOffset)
+                                {
+                                    currentSpeedX = -speedX;
+                                }
+                                else
+                                {
+                                    currentSpeedX = 0;
+                                }
                             }
-                            else if (firstTouch.position.x < screenCenterX)
+                        } 
+                        else if(moveOption == EMovementOptions.TAP)
+                        {
+                            if ((firstTouch.phase == TouchPhase.Stationary || firstTouch.phase == TouchPhase.Began) && !IsPointerOverUIObject(firstTouch.position.x, firstTouch.position.y))
                             {
-                                currentSpeedX = -speedX;
+
+
+                                if (firstTouch.position.x > screenCenterX)
+                                {
+                                    currentSpeedX = speedX;
+                                }
+                                else if (firstTouch.position.x < screenCenterX)
+                                {
+                                    currentSpeedX = -speedX;
+                                }
                             }
                         }
+                       
 
                         if(firstTouch.phase == TouchPhase.Ended || firstTouch.phase == TouchPhase.Canceled)
                         {
@@ -139,8 +179,35 @@ public class PlayerMovement : MonoBehaviour
                 {
                     if (Input.GetMouseButton(0))
                     {
-                        if(!IsPointerOverUIObject(Input.mousePosition.x, Input.mousePosition.y))
+                        if(moveOption == EMovementOptions.DRAG)
                         {
+                            if (!IsPointerOverUIObject(Input.mousePosition.x, Input.mousePosition.y))
+                            {
+
+                                Vector3 worldPosition;
+
+                                Vector3 mousePos = Input.mousePosition;
+                                mousePos.z = 10.0f;
+                                worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
+
+                                if (transform.position.x < worldPosition.x - touchOffset)
+                                {
+                                    currentSpeedX = speedX;
+                                }
+                                else if (transform.position.x > worldPosition.x + touchOffset)
+                                {
+                                    currentSpeedX = -speedX;
+                                }
+                                else
+                                {
+                                    currentSpeedX = 0;
+                                }
+                            }
+                           
+                        }
+                        else if (moveOption == EMovementOptions.TAP)
+                        {
+
                             if (Input.mousePosition.x > screenCenterX)
                             {
                                 currentSpeedX = speedX;
@@ -150,7 +217,8 @@ public class PlayerMovement : MonoBehaviour
                                 currentSpeedX = -speedX;
                             }
                         }
-                       
+
+
                     }
                     else
                     {
@@ -184,7 +252,7 @@ public class PlayerMovement : MonoBehaviour
                         {
                             if(SwapManager.EmergencyFuelCount > 0 && !usedEmergencyFuel)
                             {
-                                AddFuel(60.0f);
+                                AddFuel(100.0f);
                                 SwapManager.EmergencyFuelCount--;
                                 usedEmergencyFuel = true;
                                 fuelIcon.ActivateFuel();
@@ -259,8 +327,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+
         // Adjustments depending on distance
-        if(distance < 100)
+        if (distance < 100)
         {
             speedUp = 8;
             speedX = 7.0f;
@@ -370,6 +439,11 @@ public class PlayerMovement : MonoBehaviour
         startGame = false;
     }
 
+    public float GetUpSpeed()
+    {
+        return speedUp;
+    }
+
     private void CheckScore()
     {
         float highscore = SaveManager.instance.GetHighscore();
@@ -379,6 +453,11 @@ public class PlayerMovement : MonoBehaviour
             GPGSUtils.instance.SubmitScore((int)distance);
             SaveManager.instance.SetHighScore((int)distance);
         }
+    }
+
+    public void SetMoveOptions(EMovementOptions option)
+    {
+        moveOption = option;
     }
 
     /** Helper Methods **/

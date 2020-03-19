@@ -19,8 +19,11 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
     public UIDelgate ui;
     // Start is called before the first frame update
 
+    private bool isOffline = false;
+
     public override void Init()
     {
+        Debug.Log("Enter GPGS");
         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
             .EnableSavedGames()
             .Build();
@@ -36,19 +39,40 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
     {
         try
         {
-            Social.localUser.Authenticate((bool success) =>
+            if(Application.internetReachability != NetworkReachability.NotReachable)
             {
-                if (success)
+                Social.localUser.Authenticate((bool success) =>
                 {
-                    SaveManager.instance.LoadFromCloud();
-                }
-                else
-                {
-                    prompt.SetPrompt("Could Not sign In", "You can still play!\n However... your progress will not be saved.");
-                    ui.HasAuthenitcated();
-                    SaveManager.instance.DefaultLoad();
-                }
-            });
+                    if (success)
+                    {
+                        isOffline = false;                   
+                        SaveManager.instance.LoadFromCloud();
+                        ui.toggleOnlineButtons(true);
+                        AdManager.instance.ToggleTracking(true);
+                    }
+                    else
+                    {
+                        if(!isOffline)
+                        {
+                            ui.HasAuthenitcated();
+                            SaveManager.instance.DefaultLoad();
+                            OfflineMode();
+                        }
+                        else
+                        {
+                            prompt.SetPrompt("Could Not sign In", "Authentication has failed.");
+                        }
+                 
+                    }
+                });
+            }
+            else
+            {
+                ui.HasAuthenitcated();
+                SaveManager.instance.DefaultLoad();
+                OfflineMode();
+            }
+          
         }
         catch (Exception e)
         {
@@ -57,23 +81,39 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
 
     }
 
+    public bool CheckAuth()
+    {
+        bool result = (Application.internetReachability != NetworkReachability.NotReachable && PlayGamesPlatform.Instance.IsAuthenticated());
+
+        if (!result)
+        {
+            OfflineMode();
+        }
+
+        return result;
+    }
+
     public void OpenCloudSave(Action<SavedGameRequestStatus, ISavedGameMetadata> callback)
     {
-        try
+        if (CheckAuth())
         {
-            var platform = (PlayGamesPlatform)Social.Active;
-            platform.SavedGame.OpenWithAutomaticConflictResolution(cloudSaveName, DataSource.ReadNetworkOnly, ConflictResolutionStrategy.UseLongestPlaytime, callback);
+            try
+            {
+                var platform = (PlayGamesPlatform)Social.Active;
+                platform.SavedGame.OpenWithAutomaticConflictResolution(cloudSaveName, DataSource.ReadNetworkOnly, ConflictResolutionStrategy.UseLongestPlaytime, callback);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+                prompt.SetPrompt("Error: Open Save File", e.Message);
+            }
         }
-        catch(Exception e)
-        {
-            Debug.Log(e.Message);
-            prompt.SetPrompt("Error: Open Save File", e.Message);
-        }    
+        
     }
 
     public void SubmitScore(int score)
     {
-        if(PlayGamesPlatform.Instance.IsAuthenticated())
+        if(CheckAuth())
         {
             Social.ReportScore(score, GPGSIds.leaderboard_highest_kilometers_traveled, (bool Success) =>
             {
@@ -85,7 +125,25 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
 
     public void ShowLeaderboard()
     {
-        if (PlayGamesPlatform.Instance.IsAuthenticated())
+        if (CheckAuth())
             Social.ShowLeaderboardUI();
+    }
+
+    private void OfflineMode()
+    {
+        // custom code here for when your application is offline
+        if(!isOffline)
+        {
+            isOffline = true;
+            // disable all online buttons
+            ui.toggleOnlineButtons(false);
+
+            // disable ads
+            AdManager.instance.ToggleTracking(false);
+
+            // display message
+            prompt.SetPrompt("Could Not sign In", "You can still play!\n However... your progress will not be saved.");        
+        }
+ 
     }
 }
