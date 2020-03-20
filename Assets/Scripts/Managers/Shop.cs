@@ -32,6 +32,8 @@ public class Shop : MonoBehaviour
     private int swipeThrustHold = 30;
 
     public int current_index;
+    public new AudioManager audio;
+    public AudioClip clip;
 
     // Start is called before the first frame update
     void Start()
@@ -159,6 +161,7 @@ public class Shop : MonoBehaviour
         dragAmount = 0;
 
         FindObjectOfType<SwapManager>().Preview(shopType, current_index);
+        audio.PlaySound(clip);
     }
 
     public void GoToIndex(int value)

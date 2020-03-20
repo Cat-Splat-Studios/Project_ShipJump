@@ -10,12 +10,23 @@ public class Thrusters : MonoBehaviour
     [SerializeField]
     private GameObject boostThrusters;
 
+    public ParticleSystem boostParticle;
+
     [SerializeField]
     private GameObject[] thrusters;
 
+    private float boostSize;
+
     public void BoostToggle(bool value)
     {
-       boostThrusters.SetActive(value);      
+       boostThrusters.SetActive(value);
+
+       ThrusterToggle(!value);
+
+        if (value)
+            boostSize = boostParticle.startSize;
+        else
+            boostParticle.startSize = boostSize;
     }
 
     public void ThrusterToggle(bool value)
@@ -25,4 +36,5 @@ public class Thrusters : MonoBehaviour
             obj.SetActive(value);
         }
     }
+
 }

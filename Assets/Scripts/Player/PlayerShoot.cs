@@ -12,6 +12,9 @@ public class PlayerShoot : MonoBehaviour
     public GameObject projectilePrefab;
     public GameObject projectileSpawn;
 
+    public new AudioManager audio;
+    public AudioClip fireSound;
+
     private UIDelgate ui;
 
     // Start is called before the first frame update
@@ -24,6 +27,7 @@ public class PlayerShoot : MonoBehaviour
         if(canShoot)
         {
             Instantiate(projectilePrefab, projectileSpawn.transform.position, Quaternion.identity);
+            audio.PlaySound(fireSound);
             TurnOff();
         }
     }

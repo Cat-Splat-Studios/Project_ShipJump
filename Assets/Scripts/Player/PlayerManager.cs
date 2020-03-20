@@ -127,6 +127,11 @@ public class PlayerManager : MonoBehaviour, ISwapper
         rockets[SwapManager.PlayerIdx].GetComponent<Thrusters>().BoostToggle(value);
     }
 
+    public ParticleSystem GetBoostParticle()
+    {
+        return rockets[SwapManager.PlayerIdx].GetComponent<Thrusters>().boostParticle;
+    }
+
     public void SetThrusters(bool value)
     {
         rockets[SwapManager.PlayerIdx].GetComponent<Thrusters>().ThrusterToggle(value);

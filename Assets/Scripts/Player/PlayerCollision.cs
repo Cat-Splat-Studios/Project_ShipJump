@@ -47,7 +47,7 @@ public class PlayerCollision : MonoBehaviour
                             //do some physics on the player based on boostForce
                             player.PlayerMovement().SetBoost();
                             player.SetBoost(true);
-                            audio.PlaySound(pickupSounds[1], pickupVol);
+                            audio.PlaySound(pickupSounds[1], 0.8f);
                             DestroyObject(other.gameObject);
                             break;
                         case EPickupType.SHIELD:
@@ -58,12 +58,12 @@ public class PlayerCollision : MonoBehaviour
                             break;
                         case EPickupType.GEAR:
                             GearManager.instance.IncrementGears();
-                            audio.PlaySound(pickupSounds[3], pickupVol);
+                            audio.PlaySound(pickupSounds[3], 0.35f);
                             DestroyObject(other.gameObject);
                             break;
                         case EPickupType.PROJECTILE:
                             player.PlayerShoot().EnableShoot();
-                            audio.PlaySound(pickupSounds[4], pickupVol);
+                            audio.PlaySound(pickupSounds[4], 0.65f);
                             DestroyObject(other.gameObject);
                             break;
                     }

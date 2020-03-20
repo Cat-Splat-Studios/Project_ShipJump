@@ -15,14 +15,9 @@ public class Tutorial : MonoBehaviour
         // show the first time the player plays
         if(!PlayerPrefs.HasKey("showTutorial"))
         {
-            Debug.Log("DONT HAVE");
             ToggleTutorial(true);
             PlayerPrefs.SetInt("showTutorial", 1);
-        }
-        else
-        {
-            Debug.Log("Do HAVE");
-        }   
+        } 
     }
 
     public void ToggleTutorial(bool value)

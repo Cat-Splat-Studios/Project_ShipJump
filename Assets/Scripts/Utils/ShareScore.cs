@@ -29,8 +29,6 @@ public class ShareScore : MonoBehaviour
     private void OnFinishedSharing(eShareResult result)
     {
         EnableView();
-
-        message.SetPrompt("Successfully Shared!", "You have shared your highscore.");
     }
 
     private void EnableView()

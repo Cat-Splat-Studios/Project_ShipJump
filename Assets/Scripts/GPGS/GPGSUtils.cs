@@ -142,7 +142,7 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
             AdManager.instance.ToggleTracking(false);
 
             // display message
-            prompt.SetPrompt("Could Not sign In", "You can still play!\n However... your progress will not be saved.");        
+            prompt.SetPrompt("Could Not sign In", "All progress will not be saved.\n You can attemp to sign in again at the settings screen.");        
         }
  
     }

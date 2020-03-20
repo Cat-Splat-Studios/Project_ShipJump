@@ -55,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isBoost = false;
     private float boostTime = 0.0f;
     private float originalSpeedUp;
+    private ParticleSystem currentBoostParticle;
+    private float boostInitalSize;
 
     [Header("Sounds")]
     public AudioClip thrustUp;
@@ -124,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
 
                         if(moveOption == EMovementOptions.DRAG)
                         {
-                            if ((firstTouch.phase == TouchPhase.Stationary || firstTouch.phase == TouchPhase.Began) && !IsPointerOverUIObject(firstTouch.position.x, firstTouch.position.y))
+                            if ((firstTouch.phase == TouchPhase.Moved || firstTouch.phase == TouchPhase.Began) && !IsPointerOverUIObject(firstTouch.position.x, firstTouch.position.y))
                             {
                                 Vector3 worldPosition;
                                 Vector3 mousePos = firstTouch.position;
@@ -319,9 +321,13 @@ public class PlayerMovement : MonoBehaviour
         // Boost adjustments
         if(isBoost)
         {
-            boostTime += Time.deltaTime;
+            boostTime -= Time.deltaTime;
 
-            if (boostTime >= boostMax)
+            float percent = boostTime / boostMax;
+            var main = currentBoostParticle.main;
+            main.startSize = boostInitalSize * percent;
+
+            if (boostTime <= 0.0f)
             {
                 StopBoost();
             }
@@ -425,9 +431,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetBoost()
     {
-        boostTime = 0.0f;
+        boostTime = boostMax;
         isBoost = true;
         boostMod = 3.0f;
+
+        currentBoostParticle = player.GetBoostParticle();
+        boostInitalSize = currentBoostParticle.startSize;
     }
 
     public void ResetIdle()
