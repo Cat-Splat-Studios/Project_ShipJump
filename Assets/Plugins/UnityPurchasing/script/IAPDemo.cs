@@ -349,7 +349,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
         var builder = ConfigurationBuilder.Instance(module);
 
         // Set this to true to enable the Microsoft IAP simulator for local testing.
-        builder.Configure<IMicrosoftConfiguration>().useMockBillingSystem = false;
+        //builder.Configure<IMicrosoftConfiguration>().useMockBillingSystem = false;
 
         m_IsGooglePlayStoreSelected =
             Application.platform == RuntimePlatform.Android && module.appStore == AppStore.GooglePlay;

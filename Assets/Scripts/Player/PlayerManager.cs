@@ -211,7 +211,7 @@ public class PlayerManager : MonoBehaviour, ISwapper
     /** Helper Methods**/
 
     // checks what needs to be displayed to user
-    private void ToggleSwap()
+    public void ToggleSwap()
     {
         TempSwap(unlockIdx);
 
@@ -244,7 +244,7 @@ public class PlayerManager : MonoBehaviour, ISwapper
         if (Physics.Raycast(raycast, out raycastHit))
         {
             Debug.Log("Something Hit");
-            if (raycastHit.collider.tag == "Player")
+            if (raycastHit.collider.tag == "Player" && !CheckUnlock())
             {
                 FindObjectOfType<AudioManager>().PressButton(1);
                 confirmPurchase.SetPrompt($"Purchase Rocket\n\n {rockets[unlockIdx].name}?", SwapManager.rocketPrices[unlockIdx].ToString(), RocketPurchaseConfirm);

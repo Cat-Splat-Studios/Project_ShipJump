@@ -17,10 +17,6 @@ public class UpdatePrompt : MonoBehaviour
             ToggleUpdate(true);
             PlayerPrefs.SetInt("update", updateVer);
         }
-        else
-        {
-            Debug.Log("Do HAVE");
-        }
     }
 
     public void ToggleUpdate(bool value)

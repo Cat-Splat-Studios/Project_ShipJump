@@ -23,7 +23,6 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
 
     public override void Init()
     {
-        Debug.Log("Enter GPGS");
         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
             .EnableSavedGames()
             .Build();
@@ -39,39 +38,30 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
     {
         try
         {
-            if(Application.internetReachability != NetworkReachability.NotReachable)
+            Social.localUser.Authenticate((bool success) =>
             {
-                Social.localUser.Authenticate((bool success) =>
+                if (success)
                 {
-                    if (success)
+                    isOffline = false;
+                    ui.HasAuthenitcated();
+                    SaveManager.instance.LoadFromCloud();
+                    ui.toggleOnlineButtons(true);
+                    AdManager.instance.ToggleTracking(true);
+                }
+                else
+                {
+                    if(!isOffline)
                     {
-                        isOffline = false;                   
-                        SaveManager.instance.LoadFromCloud();
-                        ui.toggleOnlineButtons(true);
-                        AdManager.instance.ToggleTracking(true);
+                        ui.HasAuthenitcated();
+                        SaveManager.instance.DefaultLoad();
+                        OfflineMode();
                     }
                     else
                     {
-                        if(!isOffline)
-                        {
-                            ui.HasAuthenitcated();
-                            SaveManager.instance.DefaultLoad();
-                            OfflineMode();
-                        }
-                        else
-                        {
-                            prompt.SetPrompt("Could Not sign In", "Authentication has failed.");
-                        }
-                 
-                    }
-                });
-            }
-            else
-            {
-                ui.HasAuthenitcated();
-                SaveManager.instance.DefaultLoad();
-                OfflineMode();
-            }
+                        prompt.SetPrompt("Could Not sign In", "Authentication has failed.");
+                    }         
+                }
+            });
           
         }
         catch (Exception e)
@@ -83,7 +73,7 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
 
     public bool CheckAuth()
     {
-        bool result = (Application.internetReachability != NetworkReachability.NotReachable && PlayGamesPlatform.Instance.IsAuthenticated());
+        bool result = PlayGamesPlatform.Instance.IsAuthenticated();
 
         if (!result)
         {
@@ -95,7 +85,7 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
 
     public void OpenCloudSave(Action<SavedGameRequestStatus, ISavedGameMetadata> callback)
     {
-        if (CheckAuth())
+        if(CheckAuth())
         {
             try
             {
@@ -104,11 +94,9 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
             }
             catch (Exception e)
             {
-                Debug.Log(e.Message);
                 prompt.SetPrompt("Error: Open Save File", e.Message);
             }
-        }
-        
+        }      
     }
 
     public void SubmitScore(int score)

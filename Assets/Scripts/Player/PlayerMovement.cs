@@ -409,6 +409,8 @@ public class PlayerMovement : MonoBehaviour
         
         canMove = false;
         startGame = false;
+        outOfFuel = false;
+        player.SetThrusters(true);
         CheckScore();
     }
 
@@ -417,6 +419,7 @@ public class PlayerMovement : MonoBehaviour
         currentFuel = maxFuel;
         startGame = true;
         startYPos = transform.position.y;
+        usedEmergencyFuel = false;
     }
 
     public void ResetMove()
@@ -426,7 +429,8 @@ public class PlayerMovement : MonoBehaviour
         startYPos = transform.position.y;
         ui.resetDistance();
         gears = 0;
-        transform.position = Vector3.zero;  
+        transform.position = Vector3.zero;
+        usedEmergencyFuel = false;
     }
 
     public void SetBoost()

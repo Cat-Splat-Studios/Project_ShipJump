@@ -88,23 +88,12 @@ public class AdManager : MonoSingleton<AdManager>
         if(isTracking)
         {
             // check if it is time to show the button for reward ad
-            if (currentTimeButtonThreshold > buttonthresholdTime && buttonShown == false)
+            if ((currentTimeButtonThreshold > buttonthresholdTime || gamesPlayedSinceAd >= 4) && buttonShown == false)
             {
                 ShowButton();
             }
-            else
-            {
-                if (buttonShown)
-                {
-                    currentTimeButtonThreshold = 0.0f;
-                }
-                HideButton();
-            }
+            
             ++gamesPlayedSinceAd;
-        }
-        else
-        {
-            HideButton();
         }
     
     }

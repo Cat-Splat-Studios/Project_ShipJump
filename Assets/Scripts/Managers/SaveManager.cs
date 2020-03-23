@@ -117,8 +117,7 @@ public class SaveManager : MonoSingleton<SaveManager>
         }
         else
         {
-            Debug.Log("Did not load: " + status);
-            prompt.SetPrompt("Did not load", status.ToString());
+            prompt.SetPrompt("Did not load", "If this is your firs time playing this means there is no save game yet and you are okay!");
             DefaultLoad();
 
             ui.HasAuthenitcated();

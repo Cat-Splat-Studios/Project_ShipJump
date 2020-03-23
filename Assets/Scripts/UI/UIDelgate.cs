@@ -206,6 +206,11 @@ public class UIDelgate : MonoBehaviour
 
         UpdateInfoText();
 
+        player.ToggleSwap();
+
+        if(!player.PlayerMovement().thrusters.isPlaying)
+            player.PlayerMovement().thrusters.Play();
+
         GearManager.instance.ResetLevelGears();
     }
 
