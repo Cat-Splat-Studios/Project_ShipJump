@@ -10,7 +10,7 @@
 				android:label="@string/app_name"
 				android:debuggable="true"
 				android:hardwareAccelerated="true">  <!-- This is Required for Video Rendering-->
-    <activity android:name="com.unity3d.player.UnityPlayerNativeActivity" android:label="@string/app_name">
+    <activity android:name="com.unity3d.player.UnityPlayerActivity" android:label="@string/app_name">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />

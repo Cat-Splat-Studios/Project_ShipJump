@@ -264,6 +264,7 @@
 
     [UnityGetGLViewController() presentViewController:moviePlayerVC animated:TRUE completion:nil];
 
+    [self.moviePlayerVC addObserver:self forKeyPath: @"view.frame"  options: NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context: nil];
 }
 
 - (void)stopPlayingVideo {
@@ -365,7 +366,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:AVPlayerItemFailedToPlayToEndTimeNotification
                                                   object:nil];
-	
+    
+    [self.moviePlayerVC removeObserver:self forKeyPath: @"view.frame"];
+    
 	// Dismiss and unset instance
 	[UnityGetGLViewController() dismissViewControllerAnimated:true completion:nil];
 	[self setMoviePlayerVC:nil];

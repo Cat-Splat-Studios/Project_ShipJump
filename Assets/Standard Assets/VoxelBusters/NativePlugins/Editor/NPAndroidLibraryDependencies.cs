@@ -22,7 +22,7 @@ namespace VoxelBusters.NativePlugins
 		/// </summary>
 		private static readonly string DependencyName = "CPNPDependencies.xml";
 
-        private static readonly string PlayServicesVersionString	=	"15.0+";
+        private static readonly string PlayServicesVersionString	=	"16.0+";
         private static readonly string SupportLibsVersionString		=	"27.1+";
         private static readonly string FCMVersionString             =   "17.3.4+";
         private static readonly string GSONVersionString            =   "2.7";
@@ -70,9 +70,12 @@ namespace VoxelBusters.NativePlugins
 
 								AndroidDependency _playServicesNearbyDependency = new AndroidDependency("com.google.android.gms", "play-services-nearby", PlayServicesVersionString);
 								WritePackageDependency(_xmlWriter, _playServicesNearbyDependency);
-							}
 
-							if (NPSettings.Application.SupportedFeatures.UsesNotificationService)
+                                /*AndroidDependency _playServicesAuthDependency = new AndroidDependency("com.google.android.gms", "play-services-auth", PlayServicesVersionString);
+                                WritePackageDependency(_xmlWriter, _playServicesAuthDependency);*/
+                            }
+
+							if (NPSettings.Application.SupportedFeatures.UsesNotificationService && NPSettings.Application.SupportedFeatures.NotificationService.usesRemoteNotification)
 							{
 								_xmlWriter.WriteComment("Dependency added for using Notifications");
                                 AndroidDependency _fcmDependency = new AndroidDependency("com.google.firebase", "firebase-messaging", FCMVersionString);

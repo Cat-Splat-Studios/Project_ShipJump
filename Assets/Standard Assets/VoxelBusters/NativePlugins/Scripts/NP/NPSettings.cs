@@ -27,7 +27,7 @@ namespace VoxelBusters.NativePlugins
 		#region Constants
 
 		// Product info
-        private		const	bool		kIsFullVersion					= false;
+		private		const	bool		kIsFullVersion					= true;
 		private 	const 	string 		kProductName					= "Native Plugins";
         public 	    const 	string 		kProductVersion					= "1.5.7";
 
@@ -531,22 +531,21 @@ namespace VoxelBusters.NativePlugins
 
 				string filename = Path.GetFileName (plugin.assetPath);
 
-                if (plugin.assetPath.Contains(Constants.kAndroidPluginsPath))
-                {
-                    // Debug.Log("[Updating Plugin Properties] " + plugin.assetPath);
-                    if (filename.Equals(Constants.kTwitterLibraryName))
-                    {
-                        plugin.SetCompatibleWithAnyPlatform(false);
-                        plugin.SetCompatibleWithPlatform(BuildTarget.Android, _supportedFeatures.UsesTwitter);
-                    }
-#if USES_MEDIA_LIBRARY
-                    if (filename.Equals(Constants.kYoutubeLibraryName))
-                    {
-                        plugin.SetCompatibleWithAnyPlatform(false);
-                        plugin.SetCompatibleWithPlatform(BuildTarget.Android, _supportedFeatures.UsesMediaLibrary && !string.IsNullOrEmpty(MediaLibrary.Android.YoutubeAPIKey));
-                    }
-#endif
-                }
+				if (plugin.assetPath.Contains(Constants.kAndroidPluginsPath))
+				{
+					// Debug.Log("[Updating Plugin Properties] " + plugin.assetPath);
+					if (filename.Equals(Constants.kTwitterLibraryName))
+					{
+						plugin.SetCompatibleWithAnyPlatform(false);
+						plugin.SetCompatibleWithPlatform(BuildTarget.Android,_supportedFeatures.UsesTwitter);
+					}
+
+					if (filename.Equals(Constants.kYoutubeLibraryName))
+					{
+						plugin.SetCompatibleWithAnyPlatform(false);
+						plugin.SetCompatibleWithPlatform(BuildTarget.Android,_supportedFeatures.UsesMediaLibrary && !string.IsNullOrEmpty(MediaLibrary.Android.YoutubeAPIKey));
+					}
+				}
 			}
 		#endif
 		}

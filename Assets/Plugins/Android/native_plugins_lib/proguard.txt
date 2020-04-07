@@ -26,6 +26,7 @@
 
 #Media Library
 -keep public class com.voxelbusters.nativeplugins.features.medialibrary.MediaLibraryHandler {*; }
+-dontwarn com.voxelbusters.nativeplugins.features.medialibrary.YoutubePlayerActivity
 
 #Notification Services
 -keep public class com.voxelbusters.nativeplugins.features.notification.NotificationHandler {*; }

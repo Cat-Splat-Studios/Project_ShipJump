@@ -3,8 +3,7 @@ using System.Collections;
 
 namespace VoxelBusters.Utility
 {
-#pragma warning disable
-    public class POSTRequest : WebRequest 
+	public class POSTRequest : WebRequest 
 	{
 		#region Constructors
 		
@@ -63,5 +62,4 @@ namespace VoxelBusters.Utility
 		
 		#endregion
 	}
-#pragma warning restore
 }

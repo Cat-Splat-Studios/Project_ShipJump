@@ -23,13 +23,10 @@ namespace VoxelBusters.NativePlugins.Internal
 #if IO_UNSUPPORTED_PLATFORM
 			Debug.LogWarning("[NPEditorUtility] Not supported.");
 #else
-			DownloadAsset 	_newRequest		= new DownloadAsset(URL.URLWithString(_downloadLink), true);
-#pragma warning disable CS0618 // Type or member is obsolete
-            _newRequest.OnCompletion		= (WWW _www, string _error) =>
-            {
-#pragma warning restore CS0618 // Type or member is obsolete
-
-                if (_error != null)
+			DownloadAsset 	_newRequest		= new DownloadAsset(URL.URLWithString(_downloadLink), true); 
+			_newRequest.OnCompletion		= (WWW _www, string _error)=> {
+				
+				if (_error != null)
 				{
 					bool	_openDownloadLink	= EditorUtility.DisplayDialog(_errorTitle, _errorMessage, "Ok", "Cancel");
 					

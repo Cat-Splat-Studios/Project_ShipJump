@@ -3,8 +3,7 @@ using System.Collections;
 
 namespace VoxelBusters.Utility
 {
-#pragma warning disable
-    public class DownloadAsset : Request 
+	public class DownloadAsset : Request 
 	{
 		#region Delegates
 
@@ -57,5 +56,4 @@ namespace VoxelBusters.Utility
 
 		#endregion
 	}
-#pragma warning restore
 }

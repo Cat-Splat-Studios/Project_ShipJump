@@ -5,8 +5,7 @@ using System;
 
 namespace VoxelBusters.Utility
 {
-#pragma warning disable
-    public class GETRequest : WebRequest 
+	public class GETRequest : WebRequest 
 	{
 		#region Constructors
 		
@@ -142,5 +141,4 @@ namespace VoxelBusters.Utility
 		
 		#endregion
 	}
-#pragma warning restore
 }

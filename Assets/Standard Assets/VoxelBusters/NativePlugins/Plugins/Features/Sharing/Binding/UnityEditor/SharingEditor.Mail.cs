@@ -47,16 +47,14 @@ namespace VoxelBusters.NativePlugins
 
 		private string EscapingString (string _inputString)
 		{
-#pragma warning disable CS0618 // Type or member is obsolete
-            return WWW.EscapeURL(_inputString).Replace("+","%20");
-#pragma warning restore CS0618 // Type or member is obsolete
-        }
+			return WWW.EscapeURL(_inputString).Replace("+","%20");
+		}
 
-        #endregion
+		#endregion
 
-        #region Deprecated Methods
-
-        [System.Obsolete(kSharingFeatureDeprecatedMethodInfo)]
+		#region Deprecated Methods
+		
+		[System.Obsolete(kSharingFeatureDeprecatedMethodInfo)]
 		public override void SendMail (string _subject, string _body, bool _isHTMLBody, byte[] _attachmentByteArray, 
 		                               string _mimeType, string _attachmentFileNameWithExtn, string[] _recipients, SharingCompletion _onCompletion)
 		{

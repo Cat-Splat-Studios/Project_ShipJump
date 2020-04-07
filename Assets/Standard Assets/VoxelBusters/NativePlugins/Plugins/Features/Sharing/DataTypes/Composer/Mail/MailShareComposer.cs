@@ -197,13 +197,10 @@ namespace VoxelBusters.NativePlugins
 
 			// Start downloading
 			DownloadAsset _request	= new DownloadAsset(URL.FileURLWithPath(_attachmentPath), true);
-#pragma warning disable CS0618 // Type or member is obsolete
-            _request.OnCompletion	= (WWW _www, string _error) =>
-            {
-#pragma warning restore CS0618 // Type or member is obsolete
+			_request.OnCompletion	= (WWW _www, string _error) => {
 
-                // Reset download progress
-                m_attachmentDownloadInProgress = false;
+				// Reset download progress
+				m_attachmentDownloadInProgress	= false;
 
 				// Process data
 				if (string.IsNullOrEmpty(_error))

@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 using VoxelBusters.Utility;
-#pragma warning disable
+
 namespace VoxelBusters.NativePlugins.Internal
 {
     [InitializeOnLoad]
@@ -91,11 +91,10 @@ namespace VoxelBusters.NativePlugins.Internal
 
             versionString = majorVersion + "." + minorVersion;
 
-            int versionInt = (int)Mathf.Round(float.Parse(versionString) * factor);
+            int versionInt = (int)Mathf.Round(float.Parse(versionString, System.Globalization.CultureInfo.InvariantCulture) * factor);
             return versionInt;
         }
 
     }
 }
 #endif
-#pragma warning restore

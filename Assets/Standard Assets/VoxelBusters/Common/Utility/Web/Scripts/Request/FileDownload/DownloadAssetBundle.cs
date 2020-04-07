@@ -25,16 +25,14 @@ namespace VoxelBusters.Utility
 
 		public DownloadAssetBundle (URL _URL, int _version, bool _isAsynchronous) : base(_URL, _isAsynchronous)
 		{
-#pragma warning disable CS0618 // Type or member is obsolete
-            WWWObject = WWW.LoadFromCacheOrDownload(_URL.URLString, _version);
-#pragma warning restore CS0618 // Type or member is obsolete
-        }
+			WWWObject	= WWW.LoadFromCacheOrDownload(_URL.URLString, _version);
+		}
 
-        #endregion
+		#endregion
 
-        #region Handling Response
+		#region Handling Response
 
-        protected override void DidFailStartRequestWithError (string _error)
+		protected override void DidFailStartRequestWithError (string _error)
 		{
 			if (OnCompletion != null)
 				OnCompletion(null, _error);

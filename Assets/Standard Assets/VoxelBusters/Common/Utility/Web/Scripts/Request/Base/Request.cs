@@ -3,7 +3,6 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
-#pragma warning disable
 namespace VoxelBusters.Utility
 {
 	public abstract class Request 
@@ -120,4 +119,3 @@ namespace VoxelBusters.Utility
 		#endregion
 	}
 }
-#pragma warning restore

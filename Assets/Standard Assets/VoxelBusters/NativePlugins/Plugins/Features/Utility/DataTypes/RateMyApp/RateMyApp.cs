@@ -135,12 +135,12 @@ namespace VoxelBusters.NativePlugins
 						
 					PlayerPrefs.SetInt(m_keysCollection.ShowPromptAfterKeyName, m_settings.ShowFirstPromptAfterHours);
 					PlayerPrefs.SetString(m_keysCollection.PromptLastShownKeyName, _utcNow.ToString(System.Globalization.CultureInfo.InvariantCulture));
-				} 
+                } 
 
 				// Check for rest of trigger conditions
 				string 		_promptLastShownOnString	= PlayerPrefs.GetString(m_keysCollection.PromptLastShownKeyName);
-				DateTime 	_promptLastShown			= DateTime.Parse(_promptLastShownOnString, System.Globalization.CultureInfo.InvariantCulture);
-				int 		_hoursSincePromptLastShown  = (int)(_utcNow - _promptLastShown).TotalHours;
+                DateTime    _promptLastShown            = DateTime.Parse(_promptLastShownOnString, System.Globalization.CultureInfo.InvariantCulture);
+                int         _hoursSincePromptLastShown  = (int)(_utcNow - _promptLastShown).TotalHours;
 				int			_appUsageCount				= GetAppUsageCount();
 
 				// Need to wait until time exceeds

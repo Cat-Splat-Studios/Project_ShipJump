@@ -46,10 +46,8 @@ namespace VoxelBusters.Utility
 		public DownloadTexture (URL _URL, bool _isAsynchronous, bool _autoFixOrientation) : base(_URL, _isAsynchronous)
 		{
 			AutoFixOrientation	= _autoFixOrientation;
-#pragma warning disable CS0618 // Type or member is obsolete
-            WWWObject = new WWW(_URL.URLString);
-#pragma warning restore CS0618 // Type or member is obsolete
-            ScaleFactor = 1f;
+			WWWObject			= new WWW(_URL.URLString);
+			ScaleFactor			= 1f;
 		}
 
 		#endregion

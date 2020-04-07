@@ -2,6 +2,10 @@
   <packages>
     <package>com.android.support:exifinterface:27.1+</package>
     <package>com.android.support:support-v4:27.1+</package>
+    <package>com.google.android.gms:play-services-games:16.0+</package>
+    <package>com.google.android.gms:play-services-nearby:16.0+</package>
+    <package>com.google.code.gson:gson:2.7</package>
+    <package>com.google.firebase:firebase-messaging:17.3.4+</package>
     <package>com.google.games:gpgs-plugin-support:0.10.06</package>
   </packages>
   <files>
@@ -43,7 +47,14 @@
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-drive-17.0.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-games-18.0.1.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-nearby-17.0.0.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-stats-16.0.1.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-tasks-17.0.0.aar</file>
+    <file>Assets/Plugins/Android/com.google.code.gson.gson-2.7.jar</file>
+    <file>Assets/Plugins/Android/com.google.firebase.firebase-common-16.0.3.aar</file>
+    <file>Assets/Plugins/Android/com.google.firebase.firebase-iid-17.0.4.aar</file>
+    <file>Assets/Plugins/Android/com.google.firebase.firebase-iid-interop-16.0.1.aar</file>
+    <file>Assets/Plugins/Android/com.google.firebase.firebase-measurement-connector-17.0.1.aar</file>
+    <file>Assets/Plugins/Android/com.google.firebase.firebase-messaging-17.3.4.aar</file>
     <file>Assets/Plugins/Android/com.google.games.gpgs-plugin-support-0.10.06.aar</file>
   </files>
   <settings>
@@ -53,7 +64,7 @@
     <setting name="gradleBuildEnabled" value="True" />
     <setting name="gradleTemplateEnabled" value="False" />
     <setting name="installAndroidPackages" value="True" />
-    <setting name="packageDir" value="Assets/Plugins/Android" />
+    <setting name="packageDir" value="Assets\Plugins\Android" />
     <setting name="patchAndroidManifest" value="True" />
     <setting name="patchMainTemplateGradle" value="True" />
     <setting name="projectExportEnabled" value="False" />

@@ -23,7 +23,7 @@ namespace VoxelBusters.UnityEngineUtils
 
 			T	_instance		= ScriptableObject.CreateInstance<T>();
 
-			AssetDatabase.CreateAsset(_instance, AssetDatabase.GenerateUniqueAssetPath(path));
+            AssetDatabase.CreateAsset(_instance, path);//AssetDatabase.GenerateUniqueAssetPath(path));
 			_instance.SaveChanges(autoImport);
 
 			return _instance;
