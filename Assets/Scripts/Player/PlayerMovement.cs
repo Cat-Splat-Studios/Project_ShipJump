@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     // Speeds
     [Header("Speeds")]
     [SerializeField]
+    private float acceleration = 0.5f;
+    [SerializeField]
     private float speedUp = 2.0f;
     [SerializeField]
     private float speedDown = 0.0f;
@@ -27,15 +29,23 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeedUp;
     private float currentSpeedX;
 
+    // set speeds
+    private float topSpeed;
+    private float initialSpeed = 5.0f;
+
     // Fuel
     [Header("Fuel")]
     [SerializeField]
     private float maxFuel = 100.0f;
+
     [SerializeField]
     private float fuelDecrease = 1.0f;
+    private float fuelIntakeMod = 1.0f;
 
     private float currentFuel;
     private bool outOfFuel = false;
+
+    private float fuelEfficiency;
 
     // Distance
     private float distance;
@@ -54,7 +64,6 @@ public class PlayerMovement : MonoBehaviour
     private float boostMod = 0.0f;
     private bool isBoost = false;
     private float boostTime = 0.0f;
-    private float originalSpeedUp;
     private ParticleSystem currentBoostParticle;
     private float boostInitalSize;
 
@@ -62,9 +71,6 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip thrustUp;
     public AudioClip thrustDown;
     public AudioSource thrusters;
-
-    // Gears
-    private int gears = 0;
 
     // References
     private Rigidbody rb;
@@ -77,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
     // Misc
     [Header("Misc")]  
     public float xClamp = 3.0f;
+
     [SerializeField]
     private EliteAbilityIcon fuelIcon;
 
@@ -100,10 +107,15 @@ public class PlayerMovement : MonoBehaviour
 
         screenCenterX = Screen.width * 0.5f;
         currentSpeedX = 0.0f;
-        originalSpeedUp = speedUp;
 
         currentFuel = maxFuel;
             
+    }
+
+    public void SetTopSpeed(float topSpeed)
+    {
+        this.topSpeed = topSpeed;
+        speedUp = initialSpeed;
     }
 
     // Update is called once per frame
@@ -305,11 +317,41 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 // Adjust fuel
-                currentFuel -= fuelDecrease * Time.deltaTime;
+                currentFuel -= (fuelDecrease) * Time.deltaTime;
+
+                // Adjust speed
+                if (speedUp < topSpeed)
+                {
+                    speedUp += (acceleration * Time.deltaTime);
+
+                    if (speedUp > topSpeed)
+                        speedUp = topSpeed;
+                }
+                else
+                    speedUp = topSpeed;
+
+                speedDown = -speedUp;
+
+                ui.curSpeed = (speedUp + boostMod).ToString("f2");
 
                 // Adjust Distance
                 distance = Mathf.Round(transform.position.y - startYPos);
                 ui.curDistance = distance.ToString();
+
+                // Boost adjustments
+                if (isBoost)
+                {
+                    boostTime -= Time.deltaTime;
+
+                    float percent = boostTime / boostMax;
+                    var main = currentBoostParticle.main;
+                    main.startSize = boostInitalSize * percent;
+
+                    if (boostTime <= 0.0f)
+                    {
+                        StopBoost();
+                    }
+                }
 
             }
             else
@@ -318,65 +360,7 @@ public class PlayerMovement : MonoBehaviour
             }  
         }
 
-        // Boost adjustments
-        if(isBoost)
-        {
-            boostTime -= Time.deltaTime;
-
-            float percent = boostTime / boostMax;
-            var main = currentBoostParticle.main;
-            main.startSize = boostInitalSize * percent;
-
-            if (boostTime <= 0.0f)
-            {
-                StopBoost();
-            }
-        }
-
-
-        // Adjustments depending on distance
-        if (distance < 100)
-        {
-            speedUp = 8;
-            speedX = 7.0f;
-            fuelDecrease = 6.0f;
-
-        }
-        else if (distance < 300)
-        {
-            speedUp = 8.5f;
-            speedX = 7.5f;
-            fuelDecrease = 6.5f;
-        }
-        else if (distance < 500)
-        {
-            speedUp = 9.0f;
-            speedX = 8.0f;
-            fuelDecrease = 7.0f;
-        }
-        else if (distance < 800)
-        {
-            speedUp = 9.5f;
-            speedX = 8.5f;
-            fuelDecrease = 7.5f;
-        }
-        else if (distance < 1000)
-        {
-            speedUp = 10.0f;
-            fuelDecrease = 8.0f;
-            speedX = 9.0f;
-        }
-        else if (distance < 2000)
-        {
-            speedUp = 11.0f;
-            fuelDecrease = 8.5f;
-            speedX = 10.0f;
-        }
-        else
-        {
-            speedUp = 13.0f;
-        }
-
+     
         // set ui fuel
         ui.curFuel = currentFuel / 100;
 
@@ -390,7 +374,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void AddFuel(float amount)
     {
-        currentFuel += amount;
+        float fuelAdded = amount * fuelIntakeMod;
+        currentFuel += fuelAdded;
         if(currentFuel > maxFuel)
         {
             currentFuel = maxFuel;
@@ -428,19 +413,26 @@ public class PlayerMovement : MonoBehaviour
         currentFuel = maxFuel;
         startYPos = transform.position.y;
         ui.resetDistance();
-        gears = 0;
         transform.position = Vector3.zero;
         usedEmergencyFuel = false;
+        speedUp = initialSpeed;
     }
 
     public void SetBoost()
     {
         boostTime = boostMax;
-        isBoost = true;
-        boostMod = 3.0f;
+        boostMod = 2.0f;
 
-        currentBoostParticle = player.GetBoostParticle();
-        boostInitalSize = currentBoostParticle.startSize;
+        if (!isBoost)
+        {
+            isBoost = true;
+            currentBoostParticle = player.GetBoostParticle();
+            boostInitalSize = currentBoostParticle.startSize;
+        }
+        else
+        {
+            currentBoostParticle.startSize = boostInitalSize;
+        }       
     }
 
     public void ResetIdle()
@@ -473,12 +465,22 @@ public class PlayerMovement : MonoBehaviour
         moveOption = option;
     }
 
+    public void SetFuelMods(float fuelBurn, float fuelIntake)
+    {
+        fuelDecrease = fuelBurn;
+        fuelIntakeMod = fuelIntake;
+    }
+
+    public void SetInitialSpeed(float speed)
+    {
+        initialSpeed = speed;
+    }
+
     /** Helper Methods **/
 
     private void StopBoost()
     {
         GetComponent<PlayerManager>().SetBoost(false);
-        speedUp = originalSpeedUp;
         isBoost = false;
         boostTime = 0.0f;
         boostMod = 0.0f;
@@ -492,5 +494,10 @@ public class PlayerMovement : MonoBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
         return results.Count > 0;
+    }
+
+    private void SpeedCalc(float speedIncrease)
+    {
+        speedUp = Mathf.Clamp(initialSpeed + speedIncrease, 8.0f, 13.0f);
     }
 }

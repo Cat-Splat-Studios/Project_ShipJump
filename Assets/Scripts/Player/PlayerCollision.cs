@@ -12,15 +12,32 @@ public class PlayerCollision : MonoBehaviour
 
     public float pickupVol = 0.5f;
 
+    public Vector3 smallHitBox;
+    public Vector3 largeHitBox;
+
     private PlayerManager player;
     private new AudioManager audio;
+    private BoxCollider boxCollide;
 
     private void Start()
     {
         // Find References
         player = GetComponent<PlayerManager>();
         audio = FindObjectOfType<AudioManager>();
+        boxCollide = GetComponent<BoxCollider>();
 
+    }
+
+    public void SetHitBox(bool isLarge)
+    {
+        if(isLarge)
+        {
+            boxCollide.size = largeHitBox;
+        }
+        else
+        {
+            boxCollide.size = smallHitBox;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

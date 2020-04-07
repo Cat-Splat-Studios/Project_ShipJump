@@ -34,6 +34,8 @@ public class UIDelgate : MonoBehaviour
     private Animator shootButton;
     [SerializeField]
     private GameObject[] numbers;
+    [SerializeField]
+    private Text speedText;
 
     // Game Over UI
     [Header("Game Over UI")]
@@ -73,6 +75,7 @@ public class UIDelgate : MonoBehaviour
     // Property Values
     private float _curFuel;
     private string _curDistance = "0";
+    private string _curSpeed;
 
     // Helper Variables
     private bool _gameStarted = false;
@@ -95,6 +98,7 @@ public class UIDelgate : MonoBehaviour
         if (gameStarted)
         {
             distanceTraveled.text = $"{_curDistance} km";
+            speedText.text = $"Speed: {_curSpeed}";
         }
 
         // Allow for back button escape on the phone
@@ -280,6 +284,18 @@ public class UIDelgate : MonoBehaviour
         set
         {
             _curDistance = value.ToString();
+        }
+    }
+
+    public string curSpeed
+    {
+        get
+        {
+            return _curSpeed;
+        }
+        set
+        {
+            _curSpeed = value;
         }
     }
 

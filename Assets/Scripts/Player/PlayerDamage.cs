@@ -30,15 +30,14 @@ public class PlayerDamage : MonoBehaviour
     private bool hasShield = false;
     private int shieldCount = 0;
     private bool isDoubleShield = false;
+    private int shieldStack = 1;
 
     private void Start()
     {
         // Find References
         audio = FindObjectOfType<AudioManager>();
         ui = FindObjectOfType<UIDelgate>();
-        playerMovement = GetComponent<PlayerMovement>();
-
-        
+        playerMovement = GetComponent<PlayerMovement>();     
     }
 
     public void GotHit(GameObject obj)
@@ -72,13 +71,27 @@ public class PlayerDamage : MonoBehaviour
         }
     }
 
+    public void SetSheildStack(int stack)
+    {
+        shieldStack = stack;
+    }
+
     public void AttatchShield()
     {
-        if (!hasShield)
+        switch (shieldCount)
         {
-            hasShield = true;
-            shields[0].SetActive(true);
-            shieldCount = 1;
+            case 0:
+                hasShield = true;
+                shields[0].SetActive(true);
+                shieldCount = 1;
+                break;
+            case 1:
+                if(shieldStack > 1)
+                {
+                    shields[1].SetActive(true);
+                    shieldCount = 2;
+                }               
+                break;
         }
     }
 

@@ -32,8 +32,8 @@ public class SwapManager : MonoSingleton<SwapManager>
     [SerializeField]
     private new AudioManager audio;
 
-    public static List<int> allRockets = new List<int>{ 0, 1, 2, 3, 4, 5, 6, 7};
-    public static List<int> rocketPrices = new List<int> { 0, 800, 1000, 1200, 1500, 2000, 3000, 5000 };
+    public static List<int> allRockets = new List<int>{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,};
+    public static List<int> rocketPrices = new List<int> { 0, 800, 1000, 1200, 1500, 2000, 3000, 5000, 3000, 5000 };
 
     private void Start()
     {

@@ -794,6 +794,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 1140
       objectReference: {fileID: 0}
+    - target: {fileID: 8244507686506248931, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: speedText
+      value: 
+      objectReference: {fileID: 2127330040}
+    - target: {fileID: 7085010791503930554, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efb6b99265acf274eb27f0730d357326, type: 3}
 --- !u!1 &180622871 stripped
@@ -1212,12 +1222,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1 &1425544919 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4381516572669539467, guid: d5f89821ccea90046b78a54376b18ebd,
-    type: 3}
-  m_PrefabInstance: {fileID: 7904309150460752194}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1440819716 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 55591692, guid: 1426054c11495aa409a8e4894a321226,
@@ -1527,6 +1531,18 @@ AudioSource:
 --- !u!114 &2034581364 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2034581364, guid: efb6b99265acf274eb27f0730d357326,
+    type: 3}
+  m_PrefabInstance: {fileID: 180622870}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2127330040 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 510212087809430616, guid: efb6b99265acf274eb27f0730d357326,
     type: 3}
   m_PrefabInstance: {fileID: 180622870}
   m_PrefabAsset: {fileID: 0}
@@ -2136,11 +2152,6 @@ PrefabInstance:
       propertyPath: audio
       value: 
       objectReference: {fileID: 1440819716}
-    - target: {fileID: 4712009710909662013, guid: d5f89821ccea90046b78a54376b18ebd,
-        type: 3}
-      propertyPath: fireSound
-      value: 
-      objectReference: {fileID: 8300000, guid: accafa196c4598f47a33cba51903110d, type: 3}
     - target: {fileID: 5029027479874328358, guid: d5f89821ccea90046b78a54376b18ebd,
         type: 3}
       propertyPath: priceTag
@@ -2161,11 +2172,6 @@ PrefabInstance:
       propertyPath: confirmPurchase
       value: 
       objectReference: {fileID: 205852515}
-    - target: {fileID: 5029027479874328358, guid: d5f89821ccea90046b78a54376b18ebd,
-        type: 3}
-      propertyPath: rockets.Array.data[0]
-      value: 
-      objectReference: {fileID: 1425544919}
     - target: {fileID: 7904309150522338693, guid: d5f89821ccea90046b78a54376b18ebd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2231,5 +2237,15 @@ PrefabInstance:
       propertyPath: fuelIcon
       value: 
       objectReference: {fileID: 1534556671}
+    - target: {fileID: 7904309150522338698, guid: d5f89821ccea90046b78a54376b18ebd,
+        type: 3}
+      propertyPath: acceleration
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904309150522338698, guid: d5f89821ccea90046b78a54376b18ebd,
+        type: 3}
+      propertyPath: speedUp
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5f89821ccea90046b78a54376b18ebd, type: 3}

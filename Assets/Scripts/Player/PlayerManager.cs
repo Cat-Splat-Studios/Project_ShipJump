@@ -11,6 +11,9 @@ public class PlayerManager : MonoBehaviour, ISwapper
     [SerializeField]
     private GameObject[] rockets;
 
+    [SerializeField]
+    private int[] viewRocketIdx;
+
     // references to other player components
     private PlayerMovement movement;
     private PlayerShoot shoot;
@@ -29,9 +32,13 @@ public class PlayerManager : MonoBehaviour, ISwapper
     private MessageBox confirmPurchase;
 
     private int unlockIdx;
+    private int viewIdx;
 
     [HideInInspector]
     public bool canPurchase { get; private set; }
+
+
+
 
     // Start is called before the first frame update
     void Awake()
@@ -97,7 +104,15 @@ public class PlayerManager : MonoBehaviour, ISwapper
             idx = SwapManager.PlayerIdx;
         }
 
-        unlockIdx = SwapManager.allRockets.IndexOf(idx);
+
+        for(int i = 0; i < viewRocketIdx.Length; ++i)
+        {
+            if(viewRocketIdx[i] == idx)
+            {
+                viewIdx = i;
+            }
+        }
+
         ToggleSwap();
     }
 
@@ -145,40 +160,48 @@ public class PlayerManager : MonoBehaviour, ISwapper
         }
 
         rockets[SwapManager.PlayerIdx].SetActive(true);
+
+        Rocket stat = rockets[SwapManager.PlayerIdx].GetComponent<Rocket>();
+
+        if(stat)
+        {
+            SetStats(stat.GetTopSpeed(), stat.GetFuelBurn(), stat.GetFuelIntake(), stat.GetShieldStack(), stat.GetSize() == ERocketSize.LARGE);
+        }
     }
 
     public void TempSwap(int index)
     {
         foreach (GameObject rocket in rockets)
         {
-            rocket.SetActive(false);
+            
+            Rocket stat = rocket.GetComponent<Rocket>();
+            if(stat)
+                rocket.SetActive(stat.unlockIdx == index);
         }
-
-        rockets[index].SetActive(true);
     }
 
     public void ToggleRocket(bool forward)
     {
         if (forward)
         {
-            if (unlockIdx + 1 >= SwapManager.allRockets.Count)
+            if (viewIdx + 1 >= SwapManager.allRockets.Count)
             {
-                unlockIdx = 0;
+                viewIdx = 0;
             }
             else
             {
-                ++unlockIdx;
+                ++viewIdx;
             }
         }
         else
         {
-            if (unlockIdx - 1 < 0)
+            if (viewIdx - 1 < 0)
             {
-                unlockIdx = SwapManager.allRockets.Count - 1;
+                viewIdx = SwapManager.allRockets.Count - 1;
             }
             else
             {
-                --unlockIdx;
+                --viewIdx;
             }
         }
 
@@ -190,6 +213,7 @@ public class PlayerManager : MonoBehaviour, ISwapper
         if (CheckUnlock())
         {
             SwapManager.PlayerIdx = SwapManager.allRockets[unlockIdx];
+
         }
 
         SwapIt();
@@ -207,19 +231,28 @@ public class PlayerManager : MonoBehaviour, ISwapper
         canPurchase = value;
     }
 
+    public void InitRocketStats()
+    {
+        // called every time when round starts
+    }
+
+    // Stat gettings
+
 
     /** Helper Methods**/
 
     // checks what needs to be displayed to user
     public void ToggleSwap()
     {
-        TempSwap(unlockIdx);
+        TempSwap(viewRocketIdx[viewIdx]);
+        unlockIdx = viewRocketIdx[viewIdx];
+
 
         if (!CheckUnlock())
         {
             priceTag.SetActive(true);
-            priceText.text = SwapManager.rocketPrices[unlockIdx].ToString();
-            if (GearManager.instance.CheckGears(SwapManager.rocketPrices[unlockIdx]))
+            priceText.text = SwapManager.rocketPrices[viewIdx].ToString();
+            if (GearManager.instance.CheckGears(SwapManager.rocketPrices[viewIdx]))
             {
                 actionText.text = "Tap rocket to purchase";
                 canPurchase = true;
@@ -255,5 +288,13 @@ public class PlayerManager : MonoBehaviour, ISwapper
     private bool CheckUnlock()
     {
         return SwapManager.PlayerUnlocks.Contains(unlockIdx);
+    }
+
+    private void SetStats(float topSpeed, float fuelEfficiency, float fuelIntake, int shieldStack, bool isLarge)
+    {
+        PlayerMovement().SetTopSpeed(topSpeed);
+        PlayerMovement().SetFuelMods(fuelEfficiency, fuelIntake);
+        PlayerDamage().SetSheildStack(shieldStack);
+        PlayerCollision().SetHitBox(isLarge);
     }
 }
