@@ -36,6 +36,8 @@ public class UIDelgate : MonoBehaviour
     private GameObject[] numbers;
     [SerializeField]
     private Text speedText;
+    [SerializeField]
+    private Text scoreGameText;
 
     // Game Over UI
     [Header("Game Over UI")]
@@ -43,6 +45,8 @@ public class UIDelgate : MonoBehaviour
 
     [SerializeField]
     private Text scoreText;
+    [SerializeField]
+    private Text distanceText;
     [SerializeField]
     private Text coinsCollectedText;
     [SerializeField]
@@ -74,6 +78,7 @@ public class UIDelgate : MonoBehaviour
 
     // Property Values
     private float _curFuel;
+    private string _curScore;
     private string _curDistance = "0";
     private string _curSpeed;
 
@@ -94,16 +99,21 @@ public class UIDelgate : MonoBehaviour
     void Update()
     {
         fuelBar.fillAmount = _curFuel;
-        // Update amounts when game is playing
-        if (gameStarted)
-        {
-            distanceTraveled.text = $"{_curDistance} km";
-            speedText.text = $"Speed: {_curSpeed}";
-        }
 
         // Allow for back button escape on the phone
         if (Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
+    }
+
+    public void UpdateScoreText()
+    {
+        distanceTraveled.text = $"{_curDistance} km";
+        scoreGameText.text = $"Score: {_curScore}";
+    }
+
+    public void UpdateSpeed()
+    {
+        speedText.text = $"Speed: {_curSpeed}";
     }
 
     public void StartGame()
@@ -147,10 +157,10 @@ public class UIDelgate : MonoBehaviour
         StartCoroutine(StartWait());
     }
 
-    public void Highscore(float previousScore)
+    public void Highscore(int previousScore)
     {
         highscore = true;
-        highscoreText.text = $"New Personal Highscore!\n\nPrevious Score = {previousScore} km";
+        highscoreText.text = $"New Personal Highscore!\n\nPrevious Score = {previousScore}";
     }
 
     public void LeaderBoard()
@@ -221,7 +231,7 @@ public class UIDelgate : MonoBehaviour
     public void UpdateInfoText()
     {
         gearText.text = $"{GearManager.instance.GetGears()}";
-        startText.text = $"{SaveManager.instance.GetHighscore()} km";
+        startText.text = $"{SaveManager.instance.GetHighscoreStat()}";
         UpdateAbilityText();
     }
 
@@ -275,6 +285,18 @@ public class UIDelgate : MonoBehaviour
             _curFuel = Mathf.Clamp(value, 0, 1);
         }
     }
+
+    public string curScore
+    {
+        get
+        {
+            return _curScore;
+        }
+        set
+        {
+            _curScore = value;
+        }
+    }
     public string curDistance
     {
         get
@@ -320,7 +342,9 @@ public class UIDelgate : MonoBehaviour
     {
         // Reveal results on game over
         scoreText.gameObject.SetActive(true);
-        scoreText.text = $"You Traveled\n {curDistance} km";
+        distanceText.gameObject.SetActive(true);
+        scoreText.text = $"Final Score\n {curScore}";
+        distanceText.text = $"You Traveled\n {curDistance} km";
         highscoreText.gameObject.SetActive(highscore);
         coinsCollectedText.text = $"Gears Collected\n {GearManager.instance.levelGears}";
     }

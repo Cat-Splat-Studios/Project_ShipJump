@@ -19,6 +19,8 @@ public class SaveState
 
     public int HighScore { get; set; }
 
+    public int HighScoreStat { get; set; }
+
     public int PlayerIdx { get; set; }
     public int BackgroundIdx { get; set; }
     public int MusicIdx { get; set; }
@@ -103,6 +105,16 @@ public class SaveManager : MonoSingleton<SaveManager>
     public int GetHighscore()
     {
         return state.HighScore;
+    }
+
+    public void SetHighScoreStat(int score)
+    {
+        state.HighScoreStat = score;
+    }
+
+    public int GetHighscoreStat()
+    {
+        return state.HighScoreStat;
     }
 
     /** Helper Methods**/

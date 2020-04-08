@@ -37,9 +37,6 @@ public class PlayerManager : MonoBehaviour, ISwapper
     [HideInInspector]
     public bool canPurchase { get; private set; }
 
-
-
-
     // Start is called before the first frame update
     void Awake()
     {

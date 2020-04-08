@@ -79,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
     private GeneratorManager generator;
     private new AudioManager audio;
     private PlayerManager player;
+    private ScoreSystem score;
 
     // Misc
     [Header("Misc")]  
@@ -104,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
         generator = FindObjectOfType<GeneratorManager>();
         audio = FindObjectOfType<AudioManager>();
         player = GetComponent<PlayerManager>();
+        score = GetComponent<ScoreSystem>();
 
         screenCenterX = Screen.width * 0.5f;
         currentSpeedX = 0.0f;
@@ -255,6 +257,7 @@ public class PlayerMovement : MonoBehaviour
                         isLerping = true;
                     }
                     currentSpeedUp = speedUp;
+                  
                 }
                 else
                 {
@@ -333,10 +336,11 @@ public class PlayerMovement : MonoBehaviour
                 speedDown = -speedUp;
 
                 ui.curSpeed = (speedUp + boostMod).ToString("f2");
+                ui.UpdateSpeed();
 
                 // Adjust Distance
                 distance = Mathf.Round(transform.position.y - startYPos);
-                ui.curDistance = distance.ToString();
+
 
                 // Boost adjustments
                 if (isBoost)
@@ -352,6 +356,8 @@ public class PlayerMovement : MonoBehaviour
                         StopBoost();
                     }
                 }
+
+                score.ScoreUpdate(distance, speedUp);
 
             }
             else
@@ -396,7 +402,8 @@ public class PlayerMovement : MonoBehaviour
         startGame = false;
         outOfFuel = false;
         player.SetThrusters(true);
-        CheckScore();
+        score.CheckScore();
+
     }
 
     public void StartGame()
@@ -405,6 +412,7 @@ public class PlayerMovement : MonoBehaviour
         startGame = true;
         startYPos = transform.position.y;
         usedEmergencyFuel = false;
+        score.ResetScore();
     }
 
     public void ResetMove()
@@ -416,6 +424,9 @@ public class PlayerMovement : MonoBehaviour
         transform.position = Vector3.zero;
         usedEmergencyFuel = false;
         speedUp = initialSpeed;
+        ui.curSpeed = speedUp.ToString("f2");
+        ui.UpdateSpeed();
+        score.ResetScore();
     }
 
     public void SetBoost()
@@ -449,16 +460,7 @@ public class PlayerMovement : MonoBehaviour
         return speedUp;
     }
 
-    private void CheckScore()
-    {
-        float highscore = SaveManager.instance.GetHighscore();
-        if (distance > highscore)
-        {
-            ui.Highscore(highscore);
-            GPGSUtils.instance.SubmitScore((int)distance);
-            SaveManager.instance.SetHighScore((int)distance);
-        }
-    }
+ 
 
     public void SetMoveOptions(EMovementOptions option)
     {

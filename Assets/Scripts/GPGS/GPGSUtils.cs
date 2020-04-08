@@ -111,6 +111,19 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
         }     
     }
 
+    // for the actual score now instead of distance
+    public void SubmitScoreStat(int score)
+    {
+        //if (CheckAuth())
+        //{
+        //    Social.ReportScore(score, GPGSIds.leaderboard_highest_kilometers_traveled, (bool Success) =>
+        //    {
+        //        Debug.Log("Score Added to Highscore");
+        //        ui.LeaderBoard();
+        //    });
+        //}
+    }
+
     public void ShowLeaderboard()
     {
         if (CheckAuth())
