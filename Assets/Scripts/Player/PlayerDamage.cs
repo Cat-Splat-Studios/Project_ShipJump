@@ -54,9 +54,7 @@ public class PlayerDamage : MonoBehaviour
                 if (isDoubleShield)
                     shieldIcon.DisableIt();
             }
-               
-
-
+              
             // Destroy Obstacle
             Obstacle obstacle = obj.GetComponent<Obstacle>();
             if(obstacle)
@@ -92,26 +90,6 @@ public class PlayerDamage : MonoBehaviour
                     shieldCount = 2;
                 }               
                 break;
-        }
-    }
-
-    public void AttachDoubleShield()
-    {
-        if(SwapManager.DoubleShieldCount > 0)
-        {
-            hasShield = true;
-            shields[0].SetActive(true);
-            shields[1].SetActive(true);
-            shieldCount = 2;
-
-            SwapManager.DoubleShieldCount--;
-
-            FindObjectOfType<AudioManager>().PlaySound(shieldSound);
-
-            shieldIcon.ActivateShield();
-
-            isDoubleShield = true;
-
         }
     }
 

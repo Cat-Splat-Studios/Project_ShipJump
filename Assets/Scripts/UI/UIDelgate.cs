@@ -38,6 +38,8 @@ public class UIDelgate : MonoBehaviour
     private Text speedText;
     [SerializeField]
     private Text scoreGameText;
+    [SerializeField]
+    private Text modText;
 
     // Game Over UI
     [Header("Game Over UI")]
@@ -337,6 +339,11 @@ public class UIDelgate : MonoBehaviour
         signInButton.SetActive(!value);
     }
 
+    public void SetModText(float mod)
+    {
+        modText.text = $"x {mod}";
+    }
+
     /** Helper Methods **/
     private void ScoreDisplay()
     {
@@ -362,7 +369,7 @@ public class UIDelgate : MonoBehaviour
         player.PlayerMovement().ResetMove();
         yield return new WaitForSeconds(2.1f);
         player.PlayerMovement().StartGame();
-        player.PlayerDamage().AttachDoubleShield();
+        //player.PlayerDamage().AttachDoubleShield();
         generatorManager.TopGenerate();
         ToggleNumbers(false);
         gameStarted = true;

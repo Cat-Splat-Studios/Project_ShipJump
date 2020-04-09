@@ -66,6 +66,9 @@ public class PlayerMovement : MonoBehaviour
     private float boostTime = 0.0f;
     private ParticleSystem currentBoostParticle;
     private float boostInitalSize;
+    private int currentBoostMod;
+    private float scoreMod;
+    public float[] boostMods;
 
     [Header("Sounds")]
     public AudioClip thrustUp;
@@ -267,24 +270,22 @@ public class PlayerMovement : MonoBehaviour
                         currentFuel = 0.0f;
                         if (!outOfFuel)
                         {
-                            if(SwapManager.EmergencyFuelCount > 0 && !usedEmergencyFuel)
-                            {
-                                AddFuel(100.0f);
-                                SwapManager.EmergencyFuelCount--;
-                                usedEmergencyFuel = true;
-                                fuelIcon.ActivateFuel();
+                            //if(SwapManager.EmergencyFuelCount > 0 && !usedEmergencyFuel)
+                            //{
+                            //    AddFuel(100.0f);
+                            //    SwapManager.EmergencyFuelCount--;
+                            //    usedEmergencyFuel = true;
+                            //    fuelIcon.ActivateFuel();
 
-                            }
-                            else
-                            {
-                                outOfFuel = true;
-                                audio.PlaySound(thrustDown);
-                                player.SetThrusters(false);
-                                thrusters.Stop();
-                                FindObjectOfType<CameraFollow>().MoveCameraDown();
-                                FindObjectOfType<GeneratorManager>().FallGenerate();
-                                isLerping = true;
-                            }
+                            //}
+
+                            outOfFuel = true;
+                            audio.PlaySound(thrustDown);
+                            player.SetThrusters(false);
+                            thrusters.Stop();
+                            FindObjectOfType<CameraFollow>().MoveCameraDown();
+                            FindObjectOfType<GeneratorManager>().FallGenerate();
+                            isLerping = true;
              
                         }
                     }
@@ -357,7 +358,7 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
 
-                score.ScoreUpdate(distance, speedUp);
+                score.ScoreUpdate(distance, speedUp, scoreMod);
 
             }
             else
@@ -412,6 +413,8 @@ public class PlayerMovement : MonoBehaviour
         startGame = true;
         startYPos = transform.position.y;
         usedEmergencyFuel = false;
+        currentBoostMod = 0;
+        scoreMod = boostMods[0];
         score.ResetScore();
     }
 
@@ -427,10 +430,19 @@ public class PlayerMovement : MonoBehaviour
         ui.curSpeed = speedUp.ToString("f2");
         ui.UpdateSpeed();
         score.ResetScore();
+        currentBoostMod = 0;
+        scoreMod = boostMods[0];
     }
 
     public void SetBoost()
     {
+        if (currentBoostMod < 3)
+        {
+            currentBoostMod++;
+            scoreMod = boostMods[currentBoostMod];
+        }
+            
+
         boostTime = boostMax;
         boostMod = 2.0f;
 
@@ -486,6 +498,8 @@ public class PlayerMovement : MonoBehaviour
         isBoost = false;
         boostTime = 0.0f;
         boostMod = 0.0f;
+        currentBoostMod = 0;
+        scoreMod = boostMods[currentBoostMod];
     }
 
     // Check if user input is over ui (dont move player if so)

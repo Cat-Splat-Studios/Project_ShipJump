@@ -7,6 +7,7 @@ public class ScoreSystem : MonoBehaviour
     public UIDelgate ui;
 
     private int score = 0;
+    private float currentMod;
    // private int farthestDistance = 0;
     private int curDistance = 0;
     private int nextDistance;
@@ -16,17 +17,19 @@ public class ScoreSystem : MonoBehaviour
         score = 0;
         nextDistance = 1;
         curDistance = 0;
+        currentMod = 1;
       //  farthestDistance = 0;
         UpdateScoreUI();
     }
 
-    public void ScoreUpdate(float distance, float speed)
+    public void ScoreUpdate(float distance, float speed, float mod)
     {
         curDistance = (int)distance;
+        currentMod = mod;
 
         if (curDistance >= nextDistance)
         {
-            AddToScore(speed);
+            AddToScore(speed, mod);
             nextDistance++;
         }
 
@@ -34,9 +37,9 @@ public class ScoreSystem : MonoBehaviour
     }
 
 
-    private void AddToScore(float speedPoint)
+    private void AddToScore(float speedPoint, float mod)
     {
-        score += (int)speedPoint;
+        score += (int)(speedPoint * mod);
     }
 
     public void CheckScore()
@@ -63,6 +66,7 @@ public class ScoreSystem : MonoBehaviour
     {
         ui.curScore = score.ToString();
         ui.curDistance = curDistance.ToString();
+        ui.SetModText(currentMod);
         ui.UpdateScoreText();
     }
 }
