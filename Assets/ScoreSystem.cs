@@ -36,7 +36,6 @@ public class ScoreSystem : MonoBehaviour
         UpdateScoreUI();
     }
 
-
     private void AddToScore(float speedPoint, float mod)
     {
         score += (int)(speedPoint * mod);
