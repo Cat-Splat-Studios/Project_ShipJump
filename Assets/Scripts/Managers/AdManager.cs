@@ -111,7 +111,8 @@ public class AdManager : MonoSingleton<AdManager>
         if (showResult == ShowResult.Finished)
         {
             GearManager.instance.AddGears(gearReward);
-            SaveManager.instance.SaveToCloud();
+            CloudSaving.instance.SaveGame();
+            //SaveManager.instance.SaveToCloud();
             rewardPrompt.SetPrompt("Reward!", $"You have been rewarded {gearReward} gears for watching the ad.", OnConfirmReward);
         }
 

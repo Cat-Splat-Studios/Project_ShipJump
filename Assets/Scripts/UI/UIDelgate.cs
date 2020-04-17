@@ -127,7 +127,7 @@ public class UIDelgate : MonoBehaviour
         anim.SetTrigger("Start");
 
         // make sure correct mesh is on player
-        player.StartGameMeshCheck();
+        player.StartGame();
         camera.GameStart();
 
         StartCoroutine(StartWait());
@@ -387,6 +387,7 @@ public class UIDelgate : MonoBehaviour
         camera.ResetCamera();
         player.PlayerShoot().TurnOff();
         AdManager.instance.ButtonCheck();
-        SaveManager.instance.SaveToCloud();
+        CloudSaving.instance.SaveGame();
+        //SaveManager.instance.SaveToCloud();
     }
 }

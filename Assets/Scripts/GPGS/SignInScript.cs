@@ -6,8 +6,13 @@ using VoxelBusters.Utility;
 
 public class SignInScript : MonoBehaviour
 {
+    public UIDelgate ui;
+    public MessageBox prompt;
+
     bool _isServiceAvailable;
     bool _isAuthenticated;
+
+    private bool _isOffline = false;
 
     User[] myFriends;
     // Start is called before the first frame update
@@ -31,10 +36,27 @@ public class SignInScript : MonoBehaviour
                     {
                         Debug.Log("Sign-In Successfully");
                         Debug.Log("Local User Details : " + NPBinding.GameServices.LocalUser.ToString());
+                        _isOffline = false;
+                        ui.HasAuthenitcated();
+                        ui.toggleOnlineButtons(true);
+                        AdManager.instance.ToggleTracking(true);
+                        CloudSaving.instance.LoadGame();
                     }
                     else
                     {
                         Debug.Log("Sign-In Failed with error " + _error);
+
+                        if (!_isOffline)
+                        {
+                            ui.HasAuthenitcated();
+                            //SaveManager.instance.DefaultLoad();
+                            CloudSaving.instance.DefaultLoad();
+                            OfflineMode();
+                        }
+                        else
+                        {
+                            prompt.SetPrompt("Could Not sign In", "Authentication has failed.");
+                        }
                     }
                 });
             }
@@ -79,5 +101,23 @@ public class SignInScript : MonoBehaviour
                 Debug.Log(string.Format("Error= {0}.", _error.GetPrintableString()));
             }
         });
+    }
+
+    private void OfflineMode()
+    {
+        // custom code here for when your application is offline
+        if (!_isOffline)
+        {
+            _isOffline = true;
+            // disable all online buttons
+            ui.toggleOnlineButtons(false);
+
+            // disable ads
+            AdManager.instance.ToggleTracking(false);
+
+            // display message
+            prompt.SetPrompt("Could Not sign In", "All progress will not be saved.\n You can attemp to sign in again at the settings screen.");
+        }
+
     }
 }

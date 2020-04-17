@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour, ISwapper
     private PlayerShoot shoot;
     private PlayerCollision collision;
     private PlayerDamage damage;
+    private Abilities abilities;
 
     // shop loic
     [Header("Rocket Shop Logic")]
@@ -37,6 +38,8 @@ public class PlayerManager : MonoBehaviour, ISwapper
     [HideInInspector]
     public bool canPurchase { get; private set; }
 
+    public Magnet magnet;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -46,6 +49,7 @@ public class PlayerManager : MonoBehaviour, ISwapper
         shoot = GetComponent<PlayerShoot>();
         collision = GetComponent<PlayerCollision>();
         damage = GetComponent<PlayerDamage>();
+        abilities = GetComponent<Abilities>();
     }
 
     void Start()
@@ -149,6 +153,16 @@ public class PlayerManager : MonoBehaviour, ISwapper
         rockets[SwapManager.PlayerIdx].GetComponent<Thrusters>().ThrusterToggle(value);
     }
 
+    public void MagnetOn()
+    {
+        magnet.gameObject.SetActive(true);
+    }
+
+    public void MagnetOff()
+    {
+        magnet.gameObject.SetActive(false);
+    }
+
     public void SwapIt()
     {
         foreach(GameObject rocket in rockets)
@@ -203,6 +217,12 @@ public class PlayerManager : MonoBehaviour, ISwapper
         }
 
         ToggleSwap();
+    }
+
+    public void StartGame()
+    {
+        StartGameMeshCheck();
+        abilities.ActivateAbility();
     }
 
     public void StartGameMeshCheck()

@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7777185883123044555}
-  - component: {fileID: 7777185883123044556}
-  - component: {fileID: 7777185883123044557}
+  - component: {fileID: 5001567609141268831}
+  - component: {fileID: 6869688650751882461}
   m_Layer: 0
   m_Name: GPGSManager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7777185883123044556
+--- !u!114 &5001567609141268831
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,11 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7777185883123044558}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e559fdb9c63cd3241807de41a685fc85, type: 3}
+  m_Script: {fileID: 11500000, guid: d3fa9fea4811f154ab17f46fd4894cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialog: {fileID: 0}
---- !u!114 &7777185883123044557
+--- !u!114 &6869688650751882461
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,7 +53,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7777185883123044558}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d68b60bf2cbee8b4984830f0a0c631b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fc5afe6762637e44a186b82fbb65084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialog: {fileID: 0}

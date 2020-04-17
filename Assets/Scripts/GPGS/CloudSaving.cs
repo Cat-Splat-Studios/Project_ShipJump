@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using VoxelBusters.NativePlugins;
 
-public class CloudSaving : MonoBehaviour
+public class CloudSaving : MonoSingleton<CloudSaving>
 {
     string GearsKey = "curGears";
     string PlayerIdxKey = "curPlayerIDX";
@@ -47,11 +47,12 @@ public class CloudSaving : MonoBehaviour
         }
         else
         {
+            DefaultLoad();
             Debug.Log("Failed to synchronise in-memory keys and values.");
         }
     }
 
-    void SaveGame()
+    public void SaveGame()
     {
         NPBinding.CloudServices.SetLong(GearsKey, SwapManager.Gears);
         NPBinding.CloudServices.SetLong(PlayerIdxKey, SwapManager.PlayerIdx);
@@ -66,4 +67,44 @@ public class CloudSaving : MonoBehaviour
         NPBinding.CloudServices.SetList(ObstacleUnlocksKey, SwapManager.ObstacleUnlocks);
         NPBinding.CloudServices.SetList(ProjectileUnlocksKey, SwapManager.ProjectileUnlocks);
     }
+
+    public void LoadGame()
+    {
+        SwapManager.Gears = (int)NPBinding.CloudServices.GetLong(GearsKey);
+        SwapManager.PlayerIdx= (int)NPBinding.CloudServices.GetLong(PlayerIdxKey);
+        SwapManager.BackgroundIdx = (int)NPBinding.CloudServices.GetLong(BackgroundIdxKey);
+        SwapManager.MusicIdx = (int)NPBinding.CloudServices.GetLong(MusicIdxKey);
+        SwapManager.ObstacleIdx = (int)NPBinding.CloudServices.GetLong(ObstacleIdxKey);
+        SwapManager.ProjectileIdx = (int)NPBinding.CloudServices.GetLong(ProjectileIdxKey);
+
+        SwapManager.PlayerUnlocks = NPBinding.CloudServices.GetList(PlayerUnlocksKey) as List<int>;
+        SwapManager.BackgroundUnlocks = NPBinding.CloudServices.GetList(BackgroundUnlocksKey) as List<int>;
+        SwapManager.MusicUnlocks = NPBinding.CloudServices.GetList(MusicUnlocksKey) as List<int>;
+        SwapManager.ObstacleUnlocks = NPBinding.CloudServices.GetList(ObstacleUnlocksKey) as List<int>;
+        SwapManager.ProjectileUnlocks = NPBinding.CloudServices.GetList(ProjectileUnlocksKey) as List<int>;
+
+#if UNITY_EDITOR
+        DefaultLoad();
+#endif
+    }
+
+    public void DefaultLoad()
+    {
+        GearManager.instance.SetGears(0);
+
+        SwapManager.PlayerIdx = 0;
+        SwapManager.BackgroundIdx = 0;
+        SwapManager.MusicIdx = 0;
+        SwapManager.BackgroundIdx = 0;
+
+        SwapManager.PlayerUnlocks = new List<int>();
+        SwapManager.BackgroundUnlocks = new List<int>();
+        SwapManager.MusicUnlocks = new List<int>();
+        SwapManager.ObstacleUnlocks = new List<int>();
+
+        FindObjectOfType<PlayerManager>().InitUnlock();
+        FindObjectOfType<UIDelgate>().UpdateInfoText();
+    }
+
+
 }

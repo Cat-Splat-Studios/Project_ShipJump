@@ -45,8 +45,6 @@ public class PlayerMovement : MonoBehaviour
     private float currentFuel;
     private bool outOfFuel = false;
 
-    private float fuelEfficiency;
-
     // Distance
     private float distance;
     private float startYPos;
@@ -88,12 +86,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Misc")]  
     public float xClamp = 3.0f;
 
-    [SerializeField]
-    private EliteAbilityIcon fuelIcon;
-
     private bool startGame = false;
     private float screenCenterX;
-    private bool usedEmergencyFuel = false;
 
     private EMovementOptions moveOption = EMovementOptions.TAP;
     public float touchOffset = 1.0f;
@@ -113,15 +107,10 @@ public class PlayerMovement : MonoBehaviour
         screenCenterX = Screen.width * 0.5f;
         currentSpeedX = 0.0f;
 
-        currentFuel = maxFuel;
-            
+        currentFuel = maxFuel;           
     }
 
-    public void SetTopSpeed(float topSpeed)
-    {
-        this.topSpeed = topSpeed;
-        speedUp = initialSpeed;
-    }
+
 
     // Update is called once per frame
     void Update()
@@ -379,59 +368,59 @@ public class PlayerMovement : MonoBehaviour
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -xClamp, xClamp), transform.position.y, transform.position.z);
     }
 
-    public void AddFuel(float amount)
+    /** Game State Adjustments **/
+
+    // Switch input controls
+    public void SetMoveOptions(EMovementOptions option)
     {
-        float fuelAdded = amount * fuelIntakeMod;
-        currentFuel += fuelAdded;
-        if(currentFuel > maxFuel)
-        {
-            currentFuel = maxFuel;
-        }
+        moveOption = option;
     }
 
     public void StopMovement()
     {
-        if(isBoost)
+        if (isBoost)
         {
             StopBoost();
         }
 
         currentSpeedX = 0;
         currentSpeedUp = 0;
-        
+
         canMove = false;
         startGame = false;
         outOfFuel = false;
         player.SetThrusters(true);
         score.CheckScore();
+        player.MagnetOff();
 
     }
 
     public void StartGame()
     {
-        currentFuel = maxFuel;
-        startGame = true;
         startYPos = transform.position.y;
-        usedEmergencyFuel = false;
-        currentBoostMod = 0;
-        scoreMod = boostMods[0];
-        score.ResetScore();
+        startGame = true;    
     }
 
     public void ResetMove()
     {
-        canMove = true;
+        // MovementReset();
         currentFuel = maxFuel;
-        startYPos = transform.position.y;
-        ui.resetDistance();
         transform.position = Vector3.zero;
-        usedEmergencyFuel = false;
+        canMove = true;
         speedUp = initialSpeed;
-        ui.curSpeed = speedUp.ToString("f2");
-        ui.UpdateSpeed();
-        score.ResetScore();
         currentBoostMod = 0;
         scoreMod = boostMods[0];
+        score.ResetScore();
+        MovementUIReset();
+    }
+
+    public void ResetIdle()
+    {
+        currentFuel = maxFuel;
+        currentSpeedX = 0.0f;
+        canMove = true;
+        transform.position = Vector3.zero;
+        startGame = false;
     }
 
     public void SetBoost()
@@ -441,7 +430,6 @@ public class PlayerMovement : MonoBehaviour
             currentBoostMod++;
             scoreMod = boostMods[currentBoostMod];
         }
-            
 
         boostTime = boostMax;
         boostMod = 2.0f;
@@ -455,41 +443,49 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             currentBoostParticle.startSize = boostInitalSize;
-        }       
+        }
     }
 
-    public void ResetIdle()
+    /** Stat adjustments **/
+    // Speed from Rocket Stats
+    public void SetTopSpeed(float topSpeed)
     {
-        currentFuel = maxFuel;
-        currentSpeedX = 0.0f;
-        canMove = true;
-        transform.position = Vector3.zero;
-        startGame = false;
+        this.topSpeed = topSpeed;
+        speedUp = initialSpeed;
     }
 
-    public float GetUpSpeed()
-    {
-        return speedUp;
-    }
-
- 
-
-    public void SetMoveOptions(EMovementOptions option)
-    {
-        moveOption = option;
-    }
-
+    // Fuel from Rocket Stats
     public void SetFuelMods(float fuelBurn, float fuelIntake)
     {
         fuelDecrease = fuelBurn;
         fuelIntakeMod = fuelIntake;
     }
 
-    public void SetInitialSpeed(float speed)
+    public void AddFuel(float amount)
     {
-        initialSpeed = speed;
+        float fuelAdded = amount * fuelIntakeMod;
+        currentFuel += fuelAdded;
+        if (currentFuel > maxFuel)
+        {
+            currentFuel = maxFuel;
+        }
     }
 
+    public void RetroFitEngines()
+    {
+        acceleration = acceleration + (acceleration * 0.5f);
+    }
+    public void NitroFuel()
+    {
+        boostMax = boostMax + 1.0f;
+    }
+
+    /** MISC **/
+    // get up speed to adjust projectile speed
+    public float GetUpSpeed()
+    {
+        return speedUp;
+    }
     /** Helper Methods **/
 
     private void StopBoost()
@@ -512,8 +508,10 @@ public class PlayerMovement : MonoBehaviour
         return results.Count > 0;
     }
 
-    private void SpeedCalc(float speedIncrease)
+    private void MovementUIReset()
     {
-        speedUp = Mathf.Clamp(initialSpeed + speedIncrease, 8.0f, 13.0f);
+        ui.curSpeed = speedUp.ToString("f2");
+        ui.UpdateSpeed();
+        ui.resetDistance();
     }
 }

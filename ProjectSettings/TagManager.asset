@@ -8,6 +8,7 @@ TagManager:
   - obstacle
   - pickup
   - projectile
+  - magnet
   layers:
   - Default
   - TransparentFX

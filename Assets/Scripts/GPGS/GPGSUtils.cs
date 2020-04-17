@@ -23,15 +23,15 @@ public class GPGSUtils : MonoSingleton<GPGSUtils>
 
     public override void Init()
     {
-        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
-            .EnableSavedGames()
-            .Build();
+        //PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
+        //    .EnableSavedGames()
+        //    .Build();
 
-        PlayGamesPlatform.InitializeInstance(config);
-        PlayGamesPlatform.DebugLogEnabled = true;
-        PlayGamesPlatform.Activate();
+        //PlayGamesPlatform.InitializeInstance(config);
+        //PlayGamesPlatform.DebugLogEnabled = true;
+        //PlayGamesPlatform.Activate();
 
-        SignIn();
+        //SignIn();
     }
 
     public void SignIn()

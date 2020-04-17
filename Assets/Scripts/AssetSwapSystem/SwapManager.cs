@@ -72,7 +72,8 @@ public class SwapManager : MonoSingleton<SwapManager>
                 break;
         }
 
-        SaveManager.instance.SaveToCloud();
+        CloudSaving.instance.SaveGame();
+       // SaveManager.instance.SaveToCloud();
     }
 
     public void SwapInit()

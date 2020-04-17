@@ -33,7 +33,8 @@ public class GearManager : MonoSingleton<GearManager>
         gears += amount;    
         prompt.SetPrompt("Gears Purchased!", $"You Purchased {amount} gears.");
         ui.UpdateInfoText();
-        SaveManager.instance.SaveToCloud();
+        CloudSaving.instance.SaveGame();
+        //SaveManager.instance.SaveToCloud();
     }
 
     public void IncrementGears()
