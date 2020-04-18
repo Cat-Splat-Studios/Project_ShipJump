@@ -15,8 +15,6 @@ public class PlayerDamage : MonoBehaviour
     private AudioClip[] destroySounds;
     [SerializeField]
     private AudioClip shieldSound;
-    [SerializeField]
-    private EliteAbilityIcon shieldIcon;
 
     // References
     [SerializeField]
@@ -29,7 +27,6 @@ public class PlayerDamage : MonoBehaviour
     // Helper Variables
     private bool hasShield = false;
     private int shieldCount = 0;
-    private bool isDoubleShield = false;
     private int shieldStack = 1;
 
     private void Start()
@@ -50,9 +47,6 @@ public class PlayerDamage : MonoBehaviour
             if (shieldCount == 0)
             {
                 hasShield = false;
-
-                if (isDoubleShield)
-                    shieldIcon.DisableIt();
             }
               
             // Destroy Obstacle

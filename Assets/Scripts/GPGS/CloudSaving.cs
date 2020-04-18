@@ -95,7 +95,7 @@ public class CloudSaving : MonoSingleton<CloudSaving>
         SwapManager.PlayerIdx = 0;
         SwapManager.BackgroundIdx = 0;
         SwapManager.MusicIdx = 0;
-        SwapManager.BackgroundIdx = 0;
+        SwapManager.ObstacleIdx = 0;
 
         SwapManager.PlayerUnlocks = new List<int>();
         SwapManager.BackgroundUnlocks = new List<int>();

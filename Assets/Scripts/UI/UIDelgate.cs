@@ -233,7 +233,7 @@ public class UIDelgate : MonoBehaviour
     public void UpdateInfoText()
     {
         gearText.text = $"{GearManager.instance.GetGears()}";
-        startText.text = $"{SaveManager.instance.GetHighscoreStat()}";
+        //startText.text = $"{SaveManager.instance.GetHighscoreStat()}";
         UpdateAbilityText();
     }
 
@@ -369,6 +369,7 @@ public class UIDelgate : MonoBehaviour
         player.PlayerMovement().ResetMove();
         yield return new WaitForSeconds(2.1f);
         player.PlayerMovement().StartGame();
+        player.PlayerAbilities().ActivateAbility();
         //player.PlayerDamage().AttachDoubleShield();
         generatorManager.TopGenerate();
         ToggleNumbers(false);

@@ -25,8 +25,6 @@ public class AudioManager : MonoBehaviour, ISwapper
 
     private void Start()
     {
-        SwapIt();
-
         // Initialize sound object lists
         soundObjects = new List<AudioSource>();
         InitSounds();
@@ -110,16 +108,17 @@ public class AudioManager : MonoBehaviour, ISwapper
 
     public void SwapIt()
     {
-        int idx = 0;
-        if (PlayerPrefs.HasKey("musicIdx"))
-        {
-            idx = PlayerPrefs.GetInt("musicIdx");
-        }
+      
+         int idx = SwapManager.MusicIdx;
+        
+
+        //double check to make sure player has this unlock
+        if(SwapManager.MusicUnlocks.Contains(idx))
+            PlayMusic(idx);
         else
         {
-            idx = SwapManager.MusicIdx;
+            SwapManager.MusicIdx = 0;
+            PlayMusic(0);
         }
-
-        PlayMusic(idx);
     }
 }

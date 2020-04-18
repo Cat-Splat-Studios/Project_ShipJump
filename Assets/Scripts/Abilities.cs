@@ -16,8 +16,8 @@ public class Abilities : MonoBehaviour
     public int durationCount;
     public PlayerManager player;
 
-    private EAbilityState currentAbility = EAbilityState.NITROFUEL;
-    private int duration;
+    private EAbilityState currentAbility = EAbilityState.NONE;
+    private int duration = 0;
 
     public EAbilityState getAbility()
     {

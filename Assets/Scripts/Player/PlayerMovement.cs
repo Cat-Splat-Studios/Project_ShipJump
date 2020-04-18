@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     // Speeds
     [Header("Speeds")]
     [SerializeField]
-    private float acceleration = 0.5f;
+    private float maxAccel = 0.05f;
     [SerializeField]
     private float speedUp = 2.0f;
     [SerializeField]
@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float speedX = 2.0f;
 
+    private float acceleration = 0.5f;
     private float currentSpeedUp;
     private float currentSpeedX;
 
@@ -59,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Boost")]
     [SerializeField]
     private float boostMax = 2.0f;
+    private float boostLimit;
     private float boostMod = 0.0f;
     private bool isBoost = false;
     private float boostTime = 0.0f;
@@ -337,7 +339,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     boostTime -= Time.deltaTime;
 
-                    float percent = boostTime / boostMax;
+                    float percent = boostTime / boostLimit;
                     var main = currentBoostParticle.main;
                     main.startSize = boostInitalSize * percent;
 
@@ -410,6 +412,8 @@ public class PlayerMovement : MonoBehaviour
         speedUp = initialSpeed;
         currentBoostMod = 0;
         scoreMod = boostMods[0];
+        acceleration = maxAccel;
+        boostLimit = boostMax;
         score.ResetScore();
         MovementUIReset();
     }
@@ -431,7 +435,7 @@ public class PlayerMovement : MonoBehaviour
             scoreMod = boostMods[currentBoostMod];
         }
 
-        boostTime = boostMax;
+        boostTime = boostLimit;
         boostMod = 2.0f;
 
         if (!isBoost)
@@ -473,11 +477,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void RetroFitEngines()
     {
-        acceleration = acceleration + (acceleration * 0.5f);
+        acceleration = maxAccel + (maxAccel * 0.75f);
     }
     public void NitroFuel()
     {
-        boostMax = boostMax + 1.0f;
+        boostLimit = boostMax + 2.0f;
     }
 
     /** MISC **/

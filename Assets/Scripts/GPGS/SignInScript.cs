@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using VoxelBusters.NativePlugins;
 using VoxelBusters.Utility;
@@ -41,6 +42,12 @@ public class SignInScript : MonoBehaviour
                         ui.toggleOnlineButtons(true);
                         AdManager.instance.ToggleTracking(true);
                         CloudSaving.instance.LoadGame();
+
+                        var swapers = FindObjectsOfType<MonoBehaviour>().OfType<ISwapper>();
+                        foreach (ISwapper swaps in swapers)
+                        {
+                            swaps.SwapIt();
+                        }
                     }
                     else
                     {

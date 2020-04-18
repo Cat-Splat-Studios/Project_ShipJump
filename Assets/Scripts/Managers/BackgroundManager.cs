@@ -13,29 +13,24 @@ public class BackgroundManager : MonoBehaviour, ISwapper
 
     public Text[] textColorChanging;
 
-    void Start()
-    {
-        SwapIt();
-    }
-
     public void SwapIt()
     {
-        int idx;
-        if(PlayerPrefs.HasKey("backgroundIdx"))
-        {
-            idx = PlayerPrefs.GetInt("backgroundIdx");
-        }
-        else
-        {
-            idx = SwapManager.BackgroundIdx;
-        }
 
+        int idx = SwapManager.BackgroundIdx;
+       
         foreach(GameObject mesh in meshes)
         {
             mesh.SetActive(false);
         }
 
-        meshes[idx].SetActive(true);
+        if (SwapManager.BackgroundUnlocks.Contains(idx))
+            meshes[idx].SetActive(true);
+        else
+        {
+            meshes[0].SetActive(true);
+            SwapManager.BackgroundIdx = 0;
+        }
+            
 
         // set certain text colour according to background
         Color textColor;

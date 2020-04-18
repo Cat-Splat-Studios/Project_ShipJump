@@ -2,9 +2,19 @@
 * Author: Matthew Douglas, Hisham Ata
 * Purpose: To handle all the unity ads within the game
 **/
-
 using UnityEngine;
 using UnityEngine.Advertisements;
+
+[System.Serializable]
+public struct Reward
+{
+    public string title;
+    [TextArea]
+    public string description;
+    public EAbilityState ability;
+    public Sprite Icon;
+}
+
 
 public class AdManager : MonoSingleton<AdManager>
 {
@@ -18,7 +28,7 @@ public class AdManager : MonoSingleton<AdManager>
     private float buttonthresholdTime = 240.0f;
 
     [SerializeField]
-    private MessageBox rewardPrompt;
+    private RewardMessage rewardPrompt;
 
     [SerializeField]
     private GameObject adButton;
@@ -39,6 +49,10 @@ public class AdManager : MonoSingleton<AdManager>
     private ShowOptions op1;
 
     private bool isTracking = false;
+
+    [Header("Reward Abilities")]
+    public Reward[] rewards;
+    public Abilities playerAbility;
 
     // Start is called before the first frame update
     void Start()
@@ -113,7 +127,15 @@ public class AdManager : MonoSingleton<AdManager>
             GearManager.instance.AddGears(gearReward);
             CloudSaving.instance.SaveGame();
             //SaveManager.instance.SaveToCloud();
-            rewardPrompt.SetPrompt("Reward!", $"You have been rewarded {gearReward} gears for watching the ad.", OnConfirmReward);
+
+            int randoIdx = Random.Range(0, rewards.Length);
+
+            Reward rewardWon = rewards[randoIdx];
+
+            playerAbility.SetAbility(rewardWon.ability);
+
+            rewardPrompt.SetPrompt("Reward!", $"You have been rewarded {gearReward} gears for watching the ad\n AND", OnConfirmReward);
+            rewardPrompt.SetRewardDisplay(rewardWon.title, rewardWon.description, $"for {playerAbility.durationCount} rounds");
         }
 
         HideButton();

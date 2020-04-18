@@ -94,15 +94,14 @@ public class PlayerManager : MonoBehaviour, ISwapper
 
     public void InitUnlock()
     {
-        int idx = 0;
+    
+        int idx = SwapManager.PlayerIdx;
+        
 
-        if(PlayerPrefs.HasKey("playerIdx"))
+        if (!SwapManager.PlayerUnlocks.Contains(idx))
         {
-            idx = PlayerPrefs.GetInt("playerIdx");
-        }
-        else
-        {
-            idx = SwapManager.PlayerIdx;
+            SwapManager.PlayerIdx = 0;
+            idx = 0;
         }
 
 
@@ -136,6 +135,11 @@ public class PlayerManager : MonoBehaviour, ISwapper
     public PlayerDamage PlayerDamage()
     {
         return damage;
+    }
+
+    public Abilities PlayerAbilities()
+    {
+        return abilities;
     }
     
     public void SetBoost(bool value)
@@ -222,7 +226,6 @@ public class PlayerManager : MonoBehaviour, ISwapper
     public void StartGame()
     {
         StartGameMeshCheck();
-        abilities.ActivateAbility();
     }
 
     public void StartGameMeshCheck()
