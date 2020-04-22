@@ -5,6 +5,26 @@ using VoxelBusters.NativePlugins;
 
 public class BillingManager : MonoBehaviour
 {
+    [SerializeField]
+    GameObject store;
+
+
+    BillingProduct[] myProducts;
+    BillingProduct[] requestedProducts;
+
+    [SerializeField]
+    GameObject[] storeButtons;
+
+    private void Start()
+    {
+        myProducts = NPSettings.Billing.Products;
+        RequestBillingProducts();
+    }
+
+    public void OpenCloseStore()
+    {
+        store.SetActive(!store.activeInHierarchy);
+    }
 
     public void RequestBillingProducts()
     {
@@ -38,13 +58,35 @@ public class BillingManager : MonoBehaviour
         }
         else
         {
-            // Inject code to display received products
+            requestedProducts = _regProductsList;
+
+            //If the products did get requested properly - buttons will become active depending on if the products that
+            //are setup in the NPSettings are the same as the products set up in the backend(Google Play Console or Apple Developer Console)
+            for (int i = 0; i < myProducts.Length; i++)
+            {
+                for (int j = 0; j < requestedProducts.Length; j++)
+                {
+                    if (myProducts[i].ProductIdentifier == requestedProducts[j].ProductIdentifier)
+                    {
+                        storeButtons[i].SetActive(true);
+                    }
+                }
+            }
         }
+    }
+
+    //Buy function that will be linked to the OnClick function of the unity button
+    //Need to ensure it is setup the same way as the products show up in the NPSettings.
+    public void Buy(int whichItem)
+    {
+        BuyItem(myProducts[whichItem]);
     }
 
     public void BuyItem (BillingProduct _product)
     {
-        if (NPBinding.Billing.IsProductPurchased(_product.ProductIdentifier))
+        
+        //For non-consumable items - if it has already been purchased - you can add it back to the user. Does not need to be used for rocket recover at the moment.
+        if (NPBinding.Billing.IsProductPurchased(_product))
         {
             
         // Show alert message that item is already purchased
@@ -62,12 +104,23 @@ public class BillingManager : MonoBehaviour
     {
         if (_transaction != null)
         {
-
             if (_transaction.VerificationState == eBillingTransactionVerificationState.SUCCESS)
             {
                 if (_transaction.TransactionState == eBillingTransactionState.PURCHASED)
                 {
                     // Your code to handle purchased products
+                    switch(_transaction.ProductIdentifier)
+                    {
+                        case "1000_gears":
+                            GearManager.instance.AddGears(1000);
+                            break;
+                        case "5000_gears":
+                            GearManager.instance.AddGears(5000);
+                            break;
+                        case "10000_gears":
+                            GearManager.instance.AddGears(10000);
+                            break;
+                    }
                 }
             }
         }
