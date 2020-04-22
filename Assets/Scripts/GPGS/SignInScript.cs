@@ -15,6 +15,8 @@ public class SignInScript : MonoBehaviour
 
     private bool _isOffline = false;
 
+    public eLeaderboardTimeScope myBoardScope;
+
     User[] myFriends;
     // Start is called before the first frame update
     void Start()
@@ -126,5 +128,30 @@ public class SignInScript : MonoBehaviour
             prompt.SetPrompt("Could Not sign In", "All progress will not be saved.\n You can attemp to sign in again at the settings screen.");
         }
 
+    }
+    
+    //show leaderboard - should be linked to a button.
+    public void ShowLeaderboard(string leaderboardName)
+    {
+        NPBinding.GameServices.ShowLeaderboardUIWithGlobalID(leaderboardName, myBoardScope, (string _error) => {
+            Debug.Log("Leaderboard view dismissed.");
+            Debug.Log(string.Format("Error= {0}.", _error.GetPrintableString()));
+        });
+    }
+
+    //Report the score to the leaderboard.
+    public static void ReportScore(string leaderboardName, long leaderboardValue)
+    {
+        NPBinding.GameServices.ReportScoreWithGlobalID(leaderboardName, leaderboardValue, (bool _success, string _error) => {
+
+            if (_success)
+            {
+                Debug.Log(string.Format("New score= {0}.", leaderboardValue));
+            }
+            else
+            {
+                Debug.Log(string.Format("Error= {0}.", _error.GetPrintableString()));
+            }
+        });
     }
 }
