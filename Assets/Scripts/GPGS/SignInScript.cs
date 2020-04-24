@@ -40,10 +40,11 @@ public class SignInScript : MonoBehaviour
                         Debug.Log("Sign-In Successfully");
                         Debug.Log("Local User Details : " + NPBinding.GameServices.LocalUser.ToString());
                         _isOffline = false;
-                        ui.HasAuthenitcated();
-                        ui.toggleOnlineButtons(true);
+                        
                         AdManager.instance.ToggleTracking(true);
                         CloudSaving.instance.LoadGame();
+                        ui.HasAuthenitcated();
+                        ui.toggleOnlineButtons(true);
 
                         var swapers = FindObjectsOfType<MonoBehaviour>().OfType<ISwapper>();
                         foreach (ISwapper swaps in swapers)
@@ -56,10 +57,10 @@ public class SignInScript : MonoBehaviour
                         Debug.Log("Sign-In Failed with error " + _error);
 
                         if (!_isOffline)
-                        {
-                            ui.HasAuthenitcated();
+                        {                           
                             //SaveManager.instance.DefaultLoad();
                             CloudSaving.instance.DefaultLoad();
+                            ui.HasAuthenitcated();
                             OfflineMode();
                         }
                         else

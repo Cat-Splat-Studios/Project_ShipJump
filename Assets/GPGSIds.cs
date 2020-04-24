@@ -25,6 +25,8 @@
 public static class GPGSIds
 {
         public const string leaderboard_highest_kilometers_traveled = "CgkI4K2C2_kHEAIQAg"; // <GPGSID>
+        public const string leaderboard_farthest_traveled = "CgkI4K2C2_kHEAIQBA"; // <GPGSID>
+        public const string leaderboard_highest_score = "CgkI4K2C2_kHEAIQAw"; // <GPGSID>
 
 }
 

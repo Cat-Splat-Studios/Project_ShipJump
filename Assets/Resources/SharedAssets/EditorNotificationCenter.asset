@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 328e3e4ccb92f4170af5127ef6cccdc1, type: 3}
   m_Name: EditorNotificationCenter
-  m_EditorClassIdentifier: Assembly-CSharp-firstpass:VoxelBusters.NativePlugins.Internal:EditorNotificationCenter
+  m_EditorClassIdentifier: 
   m_supportedNotificationTypes: 0
   m_isRegisteredForRemoteNotifications: 0

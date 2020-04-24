@@ -13,14 +13,15 @@ public class CloudSaving : MonoSingleton<CloudSaving>
     string ObstacleIdxKey = "curObstacleIDX";
     string ProjectileIdxKey = "curProjectileIDX";
 
-    string EmergencyFuelCount = "curEmergencyFuelCount";
-    string DoubleShieldCount = "curDoubleShieldCount";
+    string HighscoreKey = "curHighscore";
+    string HighDistanceKey = "curHighDistance";
 
     string PlayerUnlocksKey = "curPlayerUnlocks";
     string BackgroundUnlocksKey = "curBackgroundUnlocks";
     string MusicUnlocksKey = "curMusicUnlocks";
     string ObstacleUnlocksKey = "curObstacleUnlocks";
-    string ProjectileUnlocksKey = "curProjectileUnlocks";
+
+    public PlayerManager player;
 
     // Start is called before the first frame update
     void Awake()
@@ -47,14 +48,13 @@ public class CloudSaving : MonoSingleton<CloudSaving>
         }
         else
         {
-            DefaultLoad();
             Debug.Log("Failed to synchronise in-memory keys and values.");
         }
     }
 
     public void SaveGame()
     {
-        NPBinding.CloudServices.SetLong(GearsKey, SwapManager.Gears);
+        NPBinding.CloudServices.SetLong(GearsKey, GearManager.instance.GetGears());
         NPBinding.CloudServices.SetLong(PlayerIdxKey, SwapManager.PlayerIdx);
         NPBinding.CloudServices.SetLong(BackgroundIdxKey, SwapManager.BackgroundIdx);
         NPBinding.CloudServices.SetLong(MusicIdxKey, SwapManager.MusicIdx);
@@ -65,27 +65,29 @@ public class CloudSaving : MonoSingleton<CloudSaving>
         NPBinding.CloudServices.SetList(BackgroundUnlocksKey, SwapManager.BackgroundUnlocks);
         NPBinding.CloudServices.SetList(MusicUnlocksKey, SwapManager.MusicUnlocks);
         NPBinding.CloudServices.SetList(ObstacleUnlocksKey, SwapManager.ObstacleUnlocks);
-        NPBinding.CloudServices.SetList(ProjectileUnlocksKey, SwapManager.ProjectileUnlocks);
+
+        NPBinding.CloudServices.SetLong(HighscoreKey, player.Score().GetHighscore());
+        NPBinding.CloudServices.SetLong(HighDistanceKey, player.Score().GetHighscore(false));
     }
 
     public void LoadGame()
     {
-        SwapManager.Gears = (int)NPBinding.CloudServices.GetLong(GearsKey);
-        SwapManager.PlayerIdx= (int)NPBinding.CloudServices.GetLong(PlayerIdxKey);
+        GearManager.instance.SetGears((int)NPBinding.CloudServices.GetLong(GearsKey));
+        SwapManager.PlayerIdx = (int)NPBinding.CloudServices.GetLong(PlayerIdxKey);
         SwapManager.BackgroundIdx = (int)NPBinding.CloudServices.GetLong(BackgroundIdxKey);
         SwapManager.MusicIdx = (int)NPBinding.CloudServices.GetLong(MusicIdxKey);
         SwapManager.ObstacleIdx = (int)NPBinding.CloudServices.GetLong(ObstacleIdxKey);
         SwapManager.ProjectileIdx = (int)NPBinding.CloudServices.GetLong(ProjectileIdxKey);
 
-        SwapManager.PlayerUnlocks = NPBinding.CloudServices.GetList(PlayerUnlocksKey) as List<int>;
-        SwapManager.BackgroundUnlocks = NPBinding.CloudServices.GetList(BackgroundUnlocksKey) as List<int>;
-        SwapManager.MusicUnlocks = NPBinding.CloudServices.GetList(MusicUnlocksKey) as List<int>;
-        SwapManager.ObstacleUnlocks = NPBinding.CloudServices.GetList(ObstacleUnlocksKey) as List<int>;
-        SwapManager.ProjectileUnlocks = NPBinding.CloudServices.GetList(ProjectileUnlocksKey) as List<int>;
+        SwapManager.PlayerUnlocks = GetUnlocks(PlayerUnlocksKey);
+        SwapManager.BackgroundUnlocks = GetUnlocks(BackgroundUnlocksKey);
+        SwapManager.MusicUnlocks = GetUnlocks(ObstacleUnlocksKey);
+        SwapManager.ObstacleUnlocks = GetUnlocks(PlayerUnlocksKey);
 
-#if UNITY_EDITOR
-        DefaultLoad();
-#endif
+        //SwapManager.AddDefaults();
+
+        player.Score().SetHighscores((int)NPBinding.CloudServices.GetLong(HighscoreKey), (int)NPBinding.CloudServices.GetLong(HighDistanceKey));
+        player.InitUnlock();
     }
 
     public void DefaultLoad()
@@ -102,8 +104,29 @@ public class CloudSaving : MonoSingleton<CloudSaving>
         SwapManager.MusicUnlocks = new List<int>();
         SwapManager.ObstacleUnlocks = new List<int>();
 
-        FindObjectOfType<PlayerManager>().InitUnlock();
-        FindObjectOfType<UIDelgate>().UpdateInfoText();
+        //SwapManager.AddDefaults();
+
+        player.Score().SetHighscores(0, 0);
+
+        player.InitUnlock();
+    }
+
+    private List<int> GetUnlocks(string key)
+    {
+        var thing = NPBinding.CloudServices.GetList(PlayerUnlocksKey);
+        if (thing != null)
+        {
+            List<int> unlocks = new List<int>();
+
+            foreach(var idx in thing)
+            {
+                unlocks.Add(Convert.ToInt32(idx));
+            }
+
+            return unlocks;
+        }
+        else
+            return new List<int>();
     }
 
 

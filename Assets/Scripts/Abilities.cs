@@ -7,7 +7,7 @@ public enum EAbilityState
     NONE,
     GEARMAGNENT,
     NITROFUEL,
-    RETROFITENGINES,
+    RETROFITENGINES
 }
 
 

@@ -133,12 +133,10 @@ MonoBehaviour:
       m_consumerSecret: 
   m_gameServicesSettings:
     m_leaderboardMetadataCollection:
-    - m_globalID: Highest Kilometer's Traveled
+    - m_globalID: Highest Score
       m_platformIDs:
       - m_platform: 1
-        m_value: CgkI4K2C2_kHEAIQAg
-      - m_platform: 0
-        m_value: 
+        m_value: CgkI4K2C2_kHEAIQAw
     m_achievementMetadataCollection: []
     m_iOS:
       m_showDefaultAchievementCompletionBanner: 1

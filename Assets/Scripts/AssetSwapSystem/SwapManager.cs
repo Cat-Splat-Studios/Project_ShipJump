@@ -9,7 +9,6 @@ using UnityEngine;
 public class SwapManager : MonoSingleton<SwapManager>
 {
     // local references to player state information
-    public static int Gears;
     public static int PlayerIdx;
     public static int BackgroundIdx;
     public static int MusicIdx;
@@ -19,11 +18,10 @@ public class SwapManager : MonoSingleton<SwapManager>
     public static int EmergencyFuelCount;
     public static int DoubleShieldCount;
 
-    public static List<int> PlayerUnlocks { get; set; } = new List<int>();
-    public static List<int> BackgroundUnlocks { get; set; } = new List<int>();
-    public static List<int> MusicUnlocks { get; set; } = new List<int>();
-    public static List<int> ObstacleUnlocks { get; set; } = new List<int>();
-    public static List<int> ProjectileUnlocks { get; set; } = new List<int>();
+    public static List<int> PlayerUnlocks;
+    public static List<int> BackgroundUnlocks;
+    public static List<int> MusicUnlocks;
+    public static List<int> ObstacleUnlocks;
 
     [SerializeField]
     private BackgroundManager background;
@@ -32,24 +30,22 @@ public class SwapManager : MonoSingleton<SwapManager>
     [SerializeField]
     private new AudioManager audio;
 
-    public static List<int> allRockets = new List<int>{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,};
-    public static List<int> rocketPrices = new List<int> { 0, 800, 1000, 1200, 1500, 2000, 3000, 5000, 3000, 5000 };
+    public static List<int> allRockets = new List<int>{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+    public static List<int> rocketPrices = new List<int> { 0, 800, 1000, 1200, 1500, 2000, 3000, 5000, 3000, 5000, 8000, 8000, 10000, 10000 };
 
     private void Start()
     {
         // find references
         player = FindObjectOfType<PlayerManager>();
         background = FindObjectOfType<BackgroundManager>();
-
-        player.InitUnlock();
     }
 
-    public void AddDefaults()
+    public static void AddDefaults()
     {
-        PlayerUnlocks.Add(0);
-        BackgroundUnlocks.Add(0);
-        MusicUnlocks.Add(0);
-        ObstacleUnlocks.Add(0);
+        ListDefaultCheck(PlayerUnlocks);
+        ListDefaultCheck(BackgroundUnlocks);
+        ListDefaultCheck(MusicUnlocks);
+        ListDefaultCheck(ObstacleUnlocks);
     }
 
     // After buying an item
@@ -127,5 +123,13 @@ public class SwapManager : MonoSingleton<SwapManager>
     {
         background.SwapIt();
         audio.SwapIt();
+    }
+
+    private static void ListDefaultCheck(List<int> listToCheck)
+    {
+        if (listToCheck == null)
+            listToCheck = new List<int>();
+
+        listToCheck.Add(0);
     }
 }

@@ -19,7 +19,8 @@ public class PlayerManager : MonoBehaviour, ISwapper
     private PlayerShoot shoot;
     private PlayerCollision collision;
     private PlayerDamage damage;
-    private Abilities abilities;
+    // private Abilities abilities;
+    private ScoreSystem score;
 
     // shop loic
     [Header("Rocket Shop Logic")]
@@ -49,12 +50,8 @@ public class PlayerManager : MonoBehaviour, ISwapper
         shoot = GetComponent<PlayerShoot>();
         collision = GetComponent<PlayerCollision>();
         damage = GetComponent<PlayerDamage>();
-        abilities = GetComponent<Abilities>();
-    }
-
-    void Start()
-    {
-        InitUnlock();
+        //abilities = GetComponent<Abilities>();
+        score = GetComponent<ScoreSystem>();
     }
 
     // Handles selection of ship for purchase input
@@ -137,9 +134,14 @@ public class PlayerManager : MonoBehaviour, ISwapper
         return damage;
     }
 
-    public Abilities PlayerAbilities()
+    //public Abilities PlayerAbilities()
+    //{
+    //    return abilities;
+    //}
+
+    public ScoreSystem Score()
     {
-        return abilities;
+        return score;
     }
     
     public void SetBoost(bool value)

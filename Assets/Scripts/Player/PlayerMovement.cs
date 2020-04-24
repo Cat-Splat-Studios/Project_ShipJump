@@ -393,7 +393,10 @@ public class PlayerMovement : MonoBehaviour
         outOfFuel = false;
         player.SetThrusters(true);
         score.CheckScore();
-        player.MagnetOff();
+        //player.MagnetOff();
+        GearManager.instance.ToggleDoubleGears(false);
+        ui.UpdateGearText();
+
 
     }
 
@@ -412,10 +415,11 @@ public class PlayerMovement : MonoBehaviour
         speedUp = initialSpeed;
         currentBoostMod = 0;
         scoreMod = boostMods[0];
-        acceleration = maxAccel;
-        boostLimit = boostMax;
         score.ResetScore();
         MovementUIReset();
+        acceleration = maxAccel;
+        boostLimit = boostMax;
+
     }
 
     public void ResetIdle()

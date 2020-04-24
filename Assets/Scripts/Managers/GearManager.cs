@@ -12,6 +12,7 @@ public class GearManager : MonoSingleton<GearManager>
     private UIDelgate ui;
 
     private int gears;
+    private bool isDouble = false;
 
     private void Start()
     {
@@ -32,27 +33,46 @@ public class GearManager : MonoSingleton<GearManager>
     {
         gears += amount;    
         prompt.SetPrompt("Gears Purchased!", $"You Purchased {amount} gears.");
-        ui.UpdateInfoText();
+        ui.UpdateGearText();
         CloudSaving.instance.SaveGame();
         //SaveManager.instance.SaveToCloud();
     }
 
     public void IncrementGears()
     {
-        levelGears++;
-        gears++;
+        if (isDouble)
+        {
+            levelGears += 2;
+            gears += 2;
+        }           
+        else
+        {
+            levelGears++;
+            gears++;
+        }
+    }
+
+    public void ToggleDoubleGears(bool value)
+    {
+        isDouble = value;
+    }
+
+    public void RewardGears(int amount)
+    {
+        AddGears(amount);
+        ToggleDoubleGears(true);   
     }
 
     public void AddGears(int amount)
     {
         gears += amount;
-        ui.UpdateInfoText();
+        ui.UpdateGearText();
     }
 
     public void RemoveGears(int amount)
     {
         gears -= amount;
-        ui.UpdateInfoText();
+        ui.UpdateGearText();
     }
     public void ResetLevelGears()
     {

@@ -12,6 +12,15 @@ public class ScoreSystem : MonoBehaviour
     private int curDistance = 0;
     private int nextDistance;
 
+    private int highscore;
+    private int highDistance;
+    
+    public void SetHighscores(int score, int distance)
+    {
+        highscore = score;
+        highDistance = distance;
+    }
+
     public void ResetScore()
     {
         score = 0;
@@ -36,28 +45,36 @@ public class ScoreSystem : MonoBehaviour
         UpdateScoreUI();
     }
 
-    private void AddToScore(float speedPoint, float mod)
-    {
-        score += (int)(speedPoint * mod);
-    }
-
     public void CheckScore()
     {
         // leader borad stuff might change due to plugin
-        int highscore = SaveManager.instance.GetHighscore();
-        int highscoreStat = SaveManager.instance.GetHighscoreStat();
-        if (curDistance > highscore)
+
+        if (curDistance > highDistance)
         {
-           // GPGSUtils.instance.SubmitScore(curDistance);
-            SaveManager.instance.SetHighScore(curDistance);
+            SignInScript.ReportScore("Highest Kilometer's Traveled", curDistance);
+            ui.HighDistance();
+            highDistance = curDistance;
         }
 
-        if (score > highscoreStat)
+        if (score > highscore)
         {
-            ui.Highscore(highscoreStat);
-           // GPGSUtils.instance.SubmitScoreStat(score);
-            SaveManager.instance.SetHighScoreStat(score);
+            SignInScript.ReportScore("Highest Score", score);
+            ui.Highscore();
+            highscore = score;         
         }
+    }
+
+    public int GetHighscore(bool isScore = true)
+    {
+        if (isScore)
+            return highscore;
+        else
+            return highDistance;
+    }
+
+    private void AddToScore(float speedPoint, float mod)
+    {
+        score += (int)(speedPoint * mod);
     }
 
 

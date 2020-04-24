@@ -28,7 +28,7 @@ public class AdManager : MonoSingleton<AdManager>
     private float buttonthresholdTime = 240.0f;
 
     [SerializeField]
-    private RewardMessage rewardPrompt;
+    private MessageBox rewardPrompt;
 
     [SerializeField]
     private GameObject adButton;
@@ -50,9 +50,9 @@ public class AdManager : MonoSingleton<AdManager>
 
     private bool isTracking = false;
 
-    [Header("Reward Abilities")]
-    public Reward[] rewards;
-    public Abilities playerAbility;
+    //[Header("Reward Abilities")]
+    //public Reward[] rewards;
+   // public Abilities playerAbility;
 
     // Start is called before the first frame update
     void Start()
@@ -124,18 +124,10 @@ public class AdManager : MonoSingleton<AdManager>
         // reward player and let them know, hide button after
         if (showResult == ShowResult.Finished)
         {
-            GearManager.instance.AddGears(gearReward);
+            GearManager.instance.RewardGears(gearReward);
             CloudSaving.instance.SaveGame();
             //SaveManager.instance.SaveToCloud();
-
-            int randoIdx = Random.Range(0, rewards.Length);
-
-            Reward rewardWon = rewards[randoIdx];
-
-            playerAbility.SetAbility(rewardWon.ability);
-
-            rewardPrompt.SetPrompt("Reward!", $"You have been rewarded {gearReward} gears for watching the ad\n AND", OnConfirmReward);
-            rewardPrompt.SetRewardDisplay(rewardWon.title, rewardWon.description, $"for {playerAbility.durationCount} rounds");
+            rewardPrompt.SetPrompt("Reward!", $"You have been rewarded {gearReward} gears\nAND\nDouble the Gears for next run!", OnConfirmReward);        
         }
 
         HideButton();

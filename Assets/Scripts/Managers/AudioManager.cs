@@ -111,7 +111,6 @@ public class AudioManager : MonoBehaviour, ISwapper
       
          int idx = SwapManager.MusicIdx;
         
-
         //double check to make sure player has this unlock
         if(SwapManager.MusicUnlocks.Contains(idx))
             PlayMusic(idx);

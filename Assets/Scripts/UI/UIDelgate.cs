@@ -18,10 +18,6 @@ public class UIDelgate : MonoBehaviour
     private Text startText;
     [SerializeField]
     private Text gearText;
-    [SerializeField]
-    private Text fuelText;
-    [SerializeField]
-    private Text shieldText;
 
     // Game UI
     [Header("Game UI")]
@@ -52,7 +48,9 @@ public class UIDelgate : MonoBehaviour
     [SerializeField]
     private Text coinsCollectedText;
     [SerializeField]
-    private Text highscoreText;
+    private GameObject highscoreText;
+    [SerializeField]
+    private GameObject highDistanceText;
 
     //Shop UI
     [Header("Shop UI")]
@@ -86,7 +84,6 @@ public class UIDelgate : MonoBehaviour
 
     // Helper Variables
     private bool _gameStarted = false;
-    private bool highscore = false;
 
     void Start()
     {
@@ -152,22 +149,27 @@ public class UIDelgate : MonoBehaviour
         gameUI.SetActive(true);
         gameOver.SetActive(false);
         StatHUD.SetActive(false);
-        highscore = false;
+        ResetHighscore();
         GearManager.instance.ResetLevelGears();
 
         anim.SetTrigger("Start");
         StartCoroutine(StartWait());
     }
 
-    public void Highscore(int previousScore)
+    public void Highscore()
     {
-        highscore = true;
-        highscoreText.text = $"New Personal Highscore!\n\nPrevious Score = {previousScore}";
+        highscoreText.SetActive(true);
     }
 
-    public void LeaderBoard()
+    public void HighDistance()
     {
-        highscoreText.text += "\n\n Added to Leaderboards.";
+        highDistanceText.SetActive(true);
+    }
+
+    public void ResetHighscore()
+    {
+        highscoreText.SetActive(false);
+        highDistanceText.SetActive(false);
     }
 
     // TODO: Rework shooting
@@ -207,6 +209,7 @@ public class UIDelgate : MonoBehaviour
 
     public void BackToMenu()
     {
+        ResetHighscore();
         camera.ToMenuOffset();
         player.gameObject.SetActive(true);
         player.PlayerMovement().ResetIdle();
@@ -220,8 +223,6 @@ public class UIDelgate : MonoBehaviour
         StatHUD.SetActive(true);
         gameOver.SetActive(false);
 
-        UpdateInfoText();
-
         player.ToggleSwap();
 
         if(!player.PlayerMovement().thrusters.isPlaying)
@@ -229,19 +230,17 @@ public class UIDelgate : MonoBehaviour
 
         GearManager.instance.ResetLevelGears();
     }
-
-    public void UpdateInfoText()
+    public void UpdateGearText()
     {
         gearText.text = $"{GearManager.instance.GetGears()}";
-        //startText.text = $"{SaveManager.instance.GetHighscoreStat()}";
-        UpdateAbilityText();
+        
     }
 
-    private void UpdateAbilityText()
+    public void UpdateHighscoreText()
     {
-        fuelText.text = SwapManager.EmergencyFuelCount.ToString();
-        shieldText.text = SwapManager.DoubleShieldCount.ToString();
+        startText.text = $"{player.Score().GetHighscore()}";
     }
+
 
     public void QuitGame()
     {
@@ -252,6 +251,8 @@ public class UIDelgate : MonoBehaviour
     {
         startUI.SetActive(true);
         StatHUD.SetActive(true);
+        UpdateGearText();
+        UpdateHighscoreText();
 
         foreach(Shop shop in shops)
         {
@@ -352,7 +353,7 @@ public class UIDelgate : MonoBehaviour
         distanceText.gameObject.SetActive(true);
         scoreText.text = $"Final Score\n {curScore}";
         distanceText.text = $"You Traveled\n {curDistance} km";
-        highscoreText.gameObject.SetActive(highscore);
+
         coinsCollectedText.text = $"Gears Collected\n {GearManager.instance.levelGears}";
     }
 
@@ -369,7 +370,7 @@ public class UIDelgate : MonoBehaviour
         player.PlayerMovement().ResetMove();
         yield return new WaitForSeconds(2.1f);
         player.PlayerMovement().StartGame();
-        player.PlayerAbilities().ActivateAbility();
+        //player.PlayerAbilities().ActivateAbility();
         //player.PlayerDamage().AttachDoubleShield();
         generatorManager.TopGenerate();
         ToggleNumbers(false);
@@ -383,7 +384,6 @@ public class UIDelgate : MonoBehaviour
         gameUI.SetActive(false);
         gameOver.SetActive(true);
         StatHUD.SetActive(true);
-        UpdateInfoText();
         ScoreDisplay();
         camera.ResetCamera();
         player.PlayerShoot().TurnOff();
