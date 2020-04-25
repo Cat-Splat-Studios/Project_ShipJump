@@ -213,7 +213,6 @@ public class UIDelgate : MonoBehaviour
         camera.ToMenuOffset();
         player.gameObject.SetActive(true);
         player.PlayerMovement().ResetIdle();
-        player.TogglePurchase(true);
 
         FindObjectOfType<PoolManager>().ResetObjects();
 
@@ -223,9 +222,9 @@ public class UIDelgate : MonoBehaviour
         StatHUD.SetActive(true);
         gameOver.SetActive(false);
 
-        player.ToggleSwap();
+        player.BackToMenu();
 
-        if(!player.PlayerMovement().thrusters.isPlaying)
+        if (!player.PlayerMovement().thrusters.isPlaying)
             player.PlayerMovement().thrusters.Play();
 
         GearManager.instance.ResetLevelGears();

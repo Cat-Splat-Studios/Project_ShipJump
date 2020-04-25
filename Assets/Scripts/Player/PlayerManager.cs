@@ -33,6 +33,9 @@ public class PlayerManager : MonoBehaviour, ISwapper
     [SerializeField]
     private MessageBox confirmPurchase;
 
+    [Header("Rocket Select")]
+    public RocketCard rocketCard;
+
     private int unlockIdx;
     private int viewIdx;
 
@@ -54,12 +57,18 @@ public class PlayerManager : MonoBehaviour, ISwapper
         score = GetComponent<ScoreSystem>();
     }
 
+    private void Start()
+    {
+        rocketCard.InitImageList();
+        canPurchase = true;
+    }
+
     // Handles selection of ship for purchase input
     private void Update()
     {
         if(canPurchase)
         {
-            if(Application.platform == RuntimePlatform.Android)
+            if(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
             {
                 if ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began))
                 {
@@ -253,6 +262,12 @@ public class PlayerManager : MonoBehaviour, ISwapper
         canPurchase = value;
     }
 
+    public void BackToMenu()
+    {
+        TogglePurchase(true);
+        ToggleSwap();
+    }
+
     public void InitRocketStats()
     {
         // called every time when round starts
@@ -274,21 +289,10 @@ public class PlayerManager : MonoBehaviour, ISwapper
         {
             priceTag.SetActive(true);
             priceText.text = SwapManager.rocketPrices[viewIdx].ToString();
-            if (GearManager.instance.CheckGears(SwapManager.rocketPrices[viewIdx]))
-            {
-                actionText.text = "Tap rocket to purchase";
-                canPurchase = true;
-            }
-            else
-            {
-                actionText.text = "Not enough Gears to purchase";
-                canPurchase = false;
-            }
         }
         else
         {
-            priceTag.SetActive(false);
-            canPurchase = false;
+            priceText.text = "Owned";
         }
     }
 
@@ -299,12 +303,21 @@ public class PlayerManager : MonoBehaviour, ISwapper
         if (Physics.Raycast(raycast, out raycastHit))
         {
             Debug.Log("Something Hit");
-            if (raycastHit.collider.tag == "Player" && !CheckUnlock())
+            if (raycastHit.collider.tag == "Player")
             {
                 FindObjectOfType<AudioManager>().PressButton(1);
-                confirmPurchase.SetPrompt($"Purchase Rocket\n\n {rockets[unlockIdx].name}?", SwapManager.rocketPrices[unlockIdx].ToString(), RocketPurchaseConfirm);
+                SelectRocket();
             }
         }
+    }
+
+    public void SelectRocket()
+    {
+        rocketCard.gameObject.SetActive(true);
+        if (!CheckUnlock())
+            rocketCard.InitCardBuy(viewIdx, SwapManager.rocketPrices[viewIdx]);
+        else
+            rocketCard.InitCardView(viewIdx);
     }
 
     private bool CheckUnlock()

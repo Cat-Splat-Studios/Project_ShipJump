@@ -33,6 +33,7 @@ public class SwapManager : MonoSingleton<SwapManager>
     public static List<int> allRockets = new List<int>{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
     public static List<int> rocketPrices = new List<int> { 0, 800, 1000, 1200, 1500, 2000, 3000, 5000, 3000, 5000, 8000, 8000, 10000, 10000 };
 
+
     private void Start()
     {
         // find references
