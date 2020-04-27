@@ -27,6 +27,8 @@ public class CloudSaving : MonoSingleton<CloudSaving>
 
     public PlayerManager player;
 
+    public MessageBox prompt;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -37,21 +39,68 @@ public class CloudSaving : MonoSingleton<CloudSaving>
     void OnEnable()
     {
         CloudServices.KeyValueStoreDidInitialiseEvent += OnKeyValueStoreInitialised;
+        CloudServices.KeyValueStoreDidSynchroniseEvent += OnKeyValueStoreDidSynchronise;
+        CloudServices.KeyValueStoreDidChangeExternallyEvent += OnKeyValueStoreChanged;
     }
 
     void OnDisable()
     {
         CloudServices.KeyValueStoreDidInitialiseEvent -= OnKeyValueStoreInitialised;
+        CloudServices.KeyValueStoreDidSynchroniseEvent -= OnKeyValueStoreDidSynchronise;
+        CloudServices.KeyValueStoreDidChangeExternallyEvent -= OnKeyValueStoreChanged;
     }
 
     private void OnKeyValueStoreInitialised(bool _success)
     {
         if (_success)
         {
+            prompt.SetPrompt("Cloud Save Initialized", "Successfully initialized in-memory keys and values.");
             Debug.Log("Successfully synchronised in-memory keys and values.");
         }
         else
         {
+            prompt.SetPrompt("Cloud Save Initialized", "Failed to initialized in-memory keys and values.");
+            Debug.Log("Failed to synchronise in-memory keys and values.");
+        }
+    }
+
+    private void OnKeyValueStoreChanged(eCloudDataStoreValueChangeReason _reason, string[] _changedKeys)
+    {
+        Debug.Log("Cloud key-value store has been changed.");
+        Debug.Log(string.Format("Reason: {0}.", _reason));
+
+        string message = "";
+
+        switch (_reason)
+        {
+            case eCloudDataStoreValueChangeReason.INITIAL_SYNC:
+                message += "Initial Download from cloud server has not happend";
+                    break;
+            case eCloudDataStoreValueChangeReason.SERVER:
+                message += "Someone else is using the same cloud service account";
+                break;
+            case eCloudDataStoreValueChangeReason.QUOTA_VIOLATION:
+                message += "Quota violation";
+                break;
+            case eCloudDataStoreValueChangeReason.STORE_ACCOUNT:
+                message += "Signed in with another account";
+                break;
+        }
+
+
+        prompt.SetPrompt("Key Values changed", message);
+    }
+
+    private void OnKeyValueStoreDidSynchronise(bool _success)
+    {
+        if (_success)
+        {
+            prompt.SetPrompt("Cloud Synchronized", "Successfully synchronised in-memory keys and values.");
+            Debug.Log("Successfully synchronised in-memory keys and values.");
+        }
+        else
+        {
+            prompt.SetPrompt("Cloud Synchronized", "Failed to synchronise in-memory keys and values.");
             Debug.Log("Failed to synchronise in-memory keys and values.");
         }
     }
