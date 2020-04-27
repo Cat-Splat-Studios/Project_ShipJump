@@ -1,5 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Author: Hisham Ata, Matthew Douglas
+* Purpose: To Handle the billing process utilizing the Voxel Native Plugin
+**/
+
 using UnityEngine;
 using VoxelBusters.NativePlugins;
 

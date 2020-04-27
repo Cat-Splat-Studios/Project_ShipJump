@@ -1,4 +1,8 @@
-﻿
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To handle the logic of gears to the player
+**/
+
 using UnityEngine;
 
 public class GearManager : MonoSingleton<GearManager>
@@ -6,18 +10,17 @@ public class GearManager : MonoSingleton<GearManager>
     [SerializeField]
     private MessageBox prompt;
 
+    [SerializeField]
+    private UIDelgate ui;
+
+    // Gears player gets in a round
     [HideInInspector]
     public int levelGears { get; private set; }
     
-    private UIDelgate ui;
-
+    // Total gears player has
     private int gears;
     private bool isDouble = false;
 
-    private void Start()
-    {
-        ui = FindObjectOfType<UIDelgate>();
-    }
     public int GetGears()
     {
         return gears;
@@ -26,7 +29,6 @@ public class GearManager : MonoSingleton<GearManager>
     public void SetGears(int gears)
     {
         this.gears = gears;
-       // ui.UpdateGearText();
     }
 
     public void PurchaseGears(int amount)
@@ -35,11 +37,11 @@ public class GearManager : MonoSingleton<GearManager>
         prompt.SetPrompt("Gears Purchased!", $"You Purchased {amount} gears.");
         ui.UpdateGearText();
         CloudSaving.instance.SaveGame();
-        //SaveManager.instance.SaveToCloud();
     }
 
     public void IncrementGears()
     {
+        // If player has the "double gears" this round, give them 2
         if (isDouble)
         {
             levelGears += 2;
@@ -59,6 +61,7 @@ public class GearManager : MonoSingleton<GearManager>
 
     public void RewardGears(int amount)
     {
+        // Reward for watching ads - Double Gears
         AddGears(amount);
         ToggleDoubleGears(true);   
     }
@@ -83,9 +86,4 @@ public class GearManager : MonoSingleton<GearManager>
     {
         return gears >= amount;
     }
-
-    //private void SaveGears()
-    //{
-    //    SaveManager.instance.SaveToCloud();
-    //}
 }

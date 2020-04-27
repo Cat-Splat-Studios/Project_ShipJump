@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To Display the information on the rocket to player when selected
+**/
+
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
@@ -10,12 +14,14 @@ public struct RocketCardImage
     public Sprite image;
 }
 
-
 public class RocketCard : MonoBehaviour
 {
-    public PlayerManager player;
-    public MessageBox confirmPurchase;
-    public RocketCardImage[] images;
+    [SerializeField]
+    private PlayerManager player;
+    [SerializeField]
+    private MessageBox confirmPurchase;
+    [SerializeField]
+    private RocketCardImage[] images;
 
     [Header("Card UI")]
     public Text priceText;
@@ -25,10 +31,10 @@ public class RocketCard : MonoBehaviour
     private Dictionary<int, Sprite> cardImages;
 
     private int price;
-    private string rocketName;
 
     public void InitImageList()
     {
+        // Load images to dictionary for easy reference
         cardImages = new Dictionary<int, Sprite>();
         foreach (var img in images)
         {
@@ -38,6 +44,7 @@ public class RocketCard : MonoBehaviour
 
     public void InitCardBuy(int rocketIdx, int rocketPrice)
     {
+        // Card View when not unlocked
         card.sprite = cardImages[rocketIdx];
         price = rocketPrice;
         priceText.text = price.ToString();
@@ -46,6 +53,7 @@ public class RocketCard : MonoBehaviour
 
     public void InitCardView(int rocketIdx)
     {
+        // Card view when unlocked
         card.sprite = cardImages[rocketIdx];
         priceText.text = "Owned";
         actionButton.interactable = false;
@@ -53,11 +61,13 @@ public class RocketCard : MonoBehaviour
 
     public void BuyRocket()
     {
+        // Prompt purchase of rocket
         confirmPurchase.SetPrompt($"Purchase Rocket?", price.ToString(), onPurchased);
     }
 
     public void onPurchased(bool success)
     {
+        // When player confirms purchase
         if(success)
         {
             player.RocketPurchaseConfirm(success);

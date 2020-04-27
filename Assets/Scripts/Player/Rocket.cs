@@ -1,17 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To reference different rocket stats to use for the player
+**/
+
 using UnityEngine;
 
+// Rocket Size
 public enum ERocketSize
 {
     SMALL,
     LARGE
 }
 
-
 public class Rocket : MonoBehaviour
 {
-
     public int unlockIdx;
 
     [SerializeField]

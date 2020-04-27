@@ -1,17 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To handle the scoring of player based on speed and distance
+**/
+
 using UnityEngine;
 
 public class ScoreSystem : MonoBehaviour
 {
     public UIDelgate ui;
-
+    
+    // Total score for each round
     private int score = 0;
-    private float currentMod;
-   // private int farthestDistance = 0;
+
+    // Distance tracking for score
     private int curDistance = 0;
     private int nextDistance;
 
+    // Modification from boost
+    private float currentMod;
+
+    // Highscores stored
     private int highscore;
     private int highDistance;
     
@@ -27,18 +35,18 @@ public class ScoreSystem : MonoBehaviour
         nextDistance = 1;
         curDistance = 0;
         currentMod = 1;
-      //  farthestDistance = 0;
         UpdateScoreUI();
     }
 
-    public void ScoreUpdate(float distance, float speed, float mod)
+    public void ScoreUpdate(float distance, float speed)
     {
+        // Set distance and modifier
         curDistance = (int)distance;
-        currentMod = mod;
 
+        // Check if you gone 1km, add to score
         if (curDistance >= nextDistance)
         {
-            AddToScore(speed, mod);
+            AddToScore(speed, currentMod);
             nextDistance++;
         }
 
@@ -47,18 +55,18 @@ public class ScoreSystem : MonoBehaviour
 
     public void CheckScore()
     {
-        // leader borad stuff might change due to plugin
+        // Check both distance and score for highest and update leaderboards
 
         if (curDistance > highDistance)
         {
-            SignInScript.ReportScore("Highest Kilometer's Traveled", curDistance);
+            GameService.ReportScore("Highest Kilometer's Traveled", curDistance);
             ui.HighDistance();
             highDistance = curDistance;
         }
 
         if (score > highscore)
         {
-            SignInScript.ReportScore("Highest Score", score);
+            GameService.ReportScore("Highest Score", score);
             ui.Highscore();
             highscore = score;         
         }
@@ -72,14 +80,21 @@ public class ScoreSystem : MonoBehaviour
             return highDistance;
     }
 
+    public void SetMod(float mod)
+    {
+        currentMod = mod;
+    }
+
     private void AddToScore(float speedPoint, float mod)
     {
+        // Add score based on current speed
         score += (int)(speedPoint * mod);
     }
 
 
     private void UpdateScoreUI()
     {
+        // Update all score information on UI
         ui.curScore = score.ToString();
         ui.curDistance = curDistance.ToString();
         ui.SetModText(currentMod);

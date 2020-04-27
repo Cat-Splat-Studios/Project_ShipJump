@@ -13,19 +13,17 @@ public class PlayerDamage : MonoBehaviour
     private GameObject[] destroyParticlePrefab;
     [SerializeField]
     private AudioClip[] destroySounds;
-    [SerializeField]
-    private AudioClip shieldSound;
 
-    // References
+    // Shield visuals
     [SerializeField]
     private GameObject[] shields;
 
+    // References
     private new AudioManager audio;
     private UIDelgate ui;
-    private PlayerMovement playerMovement;
+    private PlayerManager player;
 
     // Helper Variables
-    private bool hasShield = false;
     private int shieldCount = 0;
     private int shieldStack = 1;
 
@@ -34,20 +32,16 @@ public class PlayerDamage : MonoBehaviour
         // Find References
         audio = FindObjectOfType<AudioManager>();
         ui = FindObjectOfType<UIDelgate>();
-        playerMovement = GetComponent<PlayerMovement>();     
+        player = GetComponent<PlayerManager>();     
     }
 
     public void GotHit(GameObject obj)
     {
+        // Check if you have shields
         if (shieldCount > 0)
         {
             shields[shieldCount - 1].SetActive(false);
             shieldCount--;
-
-            if (shieldCount == 0)
-            {
-                hasShield = false;
-            }
               
             // Destroy Obstacle
             Obstacle obstacle = obj.GetComponent<Obstacle>();
@@ -65,6 +59,7 @@ public class PlayerDamage : MonoBehaviour
 
     public void SetSheildStack(int stack)
     {
+        // Set by rocket stat player has double shields
         shieldStack = stack;
     }
 
@@ -73,7 +68,6 @@ public class PlayerDamage : MonoBehaviour
         switch (shieldCount)
         {
             case 0:
-                hasShield = true;
                 shields[0].SetActive(true);
                 shieldCount = 1;
                 break;
@@ -89,7 +83,7 @@ public class PlayerDamage : MonoBehaviour
 
     private void DestroyShip()
     {
-        playerMovement.StopMovement();
+        player.DeadPlayer();
 
         // Will remove this when GENERATOR system is completed
         FindObjectOfType<GeneratorManager>().StopGenerators();
@@ -109,5 +103,4 @@ public class PlayerDamage : MonoBehaviour
         this.gameObject.transform.position = (new Vector3(0.0f, transform.position.y, transform.position.z));
         this.gameObject.SetActive(false);
     }
- 
 }

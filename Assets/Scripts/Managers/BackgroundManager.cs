@@ -16,6 +16,7 @@ public class BackgroundManager : MonoBehaviour, ISwapper
     public void SwapIt()
     {
 
+        // Get current player background index and switch to it
         int idx = SwapManager.BackgroundIdx;
        
         foreach(GameObject mesh in meshes)
@@ -23,6 +24,7 @@ public class BackgroundManager : MonoBehaviour, ISwapper
             mesh.SetActive(false);
         }
 
+        // Check to make sure it is unlock
         if (SwapManager.BackgroundUnlocks.Contains(idx))
             meshes[idx].SetActive(true);
         else

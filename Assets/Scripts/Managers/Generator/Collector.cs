@@ -1,6 +1,6 @@
 ﻿/** 
 * Author: Matthew Douglas, Hisham Ata
-* Purpose: To collect unused objects
+* Purpose: To collect unused objects outside of play area
 **/
 
 using UnityEngine;
@@ -9,7 +9,6 @@ public class Collector : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.tag == "pickup" || other.tag == "obstacle")
         {
             IPoolObject poolobj = other.GetComponent<IPoolObject>();

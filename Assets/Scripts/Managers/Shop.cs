@@ -13,8 +13,22 @@ public class Shop : MonoBehaviour
     private RectTransform[] shopItems;
     [SerializeField]
     private ItemInfo[] itemInfos;
+
+    [Header("Control Options")]
     [SerializeField]
     private RectTransform view_window;
+    [SerializeField]
+    private float image_gap = 30;
+    [SerializeField]
+    private int swipeThrustHold = 30;
+    [SerializeField]
+    public int current_index;
+
+    [Header("Audio")]
+    [SerializeField]
+    private new AudioManager audio;
+    [SerializeField]
+    private AudioClip clip;
 
     private bool canSwipe;
     private float image_width;
@@ -26,15 +40,6 @@ public class Shop : MonoBehaviour
     private float screenPosition;
     private float lastScreenPosition;
 
-    [SerializeField]
-    private float image_gap = 30;
-    [SerializeField]
-    private int swipeThrustHold = 30;
-
-    public int current_index;
-    public new AudioManager audio;
-    public AudioClip clip;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +50,7 @@ public class Shop : MonoBehaviour
     public void SetStartPos()
     {
         // set the first thing opening up to 
+        // i do not think this works, need to adjust
         switch (shopType)
         {
             case EAssetType.BACKGROUND:
@@ -160,7 +166,8 @@ public class Shop : MonoBehaviour
         }
         dragAmount = 0;
 
-        FindObjectOfType<SwapManager>().Preview(shopType, current_index);
+        // Previews the item selected
+        SwapManager.instance.Preview(shopType, current_index);
         audio.PlaySound(clip);
     }
 
@@ -186,6 +193,7 @@ public class Shop : MonoBehaviour
 
     public void InitItems()
     {
+        // Set the items in the shop
         foreach (ItemInfo item in itemInfos)
         {
             item.SetPurchase();

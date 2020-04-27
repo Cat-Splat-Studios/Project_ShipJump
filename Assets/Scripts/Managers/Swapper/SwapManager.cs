@@ -6,6 +6,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// This is some morphed type class with static and object functionality. Maybe a better way to clean this up or split it up.
+
 public class SwapManager : MonoSingleton<SwapManager>
 {
     // local references to player state information

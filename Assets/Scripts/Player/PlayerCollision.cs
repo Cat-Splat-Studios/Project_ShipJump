@@ -25,11 +25,11 @@ public class PlayerCollision : MonoBehaviour
         player = GetComponent<PlayerManager>();
         audio = FindObjectOfType<AudioManager>();
         boxCollide = GetComponent<BoxCollider>();
-
     }
 
     public void SetHitBox(bool isLarge)
     {
+        // Adjust collider depending on rocket size
         if(isLarge)
         {
             boxCollide.size = largeHitBox;
@@ -54,32 +54,32 @@ public class PlayerCollision : MonoBehaviour
                     switch (pickup.GetPickupType())
                     {
                         case EPickupType.FUEL:
-                            //Mathf.Lerp(canvasScript.curFuel, canvasScript.curFuel + fuelAmount, 1);
-                            //canvasScript.curFuel += fuelAmount;
-                            player.PlayerMovement().AddFuel(pickup.GetFuel());
+                            // Add fuel to player
+                            player.Fuel().AddFuel(pickup.GetFuel());
                             audio.PlaySound(pickupSounds[0], pickupVol);
                             DestroyObject(other.gameObject);
                             break;
                         case EPickupType.BOOST:
-                            //do some physics on the player based on boostForce
-                            player.PlayerMovement().SetBoost();
+                            // Do some physics on the player based on boostForce
+                            player.Boost().BoostOn();
                             player.SetBoost(true);
                             audio.PlaySound(pickupSounds[1], 0.8f);
                             DestroyObject(other.gameObject);
                             break;
                         case EPickupType.SHIELD:
-                            //send reference to the player to activate sheild
+                            // Send reference to the player to activate sheild
                             player.PlayerDamage().AttatchShield();
                             audio.PlaySound(pickupSounds[2], pickupVol);
                             DestroyObject(other.gameObject);
                             break;
                         case EPickupType.GEAR:
+                            // Add gears
                             GearManager.instance.IncrementGears();
-                            pickup.StopPull();
                             audio.PlaySound(pickupSounds[3], 0.35f);
                             DestroyObject(other.gameObject);
                             break;
                         case EPickupType.PROJECTILE:
+                            // Allow player to shoot
                             player.PlayerShoot().EnableShoot();
                             audio.PlaySound(pickupSounds[4], 0.65f);
                             DestroyObject(other.gameObject);
@@ -92,6 +92,7 @@ public class PlayerCollision : MonoBehaviour
 
     private void DestroyObject(GameObject obj)
     {
+        // Destroy the object collected
         IPoolObject poolObj = obj.GetComponent<IPoolObject>();
 
         if (poolObj != null)

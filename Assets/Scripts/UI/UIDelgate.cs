@@ -186,7 +186,7 @@ public class UIDelgate : MonoBehaviour
         shops[shopType].gameObject.SetActive(true);
         shops[shopType].SetStartPos();
         shops[shopType].InitItems();
-        FindObjectOfType<SwapManager>().Preview(shops[shopType].shopType, shops[shopType].current_index);
+        SwapManager.instance.Preview(shops[shopType].shopType, shops[shopType].current_index);
     }
 
     public void CloseShop()
@@ -366,11 +366,9 @@ public class UIDelgate : MonoBehaviour
 
     private IEnumerator StartWait()
     {
-        player.PlayerMovement().ResetMove();
+        player.ResetPlayer();
         yield return new WaitForSeconds(2.1f);
-        player.PlayerMovement().StartGame();
-        //player.PlayerAbilities().ActivateAbility();
-        //player.PlayerDamage().AttachDoubleShield();
+        player.StartPlayer();
         generatorManager.TopGenerate();
         ToggleNumbers(false);
         gameStarted = true;
@@ -388,6 +386,5 @@ public class UIDelgate : MonoBehaviour
         player.PlayerShoot().TurnOff();
         AdManager.instance.ButtonCheck();
         CloudSaving.instance.SaveGame();
-        //SaveManager.instance.SaveToCloud();
     }
 }

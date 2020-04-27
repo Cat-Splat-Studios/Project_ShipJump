@@ -1,11 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Author: Hisham Ata, Matthew Douglas
+* Purpose: To Handle the Game Service logic utilizing the Voxel Native Plugin
+**/
+
 using System.Linq;
 using UnityEngine;
 using VoxelBusters.NativePlugins;
 using VoxelBusters.Utility;
 
-public class SignInScript : MonoBehaviour
+public class GameService : MonoBehaviour
 {
     public UIDelgate ui;
     public MessageBox prompt;
@@ -22,7 +25,7 @@ public class SignInScript : MonoBehaviour
     void Start()
     {
         _isServiceAvailable = NPBinding.GameServices.IsAvailable();
-        SignIn();  
+        SignIn();
     }
 
     void SignIn()
@@ -40,7 +43,7 @@ public class SignInScript : MonoBehaviour
                         Debug.Log("Sign-In Successfully");
                         Debug.Log("Local User Details : " + NPBinding.GameServices.LocalUser.ToString());
                         _isOffline = false;
-                        
+
                         AdManager.instance.ToggleTracking(true);
                         CloudSaving.instance.LoadGame();
                         ui.HasAuthenitcated();
@@ -57,7 +60,7 @@ public class SignInScript : MonoBehaviour
                         Debug.Log("Sign-In Failed with error " + _error);
 
                         if (!_isOffline)
-                        {                           
+                        {
                             //SaveManager.instance.DefaultLoad();
                             CloudSaving.instance.DefaultLoad();
                             ui.HasAuthenitcated();
@@ -95,7 +98,7 @@ public class SignInScript : MonoBehaviour
 
         });
     }
-    
+
     //Link to signout button - per google documentation - this is recommended
     public void SignOut()
     {
@@ -130,7 +133,7 @@ public class SignInScript : MonoBehaviour
         }
 
     }
-    
+
     //show leaderboard - should be linked to a button.
     public void ShowLeaderboard(string leaderboardName)
     {

@@ -1,5 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To Handle the movement control options of the player
+**/
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,7 +44,7 @@ public class ControlSelect : MonoBehaviour
             ctrl.Renable();
         }
 
-        player.PlayerMovement().SetMoveOptions(moveOption);
+        FindObjectOfType<PlayerInput>().SetMoveOptions(moveOption);
         btn.interactable = false;
         selectedText.SetActive(true);
     }

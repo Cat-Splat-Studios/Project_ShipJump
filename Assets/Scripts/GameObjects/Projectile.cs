@@ -12,14 +12,12 @@ public class Projectile : MonoBehaviour
     private float lifetime;
     [SerializeField]
     private float speed;
-
+    [SerializeField]
     private Rigidbody rb;
     
     void Start()
     {
-        // Find References
-        rb = GetComponent<Rigidbody>();
-
+        // Set speed based on how fast the player is going to make sure its going faster and shoots forward
         speed = FindObjectOfType<PlayerMovement>().GetUpSpeed() + speed;
 
         // Destroy particle after lifetime, will destroy any obstacle in its way

@@ -1,6 +1,6 @@
 ﻿/** 
 * Author: Matthew Douglas, Hisham Ata
-* Purpose: Any logic that must right right before game starts
+* Purpose: Any logic that must happen right before game starts
 **/
 
 using UnityEngine;

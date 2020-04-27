@@ -51,6 +51,7 @@ public class ItemInfo : MonoBehaviour
     {
         bool value = false;
 
+        // Check the item type to see if value is contain in unlocks
         switch (itemtype)
         {
             case EAssetType.BACKGROUND:
@@ -66,6 +67,7 @@ public class ItemInfo : MonoBehaviour
 
         isUnlocked = value;
 
+        // Depending if unlock or not, set the item state (can be purchased or can be selected)
         if (value)
         {
             buttonText.text = "Select";
@@ -82,6 +84,7 @@ public class ItemInfo : MonoBehaviour
 
     public void SetPurchaseButtonActive()
     {
+        // Depending on state, change the state of the button accordingly
         if(GearManager.instance.CheckGears(price) && !isUnlocked)
         {
             button.interactable = true;
@@ -94,6 +97,7 @@ public class ItemInfo : MonoBehaviour
 
     public void SetSelectedeButtonActive()
     {
+        // Check if you selected or not and change the state of button accordingly
         bool active = false;
         switch (itemtype)
         {
@@ -124,6 +128,7 @@ public class ItemInfo : MonoBehaviour
 
     public void ButtonAction()
     {
+        // Depending if unlocked or not, either purchase or select item
         if(isUnlocked)
         {
             // Swap the asset
@@ -149,7 +154,7 @@ public class ItemInfo : MonoBehaviour
 
     public void ConfirmPurchase(bool isConfirmed)
     {
-        
+        // Purchase is confirmed, unlock item   
         if (isConfirmed && GearManager.instance.CheckGears(price))
         {
             GearManager.instance.RemoveGears(price);

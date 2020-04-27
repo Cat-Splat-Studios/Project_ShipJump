@@ -10,6 +10,8 @@ public class Thrusters : MonoBehaviour
     [SerializeField]
     private GameObject boostThrusters;
 
+    // Reference to Boost particle for manipulation of size
+    // Public to access system
     public ParticleSystem boostParticle;
 
     [SerializeField]
@@ -19,6 +21,7 @@ public class Thrusters : MonoBehaviour
 
     public void BoostToggle(bool value)
     {
+        // Turn on Boost thrusters
        boostThrusters.SetActive(value);
 
        ThrusterToggle(!value);
@@ -31,6 +34,7 @@ public class Thrusters : MonoBehaviour
 
     public void ThrusterToggle(bool value)
     {
+        // Turn normal thrusters on or off
         foreach(GameObject obj in thrusters)
         {
             obj.SetActive(value);

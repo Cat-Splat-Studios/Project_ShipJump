@@ -1,6 +1,6 @@
 ﻿/** 
 * Author: Matthew Douglas, Hisham Ata
-* Purpose: A central hub for all of the player scripts
+* Purpose: A central hub for all of the player scripts for ease access
 **/
 
 using UnityEngine;
@@ -8,21 +8,35 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour, ISwapper
 {
+    // All rocket meshes 
     [SerializeField]
     private GameObject[] rockets;
 
+    // View indexs for main UI viewing
     [SerializeField]
     private int[] viewRocketIdx;
 
     // references to other player components
+    [SerializeField]
+    private PlayerInput input;
+    [SerializeField]
     private PlayerMovement movement;
+    [SerializeField]
+    private PlayerFuel fuel;
+    [SerializeField]
+    private PlayerBoost boost;
+    [SerializeField]
     private PlayerShoot shoot;
+    [SerializeField]
     private PlayerCollision collision;
+    [SerializeField]
     private PlayerDamage damage;
-    // private Abilities abilities;
+
+    // TODO: Move into a manager object (singleton)
+    [SerializeField]
     private ScoreSystem score;
 
-    // shop loic
+    // shop logic
     [Header("Rocket Shop Logic")]
     [SerializeField]
     private GameObject priceTag;
@@ -39,77 +53,36 @@ public class PlayerManager : MonoBehaviour, ISwapper
     private int unlockIdx;
     private int viewIdx;
 
-    [HideInInspector]
-    public bool canPurchase { get; private set; }
-
-    public Magnet magnet;
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        // Find References
-        // Need to be awake because everything accesses these regardling player  
-        movement = GetComponent<PlayerMovement>();
-        shoot = GetComponent<PlayerShoot>();
-        collision = GetComponent<PlayerCollision>();
-        damage = GetComponent<PlayerDamage>();
-        //abilities = GetComponent<Abilities>();
-        score = GetComponent<ScoreSystem>();
-    }
 
     private void Start()
     {
+        // Create card list for viewing rocket stats
         rocketCard.InitImageList();
-        canPurchase = true;
-    }
-
-    // Handles selection of ship for purchase input
-    private void Update()
-    {
-        if(canPurchase)
-        {
-            if(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
-            {
-                if ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began))
-                {
-                    Ray raycast = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                    GetRocketTap(raycast);
-                }
-            }
-            else
-            {
-                if(Input.GetMouseButtonUp(0))
-                {
-                    Ray raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    GetRocketTap(raycast);
-                }
-            }
-           
-        }
     }
 
     public void RocketPurchaseConfirm(bool confirmed)
     {
+        // When a rocket is purchase, unlock it
         if(confirmed)
         {
             GearManager.instance.RemoveGears(SwapManager.rocketPrices[unlockIdx]);
-            FindObjectOfType<SwapManager>().PurchaseAsset(unlockIdx, EAssetType.ROCKET);
+            SwapManager.instance.PurchaseAsset(unlockIdx, EAssetType.ROCKET);
             ToggleSwap();
         }
     }
 
     public void InitUnlock()
     {
-    
+        // Check player unlock and display appropriate mesh
         int idx = SwapManager.PlayerIdx;
         
 
+        // Double check this rocket has been unlock, default otherwise
         if (!SwapManager.PlayerUnlocks.Contains(idx))
         {
             SwapManager.PlayerIdx = 0;
             idx = 0;
         }
-
 
         for(int i = 0; i < viewRocketIdx.Length; ++i)
         {
@@ -122,10 +95,25 @@ public class PlayerManager : MonoBehaviour, ISwapper
         ToggleSwap();
     }
 
-    // Movment
+    /** Getters for Each Player Component **/
+    public PlayerInput PlayerInput()
+    {
+        return input;
+    }
+
     public PlayerMovement PlayerMovement()
     {
         return movement;
+    }
+
+    public PlayerFuel Fuel()
+    {
+        return fuel;
+    }
+
+    public PlayerBoost Boost()
+    {
+        return boost;
     }
 
     public PlayerShoot PlayerShoot()
@@ -143,41 +131,31 @@ public class PlayerManager : MonoBehaviour, ISwapper
         return damage;
     }
 
-    //public Abilities PlayerAbilities()
-    //{
-    //    return abilities;
-    //}
-
     public ScoreSystem Score()
     {
         return score;
     }
     
+
+    // Set the correct booster particle on the appropriate mesh
     public void SetBoost(bool value)
     {
         rockets[SwapManager.PlayerIdx].GetComponent<Thrusters>().BoostToggle(value);
     }
 
+    // Get the boost particle on appropriate mesh for resizing
     public ParticleSystem GetBoostParticle()
     {
         return rockets[SwapManager.PlayerIdx].GetComponent<Thrusters>().boostParticle;
     }
 
+    // Set the correct thruster particles on the appropriate mesh
     public void SetThrusters(bool value)
     {
         rockets[SwapManager.PlayerIdx].GetComponent<Thrusters>().ThrusterToggle(value);
     }
 
-    public void MagnetOn()
-    {
-        magnet.gameObject.SetActive(true);
-    }
-
-    public void MagnetOff()
-    {
-        magnet.gameObject.SetActive(false);
-    }
-
+    // Set the appropriate rocket mesh based on player selection
     public void SwapIt()
     {
         foreach(GameObject rocket in rockets)
@@ -187,6 +165,7 @@ public class PlayerManager : MonoBehaviour, ISwapper
 
         rockets[SwapManager.PlayerIdx].SetActive(true);
 
+        // Set the rocket stats up for this rocket
         Rocket stat = rockets[SwapManager.PlayerIdx].GetComponent<Rocket>();
 
         if(stat)
@@ -197,6 +176,8 @@ public class PlayerManager : MonoBehaviour, ISwapper
 
     public void TempSwap(int index)
     {
+        // A temporary swap for viewing on main menu
+        // DO NOT SET player index when doing this
         foreach (GameObject rocket in rockets)
         {
             
@@ -208,6 +189,7 @@ public class PlayerManager : MonoBehaviour, ISwapper
 
     public void ToggleRocket(bool forward)
     {
+        // When clicking arrows to toggle through rockets for viewing
         if (forward)
         {
             if (viewIdx + 1 >= SwapManager.allRockets.Count)
@@ -241,6 +223,8 @@ public class PlayerManager : MonoBehaviour, ISwapper
 
     public void StartGameMeshCheck()
     {
+        // Check to make sure player unlock this rocket, set rocket to this
+        // If player did not unlock, rocket will switch to previously played rocker
         if (CheckUnlock())
         {
             SwapManager.PlayerIdx = SwapManager.allRockets[unlockIdx];
@@ -248,43 +232,55 @@ public class PlayerManager : MonoBehaviour, ISwapper
         }
 
         SwapIt();
-        TogglePurchase(false);
-    }
-
-    public void ResetPlayer()
-    {
-        PlayerMovement().ResetMove();
-        PlayerShoot().TurnOff();
-    }
-
-    public void TogglePurchase(bool value)
-    {
-        canPurchase = value;
     }
 
     public void BackToMenu()
     {
-        TogglePurchase(true);
+        // Turn rocket view card option on and switch back to viewing rockets
+        PlayerInput().TogglePurchase(true);
         ToggleSwap();
     }
 
-    public void InitRocketStats()
+    public void ResetPlayer()
     {
-        // called every time when round starts
+        // Reset all player components that need resetting
+        PlayerMovement().ResetMove();
+        PlayerShoot().TurnOff();
+        PlayerInput().TogglePurchase(false);
+        Fuel().FillUp();
+        Boost().BoostReset();
     }
 
-    // Stat gettings
 
+    public void StartPlayer()
+    {
+        // When game starts, initialize all components that need it
+        PlayerMovement().StartGame();
+        PlayerInput().ToggleMove(true);
+        Fuel().ToggleFuel(true);
+    }
+
+    public void DeadPlayer()
+    {       
+        // When player is destroyed, disable components where needed and reset
+        GearManager.instance.ToggleDoubleGears(false);
+        Fuel().ToggleFuel(false);
+        SetThrusters(true);
+        Score().CheckScore();
+        PlayerInput().ToggleMove(false);
+        PlayerMovement().StopMovement();
+    }
 
     /** Helper Methods**/
 
-    // checks what needs to be displayed to user
     public void ToggleSwap()
     {
+
+        // checks what needs to be displayed to user for rockets
         TempSwap(viewRocketIdx[viewIdx]);
         unlockIdx = viewRocketIdx[viewIdx];
 
-
+        // Check if you unlock this, display price or indicate that you own it
         if (!CheckUnlock())
         {
             priceTag.SetActive(true);
@@ -296,9 +292,9 @@ public class PlayerManager : MonoBehaviour, ISwapper
         }
     }
 
-    // checks if you tap rocket, initiates purchase confirm
-    private void GetRocketTap(Ray raycast)
+    public void GetRocketTap(Ray raycast)
     {
+        // checks if you tap rocket, initiates rocket card view
         RaycastHit raycastHit;
         if (Physics.Raycast(raycast, out raycastHit))
         {
@@ -311,8 +307,9 @@ public class PlayerManager : MonoBehaviour, ISwapper
         }
     }
 
-    public void SelectRocket()
+    private void SelectRocket()
     {
+        // Initiate rocket card view
         rocketCard.gameObject.SetActive(true);
         if (!CheckUnlock())
             rocketCard.InitCardBuy(viewIdx, SwapManager.rocketPrices[viewIdx]);
@@ -327,8 +324,9 @@ public class PlayerManager : MonoBehaviour, ISwapper
 
     private void SetStats(float topSpeed, float fuelEfficiency, float fuelIntake, int shieldStack, bool isLarge)
     {
+        // Set up rocket stats in the appropriate components
         PlayerMovement().SetTopSpeed(topSpeed);
-        PlayerMovement().SetFuelMods(fuelEfficiency, fuelIntake);
+        Fuel().SetFuelMods(fuelEfficiency, fuelIntake);
         PlayerDamage().SetSheildStack(shieldStack);
         PlayerCollision().SetHitBox(isLarge);
     }

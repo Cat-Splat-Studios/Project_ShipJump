@@ -1,17 +1,10 @@
 ﻿/** 
 * Author: Matthew Douglas, Hisham Ata
-* Purpose: To handle all the player movement logic
+* Purpose: To handle all the player movement input and output logic
 **/
 
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-
-public enum EMovementOptions
-{
-    TAP,
-    DRAG
-}
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -34,22 +27,11 @@ public class PlayerMovement : MonoBehaviour
     private float topSpeed;
     private float initialSpeed = 5.0f;
 
-    // Fuel
-    [Header("Fuel")]
-    [SerializeField]
-    private float maxFuel = 100.0f;
-
-    [SerializeField]
-    private float fuelDecrease = 1.0f;
-    private float fuelIntakeMod = 1.0f;
-
-    private float currentFuel;
     private bool outOfFuel = false;
 
     // Distance
     private float distance;
     private float startYPos;
-    private bool canMove = true;
 
     // Lerp Logic
     private bool isLerping = false;
@@ -57,18 +39,8 @@ public class PlayerMovement : MonoBehaviour
     private float t;
 
     // Boost
-    [Header("Boost")]
-    [SerializeField]
-    private float boostMax = 2.0f;
-    private float boostLimit;
     private float boostMod = 0.0f;
     private bool isBoost = false;
-    private float boostTime = 0.0f;
-    private ParticleSystem currentBoostParticle;
-    private float boostInitalSize;
-    private int currentBoostMod;
-    private float scoreMod;
-    public float[] boostMods;
 
     [Header("Sounds")]
     public AudioClip thrustUp;
@@ -76,177 +48,62 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource thrusters;
 
     // References
+    [Header("Player References")]
+    [SerializeField]
     private Rigidbody rb;
-    private UIDelgate ui;
+    [SerializeField]
     private Animator anim;
-    private GeneratorManager generator;
-    private new AudioManager audio;
+    [SerializeField]
     private PlayerManager player;
+    [SerializeField]
+    private PlayerFuel fuel;
+    [SerializeField]
     private ScoreSystem score;
+
+    [Header("Other References")]
+    [SerializeField]
+    private CameraFollow cameraFollow;
+    [SerializeField]
+    private GeneratorManager generator;
+    [SerializeField]
+    private new AudioManager audio;
+    [SerializeField]
+    private UIDelgate ui;
 
     // Misc
     [Header("Misc")]  
     public float xClamp = 3.0f;
 
     private bool startGame = false;
-    private float screenCenterX;
-
-    private EMovementOptions moveOption = EMovementOptions.TAP;
-    public float touchOffset = 1.0f;
     
     // Start is called before the first frame update
     void Start()
     {
         // Find References
-        rb = GetComponent<Rigidbody>();
-        ui = FindObjectOfType<UIDelgate>();
-        anim = GetComponent<Animator>();
-        generator = FindObjectOfType<GeneratorManager>();
-        audio = FindObjectOfType<AudioManager>();
-        player = GetComponent<PlayerManager>();
-        score = GetComponent<ScoreSystem>();
-
-        screenCenterX = Screen.width * 0.5f;
-        currentSpeedX = 0.0f;
-
-        currentFuel = maxFuel;           
+        currentSpeedX = 0.0f;      
     }
-
-
 
     // Update is called once per frame
     void Update()
     {
         // Update Move Logic
-        if(canMove)
-        {
             if (startGame)
-            {
-                // Check Platform
-                if (Application.isMobilePlatform)
-                {
-                    if (Input.touchCount > 0)
-                    {
-                        // get the first one
-                        Touch firstTouch = Input.GetTouch(0);
-
-                        // if it began this frame
-
-                        if(moveOption == EMovementOptions.DRAG)
-                        {
-                            if ((firstTouch.phase == TouchPhase.Moved || firstTouch.phase == TouchPhase.Began) && !IsPointerOverUIObject(firstTouch.position.x, firstTouch.position.y))
-                            {
-                                Vector3 worldPosition;
-                                Vector3 mousePos = firstTouch.position;
-                                mousePos.z = 10.0f;
-                                worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
-
-                                if (transform.position.x < worldPosition.x - touchOffset)
-                                {
-                                    currentSpeedX = speedX;
-                                }
-                                else if (transform.position.x > worldPosition.x + touchOffset)
-                                {
-                                    currentSpeedX = -speedX;
-                                }
-                                else
-                                {
-                                    currentSpeedX = 0;
-                                }
-                            }
-                        } 
-                        else if(moveOption == EMovementOptions.TAP)
-                        {
-                            if ((firstTouch.phase == TouchPhase.Stationary || firstTouch.phase == TouchPhase.Began) && !IsPointerOverUIObject(firstTouch.position.x, firstTouch.position.y))
-                            {
-
-
-                                if (firstTouch.position.x > screenCenterX)
-                                {
-                                    currentSpeedX = speedX;
-                                }
-                                else if (firstTouch.position.x < screenCenterX)
-                                {
-                                    currentSpeedX = -speedX;
-                                }
-                            }
-                        }
-                       
-
-                        if(firstTouch.phase == TouchPhase.Ended || firstTouch.phase == TouchPhase.Canceled)
-                        {
-                            currentSpeedX = 0;
-                        } 
-                       
-                    }
-                    else
-                    {
-                        currentSpeedX = 0;
-                    }
-                }
-
-                if (Application.isEditor)
-                {
-                    if (Input.GetMouseButton(0))
-                    {
-                        if(moveOption == EMovementOptions.DRAG)
-                        {
-                            if (!IsPointerOverUIObject(Input.mousePosition.x, Input.mousePosition.y))
-                            {
-
-                                Vector3 worldPosition;
-
-                                Vector3 mousePos = Input.mousePosition;
-                                mousePos.z = 10.0f;
-                                worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
-
-                                if (transform.position.x < worldPosition.x - touchOffset)
-                                {
-                                    currentSpeedX = speedX;
-                                }
-                                else if (transform.position.x > worldPosition.x + touchOffset)
-                                {
-                                    currentSpeedX = -speedX;
-                                }
-                                else
-                                {
-                                    currentSpeedX = 0;
-                                }
-                            }
-                           
-                        }
-                        else if (moveOption == EMovementOptions.TAP)
-                        {
-
-                            if (Input.mousePosition.x > screenCenterX)
-                            {
-                                currentSpeedX = speedX;
-                            }
-                            else if (Input.mousePosition.x < screenCenterX)
-                            {
-                                currentSpeedX = -speedX;
-                            }
-                        }
-
-
-                    }
-                    else
-                    {
-                        currentSpeedX = 0;
-                    }
-
-                }
-
+            {           
                 // Handle Movement Dependant of current fuel
-                if (currentFuel > 0.0f)
+                if (fuel.HasFuel())
                 {
                     if (outOfFuel)
                     {
+                        // This is when you gain fuel again after out of fuel
                         outOfFuel = false;
+
+                        // Turn on thrusters again
                         player.SetThrusters(true);
-                        audio.PlaySound(thrustUp);
                         thrusters.Play();
-                        FindObjectOfType<CameraFollow>().MoveCameraUp();
+                        audio.PlaySound(thrustUp);
+                        
+                        // Adjust camera back to bottom and turn on top object generations
+                        cameraFollow.MoveCameraUp();
                         generator.TopGenerate();
                         isLerping = true;
                     }
@@ -258,31 +115,25 @@ public class PlayerMovement : MonoBehaviour
                     if(!isBoost)
                     {
                         currentSpeedUp = speedDown;
-                        currentFuel = 0.0f;
                         if (!outOfFuel)
                         {
-                            //if(SwapManager.EmergencyFuelCount > 0 && !usedEmergencyFuel)
-                            //{
-                            //    AddFuel(100.0f);
-                            //    SwapManager.EmergencyFuelCount--;
-                            //    usedEmergencyFuel = true;
-                            //    fuelIcon.ActivateFuel();
-
-                            //}
-
+                            // This is for when you run out of fuel
                             outOfFuel = true;
+
+                            // Turn off thrusters
                             audio.PlaySound(thrustDown);
                             player.SetThrusters(false);
                             thrusters.Stop();
-                            FindObjectOfType<CameraFollow>().MoveCameraDown();
-                            FindObjectOfType<GeneratorManager>().FallGenerate();
-                            isLerping = true;
-             
+
+                            // Move camera up to look at incoming objects from behind
+                            cameraFollow.MoveCameraDown();
+                            generator.FallGenerate();
+                            isLerping = true;            
                         }
                     }
                 }
 
-                // Speed adjustments based on fuel
+                // Speed adjustments based on fuel changes
                 if (isLerping)
                 {
                     if (outOfFuel)
@@ -311,9 +162,6 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
 
-                // Adjust fuel
-                currentFuel -= (fuelDecrease) * Time.deltaTime;
-
                 // Adjust speed
                 if (speedUp < topSpeed)
                 {
@@ -333,34 +181,13 @@ public class PlayerMovement : MonoBehaviour
                 // Adjust Distance
                 distance = Mathf.Round(transform.position.y - startYPos);
 
-
-                // Boost adjustments
-                if (isBoost)
-                {
-                    boostTime -= Time.deltaTime;
-
-                    float percent = boostTime / boostLimit;
-                    var main = currentBoostParticle.main;
-                    main.startSize = boostInitalSize * percent;
-
-                    if (boostTime <= 0.0f)
-                    {
-                        StopBoost();
-                    }
-                }
-
-                score.ScoreUpdate(distance, speedUp, scoreMod);
-
+                // Update Score
+                score.ScoreUpdate(distance, speedUp);
             }
             else
             {
                 currentSpeedUp = 5.0f;
             }  
-        }
-
-     
-        // set ui fuel
-        ui.curFuel = currentFuel / 100;
 
         // Animate tilts
         anim.SetInteger("tilt", (int)currentSpeedX);
@@ -372,86 +199,42 @@ public class PlayerMovement : MonoBehaviour
 
     /** Game State Adjustments **/
 
-    // Switch input controls
-    public void SetMoveOptions(EMovementOptions option)
-    {
-        moveOption = option;
-    }
-
     public void StopMovement()
     {
-        if (isBoost)
-        {
-            StopBoost();
-        }
-
+        // Stop all movement as round has ended
         currentSpeedX = 0;
         currentSpeedUp = 0;
 
-        canMove = false;
         startGame = false;
         outOfFuel = false;
-        player.SetThrusters(true);
-        score.CheckScore();
-        //player.MagnetOff();
-        GearManager.instance.ToggleDoubleGears(false);
+
+        // Update the gears you have
         ui.UpdateGearText();
-
-
     }
 
     public void StartGame()
     {
+        // Reset distance tracking and start movement
         startYPos = transform.position.y;
-        startGame = true;    
+        startGame = true;
     }
 
     public void ResetMove()
     {
-        // MovementReset();
-        currentFuel = maxFuel;
+        // Set back to zero position and reset different variables
         transform.position = Vector3.zero;
-        canMove = true;
         speedUp = initialSpeed;
-        currentBoostMod = 0;
-        scoreMod = boostMods[0];
         score.ResetScore();
         MovementUIReset();
         acceleration = maxAccel;
-        boostLimit = boostMax;
-
     }
 
     public void ResetIdle()
     {
-        currentFuel = maxFuel;
+        // When switching back to menu
         currentSpeedX = 0.0f;
-        canMove = true;
         transform.position = Vector3.zero;
         startGame = false;
-    }
-
-    public void SetBoost()
-    {
-        if (currentBoostMod < 3)
-        {
-            currentBoostMod++;
-            scoreMod = boostMods[currentBoostMod];
-        }
-
-        boostTime = boostLimit;
-        boostMod = 2.0f;
-
-        if (!isBoost)
-        {
-            isBoost = true;
-            currentBoostParticle = player.GetBoostParticle();
-            boostInitalSize = currentBoostParticle.startSize;
-        }
-        else
-        {
-            currentBoostParticle.startSize = boostInitalSize;
-        }
     }
 
     /** Stat adjustments **/
@@ -462,30 +245,27 @@ public class PlayerMovement : MonoBehaviour
         speedUp = initialSpeed;
     }
 
-    // Fuel from Rocket Stats
-    public void SetFuelMods(float fuelBurn, float fuelIntake)
+    /** X axis movement **/
+    public void GoLeft()
     {
-        fuelDecrease = fuelBurn;
-        fuelIntakeMod = fuelIntake;
+        currentSpeedX = -speedX;
     }
 
-    public void AddFuel(float amount)
+    public void GoRight()
     {
-        float fuelAdded = amount * fuelIntakeMod;
-        currentFuel += fuelAdded;
-        if (currentFuel > maxFuel)
-        {
-            currentFuel = maxFuel;
-        }
+        currentSpeedX = speedX;
     }
 
-    public void RetroFitEngines()
+    public void DontTurn()
     {
-        acceleration = maxAccel + (maxAccel * 0.75f);
+        currentSpeedX = 0;
     }
-    public void NitroFuel()
+
+    public void SetBoostSpeedMod(float mod, bool boost)
     {
-        boostLimit = boostMax + 2.0f;
+        // Adjust modification if in boost
+        boostMod = mod;
+        isBoost = boost;
     }
 
     /** MISC **/
@@ -494,28 +274,8 @@ public class PlayerMovement : MonoBehaviour
     {
         return speedUp;
     }
+
     /** Helper Methods **/
-
-    private void StopBoost()
-    {
-        GetComponent<PlayerManager>().SetBoost(false);
-        isBoost = false;
-        boostTime = 0.0f;
-        boostMod = 0.0f;
-        currentBoostMod = 0;
-        scoreMod = boostMods[currentBoostMod];
-    }
-
-    // Check if user input is over ui (dont move player if so)
-    private bool IsPointerOverUIObject(float xPos, float yPos)
-    {
-        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
-        eventDataCurrentPosition.position = new Vector2(xPos, yPos);
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
-        return results.Count > 0;
-    }
-
     private void MovementUIReset()
     {
         ui.curSpeed = speedUp.ToString("f2");

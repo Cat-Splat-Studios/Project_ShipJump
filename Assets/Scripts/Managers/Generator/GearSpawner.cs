@@ -1,36 +1,42 @@
 ﻿/** 
 * Author: Matthew Douglas, Hisham Ata
-* Purpose: To spawn in collectibles in there approriate pattern
+* Purpose: To spawn in collectibles in their approriate patterns
 **/
 
 using UnityEngine;
 
-public class CoinSpawner : MonoBehaviour
+public class GearSpawner : MonoBehaviour
 {
-    public int coinsToSpawn = 0;
-    public float yOffset = 0.2f;
-    public float xOffset = 1.0f;
-    public GameObject coinPrefab;
+    [SerializeField]
+    private int gearsToSpawn = 0;
+
+    // Offsets to spawn gears from on each axis when making patterns
+    [SerializeField]
+    private float yOffset = 0.2f;
+    [SerializeField]
+    private float xOffset = 1.0f;
 
     private string poolName = "PickupGears";
 
-    // Start is called before the first frame update
     void Start()
     {
-
-        coinsToSpawn = Random.Range(0, 4);
+        // Randomize number of gears to spawn and get the position of spawning area
+        gearsToSpawn = Random.Range(0, 4);
         float PosX = transform.position.x;
+
+        // Number of possible patterns
         int randMax = 6;
 
+        // CRITERIA MATCHING
         // Check where random position in on x axis
-        // eliminate patterns that would cause collectibles to go off screen
+        // Eliminate patterns that would cause collectibles to go off screen 
         if (PosX > 1.5f || PosX < -1.5f)
             randMax = randMax - 2;
 
-        if ((coinsToSpawn == 3 && PosX < -0.75f) || (coinsToSpawn == 2 && PosX < -1.75f))
+        if ((gearsToSpawn == 3 && PosX < -0.75f) || (gearsToSpawn == 2 && PosX < -1.75f))
             randMax--;
 
-        if ((coinsToSpawn == 3 && PosX > 0.75f) || (coinsToSpawn == 2 && PosX > 1.75f))
+        if ((gearsToSpawn == 3 && PosX > 0.75f) || (gearsToSpawn == 2 && PosX > 1.75f))
             randMax--;
 
         int rand = Random.Range(0, randMax);
@@ -39,29 +45,34 @@ public class CoinSpawner : MonoBehaviour
         {
             case 0:
             case 1:
-                for (int i = 0; i < coinsToSpawn; ++i)
+                // Straight Line Pattern
+                for (int i = 0; i < gearsToSpawn; ++i)
                 {
                     CheckSpawn(new Vector3(transform.position.x, transform.position.y + (yOffset * i), transform.position.z));
                 }
                 break;
             case 2:
-                for (int i = 0; i < coinsToSpawn; ++i)
+                // Diagonal Right Pattern
+                for (int i = 0; i < gearsToSpawn; ++i)
                 {
                     CheckSpawn(new Vector3(transform.position.x + (xOffset * i), transform.position.y + (yOffset * i), transform.position.z));
                 }
                 break;
             case 3:
-                for (int i = 0; i < coinsToSpawn; ++i)
+                // Diagonal Left Pattern
+                for (int i = 0; i < gearsToSpawn; ++i)
                 {
                     CheckSpawn(new Vector3(transform.position.x - (xOffset * i), transform.position.y + (yOffset * i), transform.position.z));
                 }
                 break;
             case 4:
+                // Triangle Pattern
                 CheckSpawn(new Vector3(transform.position.x + 1.0f, transform.position.y, transform.position.z));
                 CheckSpawn(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z));
                 CheckSpawn(new Vector3(transform.position.x - 1.0f, transform.position.y, transform.position.z));
                 break;
             case 5:
+                // Star Pattern
                 CheckSpawn(new Vector3(transform.position.x, transform.position.y, transform.position.z));
                 CheckSpawn(new Vector3(transform.position.x, transform.position.y + 1.25f, transform.position.z));
                 CheckSpawn(new Vector3(transform.position.x - 1.25f, transform.position.y, transform.position.z));
@@ -73,8 +84,8 @@ public class CoinSpawner : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    // makes sure you can spawn and object there
-
+    // Helper function that checks to make sure area does not conflict with any other objects
+    // Works 95% of the time
     private void CheckSpawn(Vector3 pos)
     {
         Collider[] hitcolliders = Physics.OverlapSphere(pos, 1.0f, LayerMask.GetMask("Spawners"));
@@ -87,5 +98,4 @@ public class CoinSpawner : MonoBehaviour
         GameObject gear = Pool.SpawnObject(poolName);
         gear.transform.position = pos;
     }
-
 }

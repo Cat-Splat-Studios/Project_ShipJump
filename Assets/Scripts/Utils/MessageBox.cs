@@ -25,10 +25,12 @@ public class MessageBox : MonoBehaviour
 
     public void SetPrompt(string title, string description, Action<bool> callback = null)
     {
+        // Display the message with the correct text
         Display();
         textTitle.text = title;
         textDescription.text = description;
 
+        // Enable callback methods
         if (callback != null)
         {
             onMessageAction = callback;

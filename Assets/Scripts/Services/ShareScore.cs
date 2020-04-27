@@ -1,5 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/** 
+* Author: Matthew Douglas, Hisham Ata
+* Purpose: To handle the share logic using the Voxel Plugin
+**/
+
 using UnityEngine;
 using VoxelBusters.NativePlugins;
 

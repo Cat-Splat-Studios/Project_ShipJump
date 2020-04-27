@@ -10,6 +10,8 @@ public class Generator : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField]
     private string[] poolNames;
+
+    // FOR GEAR SPAWN GENERATORS ONLY - Has seperate spawner object that handles patterns
     [SerializeField]
     private GameObject gearSpawnPrefab;
 

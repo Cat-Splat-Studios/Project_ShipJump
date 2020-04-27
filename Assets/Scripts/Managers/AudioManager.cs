@@ -21,6 +21,7 @@ public class AudioManager : MonoBehaviour, ISwapper
     [Header("Button Sounds")]
     public AudioClip[] buttonSounds;
 
+    // All the sounds objects in game we can use
     private List<AudioSource> soundObjects;
 
     private void Start()
@@ -61,6 +62,7 @@ public class AudioManager : MonoBehaviour, ISwapper
 
     public void PressButton(int buttonSound = 0)
     {
+        // Play a specific sound of button depending on the state of button press
         PlaySound(buttonSounds[buttonSound]);
     }
 

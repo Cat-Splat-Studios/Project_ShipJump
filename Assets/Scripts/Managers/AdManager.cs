@@ -5,23 +5,14 @@
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-[System.Serializable]
-public struct Reward
-{
-    public string title;
-    [TextArea]
-    public string description;
-    public EAbilityState ability;
-    public Sprite Icon;
-}
-
-
 public class AdManager : MonoSingleton<AdManager>
 {
     [SerializeField]
     private bool testMode = true;
     [SerializeField]
-    private int gearReward = 200;
+    private int gearReward = 100;
+
+    // Time durations for each ad
     [SerializeField]
     private float normalthresholdTime = 180.0f;
     [SerializeField]
@@ -37,6 +28,7 @@ public class AdManager : MonoSingleton<AdManager>
     private string myPlacementId = "video";
     private string myRewardPlacementId = "rewardedVideo";
 
+    // Current time tracking for each ad
     private float currentTimeThreshold = 0.0f;
     private float currentTimeButtonThreshold = 0.0f;
 
@@ -50,10 +42,6 @@ public class AdManager : MonoSingleton<AdManager>
 
     private bool isTracking = false;
 
-    //[Header("Reward Abilities")]
-    //public Reward[] rewards;
-   // public Abilities playerAbility;
-
     // Start is called before the first frame update
     void Start()
     {     
@@ -65,12 +53,15 @@ public class AdManager : MonoSingleton<AdManager>
         Advertisement.Initialize(gameId, testMode);
         op = new ShowOptions();
         op1 = new ShowOptions();
+
+        // deprecated way of doing ads, but more clearer way, new way was not working
         op1.resultCallback = OnNormalAdFinish;
         op.resultCallback = OnUnityAdsDidFinish;
     }
 
     public void ToggleTracking(bool value)
     {
+        // Enable tracking for ads (turns on ads)
         isTracking = value;
         currentTimeThreshold = 0.0f;
         currentTimeButtonThreshold = 0.0f;

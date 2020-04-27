@@ -23,12 +23,12 @@ public class GeneratorManager : MonoBehaviour
     [SerializeField]
     private float offset = 15.0f;
 
+    [SerializeField]
     private PlayerManager player;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player").GetComponent<PlayerManager>();
         if(player)
         {
             InitClamps();
@@ -45,24 +45,28 @@ public class GeneratorManager : MonoBehaviour
 
     public void TopGenerate()
     {
+        // Turn on top generators
         ToggleTopGenerators(true);
         ToggleBottomGenerators(false);
     }
 
     public void FallGenerate()
     {
+        // Turn on bottom generators because player is falling
         ToggleTopGenerators(false);
         ToggleBottomGenerators(true);
     }
 
     public void StopGenerators()
     {
+        // Turn off all generators
         ToggleTopGenerators(false);
         ToggleBottomGenerators(false);
     }
 
     private void InitClamps()
     {
+        // Set the clamps on the x-axis to prevent objects spawning off screen
         foreach (GameObject generator in topGenerators)
         {
             Generator gen = generator.GetComponent<Generator>();
@@ -82,6 +86,8 @@ public class GeneratorManager : MonoBehaviour
         bottomCollector.transform.localPosition = new Vector3(0.0f, -offset - 5.0f, 0.0f);
     }
 
+
+    /** Helper Methods **/
     private void ToggleTopGenerators(bool value)
     {
         foreach (GameObject generator in topGenerators)

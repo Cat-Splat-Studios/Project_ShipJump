@@ -1,5 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿/** 
+* Author: Hisham Ata, Matthew Douglas
+* Purpose: To Handle the cloud saving and loading process utilizing the Voxel Native Plugin
+**/
+
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using VoxelBusters.NativePlugins;

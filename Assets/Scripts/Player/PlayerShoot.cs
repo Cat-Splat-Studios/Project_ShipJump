@@ -7,33 +7,35 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
-    // Shooting
-    public bool canShoot;
+    public UIDelgate ui;
+
+    [Header("Projectile Info")]
     public GameObject projectilePrefab;
-    public GameObject projectileSpawn;
 
+    [Header("Audio")]
     public new AudioManager audio;
-    public AudioClip fireSound;
+    public AudioClip[] fireSounds;
 
-    private UIDelgate ui;
+    private bool canShoot;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        ui = FindObjectOfType<UIDelgate>();
-    }
     public void Shoot()
     {
+        // Shoot projectile if able to
         if(canShoot)
         {
-            Instantiate(projectilePrefab, projectileSpawn.transform.position, Quaternion.identity);
-            audio.PlaySound(fireSound);
+            Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            foreach(AudioClip sound in fireSounds)
+            {
+                audio.PlaySound(sound);
+            }
+            
             TurnOff();
         }
     }
 
     public void EnableShoot()
     {
+        // Prompts shoot button and enables shoot
         if (!canShoot)
         {
             canShoot = true;
@@ -46,4 +48,5 @@ public class PlayerShoot : MonoBehaviour
         canShoot = false;
         ui.ToggleShoot(false);
     }
+
 }

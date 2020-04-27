@@ -22,7 +22,6 @@ public class CameraFollow : MonoBehaviour
     private float targetOffset;
 
     private bool isLerping = false;
-    private bool onMenu = false;
 
     float t = 0.0f;
 
