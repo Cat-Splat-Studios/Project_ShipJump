@@ -18,6 +18,8 @@ public class UIDelgate : MonoBehaviour
     private Text startText;
     [SerializeField]
     private Text gearText;
+    [SerializeField]
+    public GameObject highscoreArea;
 
     // Game UI
     [Header("Game UI")]
@@ -205,6 +207,7 @@ public class UIDelgate : MonoBehaviour
     {
         storeUI.SetActive(value);
         startUI.SetActive(!value);
+        highscoreArea.SetActive(!value);
     }
 
     public void BackToMenu()

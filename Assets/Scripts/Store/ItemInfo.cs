@@ -42,6 +42,9 @@ public class ItemInfo : MonoBehaviour
     private SwapManager swapper;
     public MessageBox confirmPurchasePrompt;
 
+    public bool isInShop = false;
+    public StoreOption storeOption;
+
     private void Start()
     {
         swapper = FindObjectOfType<SwapManager>();
@@ -70,9 +73,9 @@ public class ItemInfo : MonoBehaviour
         // Depending if unlock or not, set the item state (can be purchased or can be selected)
         if (value)
         {
-            buttonText.text = "Select";
-            SetSelectedeButtonActive();
             priceText.text = "Owned";
+            buttonText.text = "Select";
+            SetSelectedeButtonActive();            
         }
         else
         {
@@ -144,7 +147,11 @@ public class ItemInfo : MonoBehaviour
                     swapper.ObstacleSelect(unlockIndex);
                     break;
             }
-            parentShop.InitItems();
+
+            if (!isInShop)
+                parentShop.InitItems();
+            else
+                storeOption.ItemCheck();
         }
         else
         {
