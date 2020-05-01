@@ -133,6 +133,7 @@ public class SwapManager : MonoSingleton<SwapManager>
         if (listToCheck == null)
             listToCheck = new List<int>();
 
-        listToCheck.Add(0);
+        if(!listToCheck.Contains(0))
+            listToCheck.Add(0);
     }
 }

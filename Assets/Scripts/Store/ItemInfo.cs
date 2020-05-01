@@ -83,6 +83,7 @@ public class ItemInfo : MonoBehaviour
             SetPurchaseButtonActive();
             priceText.text = price.ToString();
         }
+
     }
 
     public void SetPurchaseButtonActive()

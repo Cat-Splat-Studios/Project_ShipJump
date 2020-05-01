@@ -67,9 +67,11 @@ public class ScoreSystem : MonoBehaviour
         if (score > highscore)
         {
             GameService.ReportScore("Highest Score", score);
-            ui.Highscore();
+            ui.Highscore(); 
             highscore = score;         
         }
+
+        ui.UpdateHighscoreText();
     }
 
     public int GetHighscore(bool isScore = true)

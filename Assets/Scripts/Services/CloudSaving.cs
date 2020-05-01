@@ -137,7 +137,7 @@ public class CloudSaving : MonoSingleton<CloudSaving>
         SwapManager.MusicUnlocks = GetUnlocks(ObstacleUnlocksKey);
         SwapManager.ObstacleUnlocks = GetUnlocks(PlayerUnlocksKey);
 
-        //SwapManager.AddDefaults();
+        SwapManager.AddDefaults();
 
         player.Score().SetHighscores((int)NPBinding.CloudServices.GetLong(HighscoreKey), (int)NPBinding.CloudServices.GetLong(HighDistanceKey));
         player.InitUnlock();
@@ -157,11 +157,17 @@ public class CloudSaving : MonoSingleton<CloudSaving>
         SwapManager.MusicUnlocks = new List<int>();
         SwapManager.ObstacleUnlocks = new List<int>();
 
-        //SwapManager.AddDefaults();
+        SwapManager.AddDefaults();
 
         player.Score().SetHighscores(0, 0);
 
         player.InitUnlock();
+    }
+
+    public void ResetData()
+    {
+        DefaultLoad();
+        SaveGame();
     }
 
     private List<int> GetUnlocks(string key)

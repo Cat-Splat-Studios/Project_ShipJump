@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     // Speeds
     [Header("Speeds")]
     [SerializeField]
+    private float maxSpeed = 15.0f;
+    [SerializeField]
     private float maxAccel = 0.05f;
     [SerializeField]
     private float speedUp = 2.0f;
@@ -25,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     // set speeds
     private float topSpeed;
-    private float initialSpeed = 5.0f;
+    private float initialSpeed = 6.0f;
 
     private bool outOfFuel = false;
 
@@ -163,26 +165,26 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 // Adjust speed
-                if (speedUp < topSpeed)
+                if (speedUp < maxSpeed)
                 {
                     speedUp += (acceleration * Time.deltaTime);
 
-                    if (speedUp > topSpeed)
-                        speedUp = topSpeed;
+                    if (speedUp > maxSpeed)
+                        speedUp = maxSpeed;
                 }
                 else
-                    speedUp = topSpeed;
+                    speedUp = maxSpeed;
 
                 speedDown = -speedUp;
 
-                ui.curSpeed = (speedUp + boostMod).ToString("f2");
+                ui.curSpeed = ((speedUp + boostMod) - 5.0f).ToString("f2");
                 ui.UpdateSpeed();
 
                 // Adjust Distance
                 distance = Mathf.Round(transform.position.y - startYPos);
 
                 // Update Score
-                score.ScoreUpdate(distance, speedUp);
+                score.ScoreUpdate(distance, speedUp - 5.0f);
             }
             else
             {
@@ -190,7 +192,8 @@ public class PlayerMovement : MonoBehaviour
             }  
 
         // Animate tilts
-        anim.SetInteger("tilt", (int)currentSpeedX);
+        if(anim)
+             anim.SetInteger("tilt", (int)currentSpeedX);
 
         // Set finished movment each frame
         rb.velocity = new Vector3(currentSpeedX, currentSpeedUp + boostMod, 0.0f);
@@ -241,8 +244,13 @@ public class PlayerMovement : MonoBehaviour
     // Speed from Rocket Stats
     public void SetTopSpeed(float topSpeed)
     {
-        this.topSpeed = topSpeed;
-        speedUp = initialSpeed;
+        initialSpeed = topSpeed;
+    }
+
+    public void SetAcceleration(bool isSmall)
+    {
+        //if (isSmall)
+        //    acceleration -= (acceleration / 4);
     }
 
     /** X axis movement **/
@@ -278,7 +286,7 @@ public class PlayerMovement : MonoBehaviour
     /** Helper Methods **/
     private void MovementUIReset()
     {
-        ui.curSpeed = speedUp.ToString("f2");
+        ui.curSpeed = (speedUp - 5.0f).ToString("f2");
         ui.UpdateSpeed();
         ui.resetDistance();
     }

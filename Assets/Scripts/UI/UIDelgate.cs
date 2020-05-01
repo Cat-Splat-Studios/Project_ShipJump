@@ -243,6 +243,12 @@ public class UIDelgate : MonoBehaviour
         startText.text = $"{player.Score().GetHighscore()}";
     }
 
+    public void UpdateStartInfo()
+    {
+        UpdateGearText();
+        UpdateHighscoreText();
+    }
+
 
     public void QuitGame()
     {

@@ -48,7 +48,8 @@ public class RocketCard : MonoBehaviour
         card.sprite = cardImages[rocketIdx];
         price = rocketPrice;
         priceText.text = price.ToString();
-        actionButton.interactable = true;
+        actionButton.interactable = GearManager.instance.CheckGears(price);
+
     }
 
     public void InitCardView(int rocketIdx)

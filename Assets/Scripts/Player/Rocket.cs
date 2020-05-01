@@ -43,16 +43,16 @@ public class Rocket : MonoBehaviour
     public int GetShieldStack()
     {
         if (size == ERocketSize.LARGE)
-            return 2;
-        else
             return 1;
+        else
+            return 2;
     }
 
     public float GetFuelIntake()
     {
         if (size == ERocketSize.LARGE)
-            return 1.0f;
+            return 1.25f;
         else
-            return 1.5f;
+            return 1.0f;
     }
 }

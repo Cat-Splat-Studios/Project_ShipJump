@@ -24,6 +24,8 @@ public class Obstacle : MonoBehaviour, IPoolObject, ISwapper
 
     private new AudioManager audio;
 
+    public bool isRecord = false;
+
     void Start()
     {
         // Find References
@@ -41,8 +43,15 @@ public class Obstacle : MonoBehaviour, IPoolObject, ISwapper
         GameObject particleObj = Instantiate(obstacleParticlePrefab[randomParticle], new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -1.0f), Quaternion.identity) as GameObject;
         audio.PlaySound(destroySounds[randomSound]);
 
+
+        if (!isRecord)
+        {           
+            Pool.RemoveObject(poolName, this.gameObject);
+        }
+        else
+            Destroy(this.gameObject);
+
         Destroy(particleObj, 1.5f);
-        Pool.RemoveObject(poolName, this.gameObject);
     }
 
     public string GetPoolName()

@@ -326,8 +326,10 @@ public class PlayerManager : MonoBehaviour, ISwapper
     {
         // Set up rocket stats in the appropriate components
         PlayerMovement().SetTopSpeed(topSpeed);
+        PlayerMovement().SetAcceleration(!isLarge);
         Fuel().SetFuelMods(fuelEfficiency, fuelIntake);
         PlayerDamage().SetSheildStack(shieldStack);
         PlayerCollision().SetHitBox(isLarge);
+
     }
 }
