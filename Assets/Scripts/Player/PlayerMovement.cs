@@ -103,6 +103,9 @@ public class PlayerMovement : MonoBehaviour
                         player.SetThrusters(true);
                         thrusters.Play();
                         audio.PlaySound(thrustUp);
+
+                        // Reset score counter to continue calculating score now
+                        score.ForwardAgain(distance);
                         
                         // Adjust camera back to bottom and turn on top object generations
                         cameraFollow.MoveCameraUp();
@@ -177,14 +180,14 @@ public class PlayerMovement : MonoBehaviour
 
                 speedDown = -speedUp;
 
-                ui.curSpeed = ((speedUp + boostMod) - 5.0f).ToString("f2");
+                ui.curSpeed = ((speedUp + boostMod) - 5.0f).ToString("f0");
                 ui.UpdateSpeed();
 
                 // Adjust Distance
                 distance = Mathf.Round(transform.position.y - startYPos);
 
                 // Update Score
-                score.ScoreUpdate(distance, speedUp - 5.0f);
+                score.ScoreUpdate(distance, (speedUp + boostMod) - 5.0f);
             }
             else
             {
@@ -286,7 +289,7 @@ public class PlayerMovement : MonoBehaviour
     /** Helper Methods **/
     private void MovementUIReset()
     {
-        ui.curSpeed = (speedUp - 5.0f).ToString("f2");
+        ui.curSpeed = (speedUp - 5.0f).ToString("f0");
         ui.UpdateSpeed();
         ui.resetDistance();
     }

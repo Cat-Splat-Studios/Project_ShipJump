@@ -33,7 +33,7 @@ public class SwapManager : MonoSingleton<SwapManager>
     private new AudioManager audio;
 
     public static List<int> allRockets = new List<int>{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
-    public static List<int> rocketPrices = new List<int> { 0, 800, 1000, 1200, 1500, 2000, 3000, 5000, 3000, 5000, 8000, 8000, 10000, 10000 };
+    public static List<int> rocketPrices = new List<int> { 0, 0, 1500, 1500, 3000, 3000, 3500, 3500, 5000, 5000, 8000, 8000, 10000, 10000 };
 
 
     private void Start()
@@ -45,7 +45,7 @@ public class SwapManager : MonoSingleton<SwapManager>
 
     public static void AddDefaults()
     {
-        ListDefaultCheck(PlayerUnlocks);
+        ListDefaultCheck(PlayerUnlocks, true);
         ListDefaultCheck(BackgroundUnlocks);
         ListDefaultCheck(MusicUnlocks);
         ListDefaultCheck(ObstacleUnlocks);
@@ -128,12 +128,15 @@ public class SwapManager : MonoSingleton<SwapManager>
         audio.SwapIt();
     }
 
-    private static void ListDefaultCheck(List<int> listToCheck)
+    private static void ListDefaultCheck(List<int> listToCheck, bool isPlayer = false)
     {
         if (listToCheck == null)
             listToCheck = new List<int>();
 
         if(!listToCheck.Contains(0))
             listToCheck.Add(0);
+
+        if (isPlayer && !listToCheck.Contains(2))
+            listToCheck.Add(2);
     }
 }

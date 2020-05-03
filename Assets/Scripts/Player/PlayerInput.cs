@@ -151,7 +151,7 @@ public class PlayerInput : MonoBehaviour
             {
                 if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
                 {
-                    if ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began))
+                    if ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began) && !IsPointerOverUIObject(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y))
                     {
                         Ray raycast = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
                         player.GetRocketTap(raycast);
@@ -159,7 +159,7 @@ public class PlayerInput : MonoBehaviour
                 }
                 else
                 {
-                    if (Input.GetMouseButtonUp(0))
+                    if (Input.GetMouseButtonUp(0) && !IsPointerOverUIObject(Input.mousePosition.x, Input.mousePosition.y))
                     {
                         Ray raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
                         player.GetRocketTap(raycast);

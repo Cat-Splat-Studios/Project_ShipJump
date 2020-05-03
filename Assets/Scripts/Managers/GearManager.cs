@@ -52,6 +52,8 @@ public class GearManager : MonoSingleton<GearManager>
             levelGears++;
             gears++;
         }
+
+        ui.SetGameGearText(levelGears);
     }
 
     public void ToggleDoubleGears(bool value)
@@ -80,6 +82,7 @@ public class GearManager : MonoSingleton<GearManager>
     public void ResetLevelGears()
     {
         levelGears = 0;
+        ui.SetGameGearText(levelGears);
     }
 
     public bool CheckGears(int amount)

@@ -16,9 +16,6 @@ public class ScoreSystem : MonoBehaviour
     private int curDistance = 0;
     private int nextDistance;
 
-    // Modification from boost
-    private float currentMod;
-
     // Highscores stored
     private int highscore;
     private int highDistance;
@@ -34,7 +31,6 @@ public class ScoreSystem : MonoBehaviour
         score = 0;
         nextDistance = 1;
         curDistance = 0;
-        currentMod = 1;
         UpdateScoreUI();
     }
 
@@ -46,7 +42,7 @@ public class ScoreSystem : MonoBehaviour
         // Check if you gone 1km, add to score
         if (curDistance >= nextDistance)
         {
-            AddToScore(speed, currentMod);
+            AddToScore(speed);
             nextDistance++;
         }
 
@@ -74,6 +70,12 @@ public class ScoreSystem : MonoBehaviour
         ui.UpdateHighscoreText();
     }
 
+    public void ForwardAgain(float distance)
+    {
+        curDistance = (int)distance;
+        nextDistance = curDistance + 1;
+    }
+
     public int GetHighscore(bool isScore = true)
     {
         if (isScore)
@@ -82,15 +84,10 @@ public class ScoreSystem : MonoBehaviour
             return highDistance;
     }
 
-    public void SetMod(float mod)
-    {
-        currentMod = mod;
-    }
-
-    private void AddToScore(float speedPoint, float mod)
+    private void AddToScore(float speedPoint)
     {
         // Add score based on current speed
-        score += (int)(speedPoint * mod);
+        score += (int)(speedPoint);
     }
 
 
@@ -99,7 +96,6 @@ public class ScoreSystem : MonoBehaviour
         // Update all score information on UI
         ui.curScore = score.ToString();
         ui.curDistance = curDistance.ToString();
-        ui.SetModText(currentMod);
         ui.UpdateScoreText();
     }
 }

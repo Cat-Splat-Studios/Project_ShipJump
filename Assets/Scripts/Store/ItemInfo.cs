@@ -156,7 +156,12 @@ public class ItemInfo : MonoBehaviour
         }
         else
         {
+            if(isInShop && itemtype == EAssetType.MUSIC)
+            {
+                SwapManager.instance.Preview(itemtype, unlockIndex);
+            }
             confirmPurchasePrompt.SetPrompt("Purchase Item?", price.ToString(), ConfirmPurchase);
+
         }     
     }
 
@@ -168,7 +173,22 @@ public class ItemInfo : MonoBehaviour
             GearManager.instance.RemoveGears(price);
             swapper.PurchaseAsset(unlockIndex, itemtype);
             isUnlocked = true;
-            parentShop.InitItems();
+
+            if(isInShop)
+            {
+                ButtonAction();
+            }
+
+
+            if (!isInShop)
+                parentShop.InitItems();
+            else
+                storeOption.ItemCheck();
+        }
+
+        if(!isConfirmed && itemtype == EAssetType.MUSIC)
+        {
+            FindObjectOfType<AudioManager>().SwapIt();
         }
     }
 }

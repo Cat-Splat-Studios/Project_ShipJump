@@ -11,8 +11,6 @@ public class BackgroundManager : MonoBehaviour, ISwapper
     [Header("Meshes")]
     public GameObject[] meshes;
 
-    public Text[] textColorChanging;
-
     public void SwapIt()
     {
 
@@ -33,19 +31,6 @@ public class BackgroundManager : MonoBehaviour, ISwapper
             SwapManager.BackgroundIdx = 0;
         }
             
-
-        // set certain text colour according to background
-        Color textColor;
-
-        if (idx != 0)
-            textColor = Color.black; 
-        else
-            textColor = Color.white;
-
-        foreach(Text text in textColorChanging)
-        {
-            text.color = textColor;
-        }
     }
 
     public void Preview(int idx)

@@ -10,9 +10,6 @@ public class PlayerBoost : MonoBehaviour
     [SerializeField]
     private PlayerManager player;
 
-    [SerializeField]
-    private ScoreSystem score;
-
     [Header("Boost")]
     [SerializeField]
     private float boostMax = 3.0f;
@@ -21,11 +18,6 @@ public class PlayerBoost : MonoBehaviour
 
     private ParticleSystem currentBoostParticle;
     private float boostInitalSize;
-
-    private int currentBoostMod;
-    private float scoreMod;
-
-    public float[] boostMods;
 
 
     // Update is called once per frame
@@ -51,14 +43,6 @@ public class PlayerBoost : MonoBehaviour
 
     public void BoostOn()
     {
-        // Adjust modifer based on any boost stacking (hit a boost while in boost)
-        if (currentBoostMod < 3)
-        {
-            currentBoostMod++;
-            scoreMod = boostMods[currentBoostMod];
-            score.SetMod(scoreMod);
-        }
-        
         // Set up time remaining and adjust speed
         boostTime = boostMax;
         player.PlayerMovement().SetBoostSpeedMod(2.0f, true);
@@ -82,20 +66,14 @@ public class PlayerBoost : MonoBehaviour
         // Resets boost on replay (DONT CHANGE PARTICLE SIZE HERE)
         isBoost = false;
         boostTime = 0.0f;
-        currentBoostMod = 0;
-        scoreMod = boostMods[currentBoostMod];
-        score.SetMod(scoreMod);
     }
 
-    private void BoostOff()
+    public void BoostOff()
     {
         // Turn off boost (almost same as reset, except change particle size back to original size)
         player.SetBoost(false);
         player.PlayerMovement().SetBoostSpeedMod(0.0f, false);
         isBoost = false;
         boostTime = 0.0f;
-        currentBoostMod = 0;
-        scoreMod = boostMods[currentBoostMod];
-        score.SetMod(scoreMod);
     }
 }

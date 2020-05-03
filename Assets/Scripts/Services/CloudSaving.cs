@@ -125,22 +125,32 @@ public class CloudSaving : MonoSingleton<CloudSaving>
 
     public void LoadGame()
     {
-        GearManager.instance.SetGears((int)NPBinding.CloudServices.GetLong(GearsKey));
-        SwapManager.PlayerIdx = (int)NPBinding.CloudServices.GetLong(PlayerIdxKey);
-        SwapManager.BackgroundIdx = (int)NPBinding.CloudServices.GetLong(BackgroundIdxKey);
-        SwapManager.MusicIdx = (int)NPBinding.CloudServices.GetLong(MusicIdxKey);
-        SwapManager.ObstacleIdx = (int)NPBinding.CloudServices.GetLong(ObstacleIdxKey);
-        SwapManager.ProjectileIdx = (int)NPBinding.CloudServices.GetLong(ProjectileIdxKey);
+        try
+        {
+            GearManager.instance.SetGears((int)NPBinding.CloudServices.GetLong(GearsKey));
+            SwapManager.PlayerIdx = (int)NPBinding.CloudServices.GetLong(PlayerIdxKey);
+            SwapManager.BackgroundIdx = (int)NPBinding.CloudServices.GetLong(BackgroundIdxKey);
+            SwapManager.MusicIdx = (int)NPBinding.CloudServices.GetLong(MusicIdxKey);
+            SwapManager.ObstacleIdx = (int)NPBinding.CloudServices.GetLong(ObstacleIdxKey);
+            SwapManager.ProjectileIdx = (int)NPBinding.CloudServices.GetLong(ProjectileIdxKey);
 
-        SwapManager.PlayerUnlocks = GetUnlocks(PlayerUnlocksKey);
-        SwapManager.BackgroundUnlocks = GetUnlocks(BackgroundUnlocksKey);
-        SwapManager.MusicUnlocks = GetUnlocks(ObstacleUnlocksKey);
-        SwapManager.ObstacleUnlocks = GetUnlocks(PlayerUnlocksKey);
+            SwapManager.PlayerUnlocks = GetUnlocks(PlayerUnlocksKey);
+            SwapManager.BackgroundUnlocks = GetUnlocks(BackgroundUnlocksKey);
+            SwapManager.MusicUnlocks = GetUnlocks(MusicUnlocksKey);
+            SwapManager.ObstacleUnlocks = GetUnlocks(ObstacleUnlocksKey);
 
-        SwapManager.AddDefaults();
+            SwapManager.AddDefaults();
 
-        player.Score().SetHighscores((int)NPBinding.CloudServices.GetLong(HighscoreKey), (int)NPBinding.CloudServices.GetLong(HighDistanceKey));
-        player.InitUnlock();
+            player.Score().SetHighscores((int)NPBinding.CloudServices.GetLong(HighscoreKey), (int)NPBinding.CloudServices.GetLong(HighDistanceKey));
+            player.InitUnlock();
+        }
+        catch (Exception e)
+        {
+            prompt.SetPrompt("Error Getting Data!", e.Message);
+            NPBinding.CloudServices.RemoveAllKeys();
+            ResetData();
+        }
+        
     }
 
     public void DefaultLoad()
@@ -172,7 +182,7 @@ public class CloudSaving : MonoSingleton<CloudSaving>
 
     private List<int> GetUnlocks(string key)
     {
-        var thing = NPBinding.CloudServices.GetList(PlayerUnlocksKey);
+        var thing = NPBinding.CloudServices.GetList(key);
         if (thing != null)
         {
             List<int> unlocks = new List<int>();

@@ -9,7 +9,7 @@ public class Generator : MonoBehaviour
 {
     [Header("Prefabs")]
     [SerializeField]
-    private string[] poolNames;
+    protected string[] poolNames;
 
     // FOR GEAR SPAWN GENERATORS ONLY - Has seperate spawner object that handles patterns
     [SerializeField]
@@ -23,14 +23,14 @@ public class Generator : MonoBehaviour
     [SerializeField]
     private float maxInterval;
 
-    private float xPosClamp;
+    protected float xPosClamp;
 
     // time
     private float timeTillSpawn;
     private float timeSpawn;
 
     // if object spawn was skipped last time
-    private bool didSkip = false;
+    protected bool didSkip = false;
 
     // Start is called before the first frame update
     void OnEnable()
@@ -66,7 +66,7 @@ public class Generator : MonoBehaviour
         timeSpawn = 0.0f;
     }
 
-    private void Spawn()
+    protected virtual void Spawn()
     {
         float randXPos = Random.Range(-xPosClamp, xPosClamp);
 

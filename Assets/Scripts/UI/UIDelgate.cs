@@ -37,7 +37,7 @@ public class UIDelgate : MonoBehaviour
     [SerializeField]
     private Text scoreGameText;
     [SerializeField]
-    private Text modText;
+    private Text gameGearText;
 
     // Game Over UI
     [Header("Game Over UI")]
@@ -108,13 +108,13 @@ public class UIDelgate : MonoBehaviour
 
     public void UpdateScoreText()
     {
-        distanceTraveled.text = $"{_curDistance} km";
-        scoreGameText.text = $"Score: {_curScore}";
+        distanceTraveled.text = $"{_curDistance}";
+        scoreGameText.text = $"{_curScore}";
     }
 
     public void UpdateSpeed()
     {
-        speedText.text = $"Speed: {_curSpeed}";
+        speedText.text = $"{_curSpeed}";
     }
 
     public void StartGame()
@@ -334,7 +334,7 @@ public class UIDelgate : MonoBehaviour
 
     public void resetDistance()
     {
-        distanceTraveled.text = "0 km";
+        distanceTraveled.text = "0";
     }
     
     public void toggleOnlineButtons(bool value)
@@ -348,9 +348,9 @@ public class UIDelgate : MonoBehaviour
         signInButton.SetActive(!value);
     }
 
-    public void SetModText(float mod)
+    public void SetGameGearText(int gears)
     {
-        modText.text = $"x {mod}";
+        gameGearText.text = $"{gears}";
     }
 
     /** Helper Methods **/

@@ -238,6 +238,17 @@ public class PlayerManager : MonoBehaviour, ISwapper
     {
         // Turn rocket view card option on and switch back to viewing rockets
         PlayerInput().TogglePurchase(true);
+
+        for(int i = 0; i < viewRocketIdx.Length; ++i)
+        {
+            if (SwapManager.PlayerIdx == viewRocketIdx[i])
+            {
+                viewIdx = i;
+                unlockIdx = viewRocketIdx[i];
+            }
+                     
+        }
+        
         ToggleSwap();
     }
 
@@ -266,6 +277,7 @@ public class PlayerManager : MonoBehaviour, ISwapper
         GearManager.instance.ToggleDoubleGears(false);
         Fuel().ToggleFuel(false);
         SetThrusters(true);
+        Boost().BoostOff();
         Score().CheckScore();
         PlayerInput().ToggleMove(false);
         PlayerMovement().StopMovement();

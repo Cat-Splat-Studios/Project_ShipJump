@@ -54,8 +54,13 @@ public class RocketStoreCard : MonoBehaviour
 
     public void onPurchased(bool success)
     {
-        SwapManager.instance.PurchaseAsset(rocketIdxUnlock, EAssetType.ROCKET);
-        priceText.text = "Owned";
-        purchaseButton.interactable = false;
+        if(success)
+        {
+            SwapManager.instance.PurchaseAsset(rocketIdxUnlock, EAssetType.ROCKET);
+            GearManager.instance.RemoveGears(price);
+            priceText.text = "Owned";
+            purchaseButton.interactable = false;
+            purchaseButton.gameObject.SetActive(false);
+        }
     }
 }
