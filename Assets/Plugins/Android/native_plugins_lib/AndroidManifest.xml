@@ -5,8 +5,6 @@
   <application>
     <!--Billing : Activity used for purchase view-->
     <activity android:name="com.voxelbusters.nativeplugins.features.billing.serviceprovider.google.GoogleBillingActivity" android:theme="@style/FloatingActivityTheme" />
-    <!--Application Launcher - Notifications : Used as a proxy to capture triggered notification.-->
-    <activity android:name="com.voxelbusters.nativeplugins.features.notification.core.ApplicationLauncherFromNotification" android:theme="@style/FloatingActivityTheme" android:exported="true" />
     <!--SocialNetworking - Twitter : Generic helper activity-->
     <activity android:name="com.voxelbusters.nativeplugins.features.socialnetwork.twitter.TwitterHelperActivity" android:theme="@style/FloatingActivityTheme" />
     <!--Game Play Services helper activity-->
@@ -29,14 +27,6 @@
         <action android:name="com.amazon.inapp.purchasing.NOTIFY" android:permission="com.amazon.inapp.purchasing.Permission.NOTIFY" />
       </intent-filter>
     </receiver>
-    <!--Notifications : Receiver for alarm to help Local Notifications-->
-    <receiver android:name="com.voxelbusters.nativeplugins.features.notification.core.AlarmEventReceiver" />
-    <!--Notifications : Firebase Cloud Messaging Service-->
-    <service android:name="com.voxelbusters.nativeplugins.features.notification.serviceprovider.fcm.FCMMessagingService">
-      <intent-filter>
-        <action android:name="com.google.firebase.MESSAGING_EVENT" />
-      </intent-filter>
-    </service>
     <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="\u003273189738208" />
     <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/ic_stat_ic_notification" />
     <meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/colorAccent" />
@@ -44,9 +34,6 @@
   <!--Permissions-->
   <!--Billing-->
   <uses-permission android:name="com.android.vending.BILLING" />
-  <uses-permission android:name="android.permission.WAKE_LOCK" />
-  <!--Notifications : If vibration is required for notification-->
-  <uses-permission android:name="android.permission.VIBRATE" />
   <!--GameServices : For getting content provider access.-->
   <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
   <!--Notifications : Badge Permission for Samsung Devices-->

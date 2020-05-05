@@ -25,7 +25,12 @@ public class AdManager : MonoSingleton<AdManager>
     [SerializeField]
     private GameObject adButton;
 
+#if UNITY_IOS
+    private string gameId = "3468116";
+#elif UNITY_ANDROID
     private string gameId = "3468117";
+#endif
+
     private string myPlacementId = "video";
     private string myRewardPlacementId = "rewardedVideo";
 
