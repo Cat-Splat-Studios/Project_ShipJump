@@ -397,7 +397,7 @@ public class UIDelgate : MonoBehaviour
         ScoreDisplay();
         camera.ResetCamera();
         player.PlayerShoot().TurnOff();
-        AdManager.instance.ButtonCheck();
+        AdService.instance.ButtonCheck();
         CloudSaving.instance.SaveGame();
     }
 }

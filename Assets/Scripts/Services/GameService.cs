@@ -44,7 +44,7 @@ public class GameService : MonoBehaviour
                         Debug.Log("Local User Details : " + NPBinding.GameServices.LocalUser.ToString());
                         _isOffline = false;
 
-                        AdManager.instance.ToggleTracking(true);
+                        AdService.instance.ToggleTracking(true);
                         CloudSaving.instance.LoadGame();
                         ui.HasAuthenitcated();
                         ui.toggleOnlineButtons(true);
@@ -126,7 +126,7 @@ public class GameService : MonoBehaviour
             ui.toggleOnlineButtons(false);
 
             // disable ads
-            AdManager.instance.ToggleTracking(false);
+            AdService.instance.ToggleTracking(false);
 
             // display message
             prompt.SetPrompt("Could Not sign In", "All progress will not be saved.\n You can attemp to sign in again at the settings screen.");
