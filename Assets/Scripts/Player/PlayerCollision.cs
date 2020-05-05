@@ -55,7 +55,7 @@ public class PlayerCollision : MonoBehaviour
                     {
                         case EPickupType.FUEL:
                             // Add fuel to player
-                            player.Fuel().AddFuel(pickup.GetFuel());
+                            player.Fuel().AddFuel(player.PlayerMovement().IsFalling());
                             audio.PlaySound(pickupSounds[0], pickupVol);
                             DestroyObject(other.gameObject);
                             break;

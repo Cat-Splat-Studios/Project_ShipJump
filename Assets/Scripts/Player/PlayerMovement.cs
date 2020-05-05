@@ -279,6 +279,11 @@ public class PlayerMovement : MonoBehaviour
         isBoost = boost;
     }
 
+    public bool IsFalling()
+    {
+        return outOfFuel;
+    }
+
     /** MISC **/
     // get up speed to adjust projectile speed
     public float GetUpSpeed()

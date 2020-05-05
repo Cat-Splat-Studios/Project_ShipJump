@@ -27,7 +27,7 @@ public class PickupGenerator : Generator
 
         if (poolNames.Length > 1)
         {
-            if (lastFuelCount > 4)
+            if (lastFuelCount > 3)
             {
                 idx = 0;
                 lastFuelCount = 0;
@@ -41,6 +41,12 @@ public class PickupGenerator : Generator
                 lastFuelCount++;
             else
                 lastFuelCount = 0;
+
+            if(type == "PickupFuel" && lastPickup == "PickupFuel")
+            {
+                didSkip = true;
+                return;
+            }
 
             if(type == lastPickup)
             {

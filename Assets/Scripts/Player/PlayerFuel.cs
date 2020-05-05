@@ -10,6 +10,8 @@ public class PlayerFuel : MonoBehaviour
     [SerializeField]
     UIDelgate ui;
 
+    public float fuelIntakeAmount = 25.0f;
+
     // fuel modifciations
     private float fuelDecrease = 1.0f;
     private float fuelIntakeMod = 1.0f;
@@ -48,11 +50,16 @@ public class PlayerFuel : MonoBehaviour
         fuelIntakeMod = fuelIntake;
     }
 
-    public void AddFuel(float amount)
+    public void AddFuel(bool isFalling)
     {
         // Add fuel and cap it at max if over
         // Adjust fuel intake by modifer of rocket
-        float fuelAdded = amount * fuelIntakeMod;
+        float fuelAdded;
+        if (!isFalling)
+            fuelAdded = fuelIntakeAmount * fuelIntakeMod;
+        else
+            fuelAdded = (fuelIntakeAmount * 2) * fuelIntakeMod;
+        
         currentFuel += fuelAdded;
         if (currentFuel > maxFuel)
         {

@@ -83,8 +83,6 @@ public class PlayerDamage : MonoBehaviour
 
     private void DestroyShip()
     {
-        player.DeadPlayer();
-
         // Will remove this when GENERATOR system is completed
         FindObjectOfType<GeneratorManager>().StopGenerators();
 
@@ -97,6 +95,8 @@ public class PlayerDamage : MonoBehaviour
         GameObject particleObj = Instantiate(destroyParticlePrefab[randomParticle],
                                 new Vector3(transform.position.x, transform.position.y, -1.0f), Quaternion.identity) as GameObject;
         Destroy(particleObj, 1.5f);
+
+        player.DeadPlayer();
 
         // Game over and turn off player (this is so we can reset on replay)
         ui.GameOver();

@@ -1796,6 +1796,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4057269722589764185, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efb6b99265acf274eb27f0730d357326, type: 3}
 --- !u!1 &180622871 stripped
@@ -1835,11 +1840,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolNames:
+  - PickupBoost
+  - PickupBoost
+  - PickupBoost
+  - PickupBoost
+  - PickupBoost
+  - PickupBoost
+  - PickupBoost
+  - PickupBoost
   - PickupFuel
-  - PickupBoost
-  - PickupBoost
-  - PickupProj
+  - PickupFuel
+  - PickupFuel
+  - PickupFuel
+  - PickupFuel
   - PickupShields
+  - PickupShields
+  - PickupShields
+  - PickupShields
+  - PickupProj
+  - PickupProj
+  - PickupProj
   gearSpawnPrefab: {fileID: 0}
   isRandom: 1
   minInterval: 1.5
@@ -2641,6 +2661,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 754233028604351808, guid: 203d725177e1e6446bf6ca82ad73e0dd,
         type: 3}
+      propertyPath: pools.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 754233028604351808, guid: 203d725177e1e6446bf6ca82ad73e0dd,
+        type: 3}
       propertyPath: pools.Array.data[2].size
       value: 12
       objectReference: {fileID: 0}
@@ -2850,7 +2875,7 @@ PrefabInstance:
     - target: {fileID: 7736289935271242790, guid: a7a8d2548d077cc488ad0ee9274629d2,
         type: 3}
       propertyPath: poolNames.Array.data[0]
-      value: PickupFuelDouble
+      value: PickupFuel
       objectReference: {fileID: 0}
     - target: {fileID: 7736289935271242790, guid: a7a8d2548d077cc488ad0ee9274629d2,
         type: 3}

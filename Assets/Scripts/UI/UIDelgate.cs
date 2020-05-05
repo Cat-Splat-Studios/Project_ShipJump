@@ -77,6 +77,7 @@ public class UIDelgate : MonoBehaviour
     private PlayerManager player;
     private GeneratorManager generatorManager;
     private new CameraFollow camera;
+    private ScoreSystem score;
 
     // Property Values
     private float _curFuel;
@@ -94,6 +95,7 @@ public class UIDelgate : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<PlayerManager>();
         generatorManager = FindObjectOfType<GeneratorManager>();
         camera = FindObjectOfType<CameraFollow>();
+        score = FindObjectOfType<ScoreSystem>();
     }
 
     // Update is called once per frame
@@ -387,6 +389,7 @@ public class UIDelgate : MonoBehaviour
     {
         // Wait to reveal game over after player is destroyed
         yield return new WaitForSeconds(1.0f);
+        score.CheckScore();
         gameUI.SetActive(false);
         gameOver.SetActive(true);
         StatHUD.SetActive(true);

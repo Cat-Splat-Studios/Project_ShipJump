@@ -34,6 +34,11 @@ public class Obstacle : MonoBehaviour, IPoolObject, ISwapper
         SwapIt();
     }
 
+    public void OnEnable()
+    {
+        SwapIt();
+    }
+
     public void DestroyObstacle()
     {
         // randomize sound and particle to play when destroyed

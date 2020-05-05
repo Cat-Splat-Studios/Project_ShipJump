@@ -395,6 +395,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curPickup: 1
-  fuelAmount: 0
-  boostSpeed: 0
   poolName: PickupShields

@@ -163,8 +163,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curPickup: 4
-  fuelAmount: 0
-  boostSpeed: 0
   poolName: PickupProj
 --- !u!1 &1688172971493756672
 GameObject:

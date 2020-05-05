@@ -278,7 +278,6 @@ public class PlayerManager : MonoBehaviour, ISwapper
         Fuel().ToggleFuel(false);
         SetThrusters(true);
         Boost().BoostOff();
-        Score().CheckScore();
         PlayerInput().ToggleMove(false);
         PlayerMovement().StopMovement();
     }

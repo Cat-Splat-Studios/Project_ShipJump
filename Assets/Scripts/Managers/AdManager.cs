@@ -33,8 +33,11 @@ public class AdManager : MonoSingleton<AdManager>
     private float currentTimeButtonThreshold = 0.0f;
 
     private int gamesPlayedSinceAd = 0;
+    private int gamesPlayedSinceButtonAd = 0;
 
     private bool buttonShown = false;
+
+    private bool firstAdPlay = false;
 
     // callback operations on both ads
     private ShowOptions op;
@@ -81,10 +84,12 @@ public class AdManager : MonoSingleton<AdManager>
         // check if it is time to play normal ad
         if(isTracking)
         {
-            if (currentTimeThreshold > normalthresholdTime && gamesPlayedSinceAd > 1)
+            if ((!firstAdPlay && gamesPlayedSinceAd > 0) || (currentTimeThreshold > normalthresholdTime && gamesPlayedSinceAd > 1) || gamesPlayedSinceAd >= 5)
             {
                 PlayAd();
             }
+
+            ++gamesPlayedSinceAd;
         }       
     }
 
@@ -93,12 +98,12 @@ public class AdManager : MonoSingleton<AdManager>
         if(isTracking)
         {
             // check if it is time to show the button for reward ad
-            if ((currentTimeButtonThreshold > buttonthresholdTime || gamesPlayedSinceAd >= 4) && buttonShown == false)
+            if ((currentTimeButtonThreshold > buttonthresholdTime || gamesPlayedSinceButtonAd >= 4) && buttonShown == false)
             {
                 ShowButton();
             }
             
-            ++gamesPlayedSinceAd;
+            ++gamesPlayedSinceButtonAd;
         }
     
     }
@@ -107,7 +112,8 @@ public class AdManager : MonoSingleton<AdManager>
     {
         currentTimeThreshold = 0.0f;
         Time.timeScale = 0.0f;
-        Advertisement.Show(myPlacementId, op1); 
+        Advertisement.Show(myPlacementId, op1);
+        
     }
 
     public void OnUnityAdsDidFinish(ShowResult showResult)
@@ -123,13 +129,14 @@ public class AdManager : MonoSingleton<AdManager>
 
         HideButton();
         currentTimeButtonThreshold = 0.0f;
-        gamesPlayedSinceAd = 0;
+        gamesPlayedSinceButtonAd = 0;
         //Advertisement.RemoveListener(this);
     }
 
     public void OnNormalAdFinish(ShowResult showResult)
     {
         Time.timeScale = 1.0f;
+        firstAdPlay = true;
         gamesPlayedSinceAd = 0;
     }
 

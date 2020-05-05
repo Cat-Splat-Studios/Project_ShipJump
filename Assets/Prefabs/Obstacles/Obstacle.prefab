@@ -71,6 +71,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8980f641d9776c04995ab9be52b4ef62, type: 3}
   - {fileID: 8300000, guid: 76a7a6acb13e0ef4db558c112de7cf7c, type: 3}
   poolName: Obstacle
+  isRecord: 0
 --- !u!1001 &1693544487431096186
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -258,7 +259,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: e34e091b5ca03ff45b99da5c7d52391c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e34e091b5ca03ff45b99da5c7d52391c,
         type: 3}
