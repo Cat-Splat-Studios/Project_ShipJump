@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Generator : MonoBehaviour
 {
+#pragma warning disable 0649
     [Header("Prefabs")]
     [SerializeField]
     protected string[] poolNames;

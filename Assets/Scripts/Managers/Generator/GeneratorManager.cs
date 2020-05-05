@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class GeneratorManager : MonoBehaviour
 {
+#pragma warning disable 0649
     [Header("Generators")]
     [SerializeField]
     private GameObject[] topGenerators;

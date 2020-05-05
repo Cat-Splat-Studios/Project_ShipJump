@@ -17,6 +17,7 @@ public enum EAssetType
 
 public class ItemInfo : MonoBehaviour
 {
+#pragma warning disable 0649
     [Header("UI")]
     [SerializeField]
     private Text priceText;

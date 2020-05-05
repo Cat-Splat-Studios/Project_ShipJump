@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour, ISwapper
 {
+#pragma warning disable 0649
     // All rocket meshes 
     [SerializeField]
     private GameObject[] rockets;

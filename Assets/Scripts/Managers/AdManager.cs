@@ -7,6 +7,7 @@ using UnityEngine.Advertisements;
 
 public class AdManager : MonoSingleton<AdManager>
 {
+#pragma warning disable 0649
     [SerializeField]
     private bool testMode = true;
     [SerializeField]

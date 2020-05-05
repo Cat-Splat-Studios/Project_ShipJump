@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour, IPoolObject, ISwapper
 {
+#pragma warning disable 0649
     // Different meshes the obstacle can be
     [Header("Meshes")]
     [SerializeField]

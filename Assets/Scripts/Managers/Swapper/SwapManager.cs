@@ -10,6 +10,7 @@ using UnityEngine;
 
 public class SwapManager : MonoSingleton<SwapManager>
 {
+#pragma warning disable 0649
     // local references to player state information
     public static int PlayerIdx;
     public static int BackgroundIdx;

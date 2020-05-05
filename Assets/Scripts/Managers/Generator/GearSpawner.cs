@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class GearSpawner : MonoBehaviour
 {
+#pragma warning disable 0649
     [SerializeField]
     private int gearsToSpawn = 0;
 

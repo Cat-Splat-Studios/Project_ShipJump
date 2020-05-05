@@ -8,6 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
+#pragma warning disable 0649
     [SerializeField]
     private float lifetime;
     [SerializeField]

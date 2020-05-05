@@ -16,6 +16,7 @@ public struct RocketCardImage
 
 public class RocketCard : MonoBehaviour
 {
+#pragma warning disable 0649
     [SerializeField]
     private PlayerManager player;
     [SerializeField]

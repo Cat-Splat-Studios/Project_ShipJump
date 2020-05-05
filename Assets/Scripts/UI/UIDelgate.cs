@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class UIDelgate : MonoBehaviour
 {
+#pragma warning disable 0649
     // Start UI
     [Header("Start UI")]
     public GameObject startUI;

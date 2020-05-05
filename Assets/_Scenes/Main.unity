@@ -1796,6 +1796,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7481335422644595579, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4057269722589764185, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
       propertyPath: m_IsActive
@@ -1895,8 +1900,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testMode: 1
   gearReward: 100
-  normalthresholdTime: 300
-  buttonthresholdTime: 180
+  normalthresholdTime: 180
+  buttonthresholdTime: 120
   rewardPrompt: {fileID: 739882011}
   adButton: {fileID: 180622871}
 --- !u!4 &193654892

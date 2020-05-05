@@ -8,6 +8,7 @@ using VoxelBusters.NativePlugins;
 
 public class BillingManager : MonoBehaviour
 {
+#pragma warning disable 0649
     [SerializeField]
     GameObject store;
 

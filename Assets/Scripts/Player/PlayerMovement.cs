@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+#pragma warning disable 0649
     // Speeds
     [Header("Speeds")]
     [SerializeField]

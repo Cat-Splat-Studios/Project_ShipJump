@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+#pragma warning disable 0649
     public GameObject player;
 
     [Header("Offsets")]

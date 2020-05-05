@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Thrusters : MonoBehaviour
 {
+#pragma warning disable 0649
     [SerializeField]
     private GameObject boostThrusters;
 

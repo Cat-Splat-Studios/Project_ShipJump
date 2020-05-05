@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class PlayerDamage : MonoBehaviour
 {
+#pragma warning disable 0649
     // Destroy Effects
     [Header("Destroy Effects")]
     [SerializeField]

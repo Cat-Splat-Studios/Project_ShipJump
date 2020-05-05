@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class MessageBox : MonoBehaviour
 {
+#pragma warning disable 0649
     [SerializeField]
     private GameObject box;
     [SerializeField]

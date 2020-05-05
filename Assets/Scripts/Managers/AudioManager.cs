@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour, ISwapper
 {
+#pragma warning disable 0649
     [Header("Music")]
     [SerializeField]
     private AudioSource music;

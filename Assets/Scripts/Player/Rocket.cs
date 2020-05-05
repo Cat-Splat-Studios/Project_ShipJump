@@ -14,6 +14,7 @@ public enum ERocketSize
 
 public class Rocket : MonoBehaviour
 {
+#pragma warning disable 0649
     public int unlockIdx;
 
     [SerializeField]

@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
+#pragma warning disable 0649
     [Header("Item References")]
     public EAssetType shopType;
     [SerializeField]

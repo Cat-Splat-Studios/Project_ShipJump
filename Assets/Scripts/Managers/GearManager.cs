@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class GearManager : MonoSingleton<GearManager>
 {
+#pragma warning disable 0649
     [SerializeField]
     private MessageBox prompt;
 
