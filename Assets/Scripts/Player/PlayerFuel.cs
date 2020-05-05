@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class PlayerFuel : MonoBehaviour
 {
+#pragma warning disable 0649
     [SerializeField]
     UIDelgate ui;
 
