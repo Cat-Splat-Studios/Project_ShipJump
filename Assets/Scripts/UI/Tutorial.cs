@@ -10,7 +10,6 @@ public class Tutorial : MonoBehaviour
 {
     public GameObject tutorial;
 
-    public MessageBox prompt;
 
     public Image foreground;
     public Sprite[] images;
@@ -22,27 +21,27 @@ public class Tutorial : MonoBehaviour
 
     private int currentIdx = 0;
 
+    public bool isEarlyAdopt;
+
     // Start is called before the first frame update
     void Start()
     {
+       
         // show the first time the player plays
-        if(!PlayerPrefs.HasKey("showTutorial") || PlayerPrefs.GetInt("showTutorial") == 1)
+        if (!PlayerPrefs.HasKey("showTutorial") || PlayerPrefs.GetInt("showTutorial") == 1)
         {
+            isEarlyAdopt = PlayerPrefs.GetInt("showTutorial") == 1;
             ToggleTutorial(true);
             PlayerPrefs.SetInt("showTutorial", 2);
         }
-        
-        if(PlayerPrefs.GetInt("showTutorial") == 1)
-        {
-            prompt.SetPrompt("Early Adopter!", "Thank you for being an early supporter! We've completely reset the game and gifted you 10,000 gears for supporting us!");
-        }
+         
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
         {
-            PlayerPrefs.DeleteKey("showTutorial");
+            PlayerPrefs.SetInt("showTutorial", 1);
         }
     }
 
@@ -97,14 +96,6 @@ public class Tutorial : MonoBehaviour
                 rightbutton.interactable = true;
             }
 
-        }
-    }
-
-    private void EarlyAdopt(bool success)
-    {
-        if(success)
-        {
-            GearManager.instance.AddGears(10000);
         }
     }
 }

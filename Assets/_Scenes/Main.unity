@@ -1221,6 +1221,11 @@ PrefabInstance:
       propertyPath: okayButton
       value: 
       objectReference: {fileID: 1889435027}
+    - target: {fileID: 4954762349567836093, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: prompt
+      value: 
+      objectReference: {fileID: 739882011}
     - target: {fileID: 2895840777953291562, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
       propertyPath: m_IsActive

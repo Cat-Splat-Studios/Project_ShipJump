@@ -49,6 +49,13 @@ public class GameService : MonoBehaviour
                         ui.HasAuthenitcated();
                         ui.toggleOnlineButtons(true);
 
+                        if (FindObjectOfType<Tutorial>().isEarlyAdopt)
+                        {
+                            prompt.SetPrompt("Early Adopter!", "Thank you for being an early supporter! We've completely reset the game and gifted you 10,000 gears for supporting us!");
+                            GearManager.instance.AddGears(10000);
+                            CloudSaving.instance.SaveGame();
+                        }
+
                         var swapers = FindObjectsOfType<MonoBehaviour>().OfType<ISwapper>();
                         foreach (ISwapper swaps in swapers)
                         {
@@ -158,4 +165,5 @@ public class GameService : MonoBehaviour
             }
         });
     }
+
 }
