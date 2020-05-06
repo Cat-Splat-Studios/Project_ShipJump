@@ -18,7 +18,7 @@ public class ShareScore : MonoBehaviour
     public void ShareViaShareSheet()
     {
         // Create new instance and populate fields
-        SocialShareSheet shareSheet = new SocialShareSheet();
+        ShareSheet shareSheet = new ShareSheet();
         
         DisableView();
         shareSheet.AttachScreenShot();

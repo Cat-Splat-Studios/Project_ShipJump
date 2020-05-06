@@ -174,13 +174,9 @@ public class ItemInfo : MonoBehaviour
             GearManager.instance.RemoveGears(price);
             swapper.PurchaseAsset(unlockIndex, itemtype);
             isUnlocked = true;
-
-            if(isInShop)
-            {
-                ButtonAction();
-            }
-
-
+            
+            ButtonAction();
+           
             if (!isInShop)
                 parentShop.InitItems();
             else

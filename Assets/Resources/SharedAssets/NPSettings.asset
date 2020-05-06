@@ -53,13 +53,12 @@ MonoBehaviour:
       m_port: 53
   m_utilitySettings:
     m_rateMyApp:
-      m_isEnabled: 0
-      m_title: Rate My App
-      m_message: If you enjoy using Native Plugin would you mind taking a moment to
-        rate it? It wont take more than a minute. Thanks for your support
-      m_showFirstPromptAfterHours: 2
-      m_successivePromptAfterHours: 6
-      m_successivePromptAfterLaunches: 5
+      m_isEnabled: 1
+      m_title: Rate Rocket Recover!
+      m_message: If you have enjoyed the game, feel free to rate the game on the store.
+      m_showFirstPromptAfterHours: 0
+      m_successivePromptAfterHours: 0
+      m_successivePromptAfterLaunches: 3
       m_rateItButtonText: Rate It Now
       m_remindMeLaterButtonText: Remind Me Later
       m_dontAskButtonText: No, Thanks

@@ -55,8 +55,8 @@ public class ScoreSystem : MonoBehaviour
 
         if (curDistance > highDistance)
         {
-            GameService.ReportScore("Highest Kilometer's Traveled", curDistance);
-            ui.HighDistance();
+            //GameService.ReportScore("Highest Kilometer's Traveled", curDistance);
+            //ui.HighDistance();
             highDistance = curDistance;
         }
 

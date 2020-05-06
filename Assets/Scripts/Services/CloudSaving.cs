@@ -32,7 +32,7 @@ public class CloudSaving : MonoSingleton<CloudSaving>
     // Start is called before the first frame update
     void Awake()
     {
-        NPBinding.CloudServices.Initialise();
+        InitializeCloud();
     }
 
     // Register for the event
@@ -54,12 +54,12 @@ public class CloudSaving : MonoSingleton<CloudSaving>
     {
         if (_success)
         {
-            prompt.SetPrompt("Cloud Save Initialized", "Successfully initialized in-memory keys and values.");
+            //prompt.SetPrompt("Cloud Save Initialized", "Successfully initialized in-memory keys and values.");
             Debug.Log("Successfully synchronised in-memory keys and values.");
         }
         else
         {
-            prompt.SetPrompt("Cloud Save Initialized", "Failed to initialized in-memory keys and values.");
+            prompt.SetPrompt("Failed to Load", "Could not retreive you data, press okay to try again or restart the game.", reinit);
             Debug.Log("Failed to synchronise in-memory keys and values.");
         }
     }
@@ -87,20 +87,21 @@ public class CloudSaving : MonoSingleton<CloudSaving>
                 break;
         }
 
+        Debug.Log(message);
 
-        prompt.SetPrompt("Key Values changed", message);
+        prompt.SetPrompt("Failed to Load", "Could not retreive you data, press okay to try again or restart the game.", reinit);
     }
 
     private void OnKeyValueStoreDidSynchronise(bool _success)
     {
         if (_success)
         {
-            prompt.SetPrompt("Cloud Synchronized", "Successfully synchronised in-memory keys and values.");
+            //prompt.SetPrompt("Cloud Synchronized", "Successfully synchronised in-memory keys and values.");
             Debug.Log("Successfully synchronised in-memory keys and values.");
         }
         else
         {
-            prompt.SetPrompt("Cloud Synchronized", "Failed to synchronise in-memory keys and values.");
+            prompt.SetPrompt("Failed to Load", "Could not retreive you data, press okay to try again or restart the game.", ReSync);
             Debug.Log("Failed to synchronise in-memory keys and values.");
         }
     }
@@ -198,5 +199,18 @@ public class CloudSaving : MonoSingleton<CloudSaving>
             return new List<int>();
     }
 
+    private void ReSync(bool success)
+    {
+        NPBinding.CloudServices.Synchronise();
+    }
 
+    private void reinit(bool success)
+    {
+        InitializeCloud();
+    }
+
+    private void InitializeCloud()
+    {
+        NPBinding.CloudServices.Initialise();
+    }
 }
