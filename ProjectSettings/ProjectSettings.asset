@@ -168,7 +168,8 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.CatSplatStudios.RocketRecover
     iPhone: com.CatSplatStudios.RocketRecover.iOS
-  buildNumber: {}
+  buildNumber:
+    iPhone: 5
   AndroidBundleVersionCode: 42
   AndroidMinSdkVersion: 17
   AndroidTargetSdkVersion: 28
@@ -185,7 +186,7 @@ PlayerSettings:
   StripUnusedMeshComponents: 1
   VertexChannelCompressionMask: 4054
   iPhoneSdkVersion: 988
-  iOSTargetOSVersionString: 9.0
+  iOSTargetOSVersionString: 10.0
   tvOSSdkVersion: 0
   tvOSRequireExtendedGameController: 0
   tvOSTargetOSVersionString: 9.0
@@ -248,11 +249,11 @@ PlayerSettings:
   metalAPIValidation: 1
   iOSRenderExtraFrameOnPause: 0
   appleDeveloperTeamID: J78W8767SF
-  iOSManualSigningProvisioningProfileID: 
+  iOSManualSigningProvisioningProfileID: e05c7e85-9ccc-4adb-a07a-d49d31873cc0
   tvOSManualSigningProvisioningProfileID: 
-  iOSManualSigningProvisioningProfileType: 0
+  iOSManualSigningProvisioningProfileType: 2
   tvOSManualSigningProvisioningProfileType: 0
-  appleEnableAutomaticSigning: 0
+  appleEnableAutomaticSigning: 2
   iOSRequireARKit: 0
   iOSAutomaticallyDetectAndAddCapabilities: 1
   appleEnableProMotion: 0
@@ -674,6 +675,7 @@ PlayerSettings:
   switchRatingsInt_9: 0
   switchRatingsInt_10: 0
   switchRatingsInt_11: 0
+  switchRatingsInt_12: 0
   switchLocalCommunicationIds_0: 
   switchLocalCommunicationIds_1: 
   switchLocalCommunicationIds_2: 
