@@ -89,7 +89,7 @@ public class CloudSaving : MonoSingleton<CloudSaving>
 
         Debug.Log(message);
 
-        prompt.SetPrompt("Failed to Load", "Could not retreive you data, press okay to try again or restart the game.", reinit);
+        prompt.SetPrompt("Failed to Load", $"Could not retreive you data, {message}. \nplease try restarting the game.");
     }
 
     private void OnKeyValueStoreDidSynchronise(bool _success)
@@ -101,7 +101,7 @@ public class CloudSaving : MonoSingleton<CloudSaving>
         }
         else
         {
-            prompt.SetPrompt("Failed to Load", "Could not retreive you data, press okay to try again or restart the game.", ReSync);
+            prompt.SetPrompt("Failed to Load", "Could not synchronize you data, press okay to try again or restart the game.", ReSync);
             Debug.Log("Failed to synchronise in-memory keys and values.");
         }
     }
@@ -147,11 +147,8 @@ public class CloudSaving : MonoSingleton<CloudSaving>
         }
         catch (Exception e)
         {
-            prompt.SetPrompt("Error Getting Data!", e.Message);
-            NPBinding.CloudServices.RemoveAllKeys();
-            ResetData();
-        }
-        
+            prompt.SetPrompt("Error Getting Data!", "There was a critical error while retreiving your data, try restarting the game.");
+        }   
     }
 
     public void DefaultLoad()

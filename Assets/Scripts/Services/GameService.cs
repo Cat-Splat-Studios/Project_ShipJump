@@ -28,7 +28,7 @@ public class GameService : MonoBehaviour
         SignIn();
     }
 
-    void SignIn()
+    public void SignIn()
     {
         if (_isServiceAvailable)
         {

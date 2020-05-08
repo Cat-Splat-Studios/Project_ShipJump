@@ -760,6 +760,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1440819716}
+    - target: {fileID: 2048727725, guid: efb6b99265acf274eb27f0730d357326, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 577117383}
+    - target: {fileID: 2048727725, guid: efb6b99265acf274eb27f0730d357326, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SignIn
+      objectReference: {fileID: 0}
     - target: {fileID: 2095339737, guid: efb6b99265acf274eb27f0730d357326, type: 3}
       propertyPath: player
       value: 
@@ -1877,6 +1885,7 @@ MonoBehaviour:
   - {fileID: 549668610}
   - {fileID: 344604681}
   - {fileID: 2066896130}
+  prompt: {fileID: 0}
 --- !u!1 &344604681 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1604047320930666679, guid: efb6b99265acf274eb27f0730d357326,

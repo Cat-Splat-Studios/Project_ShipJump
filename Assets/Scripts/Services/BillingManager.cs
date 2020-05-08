@@ -19,6 +19,8 @@ public class BillingManager : MonoBehaviour
     [SerializeField]
     GameObject[] storeButtons;
 
+    public MessageBox prompt;
+
     private void Start()
     {
         myProducts = NPSettings.Billing.Products;
@@ -112,12 +114,15 @@ public class BillingManager : MonoBehaviour
                     {
                         case "1000_gears":
                             GearManager.instance.AddGears(1000);
+                            prompt.SetPrompt("Gears Purchased!", "You have purchased 1000 Gears.");
                             break;
                         case "5000_gears":
                             GearManager.instance.AddGears(5000);
+                            prompt.SetPrompt("Gears Purchased!", "You have purchased 5000 Gears.");
                             break;
                         case "10000_gears":
                             GearManager.instance.AddGears(10000);
+                            prompt.SetPrompt("Gears Purchased!", "You have purchased 10000 Gears.");
                             break;
                     }
                 }
