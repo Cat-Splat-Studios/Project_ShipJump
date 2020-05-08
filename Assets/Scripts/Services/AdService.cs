@@ -146,6 +146,11 @@ public class AdService : MonoSingleton<AdService>, IUnityAdsListener
             currentTimeButtonThreshold = 0.0f;
             gamesPlayedSinceButtonAd = 0;
         }
+        else if (placementId == myPlacementId)
+        {
+            currentTimeThreshold = 0.0f;
+            gamesPlayedSinceAd = 0;
+        }
 
         Time.timeScale = 1.0f;
       

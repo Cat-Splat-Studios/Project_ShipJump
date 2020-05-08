@@ -4,7 +4,6 @@
     <package>com.android.support:support-v4:27.1+</package>
     <package>com.google.android.gms:play-services-games:16.0+</package>
     <package>com.google.android.gms:play-services-nearby:16.0+</package>
-    <package>com.google.code.gson:gson:2.7</package>
   </packages>
   <files>
     <file>Assets/Plugins/Android/androidx.annotation.annotation-1.0.0.jar</file>
@@ -43,7 +42,6 @@
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-games-16.0.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-nearby-16.0.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-tasks-16.0.1.aar</file>
-    <file>Assets/Plugins/Android/com.google.code.gson.gson-2.7.jar</file>
   </files>
   <settings>
     <setting name="androidAbis" value="arm64-v8a,armeabi-v7a" />
