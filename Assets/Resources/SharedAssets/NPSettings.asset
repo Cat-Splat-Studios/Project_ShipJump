@@ -56,8 +56,8 @@ MonoBehaviour:
       m_isEnabled: 1
       m_title: Rate Rocket Recover!
       m_message: If you have enjoyed the game, feel free to rate the game on the store.
-      m_showFirstPromptAfterHours: 0
-      m_successivePromptAfterHours: 0
+      m_showFirstPromptAfterHours: 6
+      m_successivePromptAfterHours: 3
       m_successivePromptAfterLaunches: 3
       m_rateItButtonText: Rate It Now
       m_remindMeLaterButtonText: Remind Me Later

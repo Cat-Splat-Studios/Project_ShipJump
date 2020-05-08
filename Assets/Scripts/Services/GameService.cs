@@ -51,7 +51,7 @@ public class GameService : MonoBehaviour
 
                         if (FindObjectOfType<Tutorial>().isEarlyAdopt)
                         {
-                            prompt.SetPrompt("Early Adopter!", "Thank you for being an early supporter! We've completely reset the game and gifted you 10,000 gears for supporting us!");
+                            prompt.SetPrompt("Early Adopter!", "Thank you for your support! We've completely reset the game and gifted you 10,000 gears for playing version 1");
                             GearManager.instance.AddGears(10000);
                             CloudSaving.instance.SaveGame();
                         }

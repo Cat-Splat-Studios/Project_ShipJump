@@ -25,11 +25,6 @@ public class BillingManager : MonoBehaviour
         RequestBillingProducts();
     }
 
-    public void OpenCloseStore()
-    {
-        store.SetActive(!store.activeInHierarchy);
-    }
-
     public void RequestBillingProducts()
     {
         NPBinding.Billing.RequestForBillingProducts(NPSettings.Billing.Products);
