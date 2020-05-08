@@ -28,8 +28,8 @@ MonoBehaviour:
         value: 0
         usesLocalNotification: 1
         usesRemoteNotification: 1
-      m_usesSharing: 1
-      m_usesTwitter: 1
+      m_usesSharing: 0
+      m_usesTwitter: 0
       m_usesWebView: 0
     m_supportedAddonServices:
       m_usesSoomlaGrow: 0

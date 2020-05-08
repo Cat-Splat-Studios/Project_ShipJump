@@ -5,12 +5,8 @@
   <application>
     <!--Billing : Activity used for purchase view-->
     <activity android:name="com.voxelbusters.nativeplugins.features.billing.serviceprovider.google.GoogleBillingActivity" android:theme="@style/FloatingActivityTheme" />
-    <!--SocialNetworking - Twitter : Generic helper activity-->
-    <activity android:name="com.voxelbusters.nativeplugins.features.socialnetwork.twitter.TwitterHelperActivity" android:theme="@style/FloatingActivityTheme" />
     <!--Game Play Services helper activity-->
     <activity android:name="com.voxelbusters.nativeplugins.features.gameservices.serviceprovider.google.GooglePlayGameUIActivity" android:theme="@style/FloatingActivityTheme" />
-    <!--Sharing-->
-    <activity android:name="com.voxelbusters.nativeplugins.features.sharing.SharingActivity" android:theme="@style/FloatingActivityTheme" />
     <!--Media Library : For custom camera access-->
     <activity android:name="com.voxelbusters.nativeplugins.features.medialibrary.CameraActivity" android:theme="@style/FloatingActivityTheme" />
     <!--UI  : Generic helper activity for launching Dialogs-->
@@ -18,7 +14,7 @@
     <!--Game Play Services helper activity-->
     <activity android:name="com.voxelbusters.nativeplugins.helpers.PermissionRequestActivity" android:theme="@style/FloatingActivityTheme" />
     <!--Custom File Provider. Sharing from internal folders  "com.voxelbusters.nativeplugins.extensions.FileProviderExtended"-->
-    <provider android:name="com.voxelbusters.nativeplugins.extensions.FileProviderExtended" android:authorities="com.CatSplatStudios.RocketRecover.fileprovider" android:exported="false" android:grantUriPermissions="true">
+    <provider android:name="com.voxelbusters.nativeplugins.extensions.FileProviderExtended" android:authorities="com.CatSplatStudios.RocketRecover.iOS.fileprovider" android:exported="false" android:grantUriPermissions="true">
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/nativeplugins_file_paths" />
     </provider>
     <!--Billing : Amazon Billing Receiver-->
