@@ -54,7 +54,7 @@ public class CloudSaving : MonoSingleton<CloudSaving>
     {
         if (_success)
         {
-            //prompt.SetPrompt("Cloud Save Initialized", "Successfully initialized in-memory keys and values.");
+            prompt.SetPrompt("Cloud Save Initialized", "Successfully initialized in-memory keys and values.");
             Debug.Log("Successfully synchronised in-memory keys and values.");
         }
         else
@@ -75,7 +75,7 @@ public class CloudSaving : MonoSingleton<CloudSaving>
         {
             case eCloudDataStoreValueChangeReason.INITIAL_SYNC:
                 message += "Initial Download from cloud server has not happend";
-                    break;
+                break;
             case eCloudDataStoreValueChangeReason.SERVER:
                 message += "Someone else is using the same cloud service account";
                 break;
@@ -89,6 +89,7 @@ public class CloudSaving : MonoSingleton<CloudSaving>
 
         Debug.Log(message);
 
+        LoadGame();
         prompt.SetPrompt("Failed to Load", $"Could not retreive you data, {message}. \nplease try restarting the game.");
     }
 
@@ -96,7 +97,7 @@ public class CloudSaving : MonoSingleton<CloudSaving>
     {
         if (_success)
         {
-            //prompt.SetPrompt("Cloud Synchronized", "Successfully synchronised in-memory keys and values.");
+            prompt.SetPrompt("Cloud Synchronized", "Successfully synchronised in-memory keys and values.");
             Debug.Log("Successfully synchronised in-memory keys and values.");
         }
         else

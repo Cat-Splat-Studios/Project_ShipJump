@@ -1885,7 +1885,7 @@ MonoBehaviour:
   - {fileID: 549668610}
   - {fileID: 344604681}
   - {fileID: 2066896130}
-  prompt: {fileID: 0}
+  prompt: {fileID: 739882011}
 --- !u!1 &344604681 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1604047320930666679, guid: efb6b99265acf274eb27f0730d357326,
