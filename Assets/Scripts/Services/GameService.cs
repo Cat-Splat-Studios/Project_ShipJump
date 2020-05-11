@@ -22,7 +22,7 @@ public class GameService : MonoBehaviour
 
     User[] myFriends;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _isServiceAvailable = NPBinding.GameServices.IsAvailable();
         SignIn();
@@ -44,23 +44,7 @@ public class GameService : MonoBehaviour
                         Debug.Log("Local User Details : " + NPBinding.GameServices.LocalUser.ToString());
                         _isOffline = false;
 
-                        AdService.instance.ToggleTracking(true);
-                        CloudSaving.instance.LoadGame();
-                        ui.HasAuthenitcated();
-                        ui.toggleOnlineButtons(true);
-
-                        if (FindObjectOfType<Tutorial>().isEarlyAdopt)
-                        {
-                            prompt.SetPrompt("Early Adopter!", "Thank you for your support! We've completely reset the game and gifted you 10,000 gears for playing version 1");
-                            GearManager.instance.AddGears(10000);
-                            CloudSaving.instance.SaveGame();
-                        }
-
-                        var swapers = FindObjectsOfType<MonoBehaviour>().OfType<ISwapper>();
-                        foreach (ISwapper swaps in swapers)
-                        {
-                            swaps.SwapIt();
-                        }
+                        CloudSaving.instance.InitializeCloud();
                     }
                     else
                     {
@@ -114,6 +98,7 @@ public class GameService : MonoBehaviour
             if (_success)
             {
                 Debug.Log("Local user is signed out successfully!");
+                SignIn();
             }
             else
             {

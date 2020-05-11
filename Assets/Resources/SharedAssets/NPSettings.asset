@@ -53,7 +53,7 @@ MonoBehaviour:
       m_port: 53
   m_utilitySettings:
     m_rateMyApp:
-      m_isEnabled: 1
+      m_isEnabled: 0
       m_title: Rate Rocket Recover!
       m_message: If you have enjoyed the game, feel free to rate the game on the store.
       m_showFirstPromptAfterHours: 6
@@ -135,17 +135,17 @@ MonoBehaviour:
     - m_globalID: Highest Score
       m_platformIDs:
       - m_platform: 1
-        m_value: CgkI4K2C2_kHEAIQAw
+        m_value: CgkI7uiv0-YSEAIQAQ
       - m_platform: 0
         m_value: Highest_Score
     m_achievementMetadataCollection: []
     m_iOS:
       m_showDefaultAchievementCompletionBanner: 1
     m_android:
-      m_playServicesApplicationID: 273189738208
-      m_serverClientID: 273189738208-uvka5n1ipplu41a0c8pah34dt6p3qams.apps.googleusercontent.com
+      m_playServicesApplicationID: 646030554222
+      m_serverClientID: 646030554222-m3ophrvdmffurcqedqs4dsn5b6ad5jtf.apps.googleusercontent.com
       m_showDefaultErrorDialogs: 1
-      m_allowAutoLogin: 1
+      m_allowAutoLogin: 0
     m_achievementIDCollection: []
     m_leaderboardIDCollection: []
   m_webViewSettings:

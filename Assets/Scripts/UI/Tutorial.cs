@@ -19,22 +19,37 @@ public class Tutorial : MonoBehaviour
 
     public GameObject okayButton;
 
+    public MessageBox prompt;
+
     private int currentIdx = 0;
 
+    [HideInInspector]
     public bool isEarlyAdopt;
+    [HideInInspector]
+    public bool hasTut;
+    [HideInInspector]
+    public int tutNumber;
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void OnEnable()
     {
-       
-        // show the first time the player plays
-        if (!PlayerPrefs.HasKey("showTutorial") || PlayerPrefs.GetInt("showTutorial") == 1)
+        hasTut = PlayerPrefs.HasKey("tutorialV2");
+        if (hasTut)
+            tutNumber = PlayerPrefs.GetInt("showTutorial", 0);
+
+        if (!hasTut || tutNumber == 1)
         {
-            isEarlyAdopt = PlayerPrefs.GetInt("showTutorial") == 1;
             ToggleTutorial(true);
-            PlayerPrefs.SetInt("showTutorial", 2);
+
+            if (tutNumber == 1)
+            {
+                prompt.SetPrompt("Early Adopter!", "Thank you for your support! We've completely reset the game and gifted you 10,000 gears for playing version 1");
+                GearManager.instance.AddGears(10000);
+                NPBinding.CloudServices.SetLong("curGears", GearManager.instance.GetGears());
+            }
+
+            PlayerPrefs.SetInt("tutorialV2", 1);
         }
-         
     }
 
     private void Update()
@@ -56,7 +71,7 @@ public class Tutorial : MonoBehaviour
             leftbutton.interactable = false;
             rightbutton.interactable = true;
 
-            if (PlayerPrefs.GetInt("showTutorial") == 2)
+            if (tutNumber == 2)
                 okayButton.SetActive(true);
         }
     }

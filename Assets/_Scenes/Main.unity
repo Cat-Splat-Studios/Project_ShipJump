@@ -1216,6 +1216,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4132295427390836321, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4183271577094683617, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -1316,6 +1321,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 64347342}
+    - target: {fileID: 4954762349567836093, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: prompt
+      value: 
+      objectReference: {fileID: 739882011}
     - target: {fileID: 5090788196029521638, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -1401,6 +1411,31 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 64347342}
+    - target: {fileID: 5607562302055899555, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.025024414
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607562302055899555, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 474.14993
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607562302055899555, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -0.050049
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607562302055899555, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607562302055899555, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5645479580436006291, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1429,6 +1464,21 @@ PrefabInstance:
     - target: {fileID: 5645479580436006291, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5746578341734508067, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5746578341734508067, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5746578341734508067, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5864455985984605272, guid: efb6b99265acf274eb27f0730d357326,
@@ -1566,6 +1616,11 @@ PrefabInstance:
       propertyPath: onlineButtons.Array.data[1]
       value: 
       objectReference: {fileID: 529246002}
+    - target: {fileID: 8244507686506248931, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: tutorialPrompt
+      value: 
+      objectReference: {fileID: 1491412427}
     - target: {fileID: 8244507686506248935, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1691,6 +1746,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 64347342}
+    - target: {fileID: 8755440610437049341, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8979798156511790604, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -2307,6 +2367,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76d51567aca235b4a8e9603619263b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1491412427 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8755440610437049341, guid: efb6b99265acf274eb27f0730d357326,
+    type: 3}
+  m_PrefabInstance: {fileID: 180622870}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1577258349
 GameObject:
   m_ObjectHideFlags: 0
@@ -2408,6 +2474,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fedea00ed76a20f4f8b874c35972d914, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1658790113 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4954762349567836093, guid: efb6b99265acf274eb27f0730d357326,
+    type: 3}
+  m_PrefabInstance: {fileID: 180622870}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491412427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1515afb51e5d5a1429ef7009e0c42faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1662281656
@@ -2559,6 +2637,51 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 82300935}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1903158851 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4132295427390836321, guid: efb6b99265acf274eb27f0730d357326,
+    type: 3}
+  m_PrefabInstance: {fileID: 180622870}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1903158852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903158851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11f2721ee51fd7e4898ea5fc7527aab8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadText: {fileID: 1903158854}
+  timeDuration: 0.75
+  dots:
+  - 
+  - .
+  - ..
+  - '...'
+  statements:
+  - Fueling up thrusters
+  - Repairing the Hull
+  - Recharging the shields
+  - Loading the weapon
+  - Checking the systems
+  - Calculating coordinates
+  - Collecting scrap gears
+--- !u!114 &1903158854 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5746578341734508067, guid: efb6b99265acf274eb27f0730d357326,
+    type: 3}
+  m_PrefabInstance: {fileID: 180622870}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903158851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &1982179982 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 8644185954520104382, guid: 1426054c11495aa409a8e4894a321226,
@@ -3137,6 +3260,21 @@ PrefabInstance:
       propertyPath: prompt
       value: 
       objectReference: {fileID: 739882011}
+    - target: {fileID: 6869688650751882461, guid: 9cfc4e8a95289534381f3e081496a6b9,
+        type: 3}
+      propertyPath: ui
+      value: 
+      objectReference: {fileID: 1726285626}
+    - target: {fileID: 6869688650751882461, guid: 9cfc4e8a95289534381f3e081496a6b9,
+        type: 3}
+      propertyPath: tutorial
+      value: 
+      objectReference: {fileID: 1658790113}
+    - target: {fileID: 6869688650751882461, guid: 9cfc4e8a95289534381f3e081496a6b9,
+        type: 3}
+      propertyPath: LoadText
+      value: 
+      objectReference: {fileID: 1903158851}
     - target: {fileID: 7777185883123044555, guid: 9cfc4e8a95289534381f3e081496a6b9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3196,6 +3334,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GoogleIOSManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7777185883123044558, guid: 9cfc4e8a95289534381f3e081496a6b9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5001567609141268831, guid: 9cfc4e8a95289534381f3e081496a6b9, type: 3}

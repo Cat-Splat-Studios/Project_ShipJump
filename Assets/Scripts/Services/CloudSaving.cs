@@ -4,6 +4,7 @@
 **/
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using VoxelBusters.NativePlugins;
@@ -29,10 +30,15 @@ public class CloudSaving : MonoSingleton<CloudSaving>
 
     public MessageBox prompt;
 
+    public GameObject LoadText;
+
+    public UIDelgate ui;
+    public Tutorial tutorial;
+
     // Start is called before the first frame update
     void Awake()
     {
-        InitializeCloud();
+      //  InitializeCloud();
     }
 
     // Register for the event
@@ -54,7 +60,9 @@ public class CloudSaving : MonoSingleton<CloudSaving>
     {
         if (_success)
         {
-           // prompt.SetPrompt("Cloud Save Initialized", "Successfully initialized in-memory keys and values.");
+            if (PlayerPrefs.HasKey("HasLoaded"))
+                CloudInitComplete();
+            // prompt.SetPrompt("Cloud Save Initialized", "Successfully initialized in-memory keys and values.");
             Debug.Log("Successfully synchronised in-memory keys and values.");
         }
         else
@@ -75,21 +83,23 @@ public class CloudSaving : MonoSingleton<CloudSaving>
         {
             case eCloudDataStoreValueChangeReason.INITIAL_SYNC:
                 message += "Initial Download from cloud server has not happend";
+                prompt.SetPrompt("Failed to Load", $"{message}");
                 break;
             case eCloudDataStoreValueChangeReason.SERVER:
                 message += "Someone else is using the same cloud service account";
+                prompt.SetPrompt("Failed to Load", $"{message}");
                 break;
             case eCloudDataStoreValueChangeReason.QUOTA_VIOLATION:
                 message += "Quota violation";
+                prompt.SetPrompt("Failed to Load", $"{message}");
                 break;
             case eCloudDataStoreValueChangeReason.STORE_ACCOUNT:
-                message += "Signed in with another account";
+                CloudInitComplete();
+                message += "STORE ACCOUNT";
                 break;
         }
 
-        Debug.Log(message);
-
-        prompt.SetPrompt("Failed to Load", $"Could not retreive you data, {message}. \nplease try restarting the game.");
+        Debug.Log(message);    
     }
 
     private void OnKeyValueStoreDidSynchronise(bool _success)
@@ -204,6 +214,28 @@ public class CloudSaving : MonoSingleton<CloudSaving>
     private void reinit(bool success)
     {
         InitializeCloud();
+    }
+
+    private void RestartGame(bool success)
+    {
+        Application.Quit();
+    }
+
+    private void CloudInitComplete()
+    {
+        PlayerPrefs.SetInt("HasLoaded", 1);
+        LoadText.SetActive(false);
+        LoadGame();
+        ui.HasAuthenitcated();
+        ui.toggleOnlineButtons(true);
+
+        AdService.instance.ToggleTracking(true);
+
+        var swapers = FindObjectsOfType<MonoBehaviour>().OfType<ISwapper>();
+        foreach (ISwapper swaps in swapers)
+        {
+            swaps.SwapIt();
+        }
     }
 
     public void InitializeCloud()

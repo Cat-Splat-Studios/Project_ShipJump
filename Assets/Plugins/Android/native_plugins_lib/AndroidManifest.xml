@@ -14,7 +14,7 @@
     <!--Game Play Services helper activity-->
     <activity android:name="com.voxelbusters.nativeplugins.helpers.PermissionRequestActivity" android:theme="@style/FloatingActivityTheme" />
     <!--Custom File Provider. Sharing from internal folders  "com.voxelbusters.nativeplugins.extensions.FileProviderExtended"-->
-    <provider android:name="com.voxelbusters.nativeplugins.extensions.FileProviderExtended" android:authorities="com.CatSplatStudios.RocketRecover.iOS.fileprovider" android:exported="false" android:grantUriPermissions="true">
+    <provider android:name="com.voxelbusters.nativeplugins.extensions.FileProviderExtended" android:authorities="com.CatSplatStudios.RocketRecover.fileprovider" android:exported="false" android:grantUriPermissions="true">
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/nativeplugins_file_paths" />
     </provider>
     <!--Billing : Amazon Billing Receiver-->
@@ -23,7 +23,7 @@
         <action android:name="com.amazon.inapp.purchasing.NOTIFY" android:permission="com.amazon.inapp.purchasing.Permission.NOTIFY" />
       </intent-filter>
     </receiver>
-    <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="\u003273189738208" />
+    <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="\u003646030554222" />
   </application>
   <!--Permissions-->
   <!--Billing-->

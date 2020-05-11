@@ -21,6 +21,9 @@ public class UIDelgate : MonoBehaviour
     private Text gearText;
     [SerializeField]
     public GameObject highscoreArea;
+    [SerializeField]
+    public GameObject tutorialPrompt;
+
 
     // Game UI
     [Header("Game UI")]
@@ -262,6 +265,7 @@ public class UIDelgate : MonoBehaviour
     {
         startUI.SetActive(true);
         StatHUD.SetActive(true);
+        tutorialPrompt.SetActive(true);
         UpdateGearText();
         UpdateHighscoreText();
 
