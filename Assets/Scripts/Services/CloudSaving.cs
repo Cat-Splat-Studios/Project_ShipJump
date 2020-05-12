@@ -59,9 +59,8 @@ public class CloudSaving : MonoSingleton<CloudSaving>
     private void OnKeyValueStoreInitialised(bool _success)
     {
         if (_success)
-        {
-            if (PlayerPrefs.HasKey("HasLoaded"))
-                CloudInitComplete();
+        {       
+            CloudInitComplete();
             // prompt.SetPrompt("Cloud Save Initialized", "Successfully initialized in-memory keys and values.");
             Debug.Log("Successfully synchronised in-memory keys and values.");
         }
@@ -82,16 +81,16 @@ public class CloudSaving : MonoSingleton<CloudSaving>
         switch (_reason)
         {
             case eCloudDataStoreValueChangeReason.INITIAL_SYNC:
+                CloudInitComplete();
                 message += "Initial Download from cloud server has not happend";
-                prompt.SetPrompt("Failed to Load", $"{message}");
                 break;
             case eCloudDataStoreValueChangeReason.SERVER:
+                CloudInitComplete();
                 message += "Someone else is using the same cloud service account";
-                prompt.SetPrompt("Failed to Load", $"{message}");
                 break;
             case eCloudDataStoreValueChangeReason.QUOTA_VIOLATION:
                 message += "Quota violation";
-                prompt.SetPrompt("Failed to Load", $"{message}");
+                CloudInitComplete();
                 break;
             case eCloudDataStoreValueChangeReason.STORE_ACCOUNT:
                 CloudInitComplete();

@@ -56,13 +56,12 @@ public class LoadingText : MonoBehaviour
 
     private void SetStatement()
     {
-        int rand = Random.Range(0, statements.Length);
-        while(rand == statementIdx)
+        if(statementIdx >= statements.Length)
         {
-            rand = Random.Range(0, statements.Length);
+            statementIdx = 0;
         }
-        statementIdx = rand;
-        currentStatement = statements[rand];
+
+        currentStatement = statements[statementIdx++];
         loadText.text = currentStatement;
     }
 }
