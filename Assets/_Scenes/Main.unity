@@ -898,6 +898,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1440819716}
+    - target: {fileID: 1028762271701221514, guid: efb6b99265acf274eb27f0730d357326,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -63.99994
+      objectReference: {fileID: 0}
     - target: {fileID: 1334784248277545341, guid: efb6b99265acf274eb27f0730d357326,
         type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -1866,7 +1871,7 @@ MonoBehaviour:
   - PickupBoost
   - PickupBoost
   - PickupBoost
-  - PickupBoost
+  - PickupFuel
   - PickupFuel
   - PickupFuel
   - PickupFuel

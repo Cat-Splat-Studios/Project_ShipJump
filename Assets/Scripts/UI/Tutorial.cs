@@ -41,22 +41,14 @@ public class Tutorial : MonoBehaviour
         {
             ToggleTutorial(true);
 
-            if (tutNumber == 1)
-            {
-                prompt.SetPrompt("Early Adopter!", "Thank you for your support! We've completely reset the game and gifted you 10,000 gears for playing version 1");
-                GearManager.instance.AddGears(10000);
-                NPBinding.CloudServices.SetLong("curGears", GearManager.instance.GetGears());
-            }
+            //if (tutNumber == 1)
+            //{
+            //    prompt.SetPrompt("Early Adopter!", "Thank you for your support! We've completely reset the game and gifted you 10,000 gears for playing version 1");
+            //    GearManager.instance.AddGears(10000);
+            //    NPBinding.CloudServices.SetLong("curGears", GearManager.instance.GetGears());
+            //}
 
-            PlayerPrefs.SetInt("tutorialV2", 1);
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            PlayerPrefs.SetInt("showTutorial", 1);
+            PlayerPrefs.SetInt("tutorialV2", 2);
         }
     }
 

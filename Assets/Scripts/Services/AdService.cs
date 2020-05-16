@@ -138,13 +138,14 @@ public class AdService : MonoSingleton<AdService>, IUnityAdsListener
             {
                 GearManager.instance.RewardGears(gearReward);
                 CloudSaving.instance.SaveGame();
-                //SaveManager.instance.SaveToCloud();
                 rewardPrompt.SetPrompt("Reward!", $"You have been rewarded {gearReward} gears\nAND\nDouble the Gears for next run!", OnConfirmReward);
             }
 
             HideButton();
             currentTimeButtonThreshold = 0.0f;
             gamesPlayedSinceButtonAd = 0;
+            currentTimeThreshold = 0.0f;
+            gamesPlayedSinceAd = 0;
         }
         else if (placementId == myPlacementId)
         {
