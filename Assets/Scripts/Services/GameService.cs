@@ -12,6 +12,7 @@ public class GameService : MonoBehaviour
 {
     public UIDelgate ui;
     public MessageBox prompt;
+    public GameObject loadingText;
 
     bool _isServiceAvailable;
     bool _isAuthenticated;
@@ -52,7 +53,7 @@ public class GameService : MonoBehaviour
 
                         if (!_isOffline)
                         {
-                            //SaveManager.instance.DefaultLoad();
+                            loadingText.SetActive(false);
                             CloudSaving.instance.DefaultLoad();
                             ui.HasAuthenitcated();
                             OfflineMode();

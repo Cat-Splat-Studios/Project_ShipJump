@@ -83,7 +83,9 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         // Find References
-        currentSpeedX = 0.0f;      
+        currentSpeedX = 0.0f;
+
+        xClamp = AppStartup.xClamp;
     }
 
     // Update is called once per frame

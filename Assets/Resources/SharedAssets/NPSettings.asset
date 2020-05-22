@@ -15,34 +15,34 @@ MonoBehaviour:
   m_lastOpenedDateString: 
   m_applicationSettings:
     m_supportedFeatures:
-      m_usesAddressBook: 0
+      m_usesAddressBook: 1
       m_usesBilling: 1
       m_usesCloudServices: 1
       m_usesGameServices: 1
       m_mediaLibrary:
-        value: 0
-        usesCamera: 0
+        value: 1
+        usesCamera: 1
         usesPhotoAlbum: 1
-      m_usesNetworkConnectivity: 0
+      m_usesNetworkConnectivity: 1
       m_notificationService:
-        value: 0
+        value: 1
         usesLocalNotification: 1
         usesRemoteNotification: 1
-      m_usesSharing: 0
-      m_usesTwitter: 0
-      m_usesWebView: 0
+      m_usesSharing: 1
+      m_usesTwitter: 1
+      m_usesWebView: 1
     m_supportedAddonServices:
       m_usesSoomlaGrow: 0
       m_usesOneSignal: 0
     m_iOS:
-      m_storeIdentifier: com.CatSplatStudios.RocketRecover.iOS
+      m_storeIdentifier: 
       m_addressBookUsagePermissionDescription: $(PRODUCT_NAME) uses contacts
       m_cameraUsagePermissionDescription: $(PRODUCT_NAME) uses camera
       m_photoAlbumUsagePermissionDescription: $(PRODUCT_NAME) uses photo library
       m_photoAlbumModifyUsagePermissionDescription: $(PRODUCT_NAME) saves images to
         photo library
     m_android:
-      m_storeIdentifier: com.CatSplatStudios.RocketRecover
+      m_storeIdentifier: 
   m_networkConnectivitySettings:
     m_hostAddressIPV4: 8.8.8.8
     m_hostAddressIPV6: 0:0:0:0:0:FFFF:0808:0808
@@ -54,59 +54,24 @@ MonoBehaviour:
   m_utilitySettings:
     m_rateMyApp:
       m_isEnabled: 0
-      m_title: Rate Rocket Recover!
-      m_message: If you have enjoyed the game, feel free to rate the game on the store.
-      m_showFirstPromptAfterHours: 6
-      m_successivePromptAfterHours: 3
-      m_successivePromptAfterLaunches: 3
+      m_title: Rate My App
+      m_message: If you enjoy using Native Plugin would you mind taking a moment to
+        rate it? It wont take more than a minute. Thanks for your support
+      m_showFirstPromptAfterHours: 2
+      m_successivePromptAfterHours: 6
+      m_successivePromptAfterLaunches: 5
       m_rateItButtonText: Rate It Now
       m_remindMeLaterButtonText: Remind Me Later
       m_dontAskButtonText: No, Thanks
     m_android:
       m_modifiesApplicationBadge: 1
   m_billingSettings:
-    m_products:
-    - m_name: 1000 gears
-      m_description: Purchase 1,000 Gears
-      m_isConsumable: 1
-      m_price: 0
-      m_productIdentifiers:
-      - m_platform: 1
-        m_value: 1000_gears
-      - m_platform: 0
-        m_value: 1000_gears
-      m_developerPayload: 
-      m_iosProductId: 
-      m_androidProductId: 
-    - m_name: 10,000 Gears
-      m_description: Puchase 10,000 Gears
-      m_isConsumable: 1
-      m_price: 0
-      m_productIdentifiers:
-      - m_platform: 1
-        m_value: 10000_gears
-      - m_platform: 0
-        m_value: 10000_gears
-      m_developerPayload: 
-      m_iosProductId: 
-      m_androidProductId: 
-    - m_name: 5,000 Gears
-      m_description: Purchase 5,000 Gears
-      m_isConsumable: 1
-      m_price: 0
-      m_productIdentifiers:
-      - m_platform: 1
-        m_value: 5000_gears
-      - m_platform: 0
-        m_value: 5000_gears
-      m_developerPayload: 
-      m_iosProductId: 
-      m_androidProductId: 
+    m_products: []
     m_iOS:
-      m_supportsReceiptValidation: 0
+      m_supportsReceiptValidation: 1
       m_validateUsingServerURL: 
     m_android:
-      m_publicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhuTRMkSCJgJ4b1vc6EELzA332oSj5L3KGIphuX1818Vzb2sNLQ0m+IYG312bxcNaIDOr+T8i/vsBtxHk2ufl2tjS5Ox2uyx0YHvHu6H3XbETdtqzB5c1LuYAxluC4fly6CQJSgq4ZcEeu3ZnW33ItI+36CWsXey0FRwaQmEp2MV3+hgUb9DHeKeR17QQR/nJf+JnAm4Uz1w3ZZH+8RJVh79ZLSBx+zoWYJGHZf/u9Uj6GNLLQgB7GHEXOE6/whzgOai2okNUMS8f9PRm6q/SdnTnjWv3F4xWQHMCB0vird4a8ad5diFxcpgouVo4kcmKjArZI7sTKPqox3zzl8WU+wIDAQAB
+      m_publicKey: 
   m_cloudServicesSettings:
     m_android:
       m_syncInterval: 10
@@ -131,21 +96,15 @@ MonoBehaviour:
       m_consumerKey: 
       m_consumerSecret: 
   m_gameServicesSettings:
-    m_leaderboardMetadataCollection:
-    - m_globalID: Highest Score
-      m_platformIDs:
-      - m_platform: 1
-        m_value: CgkI4K2C2_kHEAIQAw
-      - m_platform: 0
-        m_value: Highest_Score
+    m_leaderboardMetadataCollection: []
     m_achievementMetadataCollection: []
     m_iOS:
       m_showDefaultAchievementCompletionBanner: 1
     m_android:
-      m_playServicesApplicationID: 273189738208
-      m_serverClientID: 273189738208-uvka5n1ipplu41a0c8pah34dt6p3qams.apps.googleusercontent.com
+      m_playServicesApplicationID: 
+      m_serverClientID: 
       m_showDefaultErrorDialogs: 1
-      m_allowAutoLogin: 0
+      m_allowAutoLogin: 1
     m_achievementIDCollection: []
     m_leaderboardIDCollection: []
   m_webViewSettings:

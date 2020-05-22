@@ -72,7 +72,7 @@ public class GeneratorManager : MonoBehaviour
         {
             Generator gen = generator.GetComponent<Generator>();
 
-            gen.SetClamp(player.PlayerMovement().xClamp);
+            gen.SetClamp(AppStartup.xClamp);
             generator.transform.localPosition = new Vector3(0.0f, offset, 0.0f);
         }
 
@@ -80,7 +80,7 @@ public class GeneratorManager : MonoBehaviour
 
         foreach (GameObject generator in bottomGeneators)
         {
-            generator.GetComponent<Generator>().SetClamp(player.PlayerMovement().xClamp);
+            generator.GetComponent<Generator>().SetClamp(AppStartup.xClamp);
             generator.transform.localPosition = new Vector3(0.0f, -offset, 0.0f);
         }
 
