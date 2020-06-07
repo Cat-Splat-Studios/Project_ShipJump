@@ -1974,6 +1974,19 @@ MonoBehaviour:
   - {fileID: 344604681}
   - {fileID: 2066896130}
   prompt: {fileID: 739882011}
+--- !u!114 &261035847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261035844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 976c683b266a0d143a277a2214f070a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffer: 0.4
 --- !u!1 &344604681 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1604047320930666679, guid: efb6b99265acf274eb27f0730d357326,
@@ -2569,7 +2582,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
