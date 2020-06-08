@@ -12,12 +12,6 @@
 		</androidPackage>
 		<androidPackage
 			spec="com.google.android.gms:play-services-nearby:16.0+" />
-		<!--Dependency added for using Notifications-->
-		<androidPackage
-			spec="com.google.firebase:firebase-messaging:17.3.4+" />
-		<!--Dependency added for using Twitter Kit-->
-		<androidPackage
-			spec="com.google.code.gson:gson:2.7" />
 		<!--Dependency added for using Support Libraries-->
 		<androidPackage
 			spec="com.android.support:support-v4:27.1+" />
