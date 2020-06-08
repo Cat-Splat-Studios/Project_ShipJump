@@ -32,7 +32,6 @@ public class RocketStoreCard : MonoBehaviour
         {
             priceText.text = "Owned";
             purchaseButton.interactable = false;
-            purchaseButton.gameObject.SetActive(false);
         }
         else
         {
@@ -56,11 +55,10 @@ public class RocketStoreCard : MonoBehaviour
     {
         if(success)
         {
-            SwapManager.instance.PurchaseAsset(rocketIdxUnlock, EAssetType.ROCKET);
             GearManager.instance.RemoveGears(price);
+            SwapManager.instance.PurchaseAsset(rocketIdxUnlock, EAssetType.ROCKET);
             priceText.text = "Owned";
             purchaseButton.interactable = false;
-            purchaseButton.gameObject.SetActive(false);
         }
     }
 }

@@ -38,13 +38,6 @@ public class PlayerManager : MonoBehaviour, ISwapper
     private ScoreSystem score;
 
     // shop logic
-    [Header("Rocket Shop Logic")]
-    [SerializeField]
-    private GameObject priceTag;
-    [SerializeField]
-    private Text priceText;
-    [SerializeField]
-    private Text actionText;
     [SerializeField]
     private MessageBox confirmPurchase;
 
@@ -54,6 +47,7 @@ public class PlayerManager : MonoBehaviour, ISwapper
     private int unlockIdx;
     private int viewIdx;
 
+    public GameObject lockImage;
 
     private void Start()
     {
@@ -292,16 +286,15 @@ public class PlayerManager : MonoBehaviour, ISwapper
         TempSwap(viewRocketIdx[viewIdx]);
         unlockIdx = viewRocketIdx[viewIdx];
 
-        // Check if you unlock this, display price or indicate that you own it
         if (!CheckUnlock())
         {
-            priceTag.SetActive(true);
-            priceText.text = SwapManager.rocketPrices[viewIdx].ToString();
+            lockImage.SetActive(true);
         }
         else
         {
-            priceText.text = "Owned";
+            lockImage.SetActive(false);
         }
+
     }
 
     public void GetRocketTap(Ray raycast)

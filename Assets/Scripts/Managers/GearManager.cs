@@ -73,6 +73,7 @@ public class GearManager : MonoSingleton<GearManager>
     {
         gears += amount;
         ui.UpdateGearText();
+        CloudSaving.instance.SaveGame();
     }
 
     public void RemoveGears(int amount)

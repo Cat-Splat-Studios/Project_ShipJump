@@ -20,6 +20,8 @@ public class ItemInfo : MonoBehaviour
 #pragma warning disable 0649
     [Header("UI")]
     [SerializeField]
+    private Image gearIcon;
+    [SerializeField]
     private Text priceText;
     [SerializeField]
     private Text buttonText;
@@ -72,18 +74,40 @@ public class ItemInfo : MonoBehaviour
         isUnlocked = value;
 
         // Depending if unlock or not, set the item state (can be purchased or can be selected)
-        if (value)
+        if(!isInShop)
         {
-            priceText.text = "Owned";
-            buttonText.text = "Select";
-            SetSelectedeButtonActive();            
+            if (value)
+            {
+                priceText.text = "Owned";
+                buttonText.text = "Select";
+                SetSelectedeButtonActive();
+            }
+            else
+            {
+                buttonText.text = "Purchase";
+                SetPurchaseButtonActive();
+                priceText.text = price.ToString();
+            }
         }
         else
         {
-            buttonText.text = "Purchase";
-            SetPurchaseButtonActive();
-            priceText.text = price.ToString();
+            if (value)
+            {
+                priceText.gameObject.SetActive(false);
+                gearIcon.gameObject.SetActive(false);
+                buttonText.gameObject.SetActive(true);
+                SetSelectedeButtonActive();
+            }
+            else
+            {
+                buttonText.gameObject.SetActive(false);
+                priceText.gameObject.SetActive(true);
+                gearIcon.gameObject.SetActive(true);
+                SetPurchaseButtonActive();
+                priceText.text = price.ToString();
+            }
         }
+      
 
     }
 

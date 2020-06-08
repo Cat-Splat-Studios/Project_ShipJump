@@ -8,18 +8,20 @@ using UnityEngine;
 public class Options : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Animator anim;
+   // public Animator anim;
     public GameObject background;
+
+    public GameObject OptionMenu;
 
     public void OpenOptions()
     {
-        anim.SetBool("isOpen", true);
-        background.SetActive(true); 
+        //anim.SetBool("isOpen", true);
+        OptionMenu.SetActive(true); 
     }
 
     public void CloseOptions()
     {
-        anim.SetBool("isOpen", false);
-        background.SetActive(false);
+        //anim.SetBool("isOpen", false);
+        OptionMenu.SetActive(false);
     }
 }

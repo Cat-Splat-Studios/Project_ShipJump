@@ -20,8 +20,6 @@ public class UIDelgate : MonoBehaviour
     [SerializeField]
     private Text gearText;
     [SerializeField]
-    public GameObject highscoreArea;
-    [SerializeField]
     public GameObject tutorialPrompt;
 
 
@@ -213,7 +211,6 @@ public class UIDelgate : MonoBehaviour
     {
         storeUI.SetActive(value);
         startUI.SetActive(!value);
-        highscoreArea.SetActive(!value);
     }
 
     public void BackToMenu()

@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: f948d54487626463091054be543be75a, type: 3}
   m_Name: EditorGameCenter
-  m_EditorClassIdentifier: Assembly-CSharp-firstpass:VoxelBusters.NativePlugins.Internal:EditorGameCenter
+  m_EditorClassIdentifier: 
   m_registeredUsers: []
   m_leaderboardList: []
   m_achievementsList: []

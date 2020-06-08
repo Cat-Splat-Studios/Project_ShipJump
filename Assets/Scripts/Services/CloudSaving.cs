@@ -184,6 +184,7 @@ public class CloudSaving : MonoSingleton<CloudSaving>
     public void ResetData()
     {
         DefaultLoad();
+        PlayerPrefs.DeleteKey("tutorialV2");
         SaveGame();
     }
 
