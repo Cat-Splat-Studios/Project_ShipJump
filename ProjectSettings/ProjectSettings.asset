@@ -122,7 +122,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 2.0.5
+  bundleVersion: 2.0.6
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -170,7 +170,7 @@ PlayerSettings:
     iPhone: com.CatSplatStudios.RocketRecover.iOS
   buildNumber:
     iPhone: 5
-  AndroidBundleVersionCode: 93
+  AndroidBundleVersionCode: 94
   AndroidMinSdkVersion: 17
   AndroidTargetSdkVersion: 28
   AndroidPreferredInstallLocation: 1
