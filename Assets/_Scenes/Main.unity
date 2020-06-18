@@ -3134,6 +3134,11 @@ PrefabInstance:
       propertyPath: myBoardScope
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 811225794183637841, guid: 9cfc4e8a95289534381f3e081496a6b9,
+        type: 3}
+      propertyPath: loadingText
+      value: 
+      objectReference: {fileID: 1903158851}
     - target: {fileID: 5001567609141268831, guid: 9cfc4e8a95289534381f3e081496a6b9,
         type: 3}
       propertyPath: ui
