@@ -130,7 +130,7 @@ public class CloudSaving : MonoSingleton<CloudSaving>
         NPBinding.CloudServices.SetList(ObstacleUnlocksKey, SwapManager.ObstacleUnlocks);
 
         NPBinding.CloudServices.SetLong(HighscoreKey, player.Score().GetHighscore());
-        NPBinding.CloudServices.SetLong(HighDistanceKey, player.Score().GetHighscore(false));
+        NPBinding.CloudServices.SetLong(HighDistanceKey, player.Score().GetHighscore(false));    
     }
 
     public void LoadGame()
@@ -179,6 +179,12 @@ public class CloudSaving : MonoSingleton<CloudSaving>
         player.Score().SetHighscores(0, 0);
 
         player.InitUnlock();
+
+        var swapers = FindObjectsOfType<MonoBehaviour>().OfType<ISwapper>();
+        foreach (ISwapper swaps in swapers)
+        {
+            swaps.SwapIt();
+        }
     }
 
     public void ResetData()

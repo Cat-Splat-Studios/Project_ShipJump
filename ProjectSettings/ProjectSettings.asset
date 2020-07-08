@@ -170,7 +170,7 @@ PlayerSettings:
     iPhone: com.CatSplatStudios.RocketRecover.iOS
   buildNumber:
     iPhone: 5
-  AndroidBundleVersionCode: 97
+  AndroidBundleVersionCode: 98
   AndroidMinSdkVersion: 17
   AndroidTargetSdkVersion: 28
   AndroidPreferredInstallLocation: 1
